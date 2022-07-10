@@ -6,7 +6,8 @@ import 'package:test/test.dart';
 void main() {
   group('Cloud Config Tests', () {
     test('Config with URL', () {
-      CloudinaryConfig config = CloudinaryConfig.fromUri('cloudinary://123456123456123:3Sf3FAdasa2easdFGDS3afADFS2@cloudname?shorten=true&cname=custom.domain.com');
+      CloudinaryConfig config = CloudinaryConfig
+          .fromUri('cloudinary://123456123456123:3Sf3FAdasa2easdFGDS3afADFS2@cloudname?shorten=true&cname=custom.domain.com');
 
       assert("cloudname" == config.cloudName);
       assert("123456123456123" == config.apiKey);
