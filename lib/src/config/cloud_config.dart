@@ -24,4 +24,3 @@ class CloudConfig with ICloudConfig {
   }
 
 }
-

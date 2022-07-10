@@ -95,6 +95,4 @@ class CloudinaryConfig with ICloudConfig, IUrlConfig {
     }
     outer[innerKey] = value;
   }
-
-
 }

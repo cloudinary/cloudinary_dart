@@ -83,5 +83,4 @@ class UrlConfig with IUrlConfig {
     this.forceVersion = forceVersion ?? defaultForceVersion;
     this.analytics = analytics ?? defaultAnalytics;
   }
-
 }
