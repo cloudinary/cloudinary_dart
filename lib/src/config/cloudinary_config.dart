@@ -28,8 +28,8 @@ class CloudinaryConfig with ICloudConfig, IUrlConfig {
   static CloudinaryConfig fromUri(String uri) {
     var params = _parseConfigUrl(uri);
 
-    var cloudConfig = CloudConfig(params);
-    var urlConfig = UrlConfig(params);
+    var cloudConfig = CloudConfig.withMap(params);
+    var urlConfig = UrlConfig.withMap(params);
     return CloudinaryConfig(cloudConfig, urlConfig);
   }
 
@@ -44,7 +44,7 @@ class CloudinaryConfig with ICloudConfig, IUrlConfig {
     Map<String, dynamic> params = {};
     Uri uri = Uri.parse(cloudinaryUrl);
     params['cloud_name'] = uri.host;
-    uri.userInfo?.split(":").asMap().forEach((index, element) {
+    uri.userInfo.split(":").asMap().forEach((index, element) {
       if (index == 0) {
         params["api_key"] = element;
       }
