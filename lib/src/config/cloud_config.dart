@@ -1,7 +1,7 @@
-const String CLOUD_NAME = 'cloud_name';
-const String API_KEY = "api_key";
-const String API_SECRET = "api_secret";
-const String AUTH_TOKEN = "auth_token";
+const String cloudNameKey = 'cloud_name';
+const String apiKeyKey = "api_key";
+const String apiSecretKey = "api_secret";
+const String authTokenKey = "auth_token";
 
 mixin ICloudConfig {
   String? cloudName;
@@ -12,10 +12,16 @@ mixin ICloudConfig {
 
 class CloudConfig with ICloudConfig {
   // AuthToken? authToken;
-  CloudConfig(Map<String, dynamic> params) {
-    cloudName = params[CLOUD_NAME].toString();
-    apiKey = params[API_KEY]?.toString();
-    apiSecret = params[API_SECRET]?.toString();
+  CloudConfig(String cloudName, String apiKey, String apiSecret) {
+    this.cloudName = cloudName;
+    this.apiKey = apiKey;
+    this.apiSecret = apiSecret;
   }
+  CloudConfig.withMap(Map<String, dynamic> params) {
+    cloudName = params[cloudNameKey].toString();
+    apiKey = params[apiKeyKey]?.toString();
+    apiSecret = params[apiSecretKey]?.toString();
+  }
+
 }
 
