@@ -30,45 +30,20 @@ const String ANALYTICS = "analytics";
 mixin IUrlConfig {
   String? cname;
   String? secureDistribution;
-  bool? privateCdn;
-  bool? signUrl;
-  bool? longUrlSignature;
-  bool? shorten;
-  bool? secureCdnSubdomain;
-  bool? useRootPath;
-  bool? secure;
-  bool? forceVersion;
-  String? signatureAlgorithm;
-  bool? analytics;
+  bool privateCdn = DEFAULT_PRIVATE_CDN;
+  bool signUrl = DEFAULT_SIGN_URL;
+  bool longUrlSignature = DEFAULT_LONG_URL_SIGNATURE;
+  bool shorten = DEFAULT_SHORTEN;
+  bool secureCdnSubdomain = DEFAULT_SECURE_CDN_SUBDOMAIN;
+  bool useRootPath = DEFAULT_USE_ROOT_PATH;
+  bool secure = DEFAULT_SECURE;
+  bool forceVersion = DEFAULT_FORCE_VERSION;
+  String signatureAlgorithm = DEFAULT_SIGNATURE_ALGORITHM;
+  bool analytics = DEFAULT_ANALYTICS;
 }
 
-class UrlConfig implements IUrlConfig {
-  @override
-  String? cname;
-  @override
-  String? secureDistribution;
-  @override
-  bool? privateCdn;
-  @override
-  bool? signUrl;
-  @override
-  bool? longUrlSignature;
-  @override
-  bool? shorten;
-  @override
-  bool? secureCdnSubdomain;
-  @override
-  bool? useRootPath;
-  @override
-  bool? secure;
-  @override
-  bool? forceVersion;
-  @override
-  String? signatureAlgorithm;
-  @override
-  bool? analytics;
-
-  UrlConfig(Map<String, dynamic> params) {
+class UrlConfig with IUrlConfig {
+  UrlConfig.withMap(Map<String, dynamic> params) {
     cname = params[CNAME].toString();
     secureDistribution = params[SECURE_DISTRIBUTION].toString();
     privateCdn = params[PRIVATE_CDN] ?? DEFAULT_PRIVATE_CDN;
@@ -81,6 +56,32 @@ class UrlConfig implements IUrlConfig {
     forceVersion = params[FORCE_VERSION] ?? DEFAULT_FORCE_VERSION;
     signatureAlgorithm = params[SIGNATURE_ALGORITHM]?.toString() ?? DEFAULT_SIGNATURE_ALGORITHM;
     analytics = params[ANALYTICS] ?? DEFAULT_ANALYTICS;
+  }
+
+  UrlConfig();
+
+  UrlConfig.withParameters(String? secureDistribution
+      , {bool? privateCdn = DEFAULT_PRIVATE_CDN
+      , bool? shorten = DEFAULT_SHORTEN
+      , bool? secureCdnSubdomain = DEFAULT_SECURE_CDN_SUBDOMAIN
+      , bool? useRootPath = DEFAULT_USE_ROOT_PATH
+      , String? cname
+      , bool? secure = DEFAULT_SECURE
+      , bool? signUrl = DEFAULT_SIGN_URL
+      , bool? longUrlSignature = DEFAULT_LONG_URL_SIGNATURE
+      , bool? forceVersion = DEFAULT_FORCE_VERSION
+      , bool? analytics = DEFAULT_ANALYTICS}) {
+    this.secureDistribution = secureDistribution;
+    this.privateCdn = privateCdn ?? DEFAULT_PRIVATE_CDN;
+    this.shorten = shorten ?? DEFAULT_SHORTEN;
+    this.secureCdnSubdomain = secureCdnSubdomain ?? DEFAULT_SECURE_CDN_SUBDOMAIN;
+    this.useRootPath = useRootPath ?? DEFAULT_USE_ROOT_PATH;
+    this.cname = cname;
+    this.secure = secure ?? DEFAULT_SECURE;
+    this.signUrl = signUrl ?? DEFAULT_SIGN_URL;
+    this.longUrlSignature = longUrlSignature ?? DEFAULT_LONG_URL_SIGNATURE;
+    this.forceVersion = forceVersion ?? DEFAULT_FORCE_VERSION;
+    this.analytics = analytics ?? DEFAULT_ANALYTICS;
   }
 
 }
