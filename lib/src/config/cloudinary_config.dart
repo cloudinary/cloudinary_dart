@@ -1,36 +1,19 @@
 import 'package:cloudinary_dart/src/config/cloud_config.dart';
 import 'package:cloudinary_dart/src/config/url_config.dart';
 
-class CloudinaryConfig with ICloudConfig, IUrlConfig {
+class CloudinaryConfig {
 
   CloudConfig cloudConfig;
   UrlConfig urlConfig;
 
-  CloudinaryConfig(this.cloudConfig, this.urlConfig) {
-    cloudName = cloudConfig.cloudName;
-    apiKey = cloudConfig.apiKey;
-    apiSecret = cloudConfig.apiSecret;
-
-    cname = urlConfig.cname;
-    secureDistribution = urlConfig.secureDistribution;
-    privateCdn = urlConfig.privateCdn;
-    signUrl = urlConfig.signUrl;
-    longUrlSignature = urlConfig.longUrlSignature;
-    shorten = urlConfig.shorten;
-    secureCdnSubdomain = urlConfig.secureCdnSubdomain;
-    useRootPath = urlConfig.useRootPath;
-    secure = urlConfig.secure;
-    forceVersion = urlConfig.forceVersion;
-    signatureAlgorithm = urlConfig.signatureAlgorithm;
-    analytics = urlConfig.analytics;
-  }
+  CloudinaryConfig._(this.cloudConfig, this.urlConfig);
 
   static CloudinaryConfig fromUri(String uri) {
     var params = _parseConfigUrl(uri);
 
     var cloudConfig = CloudConfig.withMap(params);
     var urlConfig = UrlConfig.withMap(params);
-    return CloudinaryConfig(cloudConfig, urlConfig);
+    return CloudinaryConfig._(cloudConfig, urlConfig);
   }
 
   static Map<String, dynamic> _parseConfigUrl(String cloudinaryUrl) {
@@ -43,18 +26,18 @@ class CloudinaryConfig with ICloudConfig, IUrlConfig {
 
     Map<String, dynamic> params = {};
     Uri uri = Uri.parse(cloudinaryUrl);
-    params['cloud_name'] = uri.host;
+    params[cloudNameKey] = uri.host;
     uri.userInfo.split(":").asMap().forEach((index, element) {
       if (index == 0) {
-        params["api_key"] = element;
+        params[apiKeyKey] = element;
       }
       if (index == 1) {
-        params["api_secret"] = element;
+        params[apiSecretKey] = element;
       }
     });
 
-    params["private_cdn"] = !uri.path.isNotEmpty;
-    params["secure_distribution"] = uri.path;
+    params[privateCdnKey] = !uri.path.isNotEmpty;
+    params[secureDistributionKey] = uri.path;
     if(uri.query.isNotEmpty) {
       _updateFromQuery(params, uri.query);
     }
