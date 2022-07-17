@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Cloud Config Tests', () {
-    test('Testing valid succeeds', () {
+    test('Testing valid url succeeds', () {
       CloudinaryConfig config = CloudinaryConfig
           .fromUri('cloudinary://123456123456123:3Sf3FAdasa2easdFGDS3afADFS2@cloudname?shorten=true&cname=custom.domain.com');
 
@@ -47,7 +47,7 @@ void main() {
       assert(true == config.secure);
     });
 
-    test('Test Url Config Values', () {
+    test('Test Url valid parameters', () {
       var secureDistribution = "secure.api.com";
       var cname = "my.domain.com";
 
