@@ -1,11 +1,20 @@
+import 'config/cloudinary_config.dart';
 import 'util/environment.dart';
 class Cloudinary {
 
-  String? cloudinaryUrl;
+  late CloudinaryConfig config;
 
-    Cloudinary.withStringUrl(this.cloudinaryUrl);
+    Cloudinary.withStringUrl(String cloudinaryUrl) {
+      config = CloudinaryConfig.fromUri(cloudinaryUrl);
+      // if(this.cloudinaryUrl == null) {
+      //   Cloudinary();
+      // }
+    }
+
+    Cloudinary.withConfiguration(this.config);
 
     Cloudinary() {
-      cloudinaryUrl = Environment.cloudinaryUrlFromEnv() ?? (throw ArgumentError('A cloudinary url must be provided'));
+      String cloudinaryUrl = Environment.cloudinaryUrlFromEnv() ?? (throw ArgumentError('A cloudinary url must be provided'));
+      config = CloudinaryConfig.fromUri(cloudinaryUrl);
     }
 }
