@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Cloud Config Tests', () {
-    test('Testing valid url succeeds', () {
+    test('Should successfully initialize cloudinary config using valid url', () {
       CloudinaryConfig config = CloudinaryConfig
           .fromUri('cloudinary://123456123456123:3Sf3FAdasa2easdFGDS3afADFS2@cloudname?shorten=true&cname=custom.domain.com');
 
@@ -16,7 +16,7 @@ void main() {
       assert(true == config.urlConfig.shorten);
     });
 
-    test('Test cloud config using parameters', () {
+    test('Should successfully initializes cloudinary config using valid parameters', () {
       var cloudName = "my_cloud";
       var apiKey = "abcdefghijklmnop";
       var apiSecret = "1234567890";
@@ -35,7 +35,7 @@ void main() {
   });
 
   group('Url Config Tests', () {
-    test('Test url config initializes with default values', () {
+    test('Should successfully initialize url config object with default values', () {
       var config = UrlConfig();
 
       assert(null == config.secureDistribution);
@@ -47,7 +47,7 @@ void main() {
       assert(true == config.secure);
     });
 
-    test('Test Url valid parameters', () {
+    test('Should successfully initializes url config object with valid parameters', () {
       var secureDistribution = "secure.api.com";
       var cname = "my.domain.com";
 
