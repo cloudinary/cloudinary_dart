@@ -66,17 +66,6 @@ void main() {
       assert(true == config.useRootPath);
       assert(cname == config.cname);
       assert(true == config.secure);
-
-      config.secureDistribution = "copy.secure.distribution";
-      config.shorten = false;
-
-      assert('copy.secure.distribution' == config.secureDistribution);
-      assert(true == config.privateCdn);
-      assert(false == config.shorten);
-      assert(true == config.secureCdnSubdomain);
-      assert(true == config.useRootPath);
-      assert(cname == config.cname);
-      assert(true == config.secure);
     });
   });
 }
