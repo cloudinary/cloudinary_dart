@@ -5,18 +5,18 @@ import 'package:test/test.dart';
 
 void main() {
   group('Cloud Config Tests', () {
-    test('Config with URL', () {
+    test('Testing valid succeeds', () {
       CloudinaryConfig config = CloudinaryConfig
           .fromUri('cloudinary://123456123456123:3Sf3FAdasa2easdFGDS3afADFS2@cloudname?shorten=true&cname=custom.domain.com');
 
-      assert("cloudname" == config.cloudName);
-      assert("123456123456123" == config.apiKey);
-      assert("3Sf3FAdasa2easdFGDS3afADFS2" == config.apiSecret);
-      assert("custom.domain.com" == config.cname);
-      assert(true == config.shorten);
+      assert("cloudname" == config.cloudConfig.cloudName);
+      assert("123456123456123" == config.cloudConfig.apiKey);
+      assert("3Sf3FAdasa2easdFGDS3afADFS2" == config.cloudConfig.apiSecret);
+      assert("custom.domain.com" == config.urlConfig.cname);
+      assert(true == config.urlConfig.shorten);
     });
 
-    test('Test Cloud Config', () {
+    test('Test cloud config using parameters', () {
       var cloudName = "my_cloud";
       var apiKey = "abcdefghijklmnop";
       var apiSecret = "1234567890";
@@ -35,14 +35,14 @@ void main() {
   });
 
   group('Url Config Tests', () {
-    test('Test Url Config Defaults', () {
+    test('Test url config initializes with default values', () {
       var config = UrlConfig();
 
       assert(null == config.secureDistribution);
-      assert(false == config.privateCdn);
-      assert(false == config.shorten);
-      assert(false == config.secureCdnSubdomain);
-      assert(false == config.useRootPath);
+      assert(null == config.privateCdn);
+      assert(null == config.shorten);
+      assert(null == config.secureCdnSubdomain);
+      assert(null == config.useRootPath);
       assert(null == config.cname);
       assert(true == config.secure);
     });
