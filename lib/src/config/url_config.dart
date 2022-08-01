@@ -44,7 +44,7 @@ class UrlConfig with IUrlConfig {
     useRootPath = params[useRootPathKey];
     secure = params[secureKey] ?? defaultSecure;
     forceVersion = params[forceVersionKey] ?? defaultForceVersion;
-    analytics = params[analyticsKey] ?? defaultAnalytics;
+    analytics = params[analyticsKey].toString().parseBool() ?? defaultAnalytics;
   }
 
   UrlConfig();
