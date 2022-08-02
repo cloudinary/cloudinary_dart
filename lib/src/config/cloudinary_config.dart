@@ -38,7 +38,6 @@ class CloudinaryConfig {
     params[privateCdnKey] = !uri.path.isNotEmpty;
     params[secureDistributionKey] = uri.path;
     if(uri.query.isNotEmpty) {
-      print(uri.queryParameters);
       _updateFromQuery(params, uri.queryParameters);
     }
 
