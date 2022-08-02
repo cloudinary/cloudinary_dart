@@ -45,7 +45,6 @@ class CloudinaryConfig {
   }
 
   static void _updateFromQuery(Map<String, dynamic> params, Map<String, String> map) {
-    //query.split('&').forEach((element) {
     map.forEach((key, value) {
       if(_isNestedKey(key)) {
         _putNestedValue(params, key, value);
