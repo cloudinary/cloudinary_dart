@@ -19,3 +19,10 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+
+# intellij
+.idea/
+*.iml
+
+## Apple storage files
+*.DS_Store
