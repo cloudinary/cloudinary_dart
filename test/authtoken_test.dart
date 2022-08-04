@@ -4,6 +4,8 @@ import 'package:cloudinary_dart/src/config/cloudinary_config.dart';
 import 'package:cloudinary_dart/src/config/url_config.dart';
 import 'package:test/test.dart';
 import 'dart:io';
+
+import 'tests_utils.dart';
 void main() {
   const key = "00112233FF99";
   AuthToken authToken = AuthToken.withParameters(key, duration: 300, startTime: 11111111);
@@ -56,8 +58,7 @@ void main() {
     test('Should successfully initializes with configuration', () {
       Cloudinary cloudinary = Cloudinary.withStringUrl(
           "cloudinary://a:b@test123?load_strategies=false&auth_token[key]=aabbcc112233&auth_token[duration]=200");
-      assert(cloudinary.config.cloudConfig.authToken ==
-          AuthToken.withParameters("aabbcc112233", duration: 200));
+      assert(TestUtils.compareAuthToken(cloudinary.config.cloudConfig.authToken, AuthToken.withParameters("aabbcc112233", duration: 200)));
     });
     test('Should successfully generate token', () {
       var user = "foobar";

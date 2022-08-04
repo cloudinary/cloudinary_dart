@@ -21,6 +21,16 @@ class AuthToken {
   int _duration = 0;
   bool _isNullToken = false;
 
+  bool get isNullToken => _isNullToken;
+
+  int get duration => _duration;
+
+  int get expiration => _expiration;
+
+  String? get key => _key;
+
+  String? get tokenName => _tokenName;
+
   AuthToken.withParameters(String key, {this.startTime = 0, int duration = 0, String? tokenName, int expiration = 0, this.ip,  this.acl, bool isNullableToken = false}) {
     _key = key;
     _expiration = expiration;
@@ -85,33 +95,4 @@ class AuthToken {
     tokenParts.add("hmac=$auth");
     return "${_tokenName!}=${tokenParts.join("~")}";
   }
-  bool operator ==(other) {
-    if (other is AuthToken) {
-      if (_tokenName != other._tokenName) return false;
-      if (_key != other._key) return false;
-      if (startTime != other.startTime) return false;
-      if (_expiration != other._expiration) return false;
-      if (ip != other.ip) return false;
-      if (acl != other.acl) return false;
-      if (_duration != other._duration) return false;
-      if (_isNullToken != other._isNullToken) return false;
-      return true;
-    }
-    return false;
-  }
-
-  @override
-
-  int get hashCode {
-    if (_isNullToken) return 0;
-    var result = _tokenName?.hashCode ?? 0;
-    result = 31 * result + _key.hashCode;
-    result = 31 * result + startTime.hashCode;
-    result = 31 * result + _expiration.hashCode;
-    result = 31 * result + (ip?.hashCode ?? 0);
-    result = 31 * result + (acl?.hashCode ?? 0);
-    result = 31 * result + _duration.hashCode;
-    return result;
-  }
-
 }
