@@ -29,4 +29,5 @@ class CloudConfig with ICloudConfig {
     apiSecret = params[apiSecretKey]?.toString();
     signatureAlgorithm = params[signatureAlgorithmKey]?.toString();
   }
+
 }
