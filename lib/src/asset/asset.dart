@@ -17,19 +17,10 @@ final String defaultDeliveryType = "upload";
 final String assetTypeImage = "image";
 final String assetTypeVideo = "video";
 
-class Asset {
-  //config
-  late CloudConfig cloudConfig;
-  late UrlConfig urlConfig;
+class Asset extends BaseAsset {
 
-  //fields
-  String? version = null;
-  String? publicId = null;
+  Asset.withBuilder(super.builder) : super.withBuilder();
 
-  //Format? extension = null;
-  String? urlSuffix = null;
-  String assetType = defaultAssetType;
-  String? deliveryType = null;
 //Transformation? _transformation = null;
 
 // String getTransformationString() {
@@ -55,14 +46,24 @@ abstract class BaseAsset {
   String assetType = defaultAssetType;
   String? deliveryType;
 
-  BaseAsset(this.cloudConfig, this.urlConfig, this.version, this.publicId,
+  BaseAsset.withParameters(this.cloudConfig, this.urlConfig, this.version, this.publicId,
       /*this.extension, */ this.urlSuffix, this.assetType, this.deliveryType);
+
+  BaseAsset.withBuilder(AssetBuilder builder):
+        cloudConfig = builder.cloudConfig,
+        urlConfig = builder.urlConfig,
+        version = builder.version,
+        publicId = builder.publicId,
+        urlSuffix = builder.urlSuffix,
+        assetType = builder.assetType,
+        deliveryType = builder.deliveryType;
 
   String getTransformationString() {
     return "";
   }
 
-  FinalizedSource finalizeSource(String source,
+  FinalizedSource finalizeSource(
+      String source,
       /*Format? extension*/
       String urlSuffix) {
     var mutableSource = source.cldMergeSlashedInUrl();
@@ -100,8 +101,8 @@ abstract class BaseAsset {
       } else if (mutableResourceType == 'image' && mutableType == 'private') {
         mutableResourceType = 'private_images';
         mutableType = null;
-      } else
-      if (mutableResourceType == 'image' && mutableType == 'authenticated') {
+      } else if (mutableResourceType == 'image' &&
+          mutableType == 'authenticated') {
         mutableResourceType = 'authenticated_images';
         mutableType = null;
       } else if (mutableResourceType == 'raw' && mutableType == 'upload') {
@@ -181,132 +182,158 @@ abstract class BaseAsset {
     return prefix;
   }
 
-String? generate([String? source]) {
-  var cloudName = cloudConfig.cloudName ?? "";
-  if (cloudName.isBlank) {
-    throw ArgumentError('Must supply cloud_name in configuration');
-  }
+  String? generate([String? source]) {
+    var cloudName = cloudConfig.cloudName ?? "";
+    if (cloudName.isBlank) {
+      throw ArgumentError('Must supply cloud_name in configuration');
+    }
 
-  String? mutableSource = (source ?? publicId);
-  if (mutableSource == null) {
-    return null;
-  }
+    String? mutableSource = (source ?? publicId);
+    if (mutableSource == null) {
+      return null;
+    }
 
-  var httpSource = mutableSource.cldIsHttpUrl;
+    var httpSource = mutableSource.cldIsHttpUrl;
 
-  if (httpSource &&
-      ((deliveryType != null && deliveryType!.isNotNullAndNotEmpty) ||
-          deliveryType == "asset")) {
-    return mutableSource;
-  }
+    if (httpSource &&
+        ((deliveryType != null && deliveryType!.isNotNullAndNotEmpty) ||
+            deliveryType == "asset")) {
+      return mutableSource;
+    }
 
-  var signature = "";
+    var signature = "";
 
-  var finalizedSource =
-  finalizeSource(mutableSource, /* extension, */ urlSuffix ?? "");
+    var finalizedSource =
+        finalizeSource(mutableSource, /* extension, */ urlSuffix ?? "");
 
-  mutableSource = finalizedSource.source;
-  var sourceToSign = finalizedSource.sourceToSign;
+    mutableSource = finalizedSource.source;
+    var sourceToSign = finalizedSource.sourceToSign;
 
-  //Version
-  var mutableVersion = version;
-  if ((urlConfig.forceVersion != null && urlConfig.forceVersion == true) &&
-      sourceToSign.contains('/') &&
-      !sourceToSign.cldHasVersionString() &&
-      !httpSource &&
-      (mutableVersion != null && mutableVersion!.isEmpty)) {
-    mutableVersion = '1';
-  }
-  if (mutableVersion == null) {
-    mutableVersion = '';
-  } else {
-    'v$mutableVersion';
-  }
-  //Transformation
-  var transformationString = getTransformationString();
-
-  //Signature
-  if ((urlConfig.signUrl != null && urlConfig.signUrl == true) &&
-      (cloudConfig.authToken == null ||
-          cloudConfig.authToken == nullAutoToken)) {
-    var signatureAlgorithm = "";
-    if (urlConfig.longUrlSignature == true) {
-      signatureAlgorithm = 'SHA-256';
+    //Version
+    var mutableVersion = version;
+    if ((urlConfig.forceVersion != null && urlConfig.forceVersion == true) &&
+        sourceToSign.contains('/') &&
+        !sourceToSign.cldHasVersionString() &&
+        !httpSource &&
+        (mutableVersion != null && mutableVersion!.isEmpty)) {
+      mutableVersion = '1';
+    }
+    if (mutableVersion == null) {
+      mutableVersion = '';
     } else {
-      signatureAlgorithm = cloudConfig.signatureAlgorithm;
+      'v$mutableVersion';
     }
-    var toSign = <String>[
-      if (transformationString != null) transformationString,
-      if (sourceToSign != null) sourceToSign
-    ].join('/').cldRemoveStartingChars('/').cldMergeSlashedInUrl();
-    (cloudConfig.apiSecret != null) ? cloudConfig.apiSecret! : "";
-    var hashString = hash(toSign, signatureAlgorithm);
-    if (hashString != null) {
-      signature = base64.encode(hashString);
-      signature =
-      's--${signature.substring(0, (urlConfig.longUrlSignature != null &&
-          urlConfig.longUrlSignature == true) ? 32 : 8)}--';
+    //Transformation
+    var transformationString = getTransformationString();
+
+    //Signature
+    if ((urlConfig.signUrl != null && urlConfig.signUrl == true) &&
+        (cloudConfig.authToken == null ||
+            cloudConfig.authToken == nullAutoToken)) {
+      var signatureAlgorithm = "";
+      if (urlConfig.longUrlSignature == true) {
+        signatureAlgorithm = 'SHA-256';
+      } else {
+        signatureAlgorithm = cloudConfig.signatureAlgorithm;
+      }
+      var toSign = <String>[
+        if (transformationString != null) transformationString,
+        if (sourceToSign != null) sourceToSign
+      ].join('/').cldRemoveStartingChars('/').cldMergeSlashedInUrl();
+      (cloudConfig.apiSecret != null) ? cloudConfig.apiSecret! : "";
+      var hashString = hash(toSign, signatureAlgorithm);
+      if (hashString != null) {
+        signature = base64.encode(hashString);
+        signature =
+            's--${signature.substring(0, (urlConfig.longUrlSignature != null && urlConfig.longUrlSignature == true) ? 32 : 8)}--';
+      }
     }
+
+    //Resource Type
+    var finalizedResourceType = finalizeResourceType(assetType, deliveryType,
+        urlSuffix, urlConfig.useRootPath ?? false, urlConfig.shorten ?? false);
+
+    //Prefix
+    var prefix = unsignedDownloadUrlPrefix(
+        cloudConfig.cloudName,
+        urlConfig.privateCdn ?? false,
+        urlConfig.cname,
+        urlConfig.secure ?? false,
+        urlConfig.secureDistribution);
+
+    //URL
+    var url = <String>[
+      prefix,
+      finalizedResourceType ?? "",
+      signature,
+      transformationString,
+      mutableVersion,
+      mutableSource
+    ].join('/').cldMergeSlashedInUrl();
+
+    //AuthToken
+    if ((urlConfig.signUrl != null && urlConfig.signUrl == true) &&
+        cloudConfig.authToken != null &&
+        cloudConfig.authToken != nullAutoToken) {
+      var token = cloudConfig.authToken?.generate(Uri.parse(url).path);
+      return '$url?$token';
+    }
+
+    //Analytics
+    var urlObject = Uri.parse(url);
+    if ((urlConfig.analytics != null && urlConfig.analytics == true) &&
+        cloudConfig.authToken == null &&
+        urlObject.query.isEmpty) {
+      var analytics = '_a=${Analytics().generateAnalyticsString()}';
+      return '$url?$analytics';
+    }
+    return url;
   }
 
-  //Resource Type
-  var finalizedResourceType = finalizeResourceType(
-      assetType, deliveryType, urlSuffix, urlConfig.useRootPath ?? false,
-      urlConfig.shorten ?? false);
-
-  //Prefix
-  var prefix = unsignedDownloadUrlPrefix(
-      cloudConfig.cloudName, urlConfig.privateCdn ?? false, urlConfig.cname,
-      urlConfig.secure ?? false, urlConfig.secureDistribution);
-
-  //URL
-  var url = <String>[prefix, finalizedResourceType ?? "", signature, transformationString, mutableVersion, mutableSource]
-      .join('/')
-      .cldMergeSlashedInUrl();
-
-  //AuthToken
-  if ((urlConfig.signUrl != null && urlConfig.signUrl == true) && cloudConfig.authToken != null && cloudConfig.authToken != nullAutoToken) {
-    var token = cloudConfig.authToken?.generate(Uri.parse(url).path);
-    return '$url?$token';
+  /// Computes hash from input string using specified algorithm.
+  ///
+  /// @param input              string which to compute hash from
+  /// @param signatureAlgorithm algorithm to use for computing hash (supports only SHA-1 and SHA-256)
+  /// @return array of bytes of computed hash value
+  List<int>? hash(String input, String signatureAlgorithm) {
+    Digest? result;
+    var bytes = utf8.encode(input);
+    if (signatureAlgorithm == "MD5") {
+      result = md5.convert(bytes);
+    }
+    if (signatureAlgorithm == "SHA1") {
+      result = sha1.convert(bytes);
+    }
+    if (signatureAlgorithm == "SHA224") {
+      result = sha224.convert(bytes);
+    }
+    if (signatureAlgorithm == "SHA256") {
+      result = sha256.convert(bytes);
+    }
+    if (signatureAlgorithm == "SHA384") {
+      result = sha384.convert(bytes);
+    }
+    if (signatureAlgorithm == "SHA512") {
+      result = sha512.convert(bytes);
+    }
+    return (result != null) ? result.bytes : null;
   }
-
-  //Analytics
-  var urlObject = Uri.parse(url);
-  if ((urlConfig.analytics != null && urlConfig.analytics == true) && cloudConfig.authToken == null && urlObject.query.isEmpty) {
-    var analytics = '_a=${Analytics().generateAnalyticsString()}';
-    return '$url?$analytics';
-  }
-  return url;
 }
 
-/// Computes hash from input string using specified algorithm.
-///
-/// @param input              string which to compute hash from
-/// @param signatureAlgorithm algorithm to use for computing hash (supports only SHA-1 and SHA-256)
-/// @return array of bytes of computed hash value
-List<int>? hash(String input, String signatureAlgorithm) {
-  Digest? result;
-  var bytes = utf8.encode(input);
-  if (signatureAlgorithm == "MD5") {
-    result = md5.convert(bytes);
-  }
-  if (signatureAlgorithm == "SHA1") {
-    result = sha1.convert(bytes);
-  }
-  if (signatureAlgorithm == "SHA224") {
-    result = sha224.convert(bytes);
-  }
-  if (signatureAlgorithm == "SHA256") {
-    result = sha256.convert(bytes);
-  }
-  if (signatureAlgorithm == "SHA384") {
-    result = sha384.convert(bytes);
-  }
-  if (signatureAlgorithm == "SHA512") {
-    result = sha512.convert(bytes);
-  }
-  return (result != null) ? result.bytes : null;
-}}
+class AssetBuilder {
+  //config
+  late CloudConfig cloudConfig;
+  late UrlConfig urlConfig;
+
+  //fields
+  String? version;
+  String? publicId;
+
+  //Format? extension;
+  String? urlSuffix;
+  String assetType = defaultAssetType;
+  String? deliveryType;
+}
 
 class FinalizedSource {
   String source;
