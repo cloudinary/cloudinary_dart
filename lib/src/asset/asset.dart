@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
-import 'package:convert/convert.dart';
 
 import 'package:cloudinary_dart/extensions/string_extension.dart';
 import 'package:cloudinary_dart/src/config/cloud_config.dart';
@@ -9,6 +7,7 @@ import 'package:cloudinary_dart/src/config/url_config.dart';
 import 'package:cloudinary_dart/src/Analytics.dart';
 
 import '../authtoken.dart';
+import 'builders/asset_builder.dart';
 
 final String akamaiSharedCDN = "res.cloudinary.com";
 final String defaultAssetType = "image";
@@ -318,21 +317,6 @@ abstract class BaseAsset {
     }
     return (result != null) ? result.bytes : null;
   }
-}
-
-class AssetBuilder {
-  //config
-  late CloudConfig cloudConfig;
-  late UrlConfig urlConfig;
-
-  //fields
-  String? version;
-  String? publicId;
-
-  //Format? extension;
-  String? urlSuffix;
-  String assetType = defaultAssetType;
-  String? deliveryType;
 }
 
 class FinalizedSource {
