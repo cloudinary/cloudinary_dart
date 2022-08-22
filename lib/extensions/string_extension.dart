@@ -1,7 +1,12 @@
-extension StringManipulation on String {
+import 'dart:ffi';
 
+extension StringManipulations on String? {
+  bool get isNullOrBlank => (this == null) ? true : this!.trim()?.isEmpty ?? true;
+}
+
+extension StringManipulation on String {
   String toAnalyticsString() {
-    int num = int.parse(this,radix: 2);
+    int num = int.parse(this, radix: 2);
     if (num != null) {
       if (num >= 0 && num <= 25) {
         return String.fromCharCode('A'.codeUnitAt(0) + num);
@@ -18,25 +23,26 @@ extension StringManipulation on String {
 
   bool get isNotNullAndNotEmpty => this != null && isNotEmpty;
 
-  bool get cldIsHttpUrl => toLowerCase().startsWith("https:/") || toLowerCase().startsWith("http:/");
+  bool get cldIsHttpUrl =>
+      toLowerCase().startsWith("https:/") || toLowerCase().startsWith("http:/");
 
   String cldMergeSlashedInUrl() {
     StringBuffer builder = StringBuffer();
     bool prevIsColon = false;
     bool inMerge = false;
 
-    for(int i = 0; i < length; i++) {
+    for (int i = 0; i < length; i++) {
       var c = this[i];
-      if(c == ':') {
+      if (c == ':') {
         prevIsColon = true;
         builder.write(c);
       } else {
-        if(c == '/') {
-          if(prevIsColon) {
+        if (c == '/') {
+          if (prevIsColon) {
             builder.write(c);
             inMerge = false;
           } else {
-            if(!inMerge) {
+            if (!inMerge) {
               builder.write(c);
             }
             inMerge = true;
@@ -60,11 +66,11 @@ extension StringManipulation on String {
 
   bool cldHasVersionString() {
     var inVersion = false;
-    for (int i = 0 ; i < length ; i++) {
+    for (int i = 0; i < length; i++) {
       var c = this[i];
-      if(c == 'v') {
+      if (c == 'v') {
         inVersion = true;
-      } else if(isDigit(c, 0) && inVersion){
+      } else if (isDigit(c, 0) && inVersion) {
         return true;
       } else {
         return false;
@@ -72,5 +78,20 @@ extension StringManipulation on String {
     }
     return false;
   }
+
   bool isDigit(String s, int idx) => (s.codeUnitAt(idx) ^ 0x30) <= 9;
+
+  String cldRemoveStartingChars(String c) {
+    var lastToRemove = -1;
+    for (int i = 0; i < length; i++) {
+      if (this[i] == c) {
+        lastToRemove = i;
+        continue;
+      }
+      if(this[i] != c) {
+        break;
+      }
+    }
+    return (lastToRemove < 0) ? this : substring(lastToRemove + 1);
+  }
 }
