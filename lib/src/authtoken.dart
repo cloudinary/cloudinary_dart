@@ -61,7 +61,7 @@ class AuthToken {
     return hex.encode(hmacBytes).toLowerCase();
   }
 
-  String generate(String? url) {
+  String generate([String? url]) {
     var start = 0;
     var expiration = _expiration;
     if (_expiration == 0) {
