@@ -7,7 +7,8 @@ import 'package:cloudinary_dart/src/config/url_config.dart';
 import 'package:cloudinary_dart/src/Analytics.dart';
 
 import '../authtoken.dart';
-import 'builders/asset_builder.dart';
+import 'builders/general_asset_builder.dart';
+import 'format.dart';
 
 final String akamaiSharedCDN = "res.cloudinary.com";
 final String defaultAssetType = "image";
@@ -18,6 +19,7 @@ final String assetTypeVideo = "video";
 
 class Asset extends BaseAsset {
 
+  Asset.withConfig(super.cloudConfig, super.urlConfig) : super.withConfig();
   Asset.withBuilder(super.builder) : super.withBuilder();
 
 //Transformation? _transformation = null;
@@ -40,15 +42,17 @@ abstract class BaseAsset {
   String? version;
   String? publicId;
 
-  //Format? extension;
+  Format? extension;
   String? urlSuffix;
   String assetType = defaultAssetType;
   String? deliveryType;
 
-  BaseAsset.withParameters(this.cloudConfig, this.urlConfig, this.version, this.publicId,
-      /*this.extension, */ this.urlSuffix, this.assetType, this.deliveryType);
+  BaseAsset.withConfig(this.cloudConfig, this.urlConfig);
 
-  BaseAsset.withBuilder(AssetBuilder builder):
+  BaseAsset.withParameters(this.cloudConfig, this.urlConfig, this.version, this.publicId,
+      this.extension,  this.urlSuffix, this.assetType, this.deliveryType);
+
+  BaseAsset.withBuilder(GeneralAssetBuilder builder):
         cloudConfig = builder.cloudConfig,
         urlConfig = builder.urlConfig,
         version = builder.version,
@@ -63,7 +67,7 @@ abstract class BaseAsset {
 
   FinalizedSource finalizeSource(
       String source,
-      /*Format? extension*/
+      Format? extension,
       String urlSuffix) {
     var mutableSource = source.cldMergeSlashedInUrl();
     String sourceToSign;
@@ -74,15 +78,15 @@ abstract class BaseAsset {
       mutableSource = Uri.decodeComponent(mutableSource.replaceAll("+", "%2B"))
           .cldSmartUrlEncode();
       sourceToSign = mutableSource;
-      if (!urlSuffix.isNotNullAndNotEmpty) {
+      if (urlSuffix.isNotNullAndNotEmpty) {
         if (urlSuffix.contains('.') || urlSuffix.contains('/')) {
-          ArgumentError('url_suffix should not include . or /');
+          throw ArgumentError('url_suffix should not include . or /');
         }
         mutableSource = '$mutableSource/$urlSuffix';
-        // if(extension != null) {
-        //   mutableSource = "$mutableSource.$extension"
-        //   sourceToSign = "$sourceToSign.$extension"
-        // }
+        if(extension != null) {
+          mutableSource = '$mutableSource.$extension';
+          sourceToSign = '$sourceToSign.$extension';
+        }
       }
     }
     return FinalizedSource(mutableSource, sourceToSign);
@@ -172,11 +176,10 @@ abstract class BaseAsset {
       var res = 'res';
       var domain = '.cloudinary.com';
       prefix = protocol + mutableCloudName + res + domain;
-
-      if (sharedDomain) {
-        // use original cloud name here:
-        prefix += '/$cloudName';
-      }
+    }
+    if (sharedDomain) {
+      // use original cloud name here:
+      prefix += '/$cloudName';
     }
     return prefix;
   }
@@ -203,7 +206,7 @@ abstract class BaseAsset {
     var signature = "";
 
     var finalizedSource =
-        finalizeSource(mutableSource, /* extension, */ urlSuffix ?? "");
+        finalizeSource(mutableSource, extension, urlSuffix ?? "");
 
     mutableSource = finalizedSource.source;
     var sourceToSign = finalizedSource.sourceToSign;
