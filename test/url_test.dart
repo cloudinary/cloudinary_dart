@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/src/Analytics.dart';
+import 'package:cloudinary_dart/src/analytics.dart';
 import 'package:cloudinary_dart/src/asset/asset.dart';
 import 'package:cloudinary_dart/src/asset/builders/asset_builder.dart';
 import 'package:cloudinary_dart/src/asset/builders/image_builder.dart';

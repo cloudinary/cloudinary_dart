@@ -1,6 +1,8 @@
 
 import 'dart:io';
+
 import 'package:cloudinary_dart/extensions/string_extension.dart';
+
 import 'cloudinary.dart';
 
 class Analytics {
