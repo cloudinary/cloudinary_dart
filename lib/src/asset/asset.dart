@@ -4,7 +4,7 @@ import 'package:crypto/crypto.dart';
 import 'package:cloudinary_dart/extensions/string_extension.dart';
 import 'package:cloudinary_dart/src/config/cloud_config.dart';
 import 'package:cloudinary_dart/src/config/url_config.dart';
-import 'package:cloudinary_dart/src/Analytics.dart';
+import 'package:cloudinary_dart/src/analytics.dart';
 
 import '../authtoken.dart';
 import 'builders/general_asset_builder.dart';
