@@ -94,4 +94,16 @@ extension StringManipulation on String {
     }
     return (lastToRemove < 0) ? this : substring(lastToRemove + 1);
   }
+
+  String safeBase64Encoding() {
+    var newString = this;
+    for (int i = 0; i < length; i++) {
+      if (this[i] == '+') {
+        newString = '${newString.substring(0, i)}-${newString.substring(i + 1)}';
+      } else if (this[i] == '/') {
+        newString = '${newString.substring(0, i)}_${newString.substring(i + 1)}';
+      }
+    }
+    return newString;
+  }
 }

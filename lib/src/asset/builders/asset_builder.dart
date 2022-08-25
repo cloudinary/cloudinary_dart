@@ -1,19 +1,12 @@
-import '../../config/cloud_config.dart';
-import '../../config/url_config.dart';
 import '../asset.dart';
+import 'general_asset_builder.dart';
 
-class AssetBuilder {
-  //config
-  late CloudConfig cloudConfig;
-  late UrlConfig urlConfig;
-
-  //fields
-  String? version;
-  String? publicId;
-
-  //Format? extension;
-  String? urlSuffix;
-  String assetType = defaultAssetType;
-  String? deliveryType;
+class AssetBuilder extends GeneralAssetBuilder {
+  @override
+  String assetType = 'raw';
+  @override
+  Asset build() {
+    return Asset.withBuilder(this);
+  }
 }
 

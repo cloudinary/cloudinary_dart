@@ -1,5 +1,11 @@
-import 'asset_builder.dart';
+import '../image.dart';
+import 'general_asset_builder.dart';
 
-class ImageBuilder extends AssetBuilder {
-
+class ImageBuilder extends GeneralAssetBuilder {
+  @override
+  String assetType = 'image';
+  @override
+  Image build() {
+      return Image.withBuilder(this);
+    }
 }

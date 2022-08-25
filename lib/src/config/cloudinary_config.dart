@@ -1,3 +1,4 @@
+import 'package:cloudinary_dart/extensions/string_extension.dart';
 import 'package:cloudinary_dart/src/config/cloud_config.dart';
 import 'package:cloudinary_dart/src/config/url_config.dart';
 class CloudinaryConfig {
@@ -35,7 +36,7 @@ class CloudinaryConfig {
       }
     });
 
-    params[privateCdnKey] = !uri.path.isNotEmpty;
+    params[privateCdnKey] = !uri.path.isNullOrBlank;
     params[secureDistributionKey] = uri.path;
     if(uri.query.isNotEmpty) {
       _updateFromQuery(params, uri.queryParameters);

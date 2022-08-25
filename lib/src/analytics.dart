@@ -3,11 +3,12 @@ import 'dart:io';
 
 import 'package:cloudinary_dart/extensions/string_extension.dart';
 
+import 'cloudinary.dart';
+
 class Analytics {
   final sdkTokenQueryKey = "_a";
   final sdkQueryDelimiter = "=";
   final algoVersion = 'A';
-  String sdkVersion = "0.0.1";
   final sdk = 'O';
   final errorSignature = "E";
   final noFeatureChar = '0';
@@ -17,7 +18,7 @@ class Analytics {
     techVersion = Platform.version.split(" ")[0];
   }
 
-  Analytics.withParameters(this.sdkVersion, this.techVersion);
+  Analytics.withParameters(sdkVersion, this.techVersion);
 
   String generateAnalyticsString() {
     try {

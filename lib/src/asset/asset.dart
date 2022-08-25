@@ -57,6 +57,7 @@ abstract class BaseAsset {
         urlConfig = builder.urlConfig,
         version = builder.version,
         publicId = builder.publicId,
+        extension = builder.extension,
         urlSuffix = builder.urlSuffix,
         assetType = builder.assetType,
         deliveryType = builder.deliveryType;
@@ -83,10 +84,10 @@ abstract class BaseAsset {
           throw ArgumentError('url_suffix should not include . or /');
         }
         mutableSource = '$mutableSource/$urlSuffix';
-        if(extension != null) {
-          mutableSource = '$mutableSource.$extension';
-          sourceToSign = '$sourceToSign.$extension';
-        }
+      }
+      if(extension != null) {
+        mutableSource = '$mutableSource.$extension';
+        sourceToSign = '$sourceToSign.$extension';
       }
     }
     return FinalizedSource(mutableSource, sourceToSign);
@@ -198,7 +199,7 @@ abstract class BaseAsset {
     var httpSource = mutableSource.cldIsHttpUrl;
 
     if (httpSource &&
-        ((deliveryType != null && deliveryType!.isNotNullAndNotEmpty) ||
+        (deliveryType.isNullOrBlank ||
             deliveryType == "asset")) {
       return mutableSource;
     }
@@ -217,13 +218,13 @@ abstract class BaseAsset {
         sourceToSign.contains('/') &&
         !sourceToSign.cldHasVersionString() &&
         !httpSource &&
-        (mutableVersion != null && mutableVersion!.isEmpty)) {
+        mutableVersion.isNullOrBlank) {
       mutableVersion = '1';
     }
     if (mutableVersion == null) {
       mutableVersion = '';
     } else {
-      'v$mutableVersion';
+      mutableVersion = 'v$mutableVersion';
     }
     //Transformation
     var transformationString = getTransformationString();
@@ -243,9 +244,9 @@ abstract class BaseAsset {
         if (sourceToSign != null) sourceToSign
       ].join('/').cldRemoveStartingChars('/').cldMergeSlashedInUrl();
       (cloudConfig.apiSecret != null) ? cloudConfig.apiSecret! : "";
-      var hashString = hash(toSign, signatureAlgorithm);
+      var hashString = hash(toSign + cloudConfig.apiSecret!, signatureAlgorithm);
       if (hashString != null) {
-        signature = base64.encode(hashString);
+        signature = base64.encode(hashString).safeBase64Encoding();
         signature =
             's--${signature.substring(0, (urlConfig.longUrlSignature != null && urlConfig.longUrlSignature == true) ? 32 : 8)}--';
       }
@@ -303,19 +304,19 @@ abstract class BaseAsset {
     if (signatureAlgorithm == "MD5") {
       result = md5.convert(bytes);
     }
-    if (signatureAlgorithm == "SHA1") {
+    if (signatureAlgorithm == "SHA-1") {
       result = sha1.convert(bytes);
     }
-    if (signatureAlgorithm == "SHA224") {
+    if (signatureAlgorithm == "SHA-224") {
       result = sha224.convert(bytes);
     }
-    if (signatureAlgorithm == "SHA256") {
+    if (signatureAlgorithm == "SHA-256") {
       result = sha256.convert(bytes);
     }
-    if (signatureAlgorithm == "SHA384") {
+    if (signatureAlgorithm == "SHA-384") {
       result = sha384.convert(bytes);
     }
-    if (signatureAlgorithm == "SHA512") {
+    if (signatureAlgorithm == "SHA-512") {
       result = sha512.convert(bytes);
     }
     return (result != null) ? result.bytes : null;
