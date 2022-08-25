@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/src/analytics.dart';
+// import 'package:cloudinary_dart/src/analytics.dart';
 import 'package:cloudinary_dart/src/asset/asset.dart';
 import 'package:cloudinary_dart/src/asset/builders/asset_builder.dart';
 import 'package:cloudinary_dart/src/asset/builders/image_builder.dart';
@@ -49,15 +49,15 @@ void main() {
         assert('https://secure.api.com/sample' == Asset.withConfig(cloudConfig, urlConfig).generate('sample'));
         });
 
-    test('Should successfully generate URL with analytics', () {
-      var cloudinaryWithAnalytics = Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=true');
-      var result = cloudinaryWithAnalytics.image().generate('test');
-
-      // note: This test validates the concatenation of analytics query param to the url.
-      // This is not meant to test the string generation - This is tested separately in its own test.
-      var expectedAnalytics = Analytics().generateAnalyticsString();
-      assert('https://res.cloudinary.com/test123/image/upload/test?_a=$expectedAnalytics' == result);
-    });
+    // test('Should successfully generate URL with analytics', () {
+    //   var cloudinaryWithAnalytics = Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=true');
+    //   var result = cloudinaryWithAnalytics.image().generate('test');
+    //
+    //   // note: This test validates the concatenation of analytics query param to the url.
+    //   // This is not meant to test the string generation - This is tested separately in its own test.
+    //   var expectedAnalytics = Analytics().generateAnalyticsString();
+    //   assert('https://res.cloudinary.com/test123/image/upload/test?_a=$expectedAnalytics' == result);
+    // });
 
   group('URL suffix tests', () {
     test('Test URL suffix with dot or slash successfully generated', () {
