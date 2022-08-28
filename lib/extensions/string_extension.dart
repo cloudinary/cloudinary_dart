@@ -26,7 +26,7 @@ extension StringManipulation on String {
   bool get cldIsHttpUrl =>
       toLowerCase().startsWith("https:/") || toLowerCase().startsWith("http:/");
 
-  String cldMergeSlashedInUrl() {
+  String cldMergeSlashesInUrl() {
     StringBuffer builder = StringBuffer();
     bool prevIsColon = false;
     bool inMerge = false;
