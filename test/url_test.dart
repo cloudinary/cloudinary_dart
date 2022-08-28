@@ -4,7 +4,6 @@ import 'package:cloudinary_dart/src/asset/builders/asset_builder.dart';
 import 'package:cloudinary_dart/src/asset/builders/image_builder.dart';
 import 'package:cloudinary_dart/src/asset/builders/video_builder.dart';
 import 'package:cloudinary_dart/src/asset/format.dart';
-import 'package:cloudinary_dart/src/asset/image.dart';
 import 'package:cloudinary_dart/src/cloudinary.dart';
 import 'package:cloudinary_dart/src/config/cloudinary_config.dart';
 import 'package:cloudinary_dart/src/config/url_config.dart';
@@ -61,14 +60,14 @@ void main() {
 
   group('URL suffix tests', () {
     test('Test URL suffix with dot or slash successfully generated', () {
-      expect(() => cloudinary.image(options: ImageBuilder() ..urlSuffix = 'dsfdfd.adsfad').generate('publicId'),
+      expect(() => cloudinary.image(ImageBuilder() ..urlSuffix = 'dsfdfd.adsfad').generate('publicId'),
          throwsArgumentError);
-      expect(() => cloudinary.image(options: ImageBuilder() ..urlSuffix = 'dsfdfd/adsfad').generate('publicId'),
+      expect(() => cloudinary.image(ImageBuilder() ..urlSuffix = 'dsfdfd/adsfad').generate('publicId'),
           throwsArgumentError);
-      expect(() => cloudinary.image(options: ImageBuilder() ..urlSuffix = 'dsfd.fd/adsfad').generate('publicId'),
+      expect(() => cloudinary.image(ImageBuilder() ..urlSuffix = 'dsfd.fd/adsfad').generate('publicId'),
           throwsArgumentError);
-      print(cloudinary.image(options: ImageBuilder() ..urlSuffix = 'dsfdfdaddsfad').generate('publicId'));
-      assert(cloudinary.image(options: ImageBuilder() ..urlSuffix = 'dsfdfdaddsfad').generate('publicId') == 'https://res.cloudinary.com/test123/images/publicId/dsfdfdaddsfad');
+      print(cloudinary.image(ImageBuilder() ..urlSuffix = 'dsfdfdaddsfad').generate('publicId'));
+      assert(cloudinary.image(ImageBuilder() ..urlSuffix = 'dsfdfdaddsfad').generate('publicId') == 'https://res.cloudinary.com/test123/images/publicId/dsfdfdaddsfad');
     });
   });
 
@@ -139,13 +138,13 @@ void main() {
 
     test('Test using extension successfully produces valid URL', () {
       var cloudinary = Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
-      var result = cloudinary.image(options: ImageBuilder() ..extension = Format.jpg()).generate('test');
+      var result = cloudinary.image(ImageBuilder() ..extension = Format.jpg()).generate('test');
       assert("${defaultUploadPath}test.jpg" == result);
     });
 
     test('Test successfully URL with setting delivery type', () {
       var cloudinary = Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
-        var result = cloudinary.image(options: ImageBuilder() ..deliveryType = 'facebook').generate('test');
+        var result = cloudinary.image(ImageBuilder() ..deliveryType = 'facebook').generate('test');
         assert('https://res.cloudinary.com/test123/image/facebook/test' == result);
     });
 
@@ -159,15 +158,15 @@ void main() {
       var cloudinary = Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
       var result = cloudinary.image().generate('http://test');
       assert('http://test' == result);
-      result = cloudinary.image(options: ImageBuilder() ..deliveryType = 'asset').generate('http://test');
+      result = cloudinary.image(ImageBuilder() ..deliveryType = 'asset').generate('http://test');
       assert('http://test' == result);
-      result = cloudinary.image(options: ImageBuilder() ..deliveryType = "fetch").generate('http://test');
+      result = cloudinary.image(ImageBuilder() ..deliveryType = "fetch").generate('http://test');
       assert('https://res.cloudinary.com/test123/image/fetch/http://test' == result);
     });
 
     test('Test fetch as delivery type produce valid URL', () {
       var cloudinary = Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
-      var result = cloudinary.image(options: ImageBuilder() ..deliveryType = "fetch").generate('http://blah.com/hello?a=b');
+      var result = cloudinary.image(ImageBuilder() ..deliveryType = "fetch").generate('http://blah.com/hello?a=b');
       assert('https://res.cloudinary.com/test123/image/fetch/http://blah.com/hello%3Fa%3Db' == result);
     });
 
@@ -181,24 +180,24 @@ void main() {
     });
 
     test('Test URL suffix with non upload delivery type throws error', () {
-      expect(() => cloudinaryPrivateCdn.image(options: ImageBuilder() ..urlSuffix = 'hello' ..deliveryType = 'facebook').generate('test'),
+      expect(() => cloudinaryPrivateCdn.image(ImageBuilder() ..urlSuffix = 'hello' ..deliveryType = 'facebook').generate('test'),
           throwsArgumentError);
     });
 
     group('Test invalid characters in URL suffix', () {
       test('Test URL suffix with slash throws error', () {
-        expect(() => cloudinaryPrivateCdn.image(options: ImageBuilder() ..urlSuffix ='hello/world').generate('test'),
+        expect(() => cloudinaryPrivateCdn.image(ImageBuilder() ..urlSuffix ='hello/world').generate('test'),
             throwsArgumentError);
       });
 
       test('Test URL suffix with dot throws error', () {
-        expect(() => cloudinaryPrivateCdn.image(options: ImageBuilder() ..urlSuffix ='hello.world').generate('test'),
+        expect(() => cloudinaryPrivateCdn.image(ImageBuilder() ..urlSuffix ='hello.world').generate('test'),
             throwsArgumentError);
       });
     });
 
     test('Test URL suffix with private cdn produce valid URL', () {
-      var actual = cloudinaryPrivateCdn.image(options: ImageBuilder() ..urlSuffix = 'hello').generate('test');
+      var actual = cloudinaryPrivateCdn.image(ImageBuilder() ..urlSuffix = 'hello').generate('test');
       assert('https://test123-res.cloudinary.com/images/test/hello' == actual);
 
       //TODO: Implement the following test with angle
@@ -207,16 +206,17 @@ void main() {
     });
 
     test('Test URL suffix with format produce valid URL', () {
-      var actual = cloudinaryPrivateCdn.image(options: ImageBuilder() ..urlSuffix = 'hello' ..extension = Format.jpg()).generate('test');
+      //Show builder pattern alternative method
+      var actual = cloudinaryPrivateCdn.image(ImageBuilder().setUrlSuffix('hello').setExtension(Format.jpg())).generate('test');
       assert('https://test123-res.cloudinary.com/images/test/hello.jpg' == actual);
     });
 
     test('Test url suffix without sign produce valid URL', () {
       var pattern = RegExp(r's--[0-9A-Za-z_-]{8}--');
-      String url = cloudinarySignedUrl.image(options: ImageBuilder() ..extension = Format.jpg()).generate('test')!;
+      String url = cloudinarySignedUrl.image(ImageBuilder() ..extension = Format.jpg()).generate('test')!;
       var matcher = pattern.allMatches(url);
       var expectedSignature = url.substring(matcher.first.start, matcher.first.end);
-      var actual = cloudinaryPrivateCdnSignUrl.image(options: ImageBuilder() ..urlSuffix = 'hello' ..extension = Format.jpg()).generate('test');
+      var actual = cloudinaryPrivateCdnSignUrl.image(ImageBuilder() ..urlSuffix = 'hello' ..extension = Format.jpg()).generate('test');
 
       assert('https://test123-res.cloudinary.com/images/$expectedSignature/test/hello.jpg' == actual);
 
@@ -226,23 +226,23 @@ void main() {
     group('Test url suffix for different asset types', () {
       test('Test using url suffix for raw uploads produce valid url', () {
         var builder = AssetBuilder();
-        var actual = cloudinaryPrivateCdn.raw(options: AssetBuilder() ..urlSuffix = 'hello').generate('test');
+        var actual = cloudinaryPrivateCdn.raw(AssetBuilder() ..urlSuffix = 'hello').generate('test');
         assert('https://test123-res.cloudinary.com/files/test/hello' == actual);
       });
 
       test('Test using url suffix for video uploads produce valid url', () {
         var builder = VideoBuilder();
-        var actual = cloudinaryPrivateCdn.video(options: VideoBuilder() ..urlSuffix = 'hello').generate('test');
+        var actual = cloudinaryPrivateCdn.video(VideoBuilder() ..urlSuffix = 'hello').generate('test');
         assert('https://test123-res.cloudinary.com/videos/test/hello' == actual);
       });
 
       test('Test using url suffix for authenticated images produce valid url', () {
-        var actual = cloudinaryPrivateCdn.image(options: ImageBuilder() ..urlSuffix = 'hello' ..deliveryType = 'authenticated')
+        var actual = cloudinaryPrivateCdn.image(ImageBuilder() ..urlSuffix = 'hello' ..deliveryType = 'authenticated')
             .generate('test');
         assert('https://test123-res.cloudinary.com/authenticated_images/test/hello' == actual);
       });
       test('Test using url suffix for private images produce valid url', () {
-        var actual = cloudinaryPrivateCdn.image(options: ImageBuilder() ..urlSuffix = 'hello' ..deliveryType = 'private')
+        var actual = cloudinaryPrivateCdn.image(ImageBuilder() ..urlSuffix = 'hello' ..deliveryType = 'private')
             .generate('test');
         assert('https://test123-res.cloudinary.com/private_images/test/hello' == actual);
       });
@@ -258,25 +258,25 @@ void main() {
         // assert('https://test123-res.cloudinary.com/a_0/test' == actual);
       });
 
-      test('Test use root path wiht url suffix and private cdn produce valid url', () {
-        var actual = cloudinaryPrivateCdnUseRootPath.image(options: ImageBuilder() ..urlSuffix = 'hello').generate('test');
+      test('Test use root path with url suffix and private cdn produce valid url', () {
+        var actual = cloudinaryPrivateCdnUseRootPath.image(ImageBuilder() ..urlSuffix = 'hello').generate('test');
         assert('https://test123-res.cloudinary.com/test/hello' == actual);
       });
 
       test('test throw when use root path and facebook', () {
-        expect(() => cloudinaryPrivateCdnUseRootPath.image(options: ImageBuilder() ..deliveryType = 'facebook').generate('test'),
+        expect(() => cloudinaryPrivateCdnUseRootPath.image(ImageBuilder() ..deliveryType = 'facebook').generate('test'),
             throwsArgumentError);
       });
 
       test('test throw when use root path and raw asset type', () {
-        expect(() => cloudinaryPrivateCdnUseRootPath.raw(options: AssetBuilder() ..deliveryType = 'facebook').generate('test'),
+        expect(() => cloudinaryPrivateCdnUseRootPath.raw(AssetBuilder() ..deliveryType = 'facebook').generate('test'),
             throwsArgumentError);
       });
     });
 
     test('Test http escape produce valid url', () {
       var cloudinary = Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
-      var result = cloudinary.image(options: ImageBuilder() ..deliveryType = 'youtube')
+      var result = cloudinary.image(ImageBuilder() ..deliveryType = 'youtube')
           .generate('http://www.youtube.com/watch?v=d9NF2edxy-M');
       assert('https://res.cloudinary.com/test123/image/youtube/http://www.youtube.com/watch%3Fv%3Dd9NF2edxy-M' == result);
     });
@@ -294,7 +294,7 @@ void main() {
         var result = cloudinaryForceVersionFalse.image().generate('folder/test');
         assert('${defaultUploadPath}folder/test' == result);
 
-        result = cloudinaryForceVersionFalse.image(options: ImageBuilder() ..version = '1234').generate('folder/test');
+        result = cloudinaryForceVersionFalse.image(ImageBuilder() ..version = '1234').generate('folder/test');
         assert('${defaultUploadPath}v1234/folder/test' == result);
 
         // should add version if no value specified for forceVersion:
@@ -303,7 +303,7 @@ void main() {
         assert('${defaultUploadPath}v1/folder/test' == result);
 
         // should not use v1 if explicit version is passed
-        result = cloudinaryForceVersionFalse.image(options: ImageBuilder() ..version = '1234').generate('folder/test');
+        result = cloudinaryForceVersionFalse.image(ImageBuilder() ..version = '1234').generate('folder/test');
         assert('${defaultUploadPath}v1234/folder/test' == result);
       });
 
@@ -341,7 +341,7 @@ void main() {
 
       var expected = '${defaultUploadPath}s----SjmNDA--/v1234/image.jpg';
 
-      var actual = cloudinarySignedUrl.image(options: ImageBuilder() ..version = '1234').generate('image.jpg');
+      var actual = cloudinarySignedUrl.image(ImageBuilder() ..version = '1234').generate('image.jpg');
       assert(expected == actual);
 
       //TODO: Implement the following test using transformation

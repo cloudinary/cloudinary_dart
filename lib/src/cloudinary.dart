@@ -31,7 +31,7 @@ class Cloudinary {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
   }
 
-  Asset raw({AssetBuilder? options}) {
+  Asset raw([AssetBuilder? options]) {
     var builder = AssetBuilder()
       ..cloudConfig = config.cloudConfig
       ..urlConfig = config.urlConfig
@@ -42,7 +42,7 @@ class Cloudinary {
     return Asset.withBuilder(builder);
   }
 
-  Image image({ImageBuilder? options}) {
+  Image image([ImageBuilder? options]) {
     var builder = ImageBuilder()
       ..cloudConfig = config.cloudConfig
       ..urlConfig = config.urlConfig
@@ -53,7 +53,7 @@ class Cloudinary {
     return Image.withBuilder(builder);
   }
 
-  Video video({VideoBuilder? options}) {
+  Video video([VideoBuilder? options]) {
     var builder = VideoBuilder()
       ..cloudConfig = config.cloudConfig
       ..urlConfig = config.urlConfig
