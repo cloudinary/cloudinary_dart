@@ -42,10 +42,6 @@ class Cloudinary {
     return Asset.withBuilder(builder);
   }
 
-  void raw2({ void Function()? onSuccess}) {
-
-  }
-
   Image image([ImageBuilder? options]) {
     var builder = ImageBuilder()
       ..cloudConfig = config.cloudConfig
