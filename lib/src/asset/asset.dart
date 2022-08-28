@@ -70,7 +70,7 @@ abstract class BaseAsset {
       String source,
       Format? extension,
       String urlSuffix) {
-    var mutableSource = source.cldMergeSlashedInUrl();
+    var mutableSource = source.cldMergeSlashesInUrl();
     String sourceToSign;
     if (mutableSource.cldIsHttpUrl) {
       mutableSource = mutableSource.cldSmartUrlEncode();
@@ -242,7 +242,7 @@ abstract class BaseAsset {
       var toSign = <String>[
         if (transformationString != null) transformationString,
         if (sourceToSign != null) sourceToSign
-      ].join('/').cldRemoveStartingChars('/').cldMergeSlashedInUrl();
+      ].join('/').cldRemoveStartingChars('/').cldMergeSlashesInUrl();
       (cloudConfig.apiSecret != null) ? cloudConfig.apiSecret! : "";
       var hashString = hash(toSign + cloudConfig.apiSecret!, signatureAlgorithm);
       if (hashString != null) {
@@ -272,7 +272,7 @@ abstract class BaseAsset {
       transformationString,
       mutableVersion,
       mutableSource
-    ].join('/').cldMergeSlashedInUrl();
+    ].join('/').cldMergeSlashesInUrl();
 
     //AuthToken
     if ((urlConfig.signUrl != null && urlConfig.signUrl == true) &&
