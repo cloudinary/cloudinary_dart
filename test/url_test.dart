@@ -212,7 +212,7 @@ void main() {
     });
 
     test('Test url suffix without sign produce valid URL', () {
-      var pattern = RegExp(r's--[0-9A-Za-z_-]{8}--');
+      var pattern = RegExp(r's--[\dA-Za-z_-]{8}--');
       String url = cloudinarySignedUrl.image(ImageBuilder() ..extension = Format.jpg()).generate('test')!;
       var matcher = pattern.allMatches(url);
       var expectedSignature = url.substring(matcher.first.start, matcher.first.end);
@@ -225,13 +225,11 @@ void main() {
 
     group('Test url suffix for different asset types', () {
       test('Test using url suffix for raw uploads produce valid url', () {
-        var builder = AssetBuilder();
         var actual = cloudinaryPrivateCdn.raw(AssetBuilder() ..urlSuffix = 'hello').generate('test');
         assert('https://test123-res.cloudinary.com/files/test/hello' == actual);
       });
 
       test('Test using url suffix for video uploads produce valid url', () {
-        var builder = VideoBuilder();
         var actual = cloudinaryPrivateCdn.video(VideoBuilder() ..urlSuffix = 'hello').generate('test');
         assert('https://test123-res.cloudinary.com/videos/test/hello' == actual);
       });
