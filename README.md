@@ -1,4 +1,4 @@
-Cloudinary Kotlin SDK
+Cloudinary Dart SDK
 =========================
 [![Build Status](https://api.travis-ci.com/cloudinary/cloudinary_dart.svg?branch=master)](https://app.travis-ci.com/github/cloudinary/cloudinary_dart)
 ## About
