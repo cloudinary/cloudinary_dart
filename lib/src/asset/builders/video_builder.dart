@@ -1,0 +1,25 @@
+import '../../config/cloud_config.dart';
+import '../../config/url_config.dart';
+import '../format.dart';
+import '../video.dart';
+import 'general_asset_builder.dart';
+
+class VideoBuilder extends GeneralAssetBuilder {
+
+  VideoBuilder({CloudConfig? cloudConfig,
+    UrlConfig? urlConfig,
+    String? version,
+    String? publicId,
+    Format? extension,
+    String? urlSuffix,
+    String? assetType,
+    String? deliveryType})
+      : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix, assetType, deliveryType) {
+    super.assetType = 'video';
+  }
+
+  @override
+  Video build() {
+    return Video.withBuilder(this);
+  }
+}

@@ -34,7 +34,7 @@ mixin IUrlConfig {
 
 class UrlConfig with IUrlConfig {
   UrlConfig.withMap(Map<String, dynamic> params) {
-    cname = params[cnameKey].toString();
+    cname = (params[cnameKey] != null) ? params[cnameKey].toString() : null;
     secureDistribution = params[secureDistributionKey].toString();
     privateCdn = params[privateCdnKey];
     signUrl = params[signUrlKey];
