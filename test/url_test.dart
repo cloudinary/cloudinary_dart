@@ -1,6 +1,7 @@
 import 'package:cloudinary_dart/src/analytics.dart';
 import 'package:cloudinary_dart/src/asset/asset.dart';
 import 'package:cloudinary_dart/src/asset/builders/asset_builder.dart';
+import 'package:cloudinary_dart/src/asset/builders/general_asset_builder.dart';
 import 'package:cloudinary_dart/src/asset/builders/image_builder.dart';
 import 'package:cloudinary_dart/src/asset/builders/video_builder.dart';
 import 'package:cloudinary_dart/src/asset/format.dart';
@@ -206,8 +207,8 @@ void main() {
     });
 
     test('Test URL suffix with format produce valid URL', () {
-      //Show builder pattern alternative method
-      var actual = cloudinaryPrivateCdn.image(ImageBuilder().setUrlSuffix('hello').setExtension(Format.jpg())).generate('test');
+      //Show builder creation using constructor
+      var actual = cloudinaryPrivateCdn.image(ImageBuilder(urlSuffix: 'hello', extension: Format.jpg())).generate('test');
       assert('https://test123-res.cloudinary.com/images/test/hello.jpg' == actual);
     });
 
@@ -217,7 +218,6 @@ void main() {
       var matcher = pattern.allMatches(url);
       var expectedSignature = url.substring(matcher.first.start, matcher.first.end);
       var actual = cloudinaryPrivateCdnSignUrl.image(ImageBuilder() ..urlSuffix = 'hello' ..extension = Format.jpg()).generate('test');
-
       assert('https://test123-res.cloudinary.com/images/$expectedSignature/test/hello.jpg' == actual);
 
       //TODO: Implement the following test with angle

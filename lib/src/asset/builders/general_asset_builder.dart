@@ -5,8 +5,8 @@ import '../format.dart';
 
 abstract class GeneralAssetBuilder {
   //config
-  late CloudConfig cloudConfig;
-  late UrlConfig urlConfig;
+   CloudConfig? cloudConfig;
+   UrlConfig? urlConfig = UrlConfig();
 
   //fields
   String? version;
@@ -14,52 +14,10 @@ abstract class GeneralAssetBuilder {
 
   Format? extension;
   String? urlSuffix;
-  late String assetType;
+  String? assetType;
   String? deliveryType;
 
-  dynamic build() {
-    return Asset.withBuilder(this);
-  }
-
-  dynamic setCloudConfig(CloudConfig cloudConfig) {
-    this.cloudConfig = cloudConfig;
-    return this;
-  }
-
-  dynamic setUrlConfig(UrlConfig urlConfig) {
-    this.urlConfig = urlConfig;
-    return this;
-  }
-
-  dynamic setVersion(String version) {
-    this.version = version;
-    return this;
-  }
-
-  dynamic setPublicId(String publicId) {
-    this.publicId = publicId;
-    return this;
-  }
-
-  dynamic setUrlSuffix(String urlSuffix) {
-    this.urlSuffix = urlSuffix;
-    return this;
-  }
-
-  dynamic setExtension(Format extension) {
-    this.extension = extension;
-    return this;
-  }
-
-  dynamic setAssetType(String assetType) {
-    this.assetType = assetType;
-    return this;
-  }
-
-  dynamic setDeliveryType(String deliveryType) {
-    this.deliveryType = deliveryType;
-    return this;
-  }
+  GeneralAssetBuilder([this.cloudConfig, this.urlConfig, this.version, this.publicId, this.extension, this.urlSuffix, this.assetType, this.deliveryType]);
 
   void combineWith(GeneralAssetBuilder other) {
       version = other.version ?? version;
@@ -69,5 +27,9 @@ abstract class GeneralAssetBuilder {
       assetType = other.assetType;
       deliveryType = other.deliveryType ?? deliveryType;
   }
+
+   dynamic build() {
+     return Asset.withBuilder(this);
+   }
 }
 

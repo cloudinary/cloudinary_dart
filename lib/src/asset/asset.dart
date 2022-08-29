@@ -22,15 +22,13 @@ class Asset extends BaseAsset {
   Asset.withConfig(super.cloudConfig, super.urlConfig) : super.withConfig();
   Asset.withBuilder(super.builder) : super.withBuilder();
 
+  //TODO: Implement Transformation Builder
 //Transformation? _transformation = null;
 
 // String getTransformationString() {
 //   return _transformation.toString();
 // }
 
-// class Builder() {
-//
-// }
 }
 
 abstract class BaseAsset {
@@ -53,13 +51,13 @@ abstract class BaseAsset {
       this.extension,  this.urlSuffix, this.assetType, this.deliveryType);
 
   BaseAsset.withBuilder(GeneralAssetBuilder builder):
-        cloudConfig = builder.cloudConfig,
-        urlConfig = builder.urlConfig,
+        cloudConfig = builder.cloudConfig!,
+        urlConfig = builder.urlConfig!,
         version = builder.version,
         publicId = builder.publicId,
         extension = builder.extension,
         urlSuffix = builder.urlSuffix,
-        assetType = builder.assetType,
+        assetType = builder.assetType ?? defaultAssetType,
         deliveryType = builder.deliveryType;
 
   String getTransformationString() {
@@ -207,14 +205,15 @@ abstract class BaseAsset {
     var signature = "";
 
     var finalizedSource =
-        finalizeSource(mutableSource, extension, urlSuffix ?? "");
+    finalizeSource(mutableSource, extension, urlSuffix ?? "");
 
     mutableSource = finalizedSource.source;
     var sourceToSign = finalizedSource.sourceToSign;
 
     //Version
     var mutableVersion = version;
-    if ((urlConfig.forceVersion != null && urlConfig.forceVersion == true) &&
+    if ((urlConfig.forceVersion != null &&
+        urlConfig.forceVersion == true) &&
         sourceToSign.contains('/') &&
         !sourceToSign.cldHasVersionString() &&
         !httpSource &&
@@ -244,17 +243,21 @@ abstract class BaseAsset {
         if (sourceToSign != null) sourceToSign
       ].join('/').cldRemoveStartingChars('/').cldMergeSlashesInUrl();
       (cloudConfig.apiSecret != null) ? cloudConfig.apiSecret! : "";
-      var hashString = hash(toSign + cloudConfig.apiSecret!, signatureAlgorithm);
+      var hashString = hash(
+          toSign + cloudConfig.apiSecret!, signatureAlgorithm);
       if (hashString != null) {
         signature = base64.encode(hashString).safeBase64Encoding();
         signature =
-            's--${signature.substring(0, (urlConfig.longUrlSignature != null && urlConfig.longUrlSignature == true) ? 32 : 8)}--';
+        's--${signature.substring(0, (urlConfig.longUrlSignature != null &&
+            urlConfig.longUrlSignature == true) ? 32 : 8)}--';
       }
     }
 
     //Resource Type
-    var finalizedResourceType = finalizeResourceType(assetType, deliveryType,
-        urlSuffix, urlConfig.useRootPath ?? false, urlConfig.shorten ?? false);
+    var finalizedResourceType = finalizeResourceType(
+        assetType, deliveryType,
+        urlSuffix, urlConfig.useRootPath ?? false,
+        urlConfig.shorten ?? false);
 
     //Prefix
     var prefix = unsignedDownloadUrlPrefix(
@@ -278,7 +281,9 @@ abstract class BaseAsset {
     if ((urlConfig.signUrl != null && urlConfig.signUrl == true) &&
         cloudConfig.authToken != null &&
         cloudConfig.authToken != nullAutoToken) {
-      var token = cloudConfig.authToken?.generate(Uri.parse(url).path);
+      var token = cloudConfig.authToken?.generate(Uri
+          .parse(url)
+          .path);
       return '$url?$token';
     }
 
