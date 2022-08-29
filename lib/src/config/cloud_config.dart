@@ -14,7 +14,7 @@ mixin ICloudConfig {
   String? apiKey;
   String? apiSecret;
   String? oauthToken;
-  String? signatureAlgorithm = defaultSignatureAlgorithm;
+  String signatureAlgorithm = defaultSignatureAlgorithm;
   AuthToken? authToken;
 }
 
@@ -30,9 +30,10 @@ class CloudConfig with ICloudConfig {
     cloudName = params[cloudNameKey].toString();
     apiKey = params[apiKeyKey]?.toString();
     apiSecret = params[apiSecretKey]?.toString();
-    signatureAlgorithm = params[signatureAlgorithmKey]?.toString();
+    signatureAlgorithm = params[signatureAlgorithmKey]?.toString() ?? defaultSignatureAlgorithm;
     if (params[authTokenKey] != null) {
       authToken = AuthToken.withMap(params[authTokenKey]);
     }
   }
+
 }

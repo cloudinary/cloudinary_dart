@@ -9,6 +9,7 @@ const String startTimeKey = "start_time";
 const String expirationKey = "expiration";
 const String durationKey = "duration";
 
+var nullAutoToken = AuthToken.withParameters("", isNullableToken: true);
 const String _authTokenName = "__cld_token__";
 
 class AuthToken {
@@ -31,7 +32,10 @@ class AuthToken {
 
   String? get tokenName => _tokenName;
 
-  AuthToken.withParameters(String key, {this.startTime = 0, int duration = 0, String? tokenName, int expiration = 0, this.ip,  this.acl, bool isNullableToken = false}) {
+  AuthToken.withParameters(String key, {this.startTime = 0, int duration = 0,
+    String? tokenName, int expiration = 0,
+    this.ip,  this.acl,
+    bool isNullableToken = false}) {
     _key = key;
     _expiration = expiration;
     _duration = duration;
