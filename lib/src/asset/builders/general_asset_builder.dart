@@ -16,8 +16,9 @@ abstract class GeneralAssetBuilder {
   String? urlSuffix;
   String? assetType;
   String? deliveryType;
+  String? transformation;
 
-  GeneralAssetBuilder([this.cloudConfig, this.urlConfig, this.version, this.publicId, this.extension, this.urlSuffix, this.assetType, this.deliveryType]);
+  GeneralAssetBuilder([this.cloudConfig, this.urlConfig, this.version, this.publicId, this.extension, this.urlSuffix, this.assetType, this.deliveryType, this.transformation]);
 
   void combineWith(GeneralAssetBuilder other) {
       version = other.version ?? version;
@@ -26,6 +27,7 @@ abstract class GeneralAssetBuilder {
       urlSuffix = other.urlSuffix ?? urlSuffix;
       assetType = other.assetType;
       deliveryType = other.deliveryType ?? deliveryType;
+      transformation = other.transformation ?? transformation;
   }
 
    dynamic build() {

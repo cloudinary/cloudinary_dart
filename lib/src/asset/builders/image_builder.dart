@@ -14,8 +14,9 @@ class ImageBuilder extends GeneralAssetBuilder {
     Format? extension,
     String? urlSuffix,
     String? assetType,
-    String? deliveryType})
-      : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix, assetType, deliveryType) {
+    String? deliveryType,
+    String? transformation})
+      : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix, assetType, deliveryType, transformation) {
     super.assetType = 'image';
   }
 

@@ -4,4 +4,9 @@ class Image extends BaseAsset {
   @override
   final String assetType = assetTypeImage;
   Image.withBuilder(super.builder) : super.withBuilder();
+
+  @override
+  String getTransformationString() {
+    return transformation ?? "";
+  }
 }
