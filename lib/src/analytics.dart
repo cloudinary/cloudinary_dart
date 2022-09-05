@@ -38,13 +38,13 @@ class Analytics {
   String generateVersionString(List<String> versionArray) {
     var major = versionArray[0];
     var minor = versionArray[1];
-    String? patch;
+    String patch;
     if (versionArray.length > 2) {
       patch = versionArray[2];
     } else {
       patch = "";
     }
-    var versionString = patch!.padLeft(2,"0") + minor.padLeft(2, "0") + major.padLeft(2, "0");
+    var versionString = patch.padLeft(2,"0") + minor.padLeft(2, "0") + major.padLeft(2, "0");
     var version = int.parse(versionString).toRadixString(2).padLeft(18, "0");
 
     var patchStr = "";
