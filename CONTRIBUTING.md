@@ -19,7 +19,7 @@ Please be aware that the library is used in a wide variety of environments and t
 ## Fixing a bug / Implementing a new feature
 
 - Follow the instructions detailed in [Code contribution](#code-contribution)
-- Open a new GitHub pull request
+- Open a new GitHub pull request.
 - Ensure the PR description clearly describes the bug / feature. Include relevant issue number if applicable.
 - Provide test code that covers the new code
 
