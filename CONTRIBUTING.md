@@ -93,7 +93,7 @@ git push origin my-feature-branch
 
 #### Make a Pull Request
 
-Go to https://github.com/contributor/cloudinary_dart and select your feature branch. Click the 'Pull Request' button and fill out the form. Pull requests are normally reviewed within a few days.
+Go to https://github.com/cloudinary/cloudinary_dart/compare and select your feature branch. Click the 'Create pull request' button and fill out the form. Pull requests are normally reviewed within a few days.
 Ensure the PR description clearly describes the problem and solution. Include relevant issue number if applicable.
 
 #### Rebase
