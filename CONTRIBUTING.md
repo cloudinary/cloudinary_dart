@@ -29,7 +29,7 @@ When contributing code, either to fix a bug or to implement a new feature, pleas
 
 #### Fork the Project
 
-Fork [project on Github](https://github.com/cloudinary/cloudinary_dart) and check your copy.
+Fork the project on [GitHub](https://github.com/cloudinary/cloudinary_dart) and check your copy.
 
 #### Create a Topic Branch
 
