@@ -7,7 +7,7 @@ Contributions are welcome and greatly appreciated!
 - Make sure that the bug was not already reported by searching in GitHub under [Issues](https://github.com/cloudinary/cloudinary_dart) and the Cloudinary [Support forms](https://support.cloudinary.com).
 - If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/cloudinary/cloudinary_dart/issues/new).
   Be sure to include a **title and clear description**, as relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
-- If you require assistance in the implementation of cloudinary_dart please [submit a request](https://support.cloudinary.com/hc/en-us/requests/new) on Cloudinary's site.
+- If you need help using `cloudinary_dart` please [submit a request](https://support.cloudinary.com/hc/en-us/requests/new) on Cloudinary's site.
 
 ## Requesting a feature
 
@@ -19,7 +19,7 @@ Please be aware that the library is used in a wide variety of environments and t
 ## Fixing a bug / Implementing a new feature
 
 - Follow the instructions detailed in [Code contribution](#code-contribution)
-- Open a new GitHub pull request
+- Open a new GitHub pull request.
 - Ensure the PR description clearly describes the bug / feature. Include relevant issue number if applicable.
 - Provide test code that covers the new code
 
@@ -29,7 +29,7 @@ When contributing code, either to fix a bug or to implement a new feature, pleas
 
 #### Fork the Project
 
-Fork [project on Github](https://github.com/cloudinary/cloudinary_dart) and check your copy.
+Fork the project on [GitHub](https://github.com/cloudinary/cloudinary_dart) and check your copy.
 
 #### Create a Topic Branch
 
@@ -106,7 +106,7 @@ git rebase upstream/master
 git push origin my-feature-branch -f
 ```
 
-#### Check on Your Pull Request
+#### Check on your pull request
 
 Go back to your pull request after a few minutes and see whether it passed muster with Travis-CI. Everything should look green, otherwise - fix issues and amend your commit as described above.
 
