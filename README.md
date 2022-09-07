@@ -13,7 +13,6 @@ For the complete documentation, see the [Dart SDK Guide](https://cloudinary.com/
 - [Key Features](#key-features)
 - [Version Support](#Version-Support)
 - [Installation](#installation)
-  - [Import](#import)
 - [Usage](#usage)
     - [Setup](#Setup)
     - [Transform and Optimize Assets](#Transform-and-Optimize-Assets)
@@ -29,14 +28,9 @@ For the complete documentation, see the [Dart SDK Guide](https://cloudinary.com/
 ## Installation
 To use this SDK, add cloudinary as a [dependency in your pubspec.yaml file](https://flutter.dev/platform-plugins/).
 
-**Using Pub**
 ```yaml
 dependencies:
   cloudinary: ^0.0.1
-```
-### Import
-```dart
-import 'package:cloudinary/cloudinary.dart';
 ```
 
 ## Usage
