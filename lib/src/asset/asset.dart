@@ -244,8 +244,8 @@ abstract class BaseAsset {
         signatureAlgorithm = cloudConfig.signatureAlgorithm;
       }
       var toSign = <String>[
-        if (transformationString != null) transformationString,
-        if (sourceToSign != null) sourceToSign
+        transformationString,
+        sourceToSign
       ].join('/').cldRemoveStartingChars('/').cldMergeSlashesInUrl();
       (cloudConfig.apiSecret != null) ? cloudConfig.apiSecret! : "";
       var hashString = hash(

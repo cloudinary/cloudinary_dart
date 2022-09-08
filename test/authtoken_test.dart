@@ -1,16 +1,11 @@
 import 'package:cloudinary_dart/src/authtoken.dart';
 import 'package:cloudinary_dart/src/cloudinary.dart';
-import 'package:cloudinary_dart/src/config/cloudinary_config.dart';
-import 'package:cloudinary_dart/src/config/url_config.dart';
 import 'package:test/test.dart';
 import 'dart:io';
 
 import 'tests_utils.dart';
 void main() {
   const key = "00112233FF99";
-  AuthToken authToken = AuthToken.withParameters(key, duration: 300, startTime: 11111111);
-  // CloudinaryConfig _tempConfig = CloudinaryConfig.fromUri("cloudinary://a:b@test123?analytics=false");
-  // Cloudinary cloudinary = Cloudinary.withConfiguration(_tempConfig);
 
 
   group('Authtoken Tests', ()
@@ -69,7 +64,6 @@ void main() {
           cookieToken);
     });
     test("Should successfully ignore url if acl is provided", () {
-      var user = "footbar";
       var token = AuthToken.withParameters(key, duration: 300, acl: "/*/t_user", startTime: 222222222);
       var cookieToken = token.generate();
       var aclToken = AuthToken.withParameters(key, duration: 300, acl: "/*/t_user", startTime: 222222222);
