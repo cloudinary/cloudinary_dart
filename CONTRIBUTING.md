@@ -14,24 +14,24 @@ Contributions are welcome and greatly appreciated!
 We would love to receive your requests!
 Please be aware that the library is used in a wide variety of environments and that some features may not be applicable to all users.
 
-- Open a GitHub [issue](https://github.com/cloudinary/cloudinary_dart) describing the benefits (and possible drawbacks) of the requested feature
+- Open a GitHub [issue](https://github.com/cloudinary/cloudinary_dart) describing the benefits (and possible drawbacks) of the requested feature.
 
 ## Fixing a bug / Implementing a new feature
 
-- Follow the instructions detailed in [Code contribution](#code-contribution)
+- Follow the instructions detailed in [Code contribution](#code-contribution).
 - Open a new GitHub pull request.
 - Ensure the PR description clearly describes the bug / feature. Include relevant issue number if applicable.
-- Provide test code that covers the new code
+- Provide test code that covers the new code.
 
 ## Code contribution
 
 When contributing code, either to fix a bug or to implement a new feature, please follow these guidelines:
 
-#### Fork the Project
+#### Fork the project
 
 Fork the project on [GitHub](https://github.com/cloudinary/cloudinary_dart) and check your copy.
 
-#### Create a Topic Branch
+#### Create a topic branch
 
 Make sure your fork is up-to-date and create a topic branch for your feature or bug fix.
 
@@ -51,13 +51,13 @@ git push origin my-feature-branch -f
 ```
 
 
-#### Write Tests
+#### Write tests
 
 Try to write a test that reproduces the problem you're trying to fix or describes a feature you would like to build.
 
 We definitely appreciate pull requests that highlight or reproduce a problem, even without a fix.
 
-#### Write Code
+#### Write code
 
 Implement your feature or bug fix.
 Follow the following Dart coding standards
@@ -108,12 +108,12 @@ git push origin my-feature-branch -f
 
 #### Check on your pull request
 
-Go back to your pull request after a few minutes and see whether it passed muster with Travis-CI. Everything should look green, otherwise - fix issues and amend your commit as described above.
+Go back to your pull request after a few minutes and see whether it passed muster with Travis-CI. Everything should look green. Otherwise, fix issues and amend your commit as described above.
 
-#### Be Patient
+#### Be patient
 
-It's likely that your change will not be merged and that the nitpicky maintainers will ask you to do more, or fix seemingly benign problems. Hang on there!
+It's likely that your change won't merged and that the nitpicky moderators will ask you to do more, or to fix seemingly minor issues. Hang in there!
 
-#### Thank You
+#### Thank you
 
 Please do know that we really appreciate and value your time and work. We love you, really.
