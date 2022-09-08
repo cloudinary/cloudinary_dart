@@ -1,5 +1,4 @@
 import 'package:cloudinary_dart/src/authtoken.dart';
-import 'dart:convert';
 
 const String cloudNameKey = 'cloud_name';
 const String apiKeyKey = "api_key";

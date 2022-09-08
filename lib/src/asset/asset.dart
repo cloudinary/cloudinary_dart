@@ -22,7 +22,12 @@ class Asset extends BaseAsset {
   Asset.withConfig(super.cloudConfig, super.urlConfig) : super.withConfig();
   Asset.withBuilder(super.builder) : super.withBuilder();
 
-  //TODO: Implement Transformation Builder
+  @override
+  String getTransformationString() {
+    return transformation ?? "";
+  }
+  //TODO: Implement Transformation Class
+
 //Transformation? _transformation = null;
 
 // String getTransformationString() {
@@ -44,6 +49,7 @@ abstract class BaseAsset {
   String? urlSuffix;
   String assetType = defaultAssetType;
   String? deliveryType;
+  String? transformation;
 
   BaseAsset.withConfig(this.cloudConfig, this.urlConfig);
 
@@ -58,11 +64,10 @@ abstract class BaseAsset {
         extension = builder.extension,
         urlSuffix = builder.urlSuffix,
         assetType = builder.assetType ?? defaultAssetType,
-        deliveryType = builder.deliveryType;
+        deliveryType = builder.deliveryType,
+        transformation = builder.transformation;
 
-  String getTransformationString() {
-    return "";
-  }
+  String getTransformationString();
 
   FinalizedSource finalizeSource(
       String source,
@@ -239,8 +244,8 @@ abstract class BaseAsset {
         signatureAlgorithm = cloudConfig.signatureAlgorithm;
       }
       var toSign = <String>[
-        if (transformationString != null) transformationString,
-        if (sourceToSign != null) sourceToSign
+        transformationString,
+        sourceToSign
       ].join('/').cldRemoveStartingChars('/').cldMergeSlashesInUrl();
       (cloudConfig.apiSecret != null) ? cloudConfig.apiSecret! : "";
       var hashString = hash(
