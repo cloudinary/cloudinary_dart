@@ -5,7 +5,7 @@ Cloudinary Dart SDK
 The Cloudinary Dart SDK allows you to quickly and easily integrate your application with Cloudinary.
 Effortlessly optimize and transform your cloud's assets.
 
-### Additional documentation
+### Note
 This Readme provides basic installation and usage information.
 For the complete documentation, see the [Dart SDK Guide](https://cloudinary.com/documentation/kotlin_integration).
 
