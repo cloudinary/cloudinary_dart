@@ -96,16 +96,6 @@ git push origin my-feature-branch
 Go to https://github.com/cloudinary/cloudinary_dart/compare and select your feature branch. Click the 'Create pull request' button and fill out the form. Pull requests are normally reviewed within a few days.
 Ensure the PR description clearly describes the problem and solution. Include relevant issue number if applicable.
 
-#### Rebase
-
-If you've been working on a change for a while, rebase with upstream/master.
-
-```
-git fetch upstream
-git rebase upstream/master
-git push origin my-feature-branch -f
-```
-
 #### Check on your pull request
 
 Go back to your pull request after a few minutes and see whether it passed muster with Travis-CI. Everything should look green. Otherwise, fix issues and amend your commit as described above.
