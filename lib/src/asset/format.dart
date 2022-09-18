@@ -107,6 +107,10 @@ class Format {
     return Format('pdf');
   }
 
+  static png() {
+    return Format('png');
+  }
+
   static spd() {
     return Format('psd');
   }

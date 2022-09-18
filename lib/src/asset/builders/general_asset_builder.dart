@@ -20,7 +20,7 @@ abstract class GeneralAssetBuilder {
 
   GeneralAssetBuilder([this.cloudConfig, this.urlConfig, this.version, this.publicId, this.extension, this.urlSuffix, this.assetType, this.deliveryType, this.transformation]);
 
-  void combineWith(GeneralAssetBuilder other) {
+  void copyWith(GeneralAssetBuilder other) {
       version = other.version ?? version;
       publicId = other.publicId ?? publicId;
       extension = other.extension ?? extension;

@@ -37,7 +37,7 @@ class Cloudinary {
       ..urlConfig = config.urlConfig
       ..assetType = 'raw';
     if (options != null) {
-      builder.combineWith(options);
+      builder.copyWith(options);
     }
     return Asset.withBuilder(builder);
   }
@@ -48,7 +48,7 @@ class Cloudinary {
       ..urlConfig = config.urlConfig
       ..assetType = 'image';
     if (options != null) {
-      builder.combineWith(options);
+      builder.copyWith(options);
     }
     return Image.withBuilder(builder);
   }
@@ -59,7 +59,7 @@ class Cloudinary {
       ..urlConfig = config.urlConfig
       ..assetType = 'video';
     if (options != null) {
-      builder.combineWith(options);
+      builder.copyWith(options);
     }
     return Video.withBuilder(builder);
   }
