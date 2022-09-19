@@ -1,3 +1,5 @@
+import 'package:cloudinary_dart/src/transformation/common.dart';
+
 extension StringManipulations on String? {
   bool get isNullOrBlank => (this == null) ? true : this!.trim().isEmpty;
 }
@@ -100,5 +102,13 @@ extension StringManipulation on String {
       }
     }
     return newString;
+  }
+
+  String joinWithValues(List<dynamic> args, {String separator = defaultValuesSeparator}) {
+    final List<dynamic> noNullList = args.where((element) => element != null).toList();
+    if(noNullList.isEmpty) {
+      return this;
+    }
+    return "${this}$separator${noNullList.map((e) => e.toString()).toList().join(separator)}";
   }
 }

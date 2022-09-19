@@ -23,5 +23,21 @@ void main() {
 
     cldAssert("fl_any_format,q_auto", Delivery.quality(Quality.auto(), options: QualityBuilder()..anyFormat(true)));
   });
+
+  group('Test format class', () {
+    test('Test format syntax successful', () {
+      cldAssert("f_png", Delivery.formatWithBuilder(Format.png()));
+    });
+
+    test('Test format syntax successful with progressive option', () {
+      cldAssert("f_jpg,fl_progressive:semi", Delivery.formatWithBuilder(Format.jpg(), options: FormatBuilder().progressive(Progressive.semi())));
+    });
+
+    test('Test format syntax with options', () {
+      cldAssert("f_jpg,fl_lossy,fl_preserve_transparency,fl_progressive,fl_ignore_mask_channels",
+          Delivery.formatWithBuilder(Format.jpg(), options: FormatBuilder().lossy().progressive(Progressive.progressive()).preserveTransparency().ignoreMasksChannel())
+      );
+    });
+  });
 }
 
