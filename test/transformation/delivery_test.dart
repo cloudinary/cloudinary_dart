@@ -26,16 +26,16 @@ void main() {
 
   group('Test format class', () {
     test('Test format syntax successful', () {
-      cldAssert("f_png", Delivery.formatWithBuilder(Format.png()));
+      cldAssert("f_png", Delivery.formatWithOptions(Format.png()));
     });
 
     test('Test format syntax successful with progressive option', () {
-      cldAssert("f_jpg,fl_progressive:semi", Delivery.formatWithBuilder(Format.jpg(), options: FormatBuilder().progressive(Progressive.semi())));
+      cldAssert("f_jpg,fl_progressive:semi", Delivery.formatWithOptions(Format.jpg(), options: FormatBuilder().progressive(Progressive.semi())));
     });
 
     test('Test format syntax with options', () {
       cldAssert("f_jpg,fl_lossy,fl_preserve_transparency,fl_progressive,fl_ignore_mask_channels",
-          Delivery.formatWithBuilder(Format.jpg(), options: FormatBuilder().lossy().progressive(Progressive.progressive()).preserveTransparency().ignoreMasksChannel())
+          Delivery.formatWithOptions(Format.jpg(), options: FormatBuilder().lossy().progressive(Progressive.progressive()).preserveTransparency().ignoreMasksChannel())
       );
     });
   });
