@@ -1,5 +1,5 @@
 name: cloudinary_dart
-description: Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline. Upload images to the cloud. Automatically perform smart image resizing, cropping and conversion without installing any complex software. Integrate Facebook or Twitter profile image extraction in a snap, in any dimension and style to match your website’s graphics requirements. Images are seamlessly delivered through a fast CDN, and much much more. This Dart library allows to easily integrate with Cloudinary.
+description: Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline. Upload images to the cloud. Automatically perform smart image resizing, cropping and conversion without installing any complex software, and much much more.
 version: 0.0.1
 homepage: https://www.cloudinary.com
 repository: https://github.com/cloudinary/cloudinary_dart
