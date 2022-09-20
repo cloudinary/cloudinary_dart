@@ -1,8 +1,8 @@
 import 'package:cloudinary_dart/extensions/string_extension.dart';
 import 'package:cloudinary_dart/src/config/cloud_config.dart';
 import 'package:cloudinary_dart/src/config/url_config.dart';
-class CloudinaryConfig {
 
+class CloudinaryConfig {
   CloudConfig cloudConfig;
   UrlConfig urlConfig;
 
@@ -38,16 +38,17 @@ class CloudinaryConfig {
 
     params[privateCdnKey] = !uri.path.isNullOrBlank;
     params[secureDistributionKey] = uri.path;
-    if(uri.query.isNotEmpty) {
+    if (uri.query.isNotEmpty) {
       _updateFromQuery(params, uri.queryParameters);
     }
 
     return params;
   }
 
-  static void _updateFromQuery(Map<String, dynamic> params, Map<String, String> map) {
+  static void _updateFromQuery(
+      Map<String, dynamic> params, Map<String, String> map) {
     map.forEach((key, value) {
-      if(_isNestedKey(key)) {
+      if (_isNestedKey(key)) {
         _putNestedValue(params, key, value);
       } else {
         params[key] = value;
@@ -55,19 +56,19 @@ class CloudinaryConfig {
     });
   }
 
-
   static bool _isNestedKey(String key) {
     return RegExp(r'\w+\[\w+]').hasMatch(key);
   }
 
-  static void _putNestedValue(Map<String, dynamic> params, String key, String value) {
+  static void _putNestedValue(
+      Map<String, dynamic> params, String key, String value) {
     var chain = key.split(RegExp(r'[\[\]]+'));
     var outer = params;
     var innerKey = chain[0];
     var i = 0;
     while (i < chain.length - 2) {
       Map<String, dynamic>? inner = outer[innerKey];
-      if(inner == null) {
+      if (inner == null) {
         inner = {};
         outer[innerKey] = inner;
       }

@@ -1,7 +1,6 @@
 import 'package:cloudinary_dart/src/authtoken.dart';
 
 class TestUtils {
-
   static bool compareAuthToken(AuthToken? first, AuthToken? second) {
     if (first != null && second != null) {
       if (first.tokenName != second.tokenName) return false;
