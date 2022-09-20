@@ -8,10 +8,11 @@ import '../tests_utils.dart';
 void main() {
   test('Test successful quality formatting', () {
     cldAssert("q_100", Delivery.quality(100));
-    cldAssert("q_100:420", Delivery.quality(100, options: QualityBuilder().chromaSubSampling(ChromaSubSampling.chroma420())));
+    cldAssert("q_100:420", Delivery.quality(100, options: QualityBuilder().setChromaSubSampling(ChromaSubSampling.chroma420())));
+    cldAssert("q_100:420", Delivery.quality(100, options: QualityBuilder() ..chromaSubSampling = ChromaSubSampling.chroma420()));
     cldAssert("q_auto", Delivery.quality(Quality.auto()));
     cldAssert("q_auto:low", Delivery.quality(Quality.autoLow()));
-    cldAssert("q_auto:low:444", Delivery.quality(Quality.autoLow(), options: QualityBuilder().chromaSubSampling(ChromaSubSampling.chroma444())));
+    cldAssert("q_auto:low:444", Delivery.quality(Quality.autoLow(), options: QualityBuilder().setChromaSubSampling(ChromaSubSampling.chroma444())));
     cldAssert("q_70:qmax_80", Delivery.quality(70, options: QualityBuilder().quantization(80)));
     cldAssert("q_jpegmini:0", Delivery.quality(Quality.jpegminiBest()));
     cldAssert("q_jpegmini:1", Delivery.quality(Quality.jpegminiHigh()));
@@ -20,8 +21,7 @@ void main() {
 
   test('Test quality with any format parameter', () {
     cldAssert("fl_any_format,q_auto", Delivery.quality(Quality.auto(), options: QualityBuilder(anyFormat: true)));
-
-    cldAssert("fl_any_format,q_auto", Delivery.quality(Quality.auto(), options: QualityBuilder()..anyFormat(true)));
+    cldAssert("fl_any_format,q_auto", Delivery.quality(Quality.auto(), options: QualityBuilder()..anyFormat = true));
   });
 
   group('Test format class', () {
@@ -30,12 +30,15 @@ void main() {
     });
 
     test('Test format syntax successful with progressive option', () {
-      cldAssert("f_jpg,fl_progressive:semi", Delivery.formatWithOptions(Format.jpg(), options: FormatBuilder().progressive(Progressive.semi())));
+      cldAssert("f_jpg,fl_progressive:semi", Delivery.formatWithOptions(Format.jpg(), options: FormatBuilder().setProgressive(Progressive.semi())));
     });
 
     test('Test format syntax with options', () {
       cldAssert("f_jpg,fl_lossy,fl_preserve_transparency,fl_progressive,fl_ignore_mask_channels",
-          Delivery.formatWithOptions(Format.jpg(), options: FormatBuilder().lossy().progressive(Progressive.progressive()).preserveTransparency().ignoreMasksChannel())
+          Delivery.formatWithOptions(Format.jpg(), options: FormatBuilder().setLossy().setProgressive(Progressive.progressive()).setPreserveTransparency().setIgnoreMaskChannels())
+      );
+      cldAssert("f_jpg,fl_lossy,fl_preserve_transparency,fl_progressive,fl_ignore_mask_channels",
+          Delivery.formatWithOptions(Format.jpg(), options: FormatBuilder()..lossy = true ..progressive = Progressive.progressive() ..preserveTransparency = true ..ignoreMaskChannels = true)
       );
     });
   });

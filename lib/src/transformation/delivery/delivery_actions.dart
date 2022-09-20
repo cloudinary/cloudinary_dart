@@ -25,40 +25,40 @@ class QualityAction extends Delivery {
 class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
 
   dynamic level;
-  bool _anyFormat = false;
-  ChromaSubSampling? _chromaSubSampling;
-  dynamic _quantization;
+  bool anyFormat = false;
+  ChromaSubSampling? chromaSubSampling;
+  dynamic quantization;
 
   QualityBuilder({this.level, bool anyFormat = false}) {
-    _anyFormat = anyFormat;
+    anyFormat = anyFormat;
   }
 
-  QualityBuilder quantization(dynamic quantization) {
-    _quantization = quantization;
+  QualityBuilder setQuantization(dynamic quantization) {
+    quantization = quantization;
     return this;
   }
 
-  QualityBuilder chromaSubSampling(ChromaSubSampling chromaSubSampling) {
-    _chromaSubSampling = chromaSubSampling;
+  QualityBuilder setChromaSubSampling(ChromaSubSampling chromaSubSampling) {
+    chromaSubSampling = chromaSubSampling;
     return this;
   }
 
-  QualityBuilder anyFormat([bool anyFormat = true]) {
-    _anyFormat = anyFormat;
+  QualityBuilder setAnyFormat([bool anyFormat = true]) {
+    anyFormat = anyFormat;
     return this;
   }
 
   @override
   QualityAction build() {
-      return QualityAction(level, chromaSubSampling: _chromaSubSampling, quantization: _quantization, anyFormat: _anyFormat);
+      return QualityAction(level, chromaSubSampling: chromaSubSampling, quantization: quantization, anyFormat: anyFormat);
   }
 
   @override
   void copyWith(QualityBuilder other) {
       level = other.level ?? level;
-      _chromaSubSampling = other._chromaSubSampling;
-      _quantization = other._quantization;
-      _anyFormat = other._anyFormat;
+      chromaSubSampling = other.chromaSubSampling;
+      quantization = other.quantization;
+      anyFormat = other.anyFormat;
   }
 }
 
@@ -105,52 +105,52 @@ class DeliveryFormat extends Delivery {
 
 class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
 
-  Format? _format;
-  bool? _lossy;
-  Progressive? _progressive;
-  bool? _preserveTransparency;
-  bool? _ignoreMaskChannels;
+  Format? format;
+  bool? lossy;
+  Progressive? progressive;
+  bool? preserveTransparency;
+  bool? ignoreMaskChannels;
 
   FormatBuilder({Format? format, bool? lossy, Progressive? progressive, bool? preserveTransparency, bool? ignoreMaskChannels}) {
-    _format = format;
-    _lossy = lossy;
-    _progressive = progressive;
-    _preserveTransparency = preserveTransparency;
-    _ignoreMaskChannels = ignoreMaskChannels;
+    format = format;
+    lossy = lossy;
+    progressive = progressive;
+    preserveTransparency = preserveTransparency;
+    ignoreMaskChannels = ignoreMaskChannels;
   }
 
-  FormatBuilder lossy({bool? lossy = true}) {
-    _lossy = lossy;
+  FormatBuilder setLossy({bool? lossy = true}) {
+    lossy = lossy;
     return this;
   }
 
-  FormatBuilder progressive(Progressive progressive) {
-    _progressive = progressive;
+  FormatBuilder setProgressive(Progressive progressive) {
+    progressive = progressive;
     return this;
   }
 
-  FormatBuilder preserveTransparency() {
-    _preserveTransparency = true;
+  FormatBuilder setPreserveTransparency() {
+    preserveTransparency = true;
     return this;
   }
 
-  FormatBuilder ignoreMasksChannel() {
-    _ignoreMaskChannels = true;
+  FormatBuilder setIgnoreMaskChannels() {
+    ignoreMaskChannels = true;
     return this;
   }
 
   @override
   DeliveryFormat build() {
-    return DeliveryFormat(_format, lossy: _lossy, progressive: _progressive, preserveTransparency: _preserveTransparency, ignoreMaskChannels: _ignoreMaskChannels);
+    return DeliveryFormat(format, lossy: lossy, progressive: progressive, preserveTransparency: preserveTransparency, ignoreMaskChannels: ignoreMaskChannels);
   }
 
   @override
   void copyWith(FormatBuilder other) {
-    _format = other._format ?? _format;
-    _lossy = other._lossy;
-    _progressive = other._progressive;
-    _preserveTransparency = other._preserveTransparency;
-    _ignoreMaskChannels = other._ignoreMaskChannels;
+    format = other.format ?? format;
+    lossy = other.lossy;
+    progressive = other.progressive;
+    preserveTransparency = other.preserveTransparency;
+    ignoreMaskChannels = other.ignoreMaskChannels;
   }
 }
 
