@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/src/authtoken.dart';
+import 'package:cloudinary_dart/auth_token.dart';
 
 const String cloudNameKey = 'cloud_name';
 const String apiKeyKey = "api_key";

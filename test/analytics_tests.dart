@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/src/Analytics.dart';
+import 'package:cloudinary_dart/analytics.dart';
 import 'package:test/test.dart';
 
 void main() {

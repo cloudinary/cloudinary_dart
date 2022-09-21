@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cloudinary_dart/extensions/string_extension.dart';
+import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 
 import 'cloudinary.dart';
 

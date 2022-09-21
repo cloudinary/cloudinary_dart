@@ -1,5 +1,5 @@
-import 'package:cloudinary_dart/src/cloudinary.dart';
-import 'package:cloudinary_dart/src/config/cloudinary_config.dart';
+import 'package:cloudinary_dart/cloudinary.dart';
+import 'package:cloudinary_dart/config/cloudinary_config.dart';
 import 'package:test/test.dart';
 
 void main() {

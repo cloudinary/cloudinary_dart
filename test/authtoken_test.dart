@@ -1,5 +1,5 @@
-import 'package:cloudinary_dart/src/authtoken.dart';
-import 'package:cloudinary_dart/src/cloudinary.dart';
+import 'package:cloudinary_dart/auth_token.dart';
+import 'package:cloudinary_dart/cloudinary.dart';
 import 'package:test/test.dart';
 import 'dart:io';
 

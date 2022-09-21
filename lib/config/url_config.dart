@@ -1,5 +1,5 @@
 import 'dart:core';
-import 'package:cloudinary_dart/extensions/bool_extension.dart';
+import 'package:cloudinary_dart/src/extensions/bool_extension.dart';
 
 const bool defaultSecure = true;
 const bool defaultForceVersion = true;
