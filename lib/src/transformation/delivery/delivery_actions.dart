@@ -29,22 +29,20 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   ChromaSubSampling? chromaSubSampling;
   dynamic quantization;
 
-  QualityBuilder({this.level, bool anyFormat = false}) {
-    anyFormat = anyFormat;
-  }
+  QualityBuilder({this.level, this.anyFormat = false});
 
   QualityBuilder setQuantization(dynamic quantization) {
-    quantization = quantization;
+    this.quantization = quantization;
     return this;
   }
 
   QualityBuilder setChromaSubSampling(ChromaSubSampling chromaSubSampling) {
-    chromaSubSampling = chromaSubSampling;
+    this.chromaSubSampling = chromaSubSampling;
     return this;
   }
 
   QualityBuilder setAnyFormat([bool anyFormat = true]) {
-    anyFormat = anyFormat;
+    this.anyFormat = anyFormat;
     return this;
   }
 
@@ -111,21 +109,15 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
   bool? preserveTransparency;
   bool? ignoreMaskChannels;
 
-  FormatBuilder({Format? format, bool? lossy, Progressive? progressive, bool? preserveTransparency, bool? ignoreMaskChannels}) {
-    format = format;
-    lossy = lossy;
-    progressive = progressive;
-    preserveTransparency = preserveTransparency;
-    ignoreMaskChannels = ignoreMaskChannels;
-  }
+  FormatBuilder({this.format, this.lossy, this.progressive, this.preserveTransparency, this.ignoreMaskChannels});
 
   FormatBuilder setLossy({bool? lossy = true}) {
-    lossy = lossy;
+    this.lossy = lossy;
     return this;
   }
 
   FormatBuilder setProgressive(Progressive progressive) {
-    progressive = progressive;
+    this.progressive = progressive;
     return this;
   }
 
