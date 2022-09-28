@@ -7,7 +7,6 @@ Effortlessly optimize and transform your cloud's assets.
 
 ### Note
 This Readme provides basic installation and usage information.
-For the complete documentation, see the [Dart SDK Guide](https://cloudinary.com/documentation/kotlin_integration).
 
 ## Table of Contents
 - [Key Features](#key-features)
