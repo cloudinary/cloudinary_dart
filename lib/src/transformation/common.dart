@@ -3,6 +3,13 @@ const defaultValuesSeparator = ":";
 const defaultComponentSeparator = "/";
 const paramSeparator = ",";
 
+class Param {
+  String key;
+  dynamic value;
+
+  Param(this.key, this.value);
+}
+
 abstract class Action {
   @override
   String toString() {
