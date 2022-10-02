@@ -11,19 +11,23 @@ class QualityAction extends Delivery {
   ChromaSubSampling? chromaSubSampling;
   bool anyFormat = false;
 
-  QualityAction(this.level, {this.chromaSubSampling, this.quantization, this.anyFormat = false});
+  QualityAction(this.level,
+      {this.chromaSubSampling, this.quantization, this.anyFormat = false});
 
   @override
   String toString() {
     var anyFormatStr = anyFormat ? "fl_any_format$paramSeparator" : "";
-    var quantizationStr = (quantization != null) ? "${defaultValuesSeparator}qmax_$quantization" : "";
-    var chromaSubSamplingStr = (chromaSubSampling != null) ? "$defaultValuesSeparator${chromaSubSampling.toString()}" : "";
+    var quantizationStr = (quantization != null)
+        ? "${defaultValuesSeparator}qmax_$quantization"
+        : "";
+    var chromaSubSamplingStr = (chromaSubSampling != null)
+        ? "$defaultValuesSeparator${chromaSubSampling.toString()}"
+        : "";
     return "${anyFormatStr}q_$level$chromaSubSamplingStr$quantizationStr";
   }
 }
 
 class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
-
   dynamic level;
   bool anyFormat = false;
   ChromaSubSampling? chromaSubSampling;
@@ -48,20 +52,22 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
 
   @override
   QualityAction build() {
-      return QualityAction(level, chromaSubSampling: chromaSubSampling, quantization: quantization, anyFormat: anyFormat);
+    return QualityAction(level,
+        chromaSubSampling: chromaSubSampling,
+        quantization: quantization,
+        anyFormat: anyFormat);
   }
 
   @override
   void copyWith(QualityBuilder other) {
-      level = other.level ?? level;
-      chromaSubSampling = other.chromaSubSampling;
-      quantization = other.quantization;
-      anyFormat = other.anyFormat;
+    level = other.level ?? level;
+    chromaSubSampling = other.chromaSubSampling;
+    quantization = other.quantization;
+    anyFormat = other.anyFormat;
   }
 }
 
 class ChromaSubSampling {
-
   String value;
 
   ChromaSubSampling(this.value);
@@ -69,7 +75,6 @@ class ChromaSubSampling {
   static ChromaSubSampling chroma444() => ChromaSubSampling("444");
 
   static ChromaSubSampling chroma420() => ChromaSubSampling("420");
-
 
   @override
   String toString() {
@@ -84,7 +89,11 @@ class DeliveryFormat extends Delivery {
   bool? _preserveTransparency;
   bool? _ignoreMaskChannels;
 
-  DeliveryFormat(this._format, {bool? lossy, Progressive? progressive, bool? preserveTransparency, bool? ignoreMaskChannels}) {
+  DeliveryFormat(this._format,
+      {bool? lossy,
+      Progressive? progressive,
+      bool? preserveTransparency,
+      bool? ignoreMaskChannels}) {
     _lossy = lossy;
     _progressive = progressive;
     _preserveTransparency = preserveTransparency;
@@ -94,22 +103,34 @@ class DeliveryFormat extends Delivery {
   @override
   String toString() {
     var lossyStr = (_lossy == true) ? "fl_lossy" : null;
-    var preserveTransparencyStr = (_preserveTransparency == true) ? "fl_preserve_transparency" : null;
-    var progressiveStr = (_progressive != null) ? _progressive.toString() : null;
-    var ignoreMaskChannelsStr = (_ignoreMaskChannels == true) ? "fl_ignore_mask_channels" : null;
-    return "f_$_format".joinWithValues([lossyStr, preserveTransparencyStr, progressiveStr, ignoreMaskChannelsStr], separator: paramSeparator);
+    var preserveTransparencyStr =
+        (_preserveTransparency == true) ? "fl_preserve_transparency" : null;
+    var progressiveStr =
+        (_progressive != null) ? _progressive.toString() : null;
+    var ignoreMaskChannelsStr =
+        (_ignoreMaskChannels == true) ? "fl_ignore_mask_channels" : null;
+    return "f_$_format".joinWithValues([
+      lossyStr,
+      preserveTransparencyStr,
+      progressiveStr,
+      ignoreMaskChannelsStr
+    ], separator: paramSeparator);
   }
 }
 
 class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
-
   Format? format;
   bool? lossy;
   Progressive? progressive;
   bool? preserveTransparency;
   bool? ignoreMaskChannels;
 
-  FormatBuilder({this.format, this.lossy, this.progressive, this.preserveTransparency, this.ignoreMaskChannels});
+  FormatBuilder(
+      {this.format,
+      this.lossy,
+      this.progressive,
+      this.preserveTransparency,
+      this.ignoreMaskChannels});
 
   FormatBuilder setLossy({bool? lossy = true}) {
     this.lossy = lossy;
@@ -133,7 +154,11 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
 
   @override
   DeliveryFormat build() {
-    return DeliveryFormat(format, lossy: lossy, progressive: progressive, preserveTransparency: preserveTransparency, ignoreMaskChannels: ignoreMaskChannels);
+    return DeliveryFormat(format,
+        lossy: lossy,
+        progressive: progressive,
+        preserveTransparency: preserveTransparency,
+        ignoreMaskChannels: ignoreMaskChannels);
   }
 
   @override

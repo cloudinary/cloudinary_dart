@@ -1,4 +1,3 @@
-
 const defaultValuesSeparator = ":";
 const defaultComponentSeparator = "/";
 const paramSeparator = ",";

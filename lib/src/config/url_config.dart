@@ -49,17 +49,17 @@ class UrlConfig with IUrlConfig {
 
   UrlConfig();
 
-  UrlConfig.withParameters(String? secureDistribution
-  , {bool? privateCdn
-  , bool? shorten
-  , bool? secureCdnSubdomain
-  , bool? useRootPath
-  , String? cname
-  , bool? secure = defaultSecure
-  , bool? signUrl
-  , bool? longUrlSignature
-  , bool? forceVersion = defaultForceVersion
-  , bool? analytics = defaultAnalytics}) {
+  UrlConfig.withParameters(String? secureDistribution,
+      {bool? privateCdn,
+      bool? shorten,
+      bool? secureCdnSubdomain,
+      bool? useRootPath,
+      String? cname,
+      bool? secure = defaultSecure,
+      bool? signUrl,
+      bool? longUrlSignature,
+      bool? forceVersion = defaultForceVersion,
+      bool? analytics = defaultAnalytics}) {
     this.secureDistribution = secureDistribution;
     this.privateCdn = privateCdn;
     this.shorten = shorten;

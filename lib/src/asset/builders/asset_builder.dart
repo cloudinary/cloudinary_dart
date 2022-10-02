@@ -5,17 +5,18 @@ import '../format.dart';
 import 'general_asset_builder.dart';
 
 class AssetBuilder extends GeneralAssetBuilder {
-
-  AssetBuilder({CloudConfig? cloudConfig,
-    UrlConfig? urlConfig,
-    String? version,
-    String? publicId,
-    Format? extension,
-    String? urlSuffix,
-    String? assetType,
-    String? deliveryType,
-    String? transformation})
-      : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix, assetType, deliveryType, transformation) {
+  AssetBuilder(
+      {CloudConfig? cloudConfig,
+      UrlConfig? urlConfig,
+      String? version,
+      String? publicId,
+      Format? extension,
+      String? urlSuffix,
+      String? assetType,
+      String? deliveryType,
+      String? transformation})
+      : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
+            assetType, deliveryType, transformation) {
     super.assetType = 'raw';
   }
 
@@ -24,4 +25,3 @@ class AssetBuilder extends GeneralAssetBuilder {
     return Asset.withBuilder(this);
   }
 }
-

@@ -1,5 +1,4 @@
 class Quality {
-
   List<String> values;
 
   /// Sets the quality level [values](Range 1 to 100).

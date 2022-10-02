@@ -5,17 +5,18 @@ import '../video.dart';
 import 'general_asset_builder.dart';
 
 class VideoBuilder extends GeneralAssetBuilder {
-
-  VideoBuilder({CloudConfig? cloudConfig,
-    UrlConfig? urlConfig,
-    String? version,
-    String? publicId,
-    Format? extension,
-    String? urlSuffix,
-    String? assetType,
-    String? deliveryType,
-    String? transformation})
-      : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix, assetType, deliveryType, transformation) {
+  VideoBuilder(
+      {CloudConfig? cloudConfig,
+      UrlConfig? urlConfig,
+      String? version,
+      String? publicId,
+      Format? extension,
+      String? urlSuffix,
+      String? assetType,
+      String? deliveryType,
+      String? transformation})
+      : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
+            assetType, deliveryType, transformation) {
     super.assetType = 'video';
   }
 
