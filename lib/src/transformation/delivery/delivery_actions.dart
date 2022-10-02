@@ -27,24 +27,49 @@ class QualityAction extends Delivery {
   }
 }
 
+/// Quality Builder
 class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   dynamic level;
   bool anyFormat = false;
   ChromaSubSampling? chromaSubSampling;
   dynamic quantization;
 
+  /// Controls the JPEG, WebP, GIF, JPEG XR and JPEG 2000 compression quality.
+  ///
+  /// Reducing the quality is a trade-off between visual quality and file size.
+  ///
+  /// Receives [dynamic] level The quality level. 1 is the lowest quality and 100 is the highest.
   QualityBuilder({this.level, this.anyFormat = false});
 
+  /// Controls the final quality by setting a maximum quantization percentage.
+  ///
+  /// see https://cloudinary.com/documentation/video_manipulation_and_delivery#control_the_quality_of_webm_transcoding
+  ///
+  /// Receives [dynamic] quantization level.
+  ///
+  /// Returns [QualityBuilder] object.
   QualityBuilder setQuantization(dynamic quantization) {
     this.quantization = quantization;
     return this;
   }
 
+  /// Adds an optional qualifier to control chroma subsampling.
+  ///
+  /// Chroma sub-sampling is a method of encoding images by implementing less resolution for chroma information
+  /// (colors) than for luma information (luminance), taking advantage of the human visual system's lower acuity for
+  /// color differences than for luminance.
+  ///
+  /// Receives [String] chromaSubSampling Chroma sub-sampling value.
+  ///
+  /// Returns [QualityBuilder] object.
   QualityBuilder setChromaSubSampling(ChromaSubSampling chromaSubSampling) {
     this.chromaSubSampling = chromaSubSampling;
     return this;
   }
 
+  /// Adds an optional qualifier to accept any format
+  ///
+  /// Receives [bool] for anyFormat default value: true
   QualityBuilder setAnyFormat([bool anyFormat = true]) {
     this.anyFormat = anyFormat;
     return this;
@@ -58,6 +83,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
         anyFormat: anyFormat);
   }
 
+  /// Builder copy function
   @override
   void copyWith(QualityBuilder other) {
     level = other.level ?? level;
