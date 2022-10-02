@@ -3,6 +3,12 @@ import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dar
 
 import '../common.dart';
 
+
+ /// Defines transformations for delivering your assets without changing the visual or audio experience
+ /// for the end user.
+ ///
+ /// **Learn more**: <a href=https://cloudinary.com/documentation/image_delivery_options target="_blank">
+ /// Media delivery</a>
 abstract class Delivery implements Action {
   static QualityAction quality(dynamic level, {QualityBuilder? options}) {
     var builder = QualityBuilder(level: level);
@@ -12,15 +18,30 @@ abstract class Delivery implements Action {
     return builder.build();
   }
 
+  /// Forces format conversion to the given format.
+  /// (Formerly known as fetch format)
+  ///
+  /// Receives a [DeliveryFormat] object with the relevant format type
+  /// Returns occupied [DeliveryFormat] object
   static DeliveryFormat format(DeliveryFormat format) {
     return format;
   }
 
+  /// Forces format conversion to the given format.
+  /// (Formerly known as fetch format)
+  ///
+  /// /// Receives a [String] object with the relevant format type
+  /// Returns occupied [DeliveryFormat] object
   static DeliveryFormat formatWithString(String value) {
     var builder = FormatBuilder(format: Format.custom(value));
     return builder.build();
   }
 
+  /// Forces format conversion to the given format.
+  /// (Formerly known as fetch format)
+  ///
+  /// Receives a [Format] object with the relevant format type and [FormatBuilder] with extra options
+  /// Returns occupied [DeliveryFormat] object
   static DeliveryFormat formatWithOptions(Format format, {FormatBuilder? options}) {
     var builder = FormatBuilder(format: format);
     if(options != null) {
