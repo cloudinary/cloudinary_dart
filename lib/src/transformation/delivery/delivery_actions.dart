@@ -163,16 +163,28 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
     return this;
   }
 
+
+  /// Applicable only for JPG file format
+  ///
+  /// Receives [Progressive], The mode to determine a specific progressive outcome.
+  ///
+  /// Returns [FormatBuilder]
   FormatBuilder setProgressive(Progressive progressive) {
     this.progressive = progressive;
     return this;
   }
 
+  /// Ensures that images with a transparency channel will be delivered in PNG format.
+  ///
+  /// Returns [FormatBuilder]
   FormatBuilder setPreserveTransparency() {
     preserveTransparency = true;
     return this;
   }
 
+  /// Ensures that an alpha channel is not applied to a TIFF image if it is a mask channel.
+  ///
+  /// Returns [FormatBuilder]
   FormatBuilder setIgnoreMaskChannels() {
     ignoreMaskChannels = true;
     return this;
@@ -187,6 +199,7 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
         ignoreMaskChannels: ignoreMaskChannels);
   }
 
+  /// Builder copy function
   @override
   void copyWith(FormatBuilder other) {
     format = other.format ?? format;
