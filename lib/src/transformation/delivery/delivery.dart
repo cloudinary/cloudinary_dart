@@ -3,13 +3,18 @@ import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dar
 
 import '../common.dart';
 
-
- /// Defines transformations for delivering your assets without changing the visual or audio experience
- /// for the end user.
- ///
- /// **Learn more**: <a href=https://cloudinary.com/documentation/image_delivery_options target="_blank">
- /// Media delivery</a>
+/// Defines transformations for delivering your assets without changing the visual or audio experience
+/// for the end user.
+///
+/// **Learn more**: <a href=https://cloudinary.com/documentation/image_delivery_options target="_blank">
+/// Media delivery</a>
 abstract class Delivery implements Action {
+  /// Controls compression quality. 1 is the lowest quality and 100 is the
+  /// highest.
+  ///
+  /// Reducing the quality is a trade-off between visual quality and file size.
+  ///
+  /// Receives for quality level + [QualityBuilder] for extra options
   static QualityAction quality(dynamic level, {QualityBuilder? options}) {
     var builder = QualityBuilder(level: level);
     if (options != null) {
@@ -42,9 +47,10 @@ abstract class Delivery implements Action {
   ///
   /// Receives a [Format] object with the relevant format type and [FormatBuilder] with extra options
   /// Returns occupied [DeliveryFormat] object
-  static DeliveryFormat formatWithOptions(Format format, {FormatBuilder? options}) {
+  static DeliveryFormat formatWithOptions(Format format,
+      {FormatBuilder? options}) {
     var builder = FormatBuilder(format: format);
-    if(options != null) {
+    if (options != null) {
       builder.copyWith(options);
     }
     return builder.build();
