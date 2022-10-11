@@ -1,11 +1,11 @@
-import 'package:cloudinary_dart/src/asset/builders/video_builder.dart';
+import 'package:cloudinary_dart/asset/builders/video_builder.dart';
 
 import 'asset/builders/asset_builder.dart';
 import 'asset/builders/image_builder.dart';
 import 'asset/image.dart';
 import 'asset/video.dart';
 import 'config/cloudinary_config.dart';
-import 'util/environment.dart';
+import 'src/util/environment.dart';
 
 import 'asset/asset.dart';
 
@@ -18,9 +18,6 @@ class Cloudinary {
 
   Cloudinary.withStringUrl(String cloudinaryUrl) {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
-    // if(this.cloudinaryUrl == null) {
-    //   Cloudinary();
-    // }
   }
 
   Cloudinary.withConfiguration(this.config);

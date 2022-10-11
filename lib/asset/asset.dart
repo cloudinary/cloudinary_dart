@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
-import 'package:cloudinary_dart/extensions/string_extension.dart';
-import 'package:cloudinary_dart/src/config/cloud_config.dart';
-import 'package:cloudinary_dart/src/config/url_config.dart';
-import 'package:cloudinary_dart/src/analytics.dart';
+import 'package:cloudinary_dart/src/extensions/string_extension.dart';
+import 'package:cloudinary_dart/analytics.dart';
 
-import '../authtoken.dart';
+import 'package:cloudinary_dart/auth_token.dart';
+import '../config/cloud_config.dart';
+import '../config/url_config.dart';
 import 'builders/general_asset_builder.dart';
 import 'format.dart';
 

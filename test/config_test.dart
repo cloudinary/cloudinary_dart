@@ -1,6 +1,6 @@
-import 'package:cloudinary_dart/src/config/cloudinary_config.dart';
-import 'package:cloudinary_dart/src/config/cloud_config.dart';
-import 'package:cloudinary_dart/src/config/url_config.dart';
+import 'package:cloudinary_dart/config/cloud_config.dart';
+import 'package:cloudinary_dart/config/cloudinary_config.dart';
+import 'package:cloudinary_dart/config/url_config.dart';
 import 'package:test/test.dart';
 
 void main() {

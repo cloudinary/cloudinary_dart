@@ -1,5 +1,5 @@
-import 'package:cloudinary_dart/src/authtoken.dart';
-import 'package:cloudinary_dart/src/cloudinary.dart';
+import 'package:cloudinary_dart/auth_token.dart';
+import 'package:cloudinary_dart/cloudinary.dart';
 import 'package:test/test.dart';
 import 'dart:io';
 
@@ -43,8 +43,8 @@ void main() {
     test('Should successfully authenticated url', () {
       // cloudinary.config.urlConfig.privateCdn = true;
       // cloudinary.config.urlConfig.signUrl = true;
-      var message =
-          "should add token if authToken is globally set and signed = true";
+      // var message =
+      //     "should add token if authToken is globally set and signed = true";
       //TODO: Complete TESTS!!!!
     });
     test('Should successfully initializes with configuration', () {

@@ -1,6 +1,7 @@
+
 import 'dart:io';
 
-import 'package:cloudinary_dart/extensions/string_extension.dart';
+import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 
 import 'cloudinary.dart';
 
@@ -28,7 +29,7 @@ class Analytics {
   }
 
   String getVersionString(String version) {
-    var techVersionArray = version.split(RegExp(r"[.\-]"));
+    var techVersionArray = version.split(RegExp(r'[.\-]'));
     return generateVersionString(techVersionArray);
   }
 
