@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/src/asset/format.dart';
+import 'package:cloudinary_dart/asset/format.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/quality.dart';

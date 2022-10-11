@@ -1,7 +1,7 @@
-import 'package:cloudinary_dart/extensions/string_extension.dart';
+import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
 
-import '../../asset/format.dart';
+import '../../../asset/format.dart';
 import '../common.dart';
 import '../transformation.dart';
 
