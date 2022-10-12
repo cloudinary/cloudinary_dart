@@ -10,20 +10,18 @@ class AspectRatio {
   static final _ar3X2 = AspectRatio("3:2");
   static final _ar16X9 = AspectRatio("16:9");
   static final _ar3X1 = AspectRatio("3:1");
-  static final _ignoreInitialAspectRatio = AspectRatio("fl_ignore_aspect_ratio");
+  static final ignoreInitialAspectRatio = AspectRatio("fl_ignore_aspect_ratio");
 
-static AspectRatio ar1X1() {
-    return _ar1X1;
-}
+  static AspectRatio ar1X1() => _ar1X1;
   static AspectRatio ar5X4() => _ar5X4;
   static AspectRatio ar4X3() => _ar4X3;
   static AspectRatio ar3X2() => _ar3X2;
   static AspectRatio ar16X9() => _ar16X9;
   static AspectRatio ar3X1() => _ar3X1;
-  static AspectRatio ignoreInitialAspectRatio() => _ignoreInitialAspectRatio;
+  static AspectRatio setIgnoreInitialAspectRatio() => ignoreInitialAspectRatio;
 
-
-override fun toString(): String {
-return value
-}
+  @override
+  String toString() {
+    return value;
+  }
 }
