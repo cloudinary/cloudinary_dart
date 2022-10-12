@@ -108,14 +108,14 @@ class ChromaSubSampling {
   }
 }
 
-class DeliveryFormat extends Delivery {
+class FormatAction extends Delivery {
   final Format? _format;
   bool? _lossy;
   Progressive? _progressive;
   bool? _preserveTransparency;
   bool? _ignoreMaskChannels;
 
-  DeliveryFormat(this._format,
+  FormatAction(this._format,
       {bool? lossy,
       Progressive? progressive,
       bool? preserveTransparency,
@@ -191,8 +191,8 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
   }
 
   @override
-  DeliveryFormat build() {
-    return DeliveryFormat(format,
+  FormatAction build() {
+    return FormatAction(format,
         lossy: lossy,
         progressive: progressive,
         preserveTransparency: preserveTransparency,
