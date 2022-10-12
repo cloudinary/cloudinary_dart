@@ -45,20 +45,21 @@ void main() {
 
   group('Test format class', () {
     test('Test format syntax successful', () {
-      cldAssert("f_png", Delivery.formatWithOptions(Format.png()));
+      cldAssert("f_png", Delivery.format(Format.png()));
     });
 
     test('Test format syntax successful with progressive option', () {
       cldAssert(
           "f_jpg,fl_progressive:semi",
-          Delivery.formatWithOptions(Format.jpg(),
+          Delivery.format(Format.jpg(),
               options: FormatBuilder().setProgressive(Progressive.semi())));
+      cldAssert('f_png,fl_progressive:semi', Delivery.formatWithString('png', options: FormatBuilder().setProgressive(Progressive.semi())));
     });
 
     test('Test format syntax with options', () {
       cldAssert(
           "f_jpg,fl_lossy,fl_preserve_transparency,fl_progressive,fl_ignore_mask_channels",
-          Delivery.formatWithOptions(Format.jpg(),
+          Delivery.format(Format.jpg(),
               options: FormatBuilder()
                   .setLossy()
                   .setProgressive(Progressive.progressive())
@@ -66,7 +67,7 @@ void main() {
                   .setIgnoreMaskChannels()));
       cldAssert(
           "f_jpg,fl_lossy,fl_preserve_transparency,fl_progressive,fl_ignore_mask_channels",
-          Delivery.formatWithOptions(Format.jpg(),
+          Delivery.format(Format.jpg(),
               options: FormatBuilder()
                 ..lossy = true
                 ..progressive = Progressive.progressive()
