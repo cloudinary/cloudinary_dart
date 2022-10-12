@@ -26,7 +26,7 @@ abstract class Delivery implements Action {
   /// Forces format conversion to the given format.
   /// (Formerly known as fetch format)
   ///
-  /// /// Receives a [String] object with the relevant format type
+  /// /// Receives a [String] object with the relevant format type and [FormatBuilder] with extra options
   /// Returns occupied [DeliveryFormat] object
   static DeliveryFormat formatWithString(String value,
       {FormatBuilder? options}) {
