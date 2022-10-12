@@ -30,16 +30,18 @@ class QualityAction extends Delivery {
 /// Quality Builder
 class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   dynamic level;
-  bool anyFormat = false;
-  ChromaSubSampling? chromaSubSampling;
-  dynamic quantization;
+  bool _anyFormat = false;
+  ChromaSubSampling? _chromaSubSampling;
+  dynamic _quantization;
 
   /// Controls the JPEG, WebP, GIF, JPEG XR and JPEG 2000 compression quality.
   ///
   /// Reducing the quality is a trade-off between visual quality and file size.
   ///
   /// Receives [dynamic] level The quality level. 1 is the lowest quality and 100 is the highest.
-  QualityBuilder({this.level, this.anyFormat = false});
+  QualityBuilder({this.level, bool anyFormat = false}) {
+    _anyFormat = anyFormat;
+  }
 
   /// Controls the final quality by setting a maximum quantization percentage.
   ///
@@ -48,8 +50,8 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   /// Receives [dynamic] quantization level.
   ///
   /// Returns [QualityBuilder] object.
-  QualityBuilder setQuantization(dynamic quantization) {
-    this.quantization = quantization;
+  QualityBuilder quantization(dynamic quantization) {
+    _quantization = quantization;
     return this;
   }
 
@@ -62,34 +64,34 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   /// Receives [String] chromaSubSampling Chroma sub-sampling value.
   ///
   /// Returns [QualityBuilder] object.
-  QualityBuilder setChromaSubSampling(ChromaSubSampling chromaSubSampling) {
-    this.chromaSubSampling = chromaSubSampling;
+  QualityBuilder chromaSubSampling(ChromaSubSampling chromaSubSampling) {
+    _chromaSubSampling = chromaSubSampling;
     return this;
   }
 
   /// Adds an optional qualifier to accept any format
   ///
   /// Receives [bool] for anyFormat default value: true
-  QualityBuilder setAnyFormat([bool anyFormat = true]) {
-    this.anyFormat = anyFormat;
+  QualityBuilder anyFormat([bool anyFormat = true]) {
+    _anyFormat = anyFormat;
     return this;
   }
 
   @override
   QualityAction build() {
     return QualityAction(level,
-        chromaSubSampling: chromaSubSampling,
-        quantization: quantization,
-        anyFormat: anyFormat);
+        chromaSubSampling: _chromaSubSampling,
+        quantization: _quantization,
+        anyFormat: _anyFormat);
   }
 
   /// Builder copy function
   @override
   void copyWith(QualityBuilder other) {
     level = other.level ?? level;
-    chromaSubSampling = other.chromaSubSampling;
-    quantization = other.quantization;
-    anyFormat = other.anyFormat;
+    _chromaSubSampling = other._chromaSubSampling;
+    _quantization = other._quantization;
+    _anyFormat = other._anyFormat;
   }
 }
 
@@ -146,20 +148,25 @@ class FormatAction extends Delivery {
 
 class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
   Format? format;
-  bool? lossy;
-  Progressive? progressive;
-  bool? preserveTransparency;
-  bool? ignoreMaskChannels;
+  bool? _lossy;
+  Progressive? _progressive;
+  bool? _preserveTransparency;
+  bool? _ignoreMaskChannels;
 
   FormatBuilder(
       {this.format,
-      this.lossy,
-      this.progressive,
-      this.preserveTransparency,
-      this.ignoreMaskChannels});
+      bool? lossy,
+      Progressive? progressive,
+      bool? preserveTransparency,
+      bool? ignoreMaskChannels}) {
+   _lossy = lossy;
+   _progressive = progressive;
+   _preserveTransparency = preserveTransparency;
+   _ignoreMaskChannels = ignoreMaskChannels;
+  }
 
-  FormatBuilder setLossy({bool? lossy = true}) {
-    this.lossy = lossy;
+  FormatBuilder lossy([bool? lossy = true]) {
+    _lossy = lossy;
     return this;
   }
 
@@ -169,44 +176,44 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
   /// Receives [Progressive], The mode to determine a specific progressive outcome.
   ///
   /// Returns [FormatBuilder]
-  FormatBuilder setProgressive(Progressive progressive) {
-    this.progressive = progressive;
+  FormatBuilder progressive(Progressive progressive) {
+    _progressive = progressive;
     return this;
   }
 
   /// Ensures that images with a transparency channel will be delivered in PNG format.
   ///
   /// Returns [FormatBuilder]
-  FormatBuilder setPreserveTransparency() {
-    preserveTransparency = true;
+  FormatBuilder preserveTransparency() {
+    _preserveTransparency = true;
     return this;
   }
 
   /// Ensures that an alpha channel is not applied to a TIFF image if it is a mask channel.
   ///
   /// Returns [FormatBuilder]
-  FormatBuilder setIgnoreMaskChannels() {
-    ignoreMaskChannels = true;
+  FormatBuilder ignoreMaskChannels() {
+    _ignoreMaskChannels = true;
     return this;
   }
 
   @override
   FormatAction build() {
     return FormatAction(format,
-        lossy: lossy,
-        progressive: progressive,
-        preserveTransparency: preserveTransparency,
-        ignoreMaskChannels: ignoreMaskChannels);
+        lossy: _lossy,
+        progressive: _progressive,
+        preserveTransparency: _preserveTransparency,
+        ignoreMaskChannels: _ignoreMaskChannels);
   }
 
   /// Builder copy function
   @override
   void copyWith(FormatBuilder other) {
     format = other.format ?? format;
-    lossy = other.lossy;
-    progressive = other.progressive;
-    preserveTransparency = other.preserveTransparency;
-    ignoreMaskChannels = other.ignoreMaskChannels;
+    _lossy = other._lossy;
+    _progressive = other._progressive;
+    _preserveTransparency = other._preserveTransparency;
+    _ignoreMaskChannels = other._ignoreMaskChannels;
   }
 }
 
