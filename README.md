@@ -22,14 +22,14 @@ This Readme provides basic installation and usage information.
 ## Version Support
 | SDK Version | Dart Version |
 |-------------|--------------|
-| 0.0.1       | > 1.0        | 
+| 0.0.3       | > 1.0        | 
 
 ## Installation
 To use this SDK, add cloudinary as a [dependency in your pubspec.yaml file](https://flutter.dev/platform-plugins/).
 
 ```yaml
 dependencies:
-  cloudinary: ^0.0.1
+  cloudinary_dart: ^0.0.3
 ```
 
 ## Usage
