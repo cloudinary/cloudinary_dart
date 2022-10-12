@@ -85,7 +85,7 @@ extension StringManipulation on String {
         lastToRemove = i;
         continue;
       }
-      if(this[i] != c) {
+      if (this[i] != c) {
         break;
       }
     }
@@ -96,17 +96,21 @@ extension StringManipulation on String {
     var newString = this;
     for (int i = 0; i < length; i++) {
       if (this[i] == '+') {
-        newString = '${newString.substring(0, i)}-${newString.substring(i + 1)}';
+        newString =
+            '${newString.substring(0, i)}-${newString.substring(i + 1)}';
       } else if (this[i] == '/') {
-        newString = '${newString.substring(0, i)}_${newString.substring(i + 1)}';
+        newString =
+            '${newString.substring(0, i)}_${newString.substring(i + 1)}';
       }
     }
     return newString;
   }
 
-  String joinWithValues(List<dynamic> args, {String separator = defaultValuesSeparator}) {
-    final List<dynamic> noNullList = args.where((element) => element != null).toList();
-    if(noNullList.isEmpty) {
+  String joinWithValues(List<dynamic> args,
+      {String separator = defaultValuesSeparator}) {
+    final List<dynamic> noNullList =
+        args.where((element) => element != null).toList();
+    if (noNullList.isEmpty) {
       return this;
     }
     return "${this}$separator${noNullList.map((e) => e.toString()).toList().join(separator)}";

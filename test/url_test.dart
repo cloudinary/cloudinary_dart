@@ -1,12 +1,12 @@
-import 'package:cloudinary_dart/src/analytics.dart';
-import 'package:cloudinary_dart/src/asset/asset.dart';
-import 'package:cloudinary_dart/src/asset/builders/asset_builder.dart';
-import 'package:cloudinary_dart/src/asset/builders/image_builder.dart';
-import 'package:cloudinary_dart/src/asset/builders/video_builder.dart';
-import 'package:cloudinary_dart/src/asset/format.dart';
-import 'package:cloudinary_dart/src/cloudinary.dart';
-import 'package:cloudinary_dart/src/config/cloudinary_config.dart';
-import 'package:cloudinary_dart/src/config/url_config.dart';
+import 'package:cloudinary_dart/analytics.dart';
+import 'package:cloudinary_dart/asset/asset.dart';
+import 'package:cloudinary_dart/asset/builders/asset_builder.dart';
+import 'package:cloudinary_dart/asset/builders/image_builder.dart';
+import 'package:cloudinary_dart/asset/builders/video_builder.dart';
+import 'package:cloudinary_dart/asset/format.dart';
+import 'package:cloudinary_dart/cloudinary.dart';
+import 'package:cloudinary_dart/config/cloudinary_config.dart';
+import 'package:cloudinary_dart/config/url_config.dart';
 import 'package:test/test.dart';
 
 const defaultRootPath = 'https://res.cloudinary.com/test123/';

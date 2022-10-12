@@ -1,11 +1,11 @@
-import 'package:cloudinary_dart/src/asset/builders/video_builder.dart';
+import 'package:cloudinary_dart/asset/builders/video_builder.dart';
 
 import 'asset/builders/asset_builder.dart';
 import 'asset/builders/image_builder.dart';
 import 'asset/image.dart';
 import 'asset/video.dart';
 import 'config/cloudinary_config.dart';
-import 'util/environment.dart';
+import 'src/util/environment.dart';
 
 import 'asset/asset.dart';
 
@@ -18,9 +18,6 @@ class Cloudinary {
 
   Cloudinary.withStringUrl(String cloudinaryUrl) {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
-    // if(this.cloudinaryUrl == null) {
-    //   Cloudinary();
-    // }
   }
 
   Cloudinary.withConfiguration(this.config);
@@ -37,7 +34,7 @@ class Cloudinary {
       ..urlConfig = config.urlConfig
       ..assetType = 'raw';
     if (options != null) {
-      builder.copyWith(options);
+      builder.combineWith(options);
     }
     return Asset.withBuilder(builder);
   }
@@ -48,7 +45,7 @@ class Cloudinary {
       ..urlConfig = config.urlConfig
       ..assetType = 'image';
     if (options != null) {
-      builder.copyWith(options);
+      builder.combineWith(options);
     }
     return Image.withBuilder(builder);
   }
@@ -59,7 +56,7 @@ class Cloudinary {
       ..urlConfig = config.urlConfig
       ..assetType = 'video';
     if (options != null) {
-      builder.copyWith(options);
+      builder.combineWith(options);
     }
     return Video.withBuilder(builder);
   }

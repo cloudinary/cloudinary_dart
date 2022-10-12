@@ -32,10 +32,14 @@ class AuthToken {
 
   String? get tokenName => _tokenName;
 
-  AuthToken.withParameters(String key, {this.startTime = 0, int duration = 0,
-    String? tokenName, int expiration = 0,
-    this.ip,  this.acl,
-    bool isNullableToken = false}) {
+  AuthToken.withParameters(String key,
+      {this.startTime = 0,
+      int duration = 0,
+      String? tokenName,
+      int expiration = 0,
+      this.ip,
+      this.acl,
+      bool isNullableToken = false}) {
     _key = key;
     _expiration = expiration;
     _duration = duration;
@@ -45,19 +49,17 @@ class AuthToken {
 
   AuthToken.withMap(Map<String, dynamic> params) {
     _key = params[keyKey];
-    startTime = int.parse(params[startTimeKey] ?? "0") ;
-    _expiration = int.parse(params[expirationKey] ?? "0") ;
+    startTime = int.parse(params[startTimeKey] ?? "0");
+    _expiration = int.parse(params[expirationKey] ?? "0");
     ip = params[ipKey];
     acl = params[aclKey];
-    _duration = int.parse(params[durationKey] ?? "0") ;
+    _duration = int.parse(params[durationKey] ?? "0");
   }
 
   String digest(String message) {
     var binKey = hex.decode(_key!);
     var dataBytes = Utf8Encoder().convert(message);
-    var hmacBytes = Hmac(sha256, binKey)
-        .convert(dataBytes)
-        .bytes;
+    var hmacBytes = Hmac(sha256, binKey).convert(dataBytes).bytes;
     return hex.encode(hmacBytes).toLowerCase();
   }
 
@@ -69,10 +71,8 @@ class AuthToken {
         if (startTime > 0) {
           start = startTime;
         } else {
-          start = (DateTime
-              .now()
-              .toUtc()
-              .millisecondsSinceEpoch / 1000).round();
+          start =
+              (DateTime.now().toUtc().millisecondsSinceEpoch / 1000).round();
         }
         expiration = start + _duration;
       } else {

@@ -1,7 +1,6 @@
-import 'package:cloudinary_dart/src/authtoken.dart';
-import 'package:test/test.dart';
-class TestUtils {
+import 'package:cloudinary_dart/auth_token.dart';
 
+class TestUtils {
   static bool compareAuthToken(AuthToken? first, AuthToken? second) {
     if (first != null && second != null) {
       if (first.tokenName != second.tokenName) return false;
@@ -16,9 +15,7 @@ class TestUtils {
     }
     return false;
   }
-
 }
-
 void cldAssert(String expected, dynamic actual) {
   assert(expected == actual.toString());
 }

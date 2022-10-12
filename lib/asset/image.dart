@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/src/asset/asset.dart';
+import 'package:cloudinary_dart/asset/asset.dart';
 
 class Image extends BaseAsset {
   Image.withBuilder(super.builder) : super.withBuilder();
