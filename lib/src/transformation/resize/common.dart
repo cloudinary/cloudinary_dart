@@ -1,5 +1,5 @@
+/// Class Aspect Ratio
 class AspectRatio {
-
   String value;
 
   AspectRatio(this.value);

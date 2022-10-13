@@ -20,6 +20,7 @@
 import 'package:cloudinary_dart/src/transformation/common.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 
+/// Class Fit
 class Fit extends Resize {
   @override
   String actionType = "fit";
@@ -28,22 +29,31 @@ class Fit extends Resize {
 }
 
 class FitBuilder extends BaseBuilder<FitBuilder> {
+  FitBuilder({dynamic width, dynamic height}) {
+    super.width(width);
+    super.height(height);
+  }
 
   @override
   Object getThis() {
     return this;
   }
+
   @override
   Action build() {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Fit(
+        Dimensions(
+            width: getWidth(),
+            height: getHeight(),
+            aspectRatio: getAspectRatio()),
+        relative: getRelative(),
+        regionRelative: getRegionRelative());
   }
 
   @override
   void copyWith(other) {
-    width = other.width;
-    height = other.height;
-    aspectRatio = other.aspectRatio;
+    width(other.getWidth());
+    height(other.getHeight());
+    aspectRatio(other.getAspectRatio());
   }
-
 }

@@ -1,5 +1,6 @@
 import 'package:cloudinary_dart/src/transformation/TransformationUtils.dart';
 import 'package:cloudinary_dart/src/transformation/resize/common.dart';
+import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
 
 import '../common.dart';
@@ -12,6 +13,7 @@ class Dimensions {
   Dimensions({this.width, this.height, this.aspectRatio});
 }
 
+/// Class Resize
 abstract class Resize extends Action {
   Dimensions dimensions;
   bool? relative;
@@ -26,23 +28,43 @@ abstract class Resize extends Action {
   }
 
   List<Param?> params() {
-      return [Param("c", actionType),
-        (dimensions.width != null) ? Param("w", dimensions.width) : null,
-        (dimensions.height != null) ? Param("h", dimensions.height): null,
-        (relative == true) ? Param("fl","relative") : null,
-        (regionRelative == true) ? Param("fl", "region_relative") : null,
-        (dimensions.aspectRatio == AspectRatio.ignoreInitialAspectRatio)
-            ? Param("fl", "ignore_aspect_ratio") : (dimensions.aspectRatio != null) ? Param("ar", dimensions.aspectRatio) : null
-      ];
+    return [
+      Param("c", actionType),
+      (dimensions.width != null) ? Param("w", dimensions.width) : null,
+      (dimensions.height != null) ? Param("h", dimensions.height) : null,
+      (relative == true) ? Param("fl", "relative") : null,
+      (regionRelative == true) ? Param("fl", "region_relative") : null,
+      (dimensions.aspectRatio == AspectRatio.ignoreInitialAspectRatio)
+          ? Param("fl", "ignore_aspect_ratio")
+          : (dimensions.aspectRatio != null)
+              ? Param("ar", dimensions.aspectRatio)
+              : null
+    ];
   }
 
+  /// Change the size of the image exactly to the given width and height without necessarily retaining the original
+  /// aspect ratio: all original image parts are visible but might be stretched or shrunk.
+  ///
+  /// Receives [width], [height] and/or [aspectRatio] and returns [Resize] object.
   static Resize scale({int? width, int? height, ScaleBuilder? options}) {
     var builder = ScaleBuilder();
-    builder.setWidth(width);
-    builder.setHeight(height);
-    if (options != null) { builder.copyWith(options); }
+    builder.width(width);
+    builder.height(height);
+    if (options != null) {
+      builder.copyWith(options);
+    }
     return builder.build() as Resize;
   }
 
-
+  /// The image is resized so that it takes up as much space as possible within a bounding box defined by the given
+  /// width and height qualifiers. The original aspect ratio is retained and all of the original image is visible.
+  ///
+  /// Receives [width], [height] and/or [aspectRatio] and returns [Resize] object.
+  static Resize fit({int? width, int? height, FitBuilder? options}) {
+    var builder = FitBuilder(width: width, height: height);
+    if (options != null) {
+      builder.copyWith(options);
+    }
+    return builder.build() as Resize;
+  }
 }

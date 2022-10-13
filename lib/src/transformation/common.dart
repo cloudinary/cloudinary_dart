@@ -20,38 +20,58 @@ abstract class Action {
 }
 
 abstract class BaseBuilder<B> extends TransformationComponentBuilder {
-  dynamic width;
-  dynamic height;
-  dynamic aspectRatio;
-  bool? relative;
-  bool? regionRelative;
+  dynamic _width;
+  dynamic _height;
+  dynamic _aspectRatio;
+  bool? _relative;
+  bool? _regionRelative;
 
   Object getThis() {
     return B;
   }
 
-  B setWidth(dynamic width) {
-    this.width = width;
+  B width(dynamic width) {
+    _width = width;
     return getThis() as B;
   }
 
-  B setHeight(dynamic height) {
-    this.height = height;
+  B height(dynamic height) {
+    _height = height;
     return getThis() as B;
   }
 
-  B setAspectRatio(dynamic aspectRatio) {
-    this.aspectRatio = aspectRatio;
+  B aspectRatio(dynamic aspectRatio) {
+    _aspectRatio = aspectRatio;
     return getThis() as B;
   }
 
-  B setRelative(bool relative) {
-    this.relative = relative;
+  B relative(bool? relative) {
+    _relative = relative;
     return getThis() as B;
   }
 
-  B setRegionRelative(dynamic regionRelative) {
-    this.regionRelative = regionRelative;
+  B regionRelative(bool? regionRelative) {
+    _regionRelative = regionRelative;
     return getThis() as B;
+  }
+
+  dynamic getWidth() {
+    return _width;
+  }
+
+  dynamic getHeight() {
+    return _height;
+  }
+
+  dynamic getAspectRatio() {
+    return _aspectRatio;
+  }
+
+  bool? getRelative() {
+    return _relative;
+  }
+
+  bool? getRegionRelative() {
+    return _regionRelative;
   }
 }

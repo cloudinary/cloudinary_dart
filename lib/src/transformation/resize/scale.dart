@@ -2,14 +2,15 @@ import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 
 import '../common.dart';
 
+/// Class scale
 class Scale extends Resize {
-
   bool? liquidRescaling;
 
   @override
   String actionType = "scale";
 
-  Scale(super.dimensions, {super.relative, super.regionRelative, this.liquidRescaling = false});
+  Scale(super.dimensions,
+      {super.relative, super.regionRelative, this.liquidRescaling = false});
 
   @override
   List<Param?> params() {
@@ -20,10 +21,17 @@ class Scale extends Resize {
 }
 
 class ScaleBuilder extends BaseBuilder<ScaleBuilder> {
-  bool? liquidRescaling;
+  bool? _liquidRescaling;
 
-  ScaleBuilder setLiquidRescaling({bool? liquidRescaling}) {
-    this.liquidRescaling = liquidRescaling;
+  /// Changes the aspect ratio of an image while retaining all important content and avoiding unnatural distortions.
+  ///
+  /// Liquid Rescaling is only supported for Scale mode.
+  ///
+  /// @return $this
+  ///
+  /// @see \Cloudinary\Transformation\LiquidRescaling
+  ScaleBuilder liquidRescaling([bool? liquidRescaling]) {
+    _liquidRescaling = liquidRescaling;
     return this;
   }
 
@@ -34,16 +42,23 @@ class ScaleBuilder extends BaseBuilder<ScaleBuilder> {
 
   @override
   Action build() {
-    return Scale(Dimensions(width: width, height: height, aspectRatio: aspectRatio), relative: relative, regionRelative: regionRelative, liquidRescaling: liquidRescaling);
+    return Scale(
+        Dimensions(
+            width: getWidth(),
+            height: getHeight(),
+            aspectRatio: getAspectRatio()),
+        relative: getRelative(),
+        regionRelative: getRegionRelative(),
+        liquidRescaling: _liquidRescaling);
   }
 
   @override
   void copyWith(other) {
-    width = other.width;
-    height = other.height;
-    aspectRatio = other.aspectRatio;
-    relative = other.relative;
-    regionRelative = other.regionRelative;
-    liquidRescaling = other.liquidRescaling;
+    width(other.getWidth());
+    height(other.getHeight());
+    aspectRatio(other.getAspectRatio());
+    relative(other.getRelative());
+    regionRelative(other.getRegionRelative());
+    _liquidRescaling = (other._liquidRescaling);
   }
 }
