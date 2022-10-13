@@ -159,17 +159,16 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
       Progressive? progressive,
       bool? preserveTransparency,
       bool? ignoreMaskChannels}) {
-   _lossy = lossy;
-   _progressive = progressive;
-   _preserveTransparency = preserveTransparency;
-   _ignoreMaskChannels = ignoreMaskChannels;
+    _lossy = lossy;
+    _progressive = progressive;
+    _preserveTransparency = preserveTransparency;
+    _ignoreMaskChannels = ignoreMaskChannels;
   }
 
   FormatBuilder lossy([bool? lossy = true]) {
     _lossy = lossy;
     return this;
   }
-
 
   /// Applicable only for JPG file format
   ///

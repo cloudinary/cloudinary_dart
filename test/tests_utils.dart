@@ -16,6 +16,7 @@ class TestUtils {
     return false;
   }
 }
+
 void cldAssert(String expected, dynamic actual) {
   assert(expected == actual.toString());
 }
