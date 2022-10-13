@@ -28,7 +28,7 @@ abstract class Delivery implements Action {
   ///
   /// /// Receives a [String] object with the relevant format type and [FormatBuilder] with extra options
   /// Returns occupied [DeliveryFormat] object
-  static DeliveryFormat formatWithString(String value,
+  static FormatAction formatWithString(String value,
       {FormatBuilder? options}) {
     var builder = FormatBuilder(format: Format.custom(value));
     if (options != null) {
@@ -42,7 +42,7 @@ abstract class Delivery implements Action {
   ///
   /// Receives a [Format] object with the relevant format type and [FormatBuilder] with extra options
   /// Returns occupied [DeliveryFormat] object
-  static DeliveryFormat format(Format format,
+  static FormatAction format(Format format,
       {FormatBuilder? options}) {
     var builder = FormatBuilder(format: format);
     if (options != null) {

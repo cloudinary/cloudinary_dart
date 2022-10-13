@@ -12,21 +12,21 @@ void main() {
         "q_100:420",
         Delivery.quality(100,
             options: QualityBuilder()
-                .setChromaSubSampling(ChromaSubSampling.chroma420())));
+                .chromaSubSampling(ChromaSubSampling.chroma420())));
     cldAssert(
         "q_100:420",
         Delivery.quality(100,
             options: QualityBuilder()
-              ..chromaSubSampling = ChromaSubSampling.chroma420()));
+              ..chromaSubSampling(ChromaSubSampling.chroma420())));
     cldAssert("q_auto", Delivery.quality(Quality.auto()));
     cldAssert("q_auto:low", Delivery.quality(Quality.autoLow()));
     cldAssert(
         "q_auto:low:444",
         Delivery.quality(Quality.autoLow(),
             options: QualityBuilder()
-                .setChromaSubSampling(ChromaSubSampling.chroma444())));
+                .chromaSubSampling(ChromaSubSampling.chroma444())));
     cldAssert("q_70:qmax_80",
-        Delivery.quality(70, options: QualityBuilder()..quantization = 80));
+        Delivery.quality(70, options: QualityBuilder()..quantization(80)));
     cldAssert("q_jpegmini:0", Delivery.quality(Quality.jpegminiBest()));
     cldAssert("q_jpegmini:1", Delivery.quality(Quality.jpegminiHigh()));
     cldAssert("q_jpegmini:2", Delivery.quality(Quality.jpegminiMedium()));
@@ -40,7 +40,7 @@ void main() {
     cldAssert(
         "fl_any_format,q_auto",
         Delivery.quality(Quality.auto(),
-            options: QualityBuilder()..anyFormat = true));
+            options: QualityBuilder()..anyFormat(true)));
   });
 
   group('Test format class', () {
@@ -52,8 +52,8 @@ void main() {
       cldAssert(
           "f_jpg,fl_progressive:semi",
           Delivery.format(Format.jpg(),
-              options: FormatBuilder().setProgressive(Progressive.semi())));
-      cldAssert('f_png,fl_progressive:semi', Delivery.formatWithString('png', options: FormatBuilder().setProgressive(Progressive.semi())));
+              options: FormatBuilder().progressive(Progressive.semi())));
+      cldAssert('f_png,fl_progressive:semi', Delivery.formatWithString('png', options: FormatBuilder().progressive(Progressive.semi())));
     });
 
     test('Test format syntax with options', () {
@@ -61,18 +61,18 @@ void main() {
           "f_jpg,fl_lossy,fl_preserve_transparency,fl_progressive,fl_ignore_mask_channels",
           Delivery.format(Format.jpg(),
               options: FormatBuilder()
-                  .setLossy()
-                  .setProgressive(Progressive.progressive())
-                  .setPreserveTransparency()
-                  .setIgnoreMaskChannels()));
+                  .lossy()
+                  .progressive(Progressive.progressive())
+                  .preserveTransparency()
+                  .ignoreMaskChannels()));
       cldAssert(
           "f_jpg,fl_lossy,fl_preserve_transparency,fl_progressive,fl_ignore_mask_channels",
           Delivery.format(Format.jpg(),
               options: FormatBuilder()
-                ..lossy = true
-                ..progressive = Progressive.progressive()
-                ..preserveTransparency = true
-                ..ignoreMaskChannels = true));
+                ..lossy(true)
+                ..progressive(Progressive.progressive())
+                ..preserveTransparency()
+                ..ignoreMaskChannels()));
     });
   });
 }
