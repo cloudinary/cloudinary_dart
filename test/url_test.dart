@@ -84,9 +84,6 @@ void main() {
               .image(ImageBuilder()..urlSuffix = 'dsfd.fd/adsfad')
               .generate('publicId'),
           throwsArgumentError);
-      print(cloudinary
-          .image(ImageBuilder()..urlSuffix = 'dsfdfdaddsfad')
-          .generate('publicId'));
       assert(cloudinary
               .image(ImageBuilder()..urlSuffix = 'dsfdfdaddsfad')
               .generate('publicId') ==
