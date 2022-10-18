@@ -192,15 +192,15 @@ abstract class BaseAsset {
     return prefix;
   }
 
-  String? generate([String? source]) {
+  String _generate() {
     var cloudName = cloudConfig.cloudName ?? "";
     if (cloudName.isBlank) {
       throw ArgumentError('Must supply cloud_name in configuration');
     }
 
-    String? mutableSource = (source ?? publicId);
+    String? mutableSource = publicId;
     if (mutableSource == null) {
-      return null;
+      return "";
     }
 
     var httpSource = mutableSource.cldIsHttpUrl;
@@ -326,6 +326,11 @@ abstract class BaseAsset {
       result = sha512.convert(bytes);
     }
     return (result != null) ? result.bytes : null;
+  }
+
+  @override
+  String toString() {
+    return _generate();
   }
 }
 
