@@ -11,6 +11,27 @@ class Dimensions {
   dynamic aspectRatio;
 
   Dimensions({this.width, this.height, this.aspectRatio});
+
+  Param? getWidthParam() {
+    if (width != null) {
+      return Param("w", width);
+    }
+    return null;
+  }
+
+  Param? getHeightParam() {
+    if (height != null) {
+      return Param("h", height);
+    }
+    return null;
+  }
+
+  Param? getAspectRatioParam() {
+    if (aspectRatio != null) {
+      return Param("ar", aspectRatio);
+    }
+    return null;
+  }
 }
 
 /// Class Resize
@@ -30,15 +51,13 @@ abstract class Resize extends Action {
   List<Param?> params() {
     return [
       Param("c", actionType),
-      (dimensions.width != null) ? Param("w", dimensions.width) : null,
-      (dimensions.height != null) ? Param("h", dimensions.height) : null,
+      dimensions.getWidthParam(),
+      dimensions.getHeightParam(),
       (relative == true) ? Param("fl", "relative") : null,
       (regionRelative == true) ? Param("fl", "region_relative") : null,
       (dimensions.aspectRatio == AspectRatio.ignoreInitialAspectRatio)
           ? Param("fl", "ignore_aspect_ratio")
-          : (dimensions.aspectRatio != null)
-              ? Param("ar", dimensions.aspectRatio)
-              : null
+          : dimensions.getAspectRatioParam()
     ];
   }
 

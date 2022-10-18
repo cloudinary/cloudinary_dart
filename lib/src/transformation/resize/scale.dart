@@ -1,6 +1,7 @@
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 
 import '../common.dart';
+import 'common.dart';
 
 /// Class scale
 class Scale extends Resize {
