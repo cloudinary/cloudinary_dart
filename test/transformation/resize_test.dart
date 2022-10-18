@@ -1,3 +1,5 @@
+import 'package:cloudinary_dart/src/transformation/gravity/gravity.dart';
+import 'package:cloudinary_dart/src/transformation/resize/crop.dart';
 import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
@@ -77,5 +79,17 @@ void main() {
             options: FitBuilder()
               ..height(100)
               ..aspectRatio(1.5)));
+  });
+
+  test("Test crop", () {
+    cldAssert('c_crop,w_100', Resize.crop(width: 100));
+    cldAssert('c_crop,w_100', Resize.crop(options: CropBuilder() ..width(100)));
+    cldAssert('c_crop,w_1.0', Resize.crop(options: CropBuilder() ..width(1.0)));
+    cldAssert('c_crop,h_100,w_100', Resize.crop(options: CropBuilder() ..width(100) ..height(100)));
+    cldAssert('c_crop,h_1.1,w_0.5', Resize.crop(options: CropBuilder() ..width(0.5) ..height(1.1)));
+    cldAssert('ar_1.5,c_crop,w_100', Resize.crop(options: CropBuilder() ..width(100) ..aspectRatio(1.5)));
+    cldAssert('ar_1.5,c_crop,h_100', Resize.crop(options: CropBuilder() ..height(100) ..aspectRatio(1.5)));
+    cldAssert('ar_1.5,c_crop,g_north,h_100', Resize.crop(options: CropBuilder() ..height(100) ..aspectRatio(1.5) ..gravity(Gravity.north())));
+    cldAssert('ar_1.5,c_crop,g_north,h_100,z_1.5', Resize.crop(options: CropBuilder() ..height(100) ..aspectRatio(1.5) ..gravity(Gravity.north()) ..zoom(1.5)));
   });
 }
