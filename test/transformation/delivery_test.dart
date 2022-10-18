@@ -53,7 +53,10 @@ void main() {
           "f_jpg,fl_progressive:semi",
           Delivery.format(Format.jpg(),
               options: FormatBuilder().progressive(Progressive.semi())));
-      cldAssert('f_png,fl_progressive:semi', Delivery.formatWithString('png', options: FormatBuilder().progressive(Progressive.semi())));
+      cldAssert(
+          'f_png,fl_progressive:semi',
+          Delivery.formatWithString('png',
+              options: FormatBuilder().progressive(Progressive.semi())));
     });
 
     test('Test format syntax with options', () {
