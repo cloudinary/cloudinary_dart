@@ -28,8 +28,9 @@ class Cloudinary {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
   }
 
-  Asset raw([AssetBuilder? options]) {
+  Asset raw(String publicId, [AssetBuilder? options]) {
     var builder = AssetBuilder()
+      ..publicId = publicId
       ..cloudConfig = config.cloudConfig
       ..urlConfig = config.urlConfig
       ..assetType = 'raw';
@@ -39,8 +40,9 @@ class Cloudinary {
     return Asset.withBuilder(builder);
   }
 
-  Image image([ImageBuilder? options]) {
+  Image image(String publicId, [ImageBuilder? options]) {
     var builder = ImageBuilder()
+      ..publicId = publicId
       ..cloudConfig = config.cloudConfig
       ..urlConfig = config.urlConfig
       ..assetType = 'image';
@@ -50,8 +52,9 @@ class Cloudinary {
     return Image.withBuilder(builder);
   }
 
-  Video video([VideoBuilder? options]) {
+  Video video(String publicId, [VideoBuilder? options]) {
     var builder = VideoBuilder()
+      ..publicId = publicId
       ..cloudConfig = config.cloudConfig
       ..urlConfig = config.urlConfig
       ..assetType = 'video';
