@@ -65,7 +65,7 @@ abstract class Resize extends Action {
   /// Change the size of the image exactly to the given width and height without necessarily retaining the original
   /// aspect ratio: all original image parts are visible but might be stretched or shrunk.
   ///
-  /// Receives [width], [height] and/or [aspectRatio] and returns [Resize] object.
+  /// Receives [width], [height], [aspectRatio] and options, returns [Resize] object.
   static Resize scale({int? width, int? height, ScaleBuilder? options}) {
     var builder = ScaleBuilder();
     builder.width(width);
@@ -79,7 +79,7 @@ abstract class Resize extends Action {
   /// The image is resized so that it takes up as much space as possible within a bounding box defined by the given
   /// width and height qualifiers. The original aspect ratio is retained and all of the original image is visible.
   ///
-  /// Receives [width], [height] and/or [aspectRatio] and returns [Resize] object.
+  /// Receives [width], [height], [aspectRatio] and options, returns [Resize] object.
   static Resize fit({int? width, int? height, FitBuilder? options}) {
     var builder = FitBuilder(width: width, height: height);
     if (options != null) {
@@ -88,6 +88,9 @@ abstract class Resize extends Action {
     return builder.build();
   }
 
+  /// Extracts a region of the given width and height out of the original image.
+  ///
+  /// Receives [width], [height], [aspectRatio] and options, returns [Resize] object.
   static Resize crop({int? width, int? height, CropBuilder? options}) {
     var builder = CropBuilder();
     builder.width(width);
