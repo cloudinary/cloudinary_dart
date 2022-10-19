@@ -42,7 +42,7 @@ class ScaleBuilder extends BaseBuilder<ScaleBuilder> {
   }
 
   @override
-  Action build() {
+  Scale build() {
     return Scale(
         Dimensions(
             width: getWidth(),

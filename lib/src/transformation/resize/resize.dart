@@ -73,7 +73,7 @@ abstract class Resize extends Action {
     if (options != null) {
       builder.copyWith(options);
     }
-    return builder.build() as Resize;
+    return builder.build();
   }
 
   /// The image is resized so that it takes up as much space as possible within a bounding box defined by the given
@@ -85,7 +85,7 @@ abstract class Resize extends Action {
     if (options != null) {
       builder.copyWith(options);
     }
-    return builder.build() as Resize;
+    return builder.build();
   }
 
   static Resize crop({int? width, int? height, CropBuilder? options}) {
@@ -95,6 +95,6 @@ abstract class Resize extends Action {
     if (options != null) {
       builder.copyWith(options);
     }
-    return builder.build() as Resize;
+    return builder.build();
   }
 }

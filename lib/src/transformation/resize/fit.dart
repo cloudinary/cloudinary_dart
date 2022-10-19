@@ -23,7 +23,7 @@ class FitBuilder extends BaseBuilder<FitBuilder> {
   }
 
   @override
-  Action build() {
+  Fit build() {
     return Fit(
         Dimensions(
             width: getWidth(),
