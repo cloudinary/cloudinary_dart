@@ -81,7 +81,7 @@ void main() {
               ..aspectRatio(1.5)));
   });
 
-  test("Test crop", () {
+  test("Test successful crop formatting", () {
     cldAssert('c_crop,w_100', Resize.crop(width: 100));
     cldAssert('c_crop,w_100', Resize.crop(options: CropBuilder()..width(100)));
     cldAssert('c_crop,w_1.0', Resize.crop(options: CropBuilder()..width(1.0)));
