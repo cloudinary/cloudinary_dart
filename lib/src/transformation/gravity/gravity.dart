@@ -14,7 +14,8 @@ class Gravity {
   static northWest() => CompassGravity(Compass.northWest());
   static center() => CompassGravity(Compass.center());
 
-  FocusOnGravity focusOn(FocusOn focusOn,List<FocusOn> focusOnObjects, {FocusOnGravityBuilder? options}) {
+  FocusOnGravity focusOn(FocusOn focusOn, List<FocusOn> focusOnObjects,
+      {FocusOnGravityBuilder? options}) {
     List<FocusOn> list = [focusOn];
     list.addAll(focusOnObjects);
     var builder = FocusOnGravityBuilder(list);
@@ -37,7 +38,6 @@ class CompassGravity extends Gravity {
 }
 
 class Compass {
-
   String value;
 
   Compass(this.value);
@@ -66,7 +66,9 @@ class FocusOnGravity extends Gravity {
 
   @override
   String toString() {
-    return focusOnObjects.join(":").joinWithValues([fallbackGravity.toString()]);
+    return focusOnObjects
+        .join(":")
+        .joinWithValues([fallbackGravity.toString()]);
   }
 }
 
@@ -93,7 +95,6 @@ class FocusOnGravityBuilder implements GeneralBuilder {
 }
 
 class AutoGravity extends Gravity {
-
   List<IAutoGravityObject> objects;
 
   AutoGravity(this.objects);
@@ -118,7 +119,8 @@ class AutoGravityBuilder {
 }
 
 class AutoFocus {
-  static AutoGravityObject focusOn(FocusOn focus, {IAutoGravityObjectBuilder? options}) {
+  static AutoGravityObject focusOn(FocusOn focus,
+      {IAutoGravityObjectBuilder? options}) {
     var builder = IAutoGravityObjectBuilder(focus);
     options ?? builder.copyWith(options);
     return builder.build();
@@ -134,7 +136,8 @@ class AutoGravityObject implements IAutoGravityObject {
 
   @override
   String toString() {
-    var weightStr = (avoid != null && avoid == true) ? "avoid" : weight.toString();
+    var weightStr =
+        (avoid != null && avoid == true) ? "avoid" : weight.toString();
     return '$gravityObject'.joinWithValues([weightStr], separator: "_");
   }
 }
@@ -168,10 +171,6 @@ class IAutoGravityObjectBuilder implements GeneralBuilder {
   }
 }
 
-abstract class IGravityObject {
+abstract class IGravityObject {}
 
-}
-
-abstract class IAutoGravityObject {
-
-}
+abstract class IAutoGravityObject {}

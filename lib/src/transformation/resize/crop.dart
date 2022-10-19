@@ -5,13 +5,18 @@ import '../common.dart';
 import '../gravity/gravity.dart';
 
 class Crop extends Resize {
-
   Gravity? gravity;
   dynamic zoom;
   dynamic x;
   dynamic y;
 
-  Crop(super.dimensions, {super.relative, super.regionRelative, this.gravity, this.zoom, this.x, this.y});
+  Crop(super.dimensions,
+      {super.relative,
+      super.regionRelative,
+      this.gravity,
+      this.zoom,
+      this.x,
+      this.y});
 
   @override
   List<Param?> params() {
@@ -25,12 +30,10 @@ class Crop extends Resize {
 
   @override
   String actionType = "crop";
-
 }
 
 /// Class CropBuilder
 class CropBuilder extends BaseBuilder<CropBuilder> {
-
   Gravity? _gravity;
   dynamic _zoom;
   dynamic _x;
@@ -58,12 +61,20 @@ class CropBuilder extends BaseBuilder<CropBuilder> {
 
   @override
   Object getThis() {
-      return this;
+    return this;
   }
 
   @override
   Crop build() {
-    return Crop(Dimensions(width: getWidth(), height: getHeight(), aspectRatio: getAspectRatio()), gravity: _gravity, zoom: _zoom, x: _x, y: _y);
+    return Crop(
+        Dimensions(
+            width: getWidth(),
+            height: getHeight(),
+            aspectRatio: getAspectRatio()),
+        gravity: _gravity,
+        zoom: _zoom,
+        x: _x,
+        y: _y);
   }
 
   @override
