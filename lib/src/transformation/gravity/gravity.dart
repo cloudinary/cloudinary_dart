@@ -139,10 +139,6 @@ class AutoGravityObject implements IAutoGravityObject {
   }
 }
 
-abstract class IAutoGravityObject {
-
-}
-
 class IAutoGravityObjectBuilder implements GeneralBuilder {
   FocusOn focusOn;
   int? _weight;
@@ -173,5 +169,9 @@ class IAutoGravityObjectBuilder implements GeneralBuilder {
 }
 
 abstract class IGravityObject {
+
+}
+
+abstract class IAutoGravityObject {
 
 }

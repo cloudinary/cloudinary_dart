@@ -28,6 +28,7 @@ class Crop extends Resize {
 
 }
 
+/// Class CropBuilder
 class CropBuilder extends BaseBuilder<CropBuilder> {
 
   Gravity? _gravity;
