@@ -17,7 +17,7 @@ This Readme provides basic installation and usage information.
     - [Transform and Optimize Assets](#Transform-and-Optimize-Assets)
 
 ## Key Features
-- [Transform](https://cloudinary.com/documentation/kotlin_media_transformations) and [optimize](https://cloudinary.com/documentation/kotlin_media_transformations#image_optimizations) assets.
+Transform and optimize assets. Visit our documentation to learn more about [media optimization](https://cloudinary.com/documentation/media_optimization) and [transformations](https://cloudinary.com/documentation/image_transformations).
 
 ## Version Support
 | SDK Version | Dart Version |
