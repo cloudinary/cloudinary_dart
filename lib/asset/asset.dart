@@ -44,7 +44,7 @@ abstract class BaseAsset {
   String? version;
   String? publicId;
 
-  Format? extension;
+  FormatValue? extension;
   String? urlSuffix;
   String assetType = defaultAssetType;
   String? deliveryType;
@@ -76,7 +76,7 @@ abstract class BaseAsset {
   String getTransformationString();
 
   FinalizedSource finalizeSource(
-      String source, Format? extension, String urlSuffix) {
+      String source, FormatValue? extension, String urlSuffix) {
     var mutableSource = source.cldMergeSlashesInUrl();
     String sourceToSign;
     if (mutableSource.cldIsHttpUrl) {

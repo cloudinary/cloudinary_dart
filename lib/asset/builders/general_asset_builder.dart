@@ -12,7 +12,7 @@ abstract class GeneralAssetBuilder {
   String? version;
   String? publicId;
 
-  Format? extension;
+  FormatValue? extension;
   String? urlSuffix;
   String? assetType;
   String? deliveryType;

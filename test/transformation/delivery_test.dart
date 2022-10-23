@@ -51,27 +51,29 @@ void main() {
     test('Test format syntax successful with progressive option', () {
       cldAssert(
           "f_jpg,fl_progressive:semi",
-          Delivery.format(Format(FormatValue.jpg()).progressive(Progressive.semi())));
+          Delivery.format(
+              Format(FormatValue.jpg()).progressive(Progressive.semi())));
       cldAssert(
           'f_png,fl_progressive:semi',
-          Delivery.format(Format.withString('png').progressive(Progressive.semi())));
+          Delivery.format(
+              Format.withString('png').progressive(Progressive.semi())));
     });
 
     test('Test format syntax with options', () {
       cldAssert(
           "f_jpg,fl_lossy,fl_preserve_transparency,fl_progressive,fl_ignore_mask_channels",
           Delivery.format(Format(FormatValue.jpg())
-                  .lossy()
-                  .progressive(Progressive.progressive())
-                  .preserveTransparency()
-                  .ignoreMaskChannels()));
+              .lossy()
+              .progressive(Progressive.progressive())
+              .preserveTransparency()
+              .ignoreMaskChannels()));
       cldAssert(
           "f_jpg,fl_lossy,fl_preserve_transparency,fl_progressive,fl_ignore_mask_channels",
           Delivery.format(Format(FormatValue.jpg())
-                ..lossy(true)
-                ..progressive(Progressive.progressive())
-                ..preserveTransparency()
-                ..ignoreMaskChannels()));
+            ..lossy(true)
+            ..progressive(Progressive.progressive())
+            ..preserveTransparency()
+            ..ignoreMaskChannels()));
     });
   });
 }

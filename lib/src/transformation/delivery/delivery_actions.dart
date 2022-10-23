@@ -153,8 +153,7 @@ class Format implements TransformationComponentBuilder<Format> {
   bool? _preserveTransparency;
   bool? _ignoreMaskChannels;
 
-  Format(
-      this.format,
+  Format(this.format,
       {bool? lossy,
       Progressive? progressive,
       bool? preserveTransparency,
@@ -165,10 +164,11 @@ class Format implements TransformationComponentBuilder<Format> {
     _ignoreMaskChannels = ignoreMaskChannels;
   }
 
-  Format.withString(String format, {bool? lossy,
-    Progressive? progressive,
-    bool? preserveTransparency,
-    bool? ignoreMaskChannels}) {
+  Format.withString(String format,
+      {bool? lossy,
+      Progressive? progressive,
+      bool? preserveTransparency,
+      bool? ignoreMaskChannels}) {
     this.format = FormatValue.custom(format);
     _lossy = lossy;
     _progressive = progressive;
