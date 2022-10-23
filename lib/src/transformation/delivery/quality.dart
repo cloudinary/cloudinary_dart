@@ -1,55 +1,55 @@
-class Quality {
+class QualityValue {
   List<String> values;
 
   /// Sets the quality level [values](Range 1 to 100).
-  Quality(this.values);
+  QualityValue(this.values);
 
   /// Quality auto
-  static Quality auto() {
-    return Quality(["auto"]);
+  static QualityValue auto() {
+    return QualityValue(["auto"]);
   }
 
   /// Quality eco
-  static Quality autoEco() {
-    return Quality(["auto", "eco"]);
+  static QualityValue autoEco() {
+    return QualityValue(["auto", "eco"]);
   }
 
   /// Quality good
-  static autoGood() {
-    return Quality(["auto", "good"]);
+  static QualityValue autoGood() {
+    return QualityValue(["auto", "good"]);
   }
 
   /// Quality best
-  static autoBest() {
-    return Quality(["auto", "best"]);
+  static QualityValue autoBest() {
+    return QualityValue(["auto", "best"]);
   }
 
   /// Quality low
-  static autoLow() {
-    return Quality(["auto", "low"]);
+  static QualityValue autoLow() {
+    return QualityValue(["auto", "low"]);
   }
 
   /// Quality jpegmini
-  static jpegmini() {
-    return Quality(["jpegmini"]);
+  static QualityValue jpegmini() {
+    return QualityValue(["jpegmini"]);
   }
 
   /// Quality jpegminiHigh
-  static jpegminiHigh() {
-    return Quality(["jpegmini", "1"]);
+  static QualityValue jpegminiHigh() {
+    return QualityValue(["jpegmini", "1"]);
   }
 
   /// Quality jpegminiMedium
-  static jpegminiMedium() {
-    return Quality(["jpegmini", "2"]);
+  static QualityValue jpegminiMedium() {
+    return QualityValue(["jpegmini", "2"]);
   }
 
   /// Quality jpegminiBest
-  static jpegminiBest() {
-    return Quality(["jpegmini", "0"]);
+  static QualityValue jpegminiBest() {
+    return QualityValue(["jpegmini", "0"]);
   }
 
-  /// Returns [Quality] as string connected with ':'
+  /// Returns [QualityValue] as string connected with ':'
   @override
   String toString() {
     return values.join(":");

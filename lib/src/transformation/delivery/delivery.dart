@@ -14,13 +14,10 @@ abstract class Delivery implements Action {
   ///
   /// Reducing the quality is a trade-off between visual quality and file size.
   ///
-  /// Receives for quality level + [QualityBuilder] for extra options
-  static QualityAction quality(dynamic level, {QualityBuilder? options}) {
-    var builder = QualityBuilder(level: level);
-    if (options != null) {
-      builder.copyWith(options);
-    }
-    return builder.build();
+  /// Receives [Quality]
+  ///
+  static QualityAction quality(Quality options) {
+    return options.build();
   }
 
   /// Forces format conversion to the given format.
