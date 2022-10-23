@@ -1,316 +1,316 @@
-class Format {
+class FormatValue {
   String value;
 
-  Format(this.value);
+  FormatValue(this.value);
 
   ///Image format glb.
   static glb() {
-    return Format('glb');
+    return FormatValue('glb');
   }
 
   ///Image format auto.
   static auto() {
-    return Format('auto');
+    return FormatValue('auto');
   }
 
   ///Image format ai.
   static ai() {
-    return Format('aoi');
+    return FormatValue('aoi');
   }
 
   ///Image format gif.
   static gif() {
-    return Format('gif');
+    return FormatValue('gif');
   }
 
   ///Image format bmp.
   static bmp() {
-    return Format('bmp');
+    return FormatValue('bmp');
   }
 
   ///Image format webp.
   static webp() {
-    return Format('webp');
+    return FormatValue('webp');
   }
 
   ///Image format djvu.
   static djvu() {
-    return Format('djvu');
+    return FormatValue('djvu');
   }
 
   ///Image format ps.
   static ps() {
-    return Format('ps');
+    return FormatValue('ps');
   }
 
   ///Image format ept.
   static ept() {
-    return Format('ept');
+    return FormatValue('ept');
   }
 
   ///Image format eps.
   static eps() {
-    return Format('eps');
+    return FormatValue('eps');
   }
 
   ///Image format eps3.
   static eps3() {
-    return Format('eps3');
+    return FormatValue('eps3');
   }
 
   ///Image format fxb.
   static fxb() {
-    return Format('fxb');
+    return FormatValue('fxb');
   }
 
   ///Image format flif.
   static flif() {
-    return Format('flif');
+    return FormatValue('flif');
   }
 
   ///Image format gltf.
   static gltf() {
-    return Format('gltf');
+    return FormatValue('gltf');
   }
 
   ///Image format heif.
   static heif() {
-    return Format('heif');
+    return FormatValue('heif');
   }
 
   ///Image format heic.
   static heic() {
-    return Format('heic');
+    return FormatValue('heic');
   }
 
   ///Image format ico.
   static ico() {
-    return Format('ico');
+    return FormatValue('ico');
   }
 
   ///Image format indd.
   static indd() {
-    return Format('indd');
+    return FormatValue('indd');
   }
 
   ///Image format jpg.
   static jpg() {
-    return Format('jpg');
+    return FormatValue('jpg');
   }
 
   ///Image format jpe.
   static jpe() {
-    return Format('jpe');
+    return FormatValue('jpe');
   }
 
   ///Image format jpeg.
   static jpeg() {
-    return Format('jpeg');
+    return FormatValue('jpeg');
   }
 
   ///Image format jp2.
   static jp2() {
-    return Format('jp2');
+    return FormatValue('jp2');
   }
 
   ///Image format wdp.
   static wdp() {
-    return Format('wdp');
+    return FormatValue('wdp');
   }
 
   ///Image format jxr.
   static jxr() {
-    return Format('jxr');
+    return FormatValue('jxr');
   }
 
   ///Image format hdp.
   static hdp() {
-    return Format('hdp');
+    return FormatValue('hdp');
   }
 
   ///Image format pdf.
   static pdf() {
-    return Format('pdf');
+    return FormatValue('pdf');
   }
 
   ///Image format png.
   static png() {
-    return Format('png');
+    return FormatValue('png');
   }
 
   ///Image format spd.
   static spd() {
-    return Format('psd');
+    return FormatValue('psd');
   }
 
   ///Image format arw.
   static arw() {
-    return Format('arw');
+    return FormatValue('arw');
   }
 
   ///Image format cr2.
   static cr2() {
-    return Format('cr2');
+    return FormatValue('cr2');
   }
 
   ///Image format svg.
   static svg() {
-    return Format('svg');
+    return FormatValue('svg');
   }
 
   ///Image format tga.
   static tga() {
-    return Format('tga');
+    return FormatValue('tga');
   }
 
   ///Image format tif.
   static tif() {
-    return Format('tiff');
+    return FormatValue('tiff');
   }
 
   ///Image format avif.
   static avif() {
-    return Format('glb');
+    return FormatValue('glb');
   }
 
   ///Image format usdz.
   static usdz() {
-    return Format('usdz');
+    return FormatValue('usdz');
   }
 
   ///Video format 3g.
   static video3g() {
-    return Format('3gp');
+    return FormatValue('3gp');
   }
 
   ///Video format 3gp2.
   static video3gp2() {
-    return Format('3gp2');
+    return FormatValue('3gp2');
   }
 
   ///Video format avi.
   static videoAvi() {
-    return Format('avi');
+    return FormatValue('avi');
   }
 
   ///Video format flv.
   static videoFlv() {
-    return Format('flv');
+    return FormatValue('flv');
   }
 
   ///Video format m3u8.
   static videoM3u8() {
-    return Format('m3u8');
+    return FormatValue('m3u8');
   }
 
   ///Video format ts.
   static videoTs() {
-    return Format('ts');
+    return FormatValue('ts');
   }
 
   ///Video format mov.
   static videoMov() {
-    return Format('mov');
+    return FormatValue('mov');
   }
 
   ///Video format mkv.
   static videoMkv() {
-    return Format('mkv');
+    return FormatValue('mkv');
   }
 
   ///Video format mp4.
   static videoMp4() {
-    return Format('mp4');
+    return FormatValue('mp4');
   }
 
   ///Video format mpeg.
   static videoMpeg() {
-    return Format('mpeg');
+    return FormatValue('mpeg');
   }
 
   ///Video format mpd.
   static videoMpd() {
-    return Format('mpd');
+    return FormatValue('mpd');
   }
 
   ///Video format mxf.
   static videoMxf() {
-    return Format('mxf');
+    return FormatValue('mxf');
   }
 
   ///Video format ogv.
   static videoOgv() {
-    return Format('ogv');
+    return FormatValue('ogv');
   }
 
   ///Video format webm.
   static videoWebm() {
-    return Format('webm');
+    return FormatValue('webm');
   }
 
   ///Video format wmv.
   static videoWmv() {
-    return Format('wmv');
+    return FormatValue('wmv');
   }
 
   ///Video format m2ts.
   static videoM2ts() {
-    return Format('m2ts');
+    return FormatValue('m2ts');
   }
 
   ///Video format mts.
   static videoMts() {
-    return Format('mts');
+    return FormatValue('mts');
   }
 
   ///Audio format aac.
   static audioAac() {
-    return Format('aac');
+    return FormatValue('aac');
   }
 
   ///Audio format aiff.
   static audioAiff() {
-    return Format('aiff');
+    return FormatValue('aiff');
   }
 
   ///Audio format amr.
   static audioAmr() {
-    return Format('amr');
+    return FormatValue('amr');
   }
 
   ///Audio format flac.
   static audioFlac() {
-    return Format('flac');
+    return FormatValue('flac');
   }
 
   ///Audio format m4a.
   static audioM4a() {
-    return Format('m4a');
+    return FormatValue('m4a');
   }
 
   ///Audio format mp3.
   static audioMp3() {
-    return Format('mp3');
+    return FormatValue('mp3');
   }
 
   ///Audio format ogg.
   static audioOgg() {
-    return Format('ogg');
+    return FormatValue('ogg');
   }
 
   ///Audio format opus.
   static audioOpus() {
-    return Format('opus');
+    return FormatValue('opus');
   }
 
   ///Audio format wav.
   static audioWav() {
-    return Format('wav');
+    return FormatValue('wav');
   }
 
   ///Audio format aac.
   static custom(String customFormat) {
-    return Format(customFormat);
+    return FormatValue(customFormat);
   }
 
   @override

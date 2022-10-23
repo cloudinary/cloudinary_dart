@@ -111,7 +111,7 @@ class ChromaSubSampling {
 }
 
 class FormatAction extends Delivery {
-  final Format? _format;
+  final FormatValue? _format;
   bool? _lossy;
   Progressive? _progressive;
   bool? _preserveTransparency;
@@ -146,16 +146,16 @@ class FormatAction extends Delivery {
   }
 }
 
-class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
-  Format? format;
+class Format implements TransformationComponentBuilder<Format> {
+  FormatValue? format;
   bool? _lossy;
   Progressive? _progressive;
   bool? _preserveTransparency;
   bool? _ignoreMaskChannels;
 
-  FormatBuilder(
-      {this.format,
-      bool? lossy,
+  Format(
+      this.format,
+      {bool? lossy,
       Progressive? progressive,
       bool? preserveTransparency,
       bool? ignoreMaskChannels}) {
@@ -165,7 +165,18 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
     _ignoreMaskChannels = ignoreMaskChannels;
   }
 
-  FormatBuilder lossy([bool? lossy = true]) {
+  Format.withString(String format, {bool? lossy,
+    Progressive? progressive,
+    bool? preserveTransparency,
+    bool? ignoreMaskChannels}) {
+    this.format = FormatValue.custom(format);
+    _lossy = lossy;
+    _progressive = progressive;
+    _preserveTransparency = preserveTransparency;
+    _ignoreMaskChannels = ignoreMaskChannels;
+  }
+
+  Format lossy([bool? lossy = true]) {
     _lossy = lossy;
     return this;
   }
@@ -174,24 +185,24 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
   ///
   /// Receives [Progressive], The mode to determine a specific progressive outcome.
   ///
-  /// Returns [FormatBuilder]
-  FormatBuilder progressive(Progressive progressive) {
+  /// Returns [Format]
+  Format progressive(Progressive progressive) {
     _progressive = progressive;
     return this;
   }
 
   /// Ensures that images with a transparency channel will be delivered in PNG format.
   ///
-  /// Returns [FormatBuilder]
-  FormatBuilder preserveTransparency() {
+  /// Returns [Format]
+  Format preserveTransparency() {
     _preserveTransparency = true;
     return this;
   }
 
   /// Ensures that an alpha channel is not applied to a TIFF image if it is a mask channel.
   ///
-  /// Returns [FormatBuilder]
-  FormatBuilder ignoreMaskChannels() {
+  /// Returns [Format]
+  Format ignoreMaskChannels() {
     _ignoreMaskChannels = true;
     return this;
   }
@@ -207,7 +218,7 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
 
   /// Builder copy function
   @override
-  void copyWith(FormatBuilder other) {
+  void copyWith(Format other) {
     format = other.format ?? format;
     _lossy = other._lossy;
     _progressive = other._progressive;
