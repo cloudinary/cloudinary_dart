@@ -48,7 +48,8 @@ abstract class Background {
     return builder.build();
   }
 
-  static Background predominantGradient([PredominantGradientBackgroundBuilder? options]) {
+  static Background predominantGradient(
+      [PredominantGradientBackgroundBuilder? options]) {
     var builder = PredominantGradientBackgroundBuilder();
     if (options != null) {
       builder.copyWith(options);
@@ -59,7 +60,7 @@ abstract class Background {
   static Background color(Color color) {
     return ColorBackground(color);
   }
-  
+
   static Background colorString(String value) {
     return color(Color.parseString(value));
   }
@@ -75,5 +76,4 @@ class AutoBackground extends Background {
 abstract class BackgroundBuilder<T, B> {
   T build();
   copyWith(B);
-
 }

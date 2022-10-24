@@ -23,7 +23,8 @@ class BorderBackground extends Background {
   }
 }
 
-class BorderBackgroundBuilder implements BackgroundBuilder<BorderBackground, BorderBackgroundBuilder> {
+class BorderBackgroundBuilder
+    implements BackgroundBuilder<BorderBackground, BorderBackgroundBuilder> {
   bool? _contrast;
   List<Color>? _palette;
 

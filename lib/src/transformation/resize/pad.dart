@@ -78,6 +78,7 @@ class PadBuilder extends BaseBuilder<PadBuilder> {
   Object getThis() {
     return this;
   }
+
   @override
   void copyWith(other) {
     width(other.getWidth());

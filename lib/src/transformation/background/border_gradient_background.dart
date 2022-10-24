@@ -9,7 +9,11 @@ class BorderGradientBackground extends Background {
   int? gradientColors;
   GradientDirection? gradientDirection;
 
-  BorderGradientBackground({this.contrast, this.palette, this.gradientColors, this.gradientDirection}) {
+  BorderGradientBackground(
+      {this.contrast,
+      this.palette,
+      this.gradientColors,
+      this.gradientDirection}) {
     if (palette != null && palette!.isEmpty) {
       throw ArgumentError(
           'If using a palette it must contain at least one color');
@@ -18,11 +22,20 @@ class BorderGradientBackground extends Background {
 
   @override
   String getValues() {
-    var fullType= 'auto:border_gradient'.joinWithValues([(contrast == true) ? 'contrast' : null]);
-    return fullType.joinWithValues([gradientColors, gradientDirection, (palette != null) ? 'palette_${palette!.join('_')}' : null]);
+    var fullType = 'auto:border_gradient'
+        .joinWithValues([(contrast == true) ? 'contrast' : null]);
+    return fullType.joinWithValues([
+      gradientColors,
+      gradientDirection,
+      (palette != null) ? 'palette_${palette!.join('_')}' : null
+    ]);
   }
 }
-class BorderGradientBackgroundBuilder implements BackgroundBuilder<BorderGradientBackground, BorderGradientBackgroundBuilder> {
+
+class BorderGradientBackgroundBuilder
+    implements
+        BackgroundBuilder<BorderGradientBackground,
+            BorderGradientBackgroundBuilder> {
   bool? _contrast;
   List<Color>? _palette;
   int? _gradientColors;
@@ -33,7 +46,8 @@ class BorderGradientBackgroundBuilder implements BackgroundBuilder<BorderGradien
     return this;
   }
 
-  BorderGradientBackgroundBuilder gradientDirection(GradientDirection gradientDirection) {
+  BorderGradientBackgroundBuilder gradientDirection(
+      GradientDirection gradientDirection) {
     _gradientDirection = gradientDirection;
     return this;
   }
@@ -50,7 +64,11 @@ class BorderGradientBackgroundBuilder implements BackgroundBuilder<BorderGradien
 
   @override
   BorderGradientBackground build() {
-    return BorderGradientBackground(contrast: _contrast, palette: _palette, gradientColors: _gradientColors, gradientDirection: _gradientDirection);
+    return BorderGradientBackground(
+        contrast: _contrast,
+        palette: _palette,
+        gradientColors: _gradientColors,
+        gradientDirection: _gradientDirection);
   }
 
   @override

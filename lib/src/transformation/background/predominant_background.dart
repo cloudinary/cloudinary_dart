@@ -17,11 +17,16 @@ class PredominantBackground extends Background {
 
   @override
   String getValues() {
-    return 'auto:predominant'.joinWithValues([(contrast != null && contrast == true) ? 'contrast' : null], separator: '_').joinWithValues([(palette != null) ? 'palette_${palette!.join('_')}' : null]);
+    return 'auto:predominant'.joinWithValues([
+      (contrast != null && contrast == true) ? 'contrast' : null
+    ], separator: '_').joinWithValues(
+        [(palette != null) ? 'palette_${palette!.join('_')}' : null]);
   }
 }
 
-class PredominantBackgroundBuilder implements BackgroundBuilder<PredominantBackground, PredominantBackgroundBuilder> {
+class PredominantBackgroundBuilder
+    implements
+        BackgroundBuilder<PredominantBackground, PredominantBackgroundBuilder> {
   bool? _contrast;
   List<Color>? _palette;
 
@@ -53,7 +58,11 @@ class PredominantGradientBackground extends Background {
   int? gradientColors;
   GradientDirection? gradientDirection;
 
-  PredominantGradientBackground({this.contrast, this.palette, this.gradientColors, this.gradientDirection}) {
+  PredominantGradientBackground(
+      {this.contrast,
+      this.palette,
+      this.gradientColors,
+      this.gradientDirection}) {
     if (palette != null && palette!.isEmpty) {
       throw ArgumentError(
           'If using a palette it must contain at least one color');
@@ -62,12 +71,20 @@ class PredominantGradientBackground extends Background {
 
   @override
   String getValues() {
-    var fullType= 'auto:predominant_gradient'.joinWithValues([(contrast == true) ? 'contrast' : null]);
-    return fullType.joinWithValues([gradientColors, gradientDirection, (palette != null) ? 'palette_${palette!.join('_')}' : null]);
+    var fullType = 'auto:predominant_gradient'
+        .joinWithValues([(contrast == true) ? 'contrast' : null]);
+    return fullType.joinWithValues([
+      gradientColors,
+      gradientDirection,
+      (palette != null) ? 'palette_${palette!.join('_')}' : null
+    ]);
   }
 }
 
-class PredominantGradientBackgroundBuilder implements BackgroundBuilder<PredominantGradientBackground, PredominantGradientBackgroundBuilder> {
+class PredominantGradientBackgroundBuilder
+    implements
+        BackgroundBuilder<PredominantGradientBackground,
+            PredominantGradientBackgroundBuilder> {
   bool? _contrast;
   List<Color>? _palette;
   int? _gradientColors;
@@ -78,7 +95,8 @@ class PredominantGradientBackgroundBuilder implements BackgroundBuilder<Predomin
     return this;
   }
 
-  PredominantGradientBackgroundBuilder gradientDirection(GradientDirection gradientDirection) {
+  PredominantGradientBackgroundBuilder gradientDirection(
+      GradientDirection gradientDirection) {
     _gradientDirection = gradientDirection;
     return this;
   }
@@ -95,7 +113,11 @@ class PredominantGradientBackgroundBuilder implements BackgroundBuilder<Predomin
 
   @override
   PredominantGradientBackground build() {
-    return PredominantGradientBackground(contrast: _contrast, palette: _palette, gradientColors: _gradientColors, gradientDirection: _gradientDirection);
+    return PredominantGradientBackground(
+        contrast: _contrast,
+        palette: _palette,
+        gradientColors: _gradientColors,
+        gradientDirection: _gradientDirection);
   }
 
   @override

@@ -15,7 +15,8 @@ class BlurredBackground extends Background {
   }
 }
 
-class BlurredBackgroundBuilder implements BackgroundBuilder<BlurredBackground, BlurredBackgroundBuilder> {
+class BlurredBackgroundBuilder
+    implements BackgroundBuilder<BlurredBackground, BlurredBackgroundBuilder> {
   int? _intensity;
   int? _brightness;
 
