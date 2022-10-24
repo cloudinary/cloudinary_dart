@@ -92,6 +92,13 @@ extension StringManipulation on String {
     return (lastToRemove < 0) ? this : substring(lastToRemove + 1);
   }
 
+  String cldRemoveColorPrefixes() {
+    return this
+        .replaceFirst('#', '')
+        .replaceFirst('rgb', '')
+        .replaceFirst(':', "");
+  }
+
   String safeBase64Encoding() {
     var newString = this;
     for (int i = 0; i < length; i++) {

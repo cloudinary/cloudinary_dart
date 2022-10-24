@@ -4,6 +4,7 @@ import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
 
 import '../common.dart';
+import 'pad.dart';
 import 'crop.dart';
 
 class Dimensions {
@@ -93,6 +94,16 @@ abstract class Resize extends Action {
   /// Receives [width], [height], [aspectRatio] and options, returns [Resize] object.
   static Resize crop({int? width, int? height, CropBuilder? options}) {
     var builder = CropBuilder();
+    builder.width(width);
+    builder.height(height);
+    if (options != null) {
+      builder.copyWith(options);
+    }
+    return builder.build();
+  }
+
+  static Resize pad({int? width, int? height, PadBuilder? options}) {
+    var builder = PadBuilder();
     builder.width(width);
     builder.height(height);
     if (options != null) {
