@@ -28,7 +28,18 @@ class QualityAction extends Delivery {
 }
 
 /// Quality Builder
-class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
+class Quality implements TransformationComponentBuilder<Quality> {
+
+  static const String auto = 'auto';
+  static const String autoEco = 'auto:eco';
+  static const String autoGood = 'auto:good';
+  static const String autoBest = 'auto:best';
+  static const String autoLow = 'auto:low';
+  static const String jpegmini = 'jpegmini';
+  static const String jpegminiHigh = 'jpegmini:1';
+  static const String jpegminiMedium = 'jpegmini:2';
+  static const String jpegminiBest = 'jpegmini:0';
+
   dynamic level;
   bool _anyFormat = false;
   ChromaSubSampling? _chromaSubSampling;
@@ -39,7 +50,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   /// Reducing the quality is a trade-off between visual quality and file size.
   ///
   /// Receives [dynamic] level The quality level. 1 is the lowest quality and 100 is the highest.
-  QualityBuilder({this.level, bool anyFormat = false}) {
+  Quality(this.level, {bool anyFormat = false}) {
     _anyFormat = anyFormat;
   }
 
@@ -50,7 +61,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   /// Receives [dynamic] quantization level.
   ///
   /// Returns [QualityBuilder] object.
-  QualityBuilder quantization(dynamic quantization) {
+  Quality quantization(dynamic quantization) {
     _quantization = quantization;
     return this;
   }
@@ -64,7 +75,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   /// Receives [String] chromaSubSampling Chroma sub-sampling value.
   ///
   /// Returns [QualityBuilder] object.
-  QualityBuilder chromaSubSampling(ChromaSubSampling chromaSubSampling) {
+  Quality chromaSubSampling(ChromaSubSampling chromaSubSampling) {
     _chromaSubSampling = chromaSubSampling;
     return this;
   }
@@ -72,7 +83,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   /// Adds an optional qualifier to accept any format
   ///
   /// Receives [bool] for anyFormat default value: true
-  QualityBuilder anyFormat([bool anyFormat = true]) {
+  Quality anyFormat([bool anyFormat = true]) {
     _anyFormat = anyFormat;
     return this;
   }
@@ -87,7 +98,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
 
   /// Builder copy function
   @override
-  void copyWith(QualityBuilder other) {
+  void copyWith(Quality other) {
     level = other.level ?? level;
     _chromaSubSampling = other._chromaSubSampling;
     _quantization = other._quantization;
