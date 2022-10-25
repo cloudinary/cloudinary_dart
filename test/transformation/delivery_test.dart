@@ -1,7 +1,6 @@
 import 'package:cloudinary_dart/asset/format.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
-import 'package:cloudinary_dart/src/transformation/delivery/quality.dart';
 import 'package:test/test.dart';
 import '../tests_utils.dart';
 
@@ -16,27 +15,27 @@ void main() {
         "q_100:420",
         Delivery.quality(
             Quality(100)..chromaSubSampling(ChromaSubSampling.chroma420())));
-    print(Delivery.quality(Quality(QualityValue.auto())));
-    cldAssert("q_auto", Delivery.quality(Quality(QualityValue.auto())));
-    cldAssert("q_auto:low", Delivery.quality(Quality(QualityValue.autoLow())));
+    print(Delivery.quality(Quality(Quality.auto)));
+    cldAssert("q_auto", Delivery.quality(Quality(Quality.auto)));
+    cldAssert("q_auto:low", Delivery.quality(Quality(Quality.autoLow)));
     cldAssert(
         "q_auto:low:444",
-        Delivery.quality(Quality(QualityValue.autoLow())
+        Delivery.quality(Quality(Quality.autoLow)
           ..chromaSubSampling(ChromaSubSampling.chroma444())));
     cldAssert("q_70:qmax_80", Delivery.quality(Quality(70)..quantization(80)));
     cldAssert(
-        "q_jpegmini:0", Delivery.quality(Quality(QualityValue.jpegminiBest())));
+        "q_jpegmini:0", Delivery.quality(Quality(Quality.jpegminiBest)));
     cldAssert(
-        "q_jpegmini:1", Delivery.quality(Quality(QualityValue.jpegminiHigh())));
+        "q_jpegmini:1", Delivery.quality(Quality(Quality.jpegminiHigh)));
     cldAssert("q_jpegmini:2",
-        Delivery.quality(Quality(QualityValue.jpegminiMedium())));
+        Delivery.quality(Quality(Quality.jpegminiMedium)));
   });
 
   test('Test quality with any format parameter', () {
     cldAssert("fl_any_format,q_auto",
-        Delivery.quality(Quality(QualityValue.auto())..anyFormat(true)));
+        Delivery.quality(Quality(Quality.auto)..anyFormat(true)));
     cldAssert("fl_any_format,q_auto",
-        Delivery.quality(Quality(QualityValue.auto())..anyFormat(true)));
+        Delivery.quality(Quality(Quality.auto)..anyFormat(true)));
   });
 
   group('Test format class', () {

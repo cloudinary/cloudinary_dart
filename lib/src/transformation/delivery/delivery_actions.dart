@@ -29,6 +29,17 @@ class QualityAction extends Delivery {
 
 /// Quality Builder
 class Quality implements TransformationComponentBuilder<Quality> {
+
+  static const String auto = 'auto';
+  static const String autoEco = 'auto:eco';
+  static const String autoGood = 'auto:good';
+  static const String autoBest = 'auto:best';
+  static const String autoLow = 'auto:low';
+  static const String jpegmini = 'jpegmini';
+  static const String jpegminiHigh = 'jpegmini:1';
+  static const String jpegminiMedium = 'jpegmini:2';
+  static const String jpegminiBest = 'jpegmini:0';
+
   dynamic level;
   bool _anyFormat = false;
   ChromaSubSampling? _chromaSubSampling;
