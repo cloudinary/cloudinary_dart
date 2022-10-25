@@ -51,7 +51,13 @@ Generate a Cloudinary URL using the `cloudinary.media` helper method and pass th
 For example, to generate an url for an image called `sample` on the `demo` account:
 
 ```dart
-String url = cloudinary.image('sample.jpg');
+String url = cloudinary.image('sample.jpg').toString();
+```
+
+To generate a transformation URL for the same image:
+
+```dart
+String url = cloudinary.image('sample.jpg', ImageBuilder() ..transformation = "w_500").toString();
 ```
 
 ## Contributions
