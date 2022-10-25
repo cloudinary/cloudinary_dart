@@ -1,7 +1,6 @@
 import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
 import '../asset.dart';
-import '../format.dart';
 
 abstract class GeneralAssetBuilder {
   //config
@@ -12,7 +11,7 @@ abstract class GeneralAssetBuilder {
   String? version;
   String? publicId;
 
-  FormatValue? extension;
+  String? extension;
   String? urlSuffix;
   String? assetType;
   String? deliveryType;

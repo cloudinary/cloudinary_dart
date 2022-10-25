@@ -3,10 +3,10 @@ import 'package:cloudinary_dart/asset/asset.dart';
 import 'package:cloudinary_dart/asset/builders/asset_builder.dart';
 import 'package:cloudinary_dart/asset/builders/image_builder.dart';
 import 'package:cloudinary_dart/asset/builders/video_builder.dart';
-import 'package:cloudinary_dart/asset/format.dart';
 import 'package:cloudinary_dart/cloudinary.dart';
 import 'package:cloudinary_dart/config/cloudinary_config.dart';
 import 'package:cloudinary_dart/config/url_config.dart';
+import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
 import 'package:test/test.dart';
 
 import 'tests_utils.dart';
@@ -169,7 +169,7 @@ void main() {
     var cloudinary =
         Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
     var result =
-        cloudinary.image('test', ImageBuilder()..extension = FormatValue.jpg());
+        cloudinary.image('test', ImageBuilder()..extension = Format.jpg);
     cldAssert("${defaultUploadPath}test.jpg", result);
   });
 
@@ -266,7 +266,7 @@ void main() {
   test('Test URL suffix with format produce valid URL', () {
     //Show builder creation using constructor
     var actual = cloudinaryPrivateCdn.image(
-        'test', ImageBuilder(urlSuffix: 'hello', extension: FormatValue.jpg()));
+        'test', ImageBuilder(urlSuffix: 'hello', extension: Format.jpg));
     cldAssert(
         'https://test123-res.cloudinary.com/images/test/hello.jpg', actual);
   });
@@ -274,7 +274,7 @@ void main() {
   test('Test url suffix without sign produce valid URL', () {
     var pattern = RegExp(r's--[\dA-Za-z_-]{8}--');
     String url = cloudinarySignedUrl
-        .image('test', ImageBuilder()..extension = FormatValue.jpg())
+        .image('test', ImageBuilder()..extension = Format.jpg)
         .toString();
     var matcher = pattern.allMatches(url);
     var expectedSignature =
@@ -283,7 +283,7 @@ void main() {
         'test',
         ImageBuilder()
           ..urlSuffix = 'hello'
-          ..extension = FormatValue.jpg());
+          ..extension = Format.jpg);
     cldAssert(
         'https://test123-res.cloudinary.com/images/$expectedSignature/test/hello.jpg',
         actual);
@@ -292,7 +292,7 @@ void main() {
         .image(
             'test',
             ImageBuilder()
-              ..extension = FormatValue.jpg()
+              ..extension = Format.jpg
               ..transformation = 'a_0')
         .toString();
     matcher = pattern.allMatches(url);
@@ -300,7 +300,7 @@ void main() {
         'test',
         ImageBuilder()
           ..urlSuffix = 'hello'
-          ..extension = FormatValue.jpg()
+          ..extension = Format.jpg
           ..transformation = 'a_0');
     expectedSignature = url.substring(matcher.first.start, matcher.first.end);
     cldAssert(
