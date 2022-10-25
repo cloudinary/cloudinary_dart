@@ -1,6 +1,4 @@
 import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
-
-import '../../../asset/format.dart';
 import '../common.dart';
 
 /// Defines transformations for delivering your assets without changing the visual or audio experience
@@ -23,26 +21,9 @@ abstract class Delivery implements Action {
   /// Forces format conversion to the given format.
   /// (Formerly known as fetch format)
   ///
-  /// /// Receives a [String] object with the relevant format type and [FormatBuilder] with extra options
+  /// Receives[Format]
   /// Returns occupied [DeliveryFormat] object
-  static FormatAction formatWithString(String value, {FormatBuilder? options}) {
-    var builder = FormatBuilder(format: Format.custom(value));
-    if (options != null) {
-      builder.copyWith(options);
-    }
-    return builder.build();
-  }
-
-  /// Forces format conversion to the given format.
-  /// (Formerly known as fetch format)
-  ///
-  /// Receives a [Format] object with the relevant format type and [FormatBuilder] with extra options
-  /// Returns occupied [DeliveryFormat] object
-  static FormatAction format(Format format, {FormatBuilder? options}) {
-    var builder = FormatBuilder(format: format);
-    if (options != null) {
-      builder.copyWith(options);
-    }
-    return builder.build();
+  static FormatAction format(Format options) {
+    return options.build();
   }
 }
