@@ -25,13 +25,11 @@ class Asset extends BaseAsset {
   String getTransformationString() {
     return (transformation != null) ? transformation.toString() : '';
   }
-  //TODO: Implement Transformation Class
 
-//Transformation? _transformation = null;
-
-// String getTransformationString() {
-//   return _transformation.toString();
-// }
+  @override
+  TransformationObject? getTransformation() {
+    return transformation;
+  }
 
 }
 
@@ -74,6 +72,7 @@ abstract class BaseAsset {
         transformation = builder.getTransformation();
 
   String getTransformationString();
+  TransformationObject? getTransformation();
 
   FinalizedSource finalizeSource(
       String source, String? extension, String urlSuffix) {
