@@ -96,13 +96,13 @@ abstract class Resize extends Action {
     return options.build();
   }
 
-  static Resize pad({int? width, int? height, PadBuilder? options}) {
-    var builder = PadBuilder();
-    builder.width(width);
-    builder.height(height);
-    if (options != null) {
-      builder.copyWith(options);
-    }
-    return builder.build();
+  /// Resizes the image to fill the given width and height while retaining the original aspect ratio and with all of
+  /// the original image visible.
+  ///
+  /// If the proportions of the original image do not match the given width and height,
+  /// padding is added to the image to reach the required size
+  /// Receives [Pad] returns [Resize]
+  static Resize pad(Pad options) {
+    return options.build();
   }
 }

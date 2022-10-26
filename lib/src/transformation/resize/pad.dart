@@ -5,7 +5,7 @@ import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import '../background/background.dart';
 import '../common.dart';
 
-abstract class BasePad extends Resize {
+class PadObject extends Resize {
   Gravity? gravity;
   dynamic offsetX;
   dynamic offsetY;
@@ -14,7 +14,7 @@ abstract class BasePad extends Resize {
   @override
   String actionType = 'pad';
 
-  BasePad(super.dimensions,
+  PadObject(super.dimensions,
       {super.relative,
       super.regionRelative,
       this.gravity,
@@ -33,35 +33,35 @@ abstract class BasePad extends Resize {
   }
 }
 
-class PadBuilder extends BaseBuilder<PadBuilder> {
+class Pad extends BaseBuilder<Pad> {
   dynamic _offsetX;
   dynamic _offsetY;
   CompassGravity? _gravity;
   Background? _background;
 
-  PadBuilder background(Background background) {
+  Pad background(Background background) {
     _background = background;
     return this;
   }
 
-  PadBuilder offsetX(dynamic offsetX) {
+  Pad offsetX(dynamic offsetX) {
     _offsetX = offsetX;
     return this;
   }
 
-  PadBuilder offsetY(dynamic offsetX) {
+  Pad offsetY(dynamic offsetX) {
     _offsetX = offsetX;
     return this;
   }
 
-  PadBuilder gravity(CompassGravity gravity) {
+  Pad gravity(CompassGravity gravity) {
     _gravity = gravity;
     return this;
   }
 
   @override
-  Pad build() {
-    return Pad(
+  PadObject build() {
+    return PadObject(
         Dimensions(
             width: getWidth(),
             height: getHeight(),
@@ -91,17 +91,4 @@ class PadBuilder extends BaseBuilder<PadBuilder> {
     _offsetY = other._offsetY;
     _background = other._background;
   }
-}
-
-class Pad extends BasePad {
-  Pad(super.dimensions,
-      {super.relative,
-      super.regionRelative,
-      super.gravity,
-      super.offsetX,
-      super.offsetY,
-      super.background});
-
-  @override
-  String actionType = 'pad';
 }
