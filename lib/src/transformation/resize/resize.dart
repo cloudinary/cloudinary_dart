@@ -78,12 +78,8 @@ abstract class Resize extends Action {
   /// The image is resized so that it takes up as much space as possible within a bounding box defined by the given
   /// width and height qualifiers. The original aspect ratio is retained and all of the original image is visible.
   ///
-  /// Receives [width], [height] and/or [aspectRatio] and returns [Resize] object.
-  static Resize fit({int? width, int? height, FitBuilder? options}) {
-    var builder = FitBuilder(width: width, height: height);
-    if (options != null) {
-      builder.copyWith(options);
-    }
-    return builder.build() as Resize;
+  /// Receives [Fit] and returns [Resize] object.
+  static Resize fit(Fit options) {
+    return options.build() as Resize;
   }
 }

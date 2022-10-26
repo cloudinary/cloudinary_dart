@@ -51,31 +51,26 @@ void main() {
   });
 
   test('Test successful fit formatting', () {
-    cldAssert("c_fit,w_100", Resize.fit(width: 100));
-    cldAssert("c_fit,w_100", Resize.fit(options: FitBuilder()..width(100)));
+    cldAssert("c_fit,w_100", Resize.fit(Fit()..width(100)));
     cldAssert(
         "c_fit,h_100,w_100",
-        Resize.fit(
-            options: FitBuilder()
-              ..width(100)
-              ..height(100)));
+        Resize.fit(Fit()
+          ..width(100)
+          ..height(100)));
     cldAssert(
         "c_fit,h_1.1,w_0.5",
-        Resize.fit(
-            options: FitBuilder()
-              ..width(0.5)
-              ..height(1.1)));
+        Resize.fit(Fit()
+          ..width(0.5)
+          ..height(1.1)));
     cldAssert(
         "ar_1.5,c_fit,w_100",
-        Resize.fit(
-            options: FitBuilder()
-              ..width(100)
-              ..aspectRatio(1.5)));
+        Resize.fit(Fit()
+          ..width(100)
+          ..aspectRatio(1.5)));
     cldAssert(
         "ar_1.5,c_fit,h_100",
-        Resize.fit(
-            options: FitBuilder()
-              ..height(100)
-              ..aspectRatio(1.5)));
+        Resize.fit(Fit()
+          ..height(100)
+          ..aspectRatio(1.5)));
   });
 }
