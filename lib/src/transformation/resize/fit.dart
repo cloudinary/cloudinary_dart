@@ -4,15 +4,15 @@ import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import 'common.dart';
 
 /// Class Fit
-class Fit extends Resize {
+class FitObject extends Resize {
   @override
   String actionType = "fit";
 
-  Fit(super.dimensions, {super.relative, super.regionRelative});
+  FitObject(super.dimensions, {super.relative, super.regionRelative});
 }
 
-class FitBuilder extends BaseBuilder<FitBuilder> {
-  FitBuilder({dynamic width, dynamic height}) {
+class Fit extends BaseBuilder<Fit> {
+  Fit({dynamic width, dynamic height}) {
     super.width(width);
     super.height(height);
   }
@@ -24,7 +24,7 @@ class FitBuilder extends BaseBuilder<FitBuilder> {
 
   @override
   Action build() {
-    return Fit(
+    return FitObject(
         Dimensions(
             width: getWidth(),
             height: getHeight(),
