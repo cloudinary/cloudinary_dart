@@ -7,6 +7,9 @@ import 'package:cloudinary_dart/cloudinary.dart';
 import 'package:cloudinary_dart/config/cloudinary_config.dart';
 import 'package:cloudinary_dart/config/url_config.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
+import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
+import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
+import 'package:cloudinary_dart/src/transformation/transformation.dart';
 import 'package:test/test.dart';
 
 import 'tests_utils.dart';
@@ -258,9 +261,11 @@ void main() {
         'test',
         ImageBuilder()
           ..urlSuffix = 'hello'
-          ..transformation = 'a_0');
+          ..transformation(
+              (Transformation()..resize(Resize.scale(Scale()..width(100))))));
     cldAssert(
-        'https://test123-res.cloudinary.com/images/a_0/test/hello', actual);
+        'https://test123-res.cloudinary.com/images/c_scale,w_100/test/hello',
+        actual);
   });
 
   test('Test URL suffix with format produce valid URL', () {
@@ -293,7 +298,7 @@ void main() {
             'test',
             ImageBuilder()
               ..extension = Format.jpg
-              ..transformation = 'a_0')
+              ..transformation((Transformation()..generic('a_0'))))
         .toString();
     matcher = pattern.allMatches(url);
     actual = cloudinaryPrivateCdnSignUrl.image(
@@ -301,7 +306,7 @@ void main() {
         ImageBuilder()
           ..urlSuffix = 'hello'
           ..extension = Format.jpg
-          ..transformation = 'a_0');
+          ..transformation(Transformation()..generic('a_0')));
     expectedSignature = url.substring(matcher.first.start, matcher.first.end);
     cldAssert(
         'https://test123-res.cloudinary.com/images/$expectedSignature/a_0/test/hello.jpg',
@@ -348,8 +353,8 @@ void main() {
       var actual = cloudinaryPrivateCdnUseRootPath.image('test');
       cldAssert('https://test123-res.cloudinary.com/test', actual);
 
-      actual = cloudinaryPrivateCdnUseRootPath.image(
-          'test', ImageBuilder()..transformation = 'a_0');
+      actual = cloudinaryPrivateCdnUseRootPath.image('test',
+          ImageBuilder()..transformation(Transformation()..generic('a_0')));
       cldAssert('https://test123-res.cloudinary.com/a_0/test', actual);
     });
 
@@ -450,23 +455,31 @@ void main() {
   });
 
   test('Test signed url produce valid url', () {
+    //TODO: Fix back to crop and change signature
     var expected =
-        "${defaultUploadPath}s--Ai4Znfl3--/c_crop,h_20,w_10/v1234/image.jpg";
+        "${defaultUploadPath}s--p9ZnzGgi--/c_scale,h_20,w_10/v1234/image.jpg";
     var actual = cloudinarySignedUrl.image(
         'image.jpg',
         ImageBuilder()
           ..version = '1234'
-          ..transformation = 'c_crop,h_20,w_10');
+          ..transformation(Transformation()
+            ..resize(Resize.scale(Scale()
+              ..width(10)
+              ..height(20)))));
     cldAssert(expected, actual);
-
     expected = '${defaultUploadPath}s----SjmNDA--/v1234/image.jpg';
     actual = cloudinarySignedUrl.image(
         'image.jpg', ImageBuilder()..version = '1234');
     cldAssert(expected, actual);
-
-    expected = '${defaultUploadPath}s--Ai4Znfl3--/c_crop,h_20,w_10/image.jpg';
+//TODO: Fix back to crop and change signature
+    expected = '${defaultUploadPath}s--p9ZnzGgi--/c_scale,h_20,w_10/image.jpg';
     actual = cloudinarySignedUrl.image(
-        'image.jpg', ImageBuilder()..transformation = 'c_crop,h_20,w_10');
+        'image.jpg',
+        ImageBuilder()
+          ..transformation(Transformation()
+            ..resize(Resize.scale(Scale()
+              ..width(10)
+              ..height(20)))));
     cldAssert(expected, actual);
 
     expected =

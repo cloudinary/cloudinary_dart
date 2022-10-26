@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloudinary_dart/src/transformation/transformation.dart';
 import 'package:crypto/crypto.dart';
 
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
@@ -22,15 +23,13 @@ class Asset extends BaseAsset {
 
   @override
   String getTransformationString() {
-    return transformation ?? "";
+    return (transformation != null) ? transformation.toString() : '';
   }
-  //TODO: Implement Transformation Class
 
-//Transformation? _transformation = null;
-
-// String getTransformationString() {
-//   return _transformation.toString();
-// }
+  @override
+  TransformationObject? getTransformation() {
+    return transformation;
+  }
 
 }
 
@@ -47,7 +46,7 @@ abstract class BaseAsset {
   String? urlSuffix;
   String assetType = defaultAssetType;
   String? deliveryType;
-  String? transformation;
+  TransformationObject? transformation;
 
   BaseAsset.withConfig(this.cloudConfig, this.urlConfig);
 
@@ -70,9 +69,10 @@ abstract class BaseAsset {
         urlSuffix = builder.urlSuffix,
         assetType = builder.assetType ?? defaultAssetType,
         deliveryType = builder.deliveryType,
-        transformation = builder.transformation;
+        transformation = builder.getTransformation();
 
   String getTransformationString();
+  TransformationObject? getTransformation();
 
   FinalizedSource finalizeSource(
       String source, String? extension, String urlSuffix) {
