@@ -1,6 +1,7 @@
 import 'gravity.dart';
 
-enum FocusOn implements IGravityObject, IAutoGravityObject {
+/// Defines the objects that can be focused on.
+enum FocusOn {
   ocr,
   bicycle,
   cat,

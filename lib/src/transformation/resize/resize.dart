@@ -91,13 +91,7 @@ abstract class Resize extends Action {
   /// Extracts a region of the given width and height out of the original image.
   ///
   /// Receives [width], [height], [aspectRatio] and options, returns [Resize] object.
-  static Resize crop({int? width, int? height, CropBuilder? options}) {
-    var builder = CropBuilder();
-    builder.width(width);
-    builder.height(height);
-    if (options != null) {
-      builder.copyWith(options);
-    }
-    return builder.build();
+  static Resize crop(Crop options) {
+    return options.build();
   }
 }

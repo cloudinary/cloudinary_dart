@@ -4,13 +4,22 @@ import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import '../common.dart';
 import '../gravity/gravity.dart';
 
-class Crop extends Resize {
+/// Class CropObject
+class CropObject extends Resize {
   Gravity? gravity;
   dynamic zoom;
   dynamic x;
   dynamic y;
 
-  Crop(super.dimensions,
+  /// Crop constructor
+  /// Receives [Dimensions],
+  /// [relative],
+  /// [relativeRegion],
+  /// [gravity],
+  /// [zoom],
+  /// [x],
+  /// [y]
+  CropObject(super.dimensions,
       {super.relative,
       super.regionRelative,
       this.gravity,
@@ -32,29 +41,29 @@ class Crop extends Resize {
   String actionType = "crop";
 }
 
-/// Class CropBuilder
-class CropBuilder extends BaseBuilder<CropBuilder> {
+/// Class Crop
+class Crop extends BaseBuilder<Crop> {
   Gravity? _gravity;
   dynamic _zoom;
   dynamic _x;
   dynamic _y;
 
-  CropBuilder gravity(Gravity gravity) {
+  Crop gravity(Gravity gravity) {
     _gravity = gravity;
     return this;
   }
 
-  CropBuilder zoom(dynamic zoom) {
+  Crop zoom(dynamic zoom) {
     _zoom = zoom;
     return this;
   }
 
-  CropBuilder x(dynamic x) {
+  Crop x(dynamic x) {
     _x = x;
     return this;
   }
 
-  CropBuilder y(dynamic y) {
+  Crop y(dynamic y) {
     _y = y;
     return this;
   }
@@ -65,8 +74,8 @@ class CropBuilder extends BaseBuilder<CropBuilder> {
   }
 
   @override
-  Crop build() {
-    return Crop(
+  CropObject build() {
+    return CropObject(
         Dimensions(
             width: getWidth(),
             height: getHeight(),
