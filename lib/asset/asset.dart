@@ -8,7 +8,6 @@ import 'package:cloudinary_dart/auth_token.dart';
 import '../config/cloud_config.dart';
 import '../config/url_config.dart';
 import 'builders/general_asset_builder.dart';
-import 'format.dart';
 
 final String akamaiSharedCDN = "res.cloudinary.com";
 final String defaultAssetType = "image";
@@ -44,7 +43,7 @@ abstract class BaseAsset {
   String? version;
   String? publicId;
 
-  Format? extension;
+  String? extension;
   String? urlSuffix;
   String assetType = defaultAssetType;
   String? deliveryType;
@@ -76,7 +75,7 @@ abstract class BaseAsset {
   String getTransformationString();
 
   FinalizedSource finalizeSource(
-      String source, Format? extension, String urlSuffix) {
+      String source, String? extension, String urlSuffix) {
     var mutableSource = source.cldMergeSlashesInUrl();
     String sourceToSign;
     if (mutableSource.cldIsHttpUrl) {

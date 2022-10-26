@@ -3,22 +3,61 @@ import 'package:cloudinary_dart/src/transformation/transformation.dart';
 
 import 'focus_on.dart';
 
+/// Defines the focal gravity for certain methods of cropping.
+///
+/// **Learn more
+/// https://cloudinary.com/documentation/image_transformations#control_gravity
+/// https://cloudinary.com/documentation/video_manipulation_and_delivery#gravity
+
 class Gravity {
+  /// North west corner (bottom).
+  ///
+  /// Returns [CompassGravity]
   static south() => CompassGravity(Compass.south());
+
+  /// North west corner (bottom right).
+  ///
+  /// Returns [CompassGravity]
   static southEast() => CompassGravity(Compass.southEast());
+
+  /// North west corner (bottom left).
+  ///
+  /// Returns [CompassGravity]
   static southWest() => CompassGravity(Compass.southWest());
+
+  /// North west corner (left).
+  ///
+  /// Returns [CompassGravity]
   static west() => CompassGravity(Compass.west());
+
+  /// North west corner (right).
+  ///
+  /// Returns [CompassGravity]
   static east() => CompassGravity(Compass.east());
+
+  /// North west corner (top).
+  ///
+  /// Returns [CompassGravity]
   static north() => CompassGravity(Compass.north());
+
+  /// North west corner (top right).
+  ///
+  /// Returns [CompassGravity]
   static northEast() => CompassGravity(Compass.northEast());
+
+  /// North west corner (top left).
+  ///
+  /// Returns [CompassGravity]
   static northWest() => CompassGravity(Compass.northWest());
+
+  /// North west corner (center).
+  ///
+  /// Returns [CompassGravity]
   static center() => CompassGravity(Compass.center());
 
-  FocusOnGravity focusOn(FocusOn focusOn, List<FocusOn> focusOnObjects,
+  FocusOnGravity focusOn(List<FocusOn> focusOnObjects,
       {FocusOnGravityBuilder? options}) {
-    List<FocusOn> list = [focusOn];
-    list.addAll(focusOnObjects);
-    var builder = FocusOnGravityBuilder(list);
+    var builder = FocusOnGravityBuilder(focusOnObjects);
     if (options != null) {
       builder.copyWith(options);
     }
@@ -26,6 +65,7 @@ class Gravity {
   }
 }
 
+///Class CompassGravity
 class CompassGravity extends Gravity {
   Compass compass;
 
@@ -37,6 +77,7 @@ class CompassGravity extends Gravity {
   }
 }
 
+/// Class Compass
 class Compass {
   String value;
 
@@ -58,6 +99,11 @@ class Compass {
   }
 }
 
+/// Class FocusOnGravity
+///  Defines objects to use as the focal gravity of crops.
+///
+/// Learn More
+/// https://cloudinary.com/documentation/cloudinary_object_aware_cropping_addon
 class FocusOnGravity extends Gravity {
   List<FocusOn> focusOnObjects;
   AutoGravity? fallbackGravity;
@@ -72,6 +118,7 @@ class FocusOnGravity extends Gravity {
   }
 }
 
+/// Class FocusOnGravityBuilder
 class FocusOnGravityBuilder implements GeneralBuilder {
   List<FocusOn> objects;
   AutoGravity? _fallbackGravity;
@@ -94,8 +141,15 @@ class FocusOnGravityBuilder implements GeneralBuilder {
   }
 }
 
+/// Automatically identifies the most interesting regions to include when resizing.
+///
+/// Learn more
+/// "https://cloudinary.com/documentation/image_transformations#automatic_cropping_g_auto"
+/// Automatic gravity for images
+/// "https://cloudinary.com/documentation/video_manipulation_and_delivery#automatic_cropping"
+/// Automatic gravity for videos
 class AutoGravity extends Gravity {
-  List<IAutoGravityObject> objects;
+  List<FocusOn> objects;
 
   AutoGravity(this.objects);
 
@@ -106,9 +160,9 @@ class AutoGravity extends Gravity {
 }
 
 class AutoGravityBuilder {
-  List<IAutoGravityObject> objects = [];
+  List<FocusOn> objects = [];
 
-  AutoGravityBuilder autoFocusOn(List<IAutoGravityObject> objects) {
+  AutoGravityBuilder autoFocusOn(List<FocusOn> objects) {
     this.objects.addAll(objects);
     return this;
   }
@@ -118,17 +172,19 @@ class AutoGravityBuilder {
   }
 }
 
+/// Class AutoFocus
+/// Defines the objects that can be focused on.
 class AutoFocus {
   static AutoGravityObject focusOn(FocusOn focus,
-      {IAutoGravityObjectBuilder? options}) {
-    var builder = IAutoGravityObjectBuilder(focus);
+      {AutoGravityObjectBuilder? options}) {
+    var builder = AutoGravityObjectBuilder(focus);
     options ?? builder.copyWith(options);
     return builder.build();
   }
 }
 
-class AutoGravityObject implements IAutoGravityObject {
-  IGravityObject gravityObject;
+class AutoGravityObject {
+  FocusOn gravityObject;
   int? weight;
   bool? avoid;
 
@@ -142,19 +198,19 @@ class AutoGravityObject implements IAutoGravityObject {
   }
 }
 
-class IAutoGravityObjectBuilder implements GeneralBuilder {
+class AutoGravityObjectBuilder implements GeneralBuilder {
   FocusOn focusOn;
   int? _weight;
   bool? _avoid;
 
-  IAutoGravityObjectBuilder(this.focusOn);
+  AutoGravityObjectBuilder(this.focusOn);
 
-  IAutoGravityObjectBuilder weight(int weight) {
+  AutoGravityObjectBuilder weight(int weight) {
     _weight = weight;
     return this;
   }
 
-  IAutoGravityObjectBuilder avoid() {
+  AutoGravityObjectBuilder avoid() {
     _avoid = true;
     return this;
   }
@@ -170,7 +226,3 @@ class IAutoGravityObjectBuilder implements GeneralBuilder {
     _avoid = other._avoid;
   }
 }
-
-abstract class IGravityObject {}
-
-abstract class IAutoGravityObject {}
