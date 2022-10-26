@@ -1,7 +1,5 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
-
-import '../../../asset/format.dart';
 import '../common.dart';
 import '../transformation.dart';
 
@@ -28,7 +26,18 @@ class QualityAction extends Delivery {
 }
 
 /// Quality Builder
-class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
+class Quality implements TransformationComponentBuilder<Quality> {
+
+  static const String auto = 'auto';
+  static const String autoEco = 'auto:eco';
+  static const String autoGood = 'auto:good';
+  static const String autoBest = 'auto:best';
+  static const String autoLow = 'auto:low';
+  static const String jpegmini = 'jpegmini';
+  static const String jpegminiHigh = 'jpegmini:1';
+  static const String jpegminiMedium = 'jpegmini:2';
+  static const String jpegminiBest = 'jpegmini:0';
+
   dynamic level;
   bool _anyFormat = false;
   ChromaSubSampling? _chromaSubSampling;
@@ -39,7 +48,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   /// Reducing the quality is a trade-off between visual quality and file size.
   ///
   /// Receives [dynamic] level The quality level. 1 is the lowest quality and 100 is the highest.
-  QualityBuilder({this.level, bool anyFormat = false}) {
+  Quality(this.level, {bool anyFormat = false}) {
     _anyFormat = anyFormat;
   }
 
@@ -50,7 +59,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   /// Receives [dynamic] quantization level.
   ///
   /// Returns [QualityBuilder] object.
-  QualityBuilder quantization(dynamic quantization) {
+  Quality quantization(dynamic quantization) {
     _quantization = quantization;
     return this;
   }
@@ -64,7 +73,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   /// Receives [String] chromaSubSampling Chroma sub-sampling value.
   ///
   /// Returns [QualityBuilder] object.
-  QualityBuilder chromaSubSampling(ChromaSubSampling chromaSubSampling) {
+  Quality chromaSubSampling(ChromaSubSampling chromaSubSampling) {
     _chromaSubSampling = chromaSubSampling;
     return this;
   }
@@ -72,7 +81,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
   /// Adds an optional qualifier to accept any format
   ///
   /// Receives [bool] for anyFormat default value: true
-  QualityBuilder anyFormat([bool anyFormat = true]) {
+  Quality anyFormat([bool anyFormat = true]) {
     _anyFormat = anyFormat;
     return this;
   }
@@ -87,7 +96,7 @@ class QualityBuilder implements TransformationComponentBuilder<QualityBuilder> {
 
   /// Builder copy function
   @override
-  void copyWith(QualityBuilder other) {
+  void copyWith(Quality other) {
     level = other.level ?? level;
     _chromaSubSampling = other._chromaSubSampling;
     _quantization = other._quantization;
@@ -111,7 +120,7 @@ class ChromaSubSampling {
 }
 
 class FormatAction extends Delivery {
-  final Format? _format;
+  final String? _format;
   bool? _lossy;
   Progressive? _progressive;
   bool? _preserveTransparency;
@@ -146,16 +155,80 @@ class FormatAction extends Delivery {
   }
 }
 
-class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
-  Format? format;
+class Format implements TransformationComponentBuilder<Format> {
+  static const String glb = 'glb';
+  static const String auto = 'auto';
+  static const String ai = 'ai';
+  static const String gif = 'gif';
+  static const String bmp = 'bmp';
+  static const String webp = 'webp';
+  static const String djvu = 'djvu';
+  static const String ps = 'ps';
+  static const String ept = 'ept';
+  static const String eps = 'eps';
+  static const String eps3 = 'eps3';
+  static const String fxb = 'fxb';
+  static const String flif = 'flif';
+  static const String gltf = 'gltf';
+  static const String heif = 'heif';
+  static const String heic = 'heic';
+  static const String ico = 'ico';
+  static const String indd = 'indd';
+  static const String jpg = 'jpg';
+  static const String jpe = 'jpe';
+  static const String jpeg = 'jpeg';
+  static const String jp2 = 'jp2';
+  static const String wdp = 'wdp';
+  static const String jxr = 'jxr';
+  static const String hdp = 'hdp';
+  static const String pdf = 'pdf';
+  static const String png = 'png';
+  static const String spd = 'spd';
+  static const String arw = 'arw';
+  static const String cr2 = 'cr2';
+  static const String svg = 'svg';
+  static const String tga = 'tga';
+  static const String tiff = 'tiff';
+  static const String avif = 'avif';
+  static const String usdz = 'usdz';
+  static const String video3g = '3g';
+  static const String video3gp2 = '3gp2';
+  static const String videoAvi = 'avi';
+  static const String videoFlv = 'flv';
+  static const String videoM3u8 = 'm3u8';
+  static const String videoTs = 'ts';
+  static const String videoMov = 'mov';
+  static const String videoMkv = 'mkv';
+  static const String videoMp4 = 'mp4';
+  static const String videoMpeg = 'mpeg';
+  static const String videoMpd = 'mpd';
+  static const String videoMxf = 'mxf';
+  static const String videoOgv = 'ogv';
+  static const String videoWebm = 'webm';
+  static const String videoWmv = 'wmv';
+  static const String videoM2ts = 'm2ts';
+  static const String videoMts = 'mts';
+  static const String audioAac = 'aac';
+  static const String audioAiff = 'aiff';
+  static const String audioAmr = 'amr';
+  static const String audioFlac = 'flac';
+  static const String audioM4a = 'm4a';
+  static const String audioMp3 = 'mp3';
+  static const String audioOgg = 'ogg';
+  static const String audioOpus = 'opus';
+  static const String audioWav = 'wav';
+  static String custom(String format) {
+    return format;
+  }
+
+  String? format;
   bool? _lossy;
   Progressive? _progressive;
   bool? _preserveTransparency;
   bool? _ignoreMaskChannels;
 
-  FormatBuilder(
-      {this.format,
-      bool? lossy,
+  Format(this.format,
+      {bool? lossy,
       Progressive? progressive,
       bool? preserveTransparency,
       bool? ignoreMaskChannels}) {
@@ -165,7 +238,19 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
     _ignoreMaskChannels = ignoreMaskChannels;
   }
 
-  FormatBuilder lossy([bool? lossy = true]) {
+  Format.withString(String format,
+      {bool? lossy,
+      Progressive? progressive,
+      bool? preserveTransparency,
+      bool? ignoreMaskChannels}) {
+    this.format = Format.custom(format);
+    _lossy = lossy;
+    _progressive = progressive;
+    _preserveTransparency = preserveTransparency;
+    _ignoreMaskChannels = ignoreMaskChannels;
+  }
+
+  Format lossy([bool? lossy = true]) {
     _lossy = lossy;
     return this;
   }
@@ -174,24 +259,24 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
   ///
   /// Receives [Progressive], The mode to determine a specific progressive outcome.
   ///
-  /// Returns [FormatBuilder]
-  FormatBuilder progressive(Progressive progressive) {
+  /// Returns [Format]
+  Format progressive(Progressive progressive) {
     _progressive = progressive;
     return this;
   }
 
   /// Ensures that images with a transparency channel will be delivered in PNG format.
   ///
-  /// Returns [FormatBuilder]
-  FormatBuilder preserveTransparency() {
+  /// Returns [Format]
+  Format preserveTransparency() {
     _preserveTransparency = true;
     return this;
   }
 
   /// Ensures that an alpha channel is not applied to a TIFF image if it is a mask channel.
   ///
-  /// Returns [FormatBuilder]
-  FormatBuilder ignoreMaskChannels() {
+  /// Returns [Format]
+  Format ignoreMaskChannels() {
     _ignoreMaskChannels = true;
     return this;
   }
@@ -207,7 +292,7 @@ class FormatBuilder implements TransformationComponentBuilder<FormatBuilder> {
 
   /// Builder copy function
   @override
-  void copyWith(FormatBuilder other) {
+  void copyWith(Format other) {
     format = other.format ?? format;
     _lossy = other._lossy;
     _progressive = other._progressive;
