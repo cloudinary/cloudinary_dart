@@ -1,3 +1,5 @@
+import 'package:cloudinary_dart/src/transformation/transformation.dart';
+
 import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
 import '../asset.dart';
@@ -15,7 +17,7 @@ abstract class GeneralAssetBuilder {
   String? urlSuffix;
   String? assetType;
   String? deliveryType;
-  String? transformation;
+  TransformationObject? _transformation;
 
   GeneralAssetBuilder(
       [this.cloudConfig,
@@ -26,7 +28,16 @@ abstract class GeneralAssetBuilder {
       this.urlSuffix,
       this.assetType,
       this.deliveryType,
-      this.transformation]);
+      this._transformation]);
+
+  GeneralAssetBuilder transformation(Transformation transformation) {
+    _transformation = transformation.build();
+    return this;
+  }
+
+  TransformationObject? getTransformation() {
+    return _transformation;
+  }
 
   void combineWith(GeneralAssetBuilder other) {
     version = other.version ?? version;
@@ -35,7 +46,7 @@ abstract class GeneralAssetBuilder {
     urlSuffix = other.urlSuffix ?? urlSuffix;
     assetType = other.assetType;
     deliveryType = other.deliveryType ?? deliveryType;
-    transformation = other.transformation ?? transformation;
+    _transformation = other._transformation ?? _transformation;
   }
 
   dynamic build() {

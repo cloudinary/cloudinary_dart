@@ -5,6 +5,6 @@ class Image extends BaseAsset {
 
   @override
   String getTransformationString() {
-    return transformation ?? "";
+    return (transformation != null) ? transformation.toString() : '';
   }
 }
