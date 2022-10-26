@@ -22,12 +22,10 @@ void main() {
         Delivery.quality(Quality(Quality.autoLow)
           ..chromaSubSampling(ChromaSubSampling.chroma444())));
     cldAssert("q_70:qmax_80", Delivery.quality(Quality(70)..quantization(80)));
+    cldAssert("q_jpegmini:0", Delivery.quality(Quality(Quality.jpegminiBest)));
+    cldAssert("q_jpegmini:1", Delivery.quality(Quality(Quality.jpegminiHigh)));
     cldAssert(
-        "q_jpegmini:0", Delivery.quality(Quality(Quality.jpegminiBest)));
-    cldAssert(
-        "q_jpegmini:1", Delivery.quality(Quality(Quality.jpegminiHigh)));
-    cldAssert("q_jpegmini:2",
-        Delivery.quality(Quality(Quality.jpegminiMedium)));
+        "q_jpegmini:2", Delivery.quality(Quality(Quality.jpegminiMedium)));
   });
 
   test('Test quality with any format parameter', () {
