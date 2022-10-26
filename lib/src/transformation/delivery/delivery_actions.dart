@@ -27,7 +27,6 @@ class QualityAction extends Delivery {
 
 /// Quality Builder
 class Quality implements TransformationComponentBuilder<Quality> {
-
   static const String auto = 'auto';
   static const String autoEco = 'auto:eco';
   static const String autoGood = 'auto:good';

@@ -65,14 +65,8 @@ abstract class Resize extends Action {
   /// aspect ratio: all original image parts are visible but might be stretched or shrunk.
   ///
   /// Receives [width], [height] and/or [aspectRatio] and returns [Resize] object.
-  static Resize scale({int? width, int? height, ScaleBuilder? options}) {
-    var builder = ScaleBuilder();
-    builder.width(width);
-    builder.height(height);
-    if (options != null) {
-      builder.copyWith(options);
-    }
-    return builder.build() as Resize;
+  static Resize scale(Scale options) {
+    return options.build() as Resize;
   }
 
   /// The image is resized so that it takes up as much space as possible within a bounding box defined by the given
