@@ -17,7 +17,7 @@ class VideoBuilder extends GeneralAssetBuilder {
       TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
             assetType, deliveryType, transformation) {
-    super.assetType = 'video';
+    super.assetType('video');
   }
 
   @override
