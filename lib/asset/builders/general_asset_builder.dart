@@ -6,33 +6,105 @@ import '../asset.dart';
 
 abstract class GeneralAssetBuilder {
   //config
-  CloudConfig? cloudConfig;
-  UrlConfig? urlConfig = UrlConfig();
+  CloudConfig? _cloudConfig;
+  UrlConfig? _urlConfig = UrlConfig();
 
   //fields
-  String? version;
-  String? publicId;
+  String? _version;
+  String? _publicId;
 
-  String? extension;
-  String? urlSuffix;
-  String? assetType;
-  String? deliveryType;
+  String? _extension;
+  String? _urlSuffix;
+  String? _assetType;
+  String? _deliveryType;
   TransformationObject? _transformation;
 
   GeneralAssetBuilder(
-      [this.cloudConfig,
-      this.urlConfig,
-      this.version,
-      this.publicId,
-      this.extension,
-      this.urlSuffix,
-      this.assetType,
-      this.deliveryType,
+      [this._cloudConfig,
+      this._urlConfig,
+      this._version,
+      this._publicId,
+      this._extension,
+      this._urlSuffix,
+      this._assetType,
+      this._deliveryType,
       this._transformation]);
+
+  GeneralAssetBuilder cloudConfig(CloudConfig cloudConfig) {
+    _cloudConfig = cloudConfig;
+    return this;
+  }
+
+  GeneralAssetBuilder urlConfig(UrlConfig urlConfig) {
+    _urlConfig = urlConfig;
+    return this;
+  }
+
+  GeneralAssetBuilder version(String version) {
+    _version = version;
+    return this;
+  }
+
+  GeneralAssetBuilder publicId(String publicId) {
+    _publicId = publicId;
+    return this;
+  }
+
+  GeneralAssetBuilder extension(String extension) {
+    _extension = extension;
+    return this;
+  }
+
+  GeneralAssetBuilder urlSuffix(String urlSuffix) {
+    _urlSuffix = urlSuffix;
+    return this;
+  }
+
+  GeneralAssetBuilder deliveryType(String deliveryType) {
+    _deliveryType = deliveryType;
+    return this;
+  }
+
+  GeneralAssetBuilder assetType(String assetType) {
+    _assetType = assetType;
+    return this;
+  }
 
   GeneralAssetBuilder transformation(Transformation transformation) {
     _transformation = transformation.build();
     return this;
+  }
+
+  CloudConfig? getCloudConfig() {
+    return _cloudConfig;
+  }
+
+  UrlConfig? getUrlConfig() {
+    return _urlConfig;
+  }
+
+  String? getVersion() {
+    return _version;
+  }
+
+  String? getPublicId() {
+    return _publicId;
+  }
+
+  String? getExtension() {
+    return _extension;
+  }
+
+  String? getUrlSuffix() {
+    return _urlSuffix;
+  }
+
+  String? getAssetType() {
+    return _assetType;
+  }
+
+  String? getDeliveryType() {
+    return _deliveryType;
   }
 
   TransformationObject? getTransformation() {
@@ -40,12 +112,12 @@ abstract class GeneralAssetBuilder {
   }
 
   void combineWith(GeneralAssetBuilder other) {
-    version = other.version ?? version;
-    publicId = other.publicId ?? publicId;
-    extension = other.extension ?? extension;
-    urlSuffix = other.urlSuffix ?? urlSuffix;
-    assetType = other.assetType;
-    deliveryType = other.deliveryType ?? deliveryType;
+    _version = other._version ?? _version;
+    _publicId = other._publicId ?? _publicId;
+    _extension = other._extension ?? _extension;
+    _urlSuffix = other._urlSuffix ?? _urlSuffix;
+    _assetType = other._assetType;
+    _deliveryType = other._deliveryType ?? _deliveryType;
     _transformation = other._transformation ?? _transformation;
   }
 

@@ -18,7 +18,7 @@ class AssetBuilder extends GeneralAssetBuilder {
       TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
             assetType, deliveryType, transformation) {
-    super.assetType = 'raw';
+    super.assetType('raw');
   }
 
   @override

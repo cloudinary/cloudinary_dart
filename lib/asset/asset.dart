@@ -30,7 +30,6 @@ class Asset extends BaseAsset {
   TransformationObject? getTransformation() {
     return transformation;
   }
-
 }
 
 abstract class BaseAsset {
@@ -61,14 +60,14 @@ abstract class BaseAsset {
       this.deliveryType);
 
   BaseAsset.withBuilder(GeneralAssetBuilder builder)
-      : cloudConfig = builder.cloudConfig!,
-        urlConfig = builder.urlConfig!,
-        version = builder.version,
-        publicId = builder.publicId,
-        extension = builder.extension,
-        urlSuffix = builder.urlSuffix,
-        assetType = builder.assetType ?? defaultAssetType,
-        deliveryType = builder.deliveryType,
+      : cloudConfig = builder.getCloudConfig()!,
+        urlConfig = builder.getUrlConfig()!,
+        version = builder.getVersion(),
+        publicId = builder.getPublicId(),
+        extension = builder.getExtension(),
+        urlSuffix = builder.getUrlSuffix(),
+        assetType = builder.getAssetType() ?? defaultAssetType,
+        deliveryType = builder.getDeliveryType(),
         transformation = builder.getTransformation();
 
   String getTransformationString();

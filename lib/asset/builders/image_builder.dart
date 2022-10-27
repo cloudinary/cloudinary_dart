@@ -18,7 +18,7 @@ class ImageBuilder extends GeneralAssetBuilder {
       TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
             assetType, deliveryType, transformation) {
-    super.assetType = 'image';
+    super.assetType('image');
   }
 
   @override

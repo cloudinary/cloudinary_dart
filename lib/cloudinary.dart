@@ -30,10 +30,10 @@ class Cloudinary {
 
   Asset raw(String publicId, [AssetBuilder? options]) {
     var builder = AssetBuilder()
-      ..publicId = publicId
-      ..cloudConfig = config.cloudConfig
-      ..urlConfig = config.urlConfig
-      ..assetType = 'raw';
+      ..publicId(publicId)
+      ..cloudConfig(config.cloudConfig)
+      ..urlConfig(config.urlConfig)
+      ..assetType('raw');
     if (options != null) {
       builder.combineWith(options);
     }
@@ -42,10 +42,10 @@ class Cloudinary {
 
   Image image(String publicId, [ImageBuilder? options]) {
     var builder = ImageBuilder()
-      ..publicId = publicId
-      ..cloudConfig = config.cloudConfig
-      ..urlConfig = config.urlConfig
-      ..assetType = 'image';
+      ..publicId(publicId)
+      ..cloudConfig(config.cloudConfig)
+      ..urlConfig(config.urlConfig)
+      ..assetType('image');
     if (options != null) {
       builder.combineWith(options);
     }
@@ -54,10 +54,10 @@ class Cloudinary {
 
   Video video(String publicId, [VideoBuilder? options]) {
     var builder = VideoBuilder()
-      ..publicId = publicId
-      ..cloudConfig = config.cloudConfig
-      ..urlConfig = config.urlConfig
-      ..assetType = 'video';
+      ..publicId(publicId)
+      ..cloudConfig(config.cloudConfig)
+      ..urlConfig(config.urlConfig)
+      ..assetType('video');
     if (options != null) {
       builder.combineWith(options);
     }
