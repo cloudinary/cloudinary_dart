@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloudinary_dart/src/transformation/transformation.dart';
 import 'package:crypto/crypto.dart';
 
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
@@ -22,16 +23,13 @@ class Asset extends BaseAsset {
 
   @override
   String getTransformationString() {
-    return transformation ?? "";
+    return (transformation != null) ? transformation.toString() : '';
   }
-  //TODO: Implement Transformation Class
 
-//Transformation? _transformation = null;
-
-// String getTransformationString() {
-//   return _transformation.toString();
-// }
-
+  @override
+  TransformationObject? getTransformation() {
+    return transformation;
+  }
 }
 
 abstract class BaseAsset {
@@ -47,7 +45,7 @@ abstract class BaseAsset {
   String? urlSuffix;
   String assetType = defaultAssetType;
   String? deliveryType;
-  String? transformation;
+  TransformationObject? transformation;
 
   BaseAsset.withConfig(this.cloudConfig, this.urlConfig);
 
@@ -62,17 +60,18 @@ abstract class BaseAsset {
       this.deliveryType);
 
   BaseAsset.withBuilder(GeneralAssetBuilder builder)
-      : cloudConfig = builder.cloudConfig!,
-        urlConfig = builder.urlConfig!,
-        version = builder.version,
-        publicId = builder.publicId,
-        extension = builder.extension,
-        urlSuffix = builder.urlSuffix,
-        assetType = builder.assetType ?? defaultAssetType,
-        deliveryType = builder.deliveryType,
-        transformation = builder.transformation;
+      : cloudConfig = builder.getCloudConfig()!,
+        urlConfig = builder.getUrlConfig()!,
+        version = builder.getVersion(),
+        publicId = builder.getPublicId(),
+        extension = builder.getExtension(),
+        urlSuffix = builder.getUrlSuffix(),
+        assetType = builder.getAssetType() ?? defaultAssetType,
+        deliveryType = builder.getDeliveryType(),
+        transformation = builder.getTransformation();
 
   String getTransformationString();
+  TransformationObject? getTransformation();
 
   FinalizedSource finalizeSource(
       String source, String? extension, String urlSuffix) {

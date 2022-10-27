@@ -4,13 +4,13 @@ import '../common.dart';
 import 'common.dart';
 
 /// Class scale
-class Scale extends Resize {
+class ScaleObject extends Resize {
   bool? liquidRescaling;
 
   @override
   String actionType = "scale";
 
-  Scale(super.dimensions,
+  ScaleObject(super.dimensions,
       {super.relative, super.regionRelative, this.liquidRescaling = false});
 
   @override
@@ -21,7 +21,7 @@ class Scale extends Resize {
   }
 }
 
-class ScaleBuilder extends BaseBuilder<ScaleBuilder> {
+class Scale extends BaseBuilder<Scale> {
   bool? _liquidRescaling;
 
   /// Changes the aspect ratio of an image while retaining all important content and avoiding unnatural distortions.
@@ -31,7 +31,7 @@ class ScaleBuilder extends BaseBuilder<ScaleBuilder> {
   /// @return $this
   ///
   /// @see \Cloudinary\Transformation\LiquidRescaling
-  ScaleBuilder liquidRescaling([bool? liquidRescaling]) {
+  Scale liquidRescaling([bool? liquidRescaling]) {
     _liquidRescaling = liquidRescaling;
     return this;
   }
@@ -42,8 +42,8 @@ class ScaleBuilder extends BaseBuilder<ScaleBuilder> {
   }
 
   @override
-  Scale build() {
-    return Scale(
+  Action build() {
+    return ScaleObject(
         Dimensions(
             width: getWidth(),
             height: getHeight(),

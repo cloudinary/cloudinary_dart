@@ -16,3 +16,14 @@ abstract class Action {
     return super.toString();
   }
 }
+
+class GenericAction extends Action {
+  String? value;
+
+  GenericAction(this.value);
+
+  @override
+  String toString() {
+    return value ?? '';
+  }
+}
