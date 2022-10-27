@@ -1,6 +1,8 @@
 import 'package:cloudinary_dart/src/transformation/TransformationUtils.dart';
 import 'package:cloudinary_dart/src/transformation/resize/common.dart';
+import 'package:cloudinary_dart/src/transformation/resize/crop.dart';
 import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
+import 'package:cloudinary_dart/src/transformation/resize/pad.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
 
 import '../common.dart';
@@ -75,5 +77,13 @@ abstract class Resize extends Action {
   /// Receives [Fit] and returns [Resize] object.
   static Resize fit(Fit options) {
     return options.build() as Resize;
+  }
+
+  static Resize crop(Crop options) {
+    return options.build();
+  }
+
+  static Resize pad(Pad options) {
+    return options.build();
   }
 }
