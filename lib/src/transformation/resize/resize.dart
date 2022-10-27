@@ -82,6 +82,7 @@ abstract class Resize extends Action {
   static Resize crop(Crop options) {
     return options.build();
   }
+
   /// * Resizes the image to fill the given width and height while retaining the original aspect ratio and with all of
   /// the original image visible.
   ///
@@ -92,6 +93,7 @@ abstract class Resize extends Action {
   static Resize pad(Pad options) {
     return options.build();
   }
+
   /// Same as the [Pad] mode but only if the original image is larger than the given limit (width and
   /// height), in which case the image is scaled down to fill the given width and height while retaining the original
   /// aspect ratio and with all of the original image visible.

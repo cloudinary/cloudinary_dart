@@ -94,46 +94,46 @@ class PadBuilder extends BaseBuilder<PadBuilder> {
 }
 
 class PadObject extends BasePad {
-
   @override
   String actionType = 'pad';
 
-  PadObject(super.dimensions, {super.relative,
-    super.regionRelative,
-    super.gravity,
-    super.offsetX,
-    super.offsetY,
-    super.background});
+  PadObject(super.dimensions,
+      {super.relative,
+      super.regionRelative,
+      super.gravity,
+      super.offsetX,
+      super.offsetY,
+      super.background});
 }
 
 class Pad extends PadBuilder {}
 
 class LimitPadObject extends BasePad {
-
   @override
   String actionType = 'lpad';
 
-  LimitPadObject(super.dimensions, {super.relative,
-    super.regionRelative,
-    super.gravity,
-    super.offsetX,
-    super.offsetY,
-    super.background});
+  LimitPadObject(super.dimensions,
+      {super.relative,
+      super.regionRelative,
+      super.gravity,
+      super.offsetX,
+      super.offsetY,
+      super.background});
 }
 
 class LimitPad extends PadBuilder {}
 
 class MinimumPadObject extends BasePad {
-
   @override
   String actionType = 'mpad';
 
-  MinimumPadObject(super.dimensions, {super.relative,
-    super.regionRelative,
-    super.gravity,
-    super.offsetX,
-    super.offsetY,
-    super.background});
+  MinimumPadObject(super.dimensions,
+      {super.relative,
+      super.regionRelative,
+      super.gravity,
+      super.offsetX,
+      super.offsetY,
+      super.background});
 }
 
 class MinimumPad extends PadBuilder {}
