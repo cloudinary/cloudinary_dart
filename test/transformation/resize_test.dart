@@ -142,7 +142,7 @@ void main() {
         Resize.pad(Pad()
           ..height(100)
           ..aspectRatio(1.5)
-          ..background(Background.color(Color.BLACK()))));
+          ..background(Background.color(Color.black()))));
     cldAssert(
         'ar_1.5,b_auto:predominant,c_pad,h_100',
         Resize.pad(Pad()
