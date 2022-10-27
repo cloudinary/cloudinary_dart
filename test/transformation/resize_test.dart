@@ -157,4 +157,68 @@ void main() {
           ..background(
               Background.border(BorderBackgroundBuilder()..contrast()))));
   });
+
+  test('Test successful limit pad formatting', () {
+    print(Resize.limitPad(LimitPad()..width(100)));
+    cldAssert('c_lpad,w_100', Resize.limitPad(LimitPad()..width(100)));
+    cldAssert('c_lpad,w_1.0', Resize.limitPad(LimitPad()..width(1.0)));
+    cldAssert(
+        'c_lpad,h_100,w_100',
+        Resize.limitPad(LimitPad()
+          ..width(100)
+          ..height(100)));
+    cldAssert(
+        'c_lpad,h_1.1,w_0.5',
+        Resize.limitPad(LimitPad()
+          ..width(0.5)
+          ..height(1.1)));
+    cldAssert(
+        'ar_1.5,c_lpad,w_100',
+        Resize.limitPad(LimitPad()
+          ..width(100)
+          ..aspectRatio(1.5)));
+    cldAssert(
+        'ar_1.5,c_lpad,h_100',
+        Resize.limitPad(LimitPad()
+          ..height(100)
+          ..aspectRatio(1.5)));
+    cldAssert(
+        'ar_1.5,c_lpad,g_north,h_100',
+        Resize.limitPad(LimitPad()
+          ..height(100)
+          ..aspectRatio(1.5)
+          ..gravity(Gravity.north())));
+  });
+
+  test('Test successful minimum pad formatting', () {
+    print(Resize.limitPad(LimitPad()..width(100)));
+    cldAssert('c_mpad,w_100', Resize.minimumPad(MinimumPad()..width(100)));
+    cldAssert('c_mpad,w_1.0', Resize.minimumPad(MinimumPad()..width(1.0)));
+    cldAssert(
+        'c_mpad,h_100,w_100',
+        Resize.minimumPad(MinimumPad()
+          ..width(100)
+          ..height(100)));
+    cldAssert(
+        'c_mpad,h_1.1,w_0.5',
+        Resize.minimumPad(MinimumPad()
+          ..width(0.5)
+          ..height(1.1)));
+    cldAssert(
+        'ar_1.5,c_mpad,w_100',
+        Resize.minimumPad(MinimumPad()
+          ..width(100)
+          ..aspectRatio(1.5)));
+    cldAssert(
+        'ar_1.5,c_mpad,h_100',
+        Resize.minimumPad(MinimumPad()
+          ..height(100)
+          ..aspectRatio(1.5)));
+    cldAssert(
+        'ar_1.5,c_mpad,g_north,h_100',
+        Resize.minimumPad(MinimumPad()
+          ..height(100)
+          ..aspectRatio(1.5)
+          ..gravity(Gravity.north())));
+  });
 }

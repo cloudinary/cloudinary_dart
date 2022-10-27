@@ -121,7 +121,22 @@ class LimitPadObject extends BasePad {
       super.background});
 }
 
-class LimitPad extends PadBuilder {}
+class LimitPad extends PadBuilder {
+  @override
+  LimitPadObject build() {
+    return LimitPadObject(
+        Dimensions(
+            width: super.getWidth(),
+            height: super.getHeight(),
+            aspectRatio: super.getAspectRatio()),
+        relative: super.getRelative(),
+        regionRelative: super.getRegionRelative(),
+        gravity: super._gravity,
+        offsetX: super._offsetX,
+        offsetY: super._offsetY,
+        background: super._background);
+  }
+}
 
 class MinimumPadObject extends BasePad {
   @override
@@ -136,4 +151,19 @@ class MinimumPadObject extends BasePad {
       super.background});
 }
 
-class MinimumPad extends PadBuilder {}
+class MinimumPad extends PadBuilder {
+  @override
+  MinimumPadObject build() {
+    return MinimumPadObject(
+        Dimensions(
+            width: super.getWidth(),
+            height: super.getHeight(),
+            aspectRatio: super.getAspectRatio()),
+        relative: super.getRelative(),
+        regionRelative: super.getRegionRelative(),
+        gravity: super._gravity,
+        offsetX: super._offsetX,
+        offsetY: super._offsetY,
+        background: super._background);
+  }
+}
