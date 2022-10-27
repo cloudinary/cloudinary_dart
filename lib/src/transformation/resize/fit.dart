@@ -1,42 +1,69 @@
 import 'package:cloudinary_dart/src/transformation/common.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
+import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
 
-import 'common.dart';
-
-/// Class Fit
-class FitObject extends Resize {
+/// Class FitObject
+class FitObject extends BaseScale {
   @override
   String actionType = "fit";
 
   FitObject(super.dimensions, {super.relative, super.regionRelative});
 }
 
-class Fit extends BaseBuilder<Fit> {
-  Fit({dynamic width, dynamic height}) {
-    super.width(width);
-    super.height(height);
-  }
-
+/// Class Fit
+class Fit extends BaseScaleBuilder {
   @override
-  Object getThis() {
-    return this;
-  }
-
-  @override
-  Action build() {
+  FitObject build() {
     return FitObject(
         Dimensions(
-            width: getWidth(),
-            height: getHeight(),
-            aspectRatio: getAspectRatio()),
-        relative: getRelative(),
-        regionRelative: getRegionRelative());
+            width: super.getWidth(),
+            height: super.getHeight(),
+            aspectRatio: super.getAspectRatio()),
+        relative: super.getRelative(),
+        regionRelative: super.getRegionRelative());
   }
+}
 
+/// Class LimitFitObject
+class LimitFitObject extends BaseScale {
   @override
-  void copyWith(other) {
-    width(other.getWidth());
-    height(other.getHeight());
-    aspectRatio(other.getAspectRatio());
+  String actionType = "limit";
+
+  LimitFitObject(super.dimensions, {super.relative, super.regionRelative});
+}
+
+/// Class LimitFit
+class LimitFit extends BaseScaleBuilder {
+  @override
+  Action build() {
+    return LimitFitObject(
+        Dimensions(
+            width: super.getWidth(),
+            height: super.getHeight(),
+            aspectRatio: super.getAspectRatio()),
+        relative: super.getRelative(),
+        regionRelative: super.getRegionRelative());
+  }
+}
+
+/// Class MinimumFitObject
+class MinimumFitObject extends BaseScale {
+  @override
+  String actionType = "mfit";
+
+  MinimumFitObject(super.dimensions, {super.relative, super.regionRelative});
+}
+
+/// Class MinimumFit
+class MinimumFit extends BaseScaleBuilder {
+  @override
+  MinimumFitObject build() {
+    return MinimumFitObject(
+        Dimensions(
+            width: super.getWidth(),
+            height: super.getHeight(),
+            aspectRatio: super.getAspectRatio()),
+        relative: super.getRelative(),
+        regionRelative: super.getRegionRelative());
   }
 }
