@@ -82,8 +82,35 @@ abstract class Resize extends Action {
   static Resize crop(Crop options) {
     return options.build();
   }
-
+  /// * Resizes the image to fill the given width and height while retaining the original aspect ratio and with all of
+  /// the original image visible.
+  ///
+  /// If the proportions of the original image do not match the given width and height,
+  /// padding is added to the image to reach the required size
+  ///
+  /// Receives [Pad] returns [Resize] object
   static Resize pad(Pad options) {
+    return options.build();
+  }
+  /// Same as the [Pad] mode but only if the original image is larger than the given limit (width and
+  /// height), in which case the image is scaled down to fill the given width and height while retaining the original
+  /// aspect ratio and with all of the original image visible.
+  ///
+  ///This mode doesn't scale up the image if your requested dimensions are bigger than the original image's.
+  ///
+  /// Receives [LimitPad] returns [Resize] object
+  static Resize limitPad(LimitPad options) {
+    return options.build();
+  }
+
+  /// Same as the [Pad] mode but only if the original image is smaller than the given minimum (width and
+  /// height), in which case the image is scaled up to fill the given width and height while retaining the original
+  /// aspect ratio and with all of the original image visible.
+  ///
+  ///This mode doesn't scale down the image if your requested dimensions are smaller than the original image's.
+  ///
+  /// Receives [MinimumPad] returns [Resize] object
+  static Resize minimumPad(MinimumPad options) {
     return options.build();
   }
 }

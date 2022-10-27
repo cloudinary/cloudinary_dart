@@ -5,7 +5,7 @@ import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import '../background/background.dart';
 import '../common.dart';
 
-class PadObject extends Resize {
+class BasePad extends Resize {
   Gravity? gravity;
   dynamic offsetX;
   dynamic offsetY;
@@ -14,7 +14,7 @@ class PadObject extends Resize {
   @override
   String actionType = 'pad';
 
-  PadObject(super.dimensions,
+  BasePad(super.dimensions,
       {super.relative,
       super.regionRelative,
       this.gravity,
@@ -33,35 +33,35 @@ class PadObject extends Resize {
   }
 }
 
-class Pad extends BaseBuilder<Pad> {
+class PadBuilder extends BaseBuilder<PadBuilder> {
   dynamic _offsetX;
   dynamic _offsetY;
   CompassGravity? _gravity;
   Background? _background;
 
-  Pad background(Background background) {
+  PadBuilder background(Background background) {
     _background = background;
     return this;
   }
 
-  Pad offsetX(dynamic offsetX) {
+  PadBuilder offsetX(dynamic offsetX) {
     _offsetX = offsetX;
     return this;
   }
 
-  Pad offsetY(dynamic offsetX) {
+  PadBuilder offsetY(dynamic offsetX) {
     _offsetX = offsetX;
     return this;
   }
 
-  Pad gravity(CompassGravity gravity) {
+  PadBuilder gravity(CompassGravity gravity) {
     _gravity = gravity;
     return this;
   }
 
   @override
-  PadObject build() {
-    return PadObject(
+  BasePad build() {
+    return BasePad(
         Dimensions(
             width: getWidth(),
             height: getHeight(),
@@ -92,3 +92,48 @@ class Pad extends BaseBuilder<Pad> {
     _background = other._background;
   }
 }
+
+class PadObject extends BasePad {
+
+  @override
+  String actionType = 'pad';
+
+  PadObject(super.dimensions, {super.relative,
+    super.regionRelative,
+    super.gravity,
+    super.offsetX,
+    super.offsetY,
+    super.background});
+}
+
+class Pad extends PadBuilder {}
+
+class LimitPadObject extends BasePad {
+
+  @override
+  String actionType = 'lpad';
+
+  LimitPadObject(super.dimensions, {super.relative,
+    super.regionRelative,
+    super.gravity,
+    super.offsetX,
+    super.offsetY,
+    super.background});
+}
+
+class LimitPad extends PadBuilder {}
+
+class MinimumPadObject extends BasePad {
+
+  @override
+  String actionType = 'mpad';
+
+  MinimumPadObject(super.dimensions, {super.relative,
+    super.regionRelative,
+    super.gravity,
+    super.offsetX,
+    super.offsetY,
+    super.background});
+}
+
+class MinimumPad extends PadBuilder {}
