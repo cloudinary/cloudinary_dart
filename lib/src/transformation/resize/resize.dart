@@ -66,7 +66,7 @@ abstract class Resize extends Action {
   ///
   /// Receives [width], [height] and/or [aspectRatio] and returns [Resize] object.
   static Resize scale(Scale options) {
-    return options.build() as Resize;
+    return options.build();
   }
 
   /// The image is resized so that it takes up as much space as possible within a bounding box defined by the given
@@ -74,6 +74,26 @@ abstract class Resize extends Action {
   ///
   /// Receives [Fit] and returns [Resize] object.
   static Resize fit(Fit options) {
-    return options.build() as Resize;
+    return options.build();
+  }
+
+  /// Same as the Scale::fit mode but only if the original image is larger than the given limit (width and
+  /// height), in which case the image is scaled down so that it takes up as much space as possible within a bounding
+  /// box defined by the given width and height qualifiers. The original aspect ratio is retained and all of the
+  /// original image is visible.
+  ///
+  /// Receives [LimitFit]
+  static limitFit(LimitFit options) {
+    return options.build();
+  }
+
+  /// Same as the Scale::fit mode but only if the original image is smaller than the given minimum (width and
+  /// height), in which case the image is scaled up so that it takes up as much space as possible within a bounding
+  /// box defined by the given width and height qualifiers. The original aspect ratio is retained and all of the
+  /// original image is visible.
+  ///
+  /// Receives [MinimumFit]
+  static minimumFit(MinimumFit options) {
+    return options.build();
   }
 }
