@@ -5,6 +5,7 @@ import 'package:cloudinary_dart/src/transformation/resize/pad.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
 
 import '../common.dart';
+import 'crop.dart';
 
 class Dimensions {
   dynamic width;
