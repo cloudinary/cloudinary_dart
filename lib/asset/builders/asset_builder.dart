@@ -1,3 +1,5 @@
+import 'package:cloudinary_dart/src/transformation/transformation.dart';
+
 import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
 import '../asset.dart';
@@ -13,10 +15,10 @@ class AssetBuilder extends GeneralAssetBuilder {
       String? urlSuffix,
       String? assetType,
       String? deliveryType,
-      String? transformation})
+      TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
             assetType, deliveryType, transformation) {
-    super.assetType = 'raw';
+    super.assetType('raw');
   }
 
   @override

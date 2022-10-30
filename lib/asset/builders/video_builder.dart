@@ -1,5 +1,6 @@
 import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
+import '../../src/transformation/transformation.dart';
 import '../video.dart';
 import 'general_asset_builder.dart';
 
@@ -13,10 +14,10 @@ class VideoBuilder extends GeneralAssetBuilder {
       String? urlSuffix,
       String? assetType,
       String? deliveryType,
-      String? transformation})
+      TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
             assetType, deliveryType, transformation) {
-    super.assetType = 'video';
+    super.assetType('video');
   }
 
   @override
