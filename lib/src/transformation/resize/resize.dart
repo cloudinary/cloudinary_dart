@@ -84,7 +84,7 @@ abstract class Resize extends Action {
   /// original image is visible.
   ///
   /// Receives [LimitFit]
-  static limitFit(LimitFit options) {
+  static Resize limitFit(LimitFit options) {
     return options.build();
   }
 
@@ -94,7 +94,7 @@ abstract class Resize extends Action {
   /// original image is visible.
   ///
   /// Receives [MinimumFit]
-  static minimumFit(MinimumFit options) {
+  static Resize minimumFit(MinimumFit options) {
     return options.build();
   }
 
