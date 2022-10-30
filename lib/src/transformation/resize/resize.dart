@@ -1,6 +1,5 @@
 import 'package:cloudinary_dart/src/transformation/TransformationUtils.dart';
 import 'package:cloudinary_dart/src/transformation/resize/common.dart';
-import 'package:cloudinary_dart/src/transformation/resize/crop.dart';
 import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
 import 'package:cloudinary_dart/src/transformation/resize/pad.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
@@ -63,12 +62,9 @@ abstract class Resize extends Action {
     ];
   }
 
-  /// Change the size of the image exactly to the given width and height without necessarily retaining the original
-  /// aspect ratio: all original image parts are visible but might be stretched or shrunk.
-  ///
   /// Receives [width], [height] and/or [aspectRatio] and returns [Resize] object.
   static Resize scale(Scale options) {
-    return options.build() as Resize;
+    return options.build();
   }
 
   /// The image is resized so that it takes up as much space as possible within a bounding box defined by the given
@@ -76,9 +72,32 @@ abstract class Resize extends Action {
   ///
   /// Receives [Fit] and returns [Resize] object.
   static Resize fit(Fit options) {
-    return options.build() as Resize;
+    return options.build();
   }
 
+  /// Same as the Scale::fit mode but only if the original image is larger than the given limit (width and
+  /// height), in which case the image is scaled down so that it takes up as much space as possible within a bounding
+  /// box defined by the given width and height qualifiers. The original aspect ratio is retained and all of the
+  /// original image is visible.
+  ///
+  /// Receives [LimitFit]
+  static Resize limitFit(LimitFit options) {
+    return options.build();
+  }
+
+  /// Same as the Scale::fit mode but only if the original image is smaller than the given minimum (width and
+  /// height), in which case the image is scaled up so that it takes up as much space as possible within a bounding
+  /// box defined by the given width and height qualifiers. The original aspect ratio is retained and all of the
+  /// original image is visible.
+  ///
+  /// Receives [MinimumFit]
+  static Resize minimumFit(MinimumFit options) {
+    return options.build();
+  }
+
+  /// Extracts a region of the given width and height out of the original image.
+  ///
+  /// Receives [width], [height], [aspectRatio] and options, returns [Resize] object.
   static Resize crop(Crop options) {
     return options.build();
   }

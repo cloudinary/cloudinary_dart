@@ -48,6 +48,7 @@ void main() {
   });
 
   test('Test successful fit formatting', () {
+    print(Resize.fit(Fit()..width(100)));
     cldAssert("c_fit,w_100", Resize.fit(Fit()..width(100)));
     cldAssert(
         "c_fit,h_100,w_100",
@@ -67,6 +68,56 @@ void main() {
     cldAssert(
         "ar_1.5,c_fit,h_100",
         Resize.fit(Fit()
+          ..height(100)
+          ..aspectRatio(1.5)));
+  });
+
+  test('Test successful limit fit formatting', () {
+    cldAssert('c_limit,w_100', Resize.limitFit(LimitFit()..width(100)));
+    cldAssert('c_limit,w_1.0', Resize.limitFit(LimitFit()..width(1.0)));
+    cldAssert(
+        'c_limit,h_100,w_100',
+        Resize.limitFit(LimitFit()
+          ..width(100)
+          ..height(100)));
+    cldAssert(
+        'c_limit,h_1.1,w_0.5',
+        Resize.limitFit(LimitFit()
+          ..width(0.5)
+          ..height(1.1)));
+    cldAssert(
+        'ar_1.5,c_limit,w_100',
+        Resize.limitFit(LimitFit()
+          ..width(100)
+          ..aspectRatio(1.5)));
+    cldAssert(
+        'ar_1.5,c_limit,h_100',
+        Resize.limitFit(LimitFit()
+          ..height(100)
+          ..aspectRatio(1.5)));
+  });
+
+  test('Test successful minimum fit formatting', () {
+    cldAssert('c_mfit,w_100', Resize.minimumFit(MinimumFit()..width(100)));
+    cldAssert('c_mfit,w_1.0', Resize.minimumFit(MinimumFit()..width(1.0)));
+    cldAssert(
+        'c_mfit,h_100,w_100',
+        Resize.minimumFit(MinimumFit()
+          ..width(100)
+          ..height(100)));
+    cldAssert(
+        'c_mfit,h_1.1,w_0.5',
+        Resize.minimumFit(MinimumFit()
+          ..width(0.5)
+          ..height(1.1)));
+    cldAssert(
+        'ar_1.5,c_mfit,w_100',
+        Resize.minimumFit(MinimumFit()
+          ..width(100)
+          ..aspectRatio(1.5)));
+    cldAssert(
+        'ar_1.5,c_mfit,h_100',
+        Resize.minimumFit(MinimumFit()
           ..height(100)
           ..aspectRatio(1.5)));
   });
