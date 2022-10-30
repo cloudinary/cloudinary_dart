@@ -1,5 +1,6 @@
 import 'package:cloudinary_dart/src/transformation/gravity/gravity.dart';
 import 'package:cloudinary_dart/src/transformation/resize/crop.dart';
+import 'package:cloudinary_dart/src/transformation/resize/fill.dart';
 import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
@@ -154,5 +155,16 @@ void main() {
           ..aspectRatio(1.5)
           ..gravity(Gravity.north())
           ..zoom(1.5)));
+  });
+
+  test("Test successful fill formatting", () {
+    cldAssert('c_fill,w_100', Resize.fill(Fill() ..width(100)));
+    cldAssert('c_fill,w_1.0', Resize.fill(Fill() ..width(1.0)));
+    cldAssert('c_fill,h_100,w_100', Resize.fill(Fill() ..width(100) ..height(100)));
+    cldAssert('c_fill,h_1.1,w_0.5', Resize.fill(Fill() ..width(0.5) ..height(1.1)));
+    cldAssert('ar_1.5,c_fill,w_100', Resize.fill(Fill() ..width(100) ..aspectRatio(1.5)));
+    cldAssert('ar_1.5,c_fill,h_100', Resize.fill(Fill() ..height(100) ..aspectRatio(1.5)));
+    cldAssert('ar_1.5,c_fill,g_north,h_100', Resize.fill(Fill() ..height(100) ..aspectRatio(1.5) ..gravity(Gravity.north())));
+    cldAssert('c_fill,g_xy_center,x_100,y_100', Resize.fill(Fill() ..gravity(Gravity.xyCenter()) ..x(100) ..y(100)));
   });
 }
