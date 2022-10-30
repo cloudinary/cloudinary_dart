@@ -1,4 +1,3 @@
-import 'package:cloudinary_dart/src/transformation/common.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
 
@@ -35,7 +34,7 @@ class LimitFitObject extends BaseScale {
 /// Class LimitFit
 class LimitFit extends BaseScaleBuilder {
   @override
-  Action build() {
+  LimitFitObject build() {
     return LimitFitObject(
         Dimensions(
             width: super.getWidth(),
