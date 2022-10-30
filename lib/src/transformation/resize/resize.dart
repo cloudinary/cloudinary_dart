@@ -115,4 +115,16 @@ abstract class Resize extends Action {
   static Resize fill(Fill options) {
     return options.build();
   }
+
+  /// Creates an asset with the exact given width and height without distorting the asset, but only if the original
+  /// asset is larger than the specified resolution limits.
+  ///
+  /// The asset is scaled down to fill the given width and height without distorting the asset, and then the dimension
+  /// that exceeds the request is cropped. If the original dimensions are both smaller than the requested size, it is
+  /// not resized at all.
+  ///
+  /// Receives [LimitFill], returns [Resize] object.
+  static Resize limitFill(LimitFill options) {
+    return options.build();
+  }
 }

@@ -167,4 +167,15 @@ void main() {
     cldAssert('ar_1.5,c_fill,g_north,h_100', Resize.fill(Fill() ..height(100) ..aspectRatio(1.5) ..gravity(Gravity.north())));
     cldAssert('c_fill,g_xy_center,x_100,y_100', Resize.fill(Fill() ..gravity(Gravity.xyCenter()) ..x(100) ..y(100)));
   });
+
+  test("Test successful limit fill formatting", () {
+    cldAssert('c_lfill,w_100', Resize.limitFill(LimitFill() ..width(100)));
+    cldAssert('c_lfill,w_1.0', Resize.limitFill(LimitFill() ..width(1.0)));
+    cldAssert('c_lfill,h_100,w_100', Resize.limitFill(LimitFill() ..width(100) ..height(100)));
+    cldAssert('c_lfill,h_1.1,w_0.5', Resize.limitFill(LimitFill() ..width(0.5) ..height(1.1)));
+    cldAssert('ar_1.5,c_lfill,w_100', Resize.limitFill(LimitFill() ..width(100) ..aspectRatio(1.5)));
+    cldAssert('ar_1.5,c_lfill,h_100', Resize.limitFill(LimitFill() ..height(100) ..aspectRatio(1.5)));
+    cldAssert('ar_1.5,c_lfill,g_north,h_100', Resize.limitFill(LimitFill() ..height(100) ..aspectRatio(1.5) ..gravity(Gravity.north())));
+    cldAssert('c_lfill,g_xy_center,x_100,y_100', Resize.limitFill(LimitFill() ..gravity(Gravity.xyCenter()) ..x(100) ..y(100)));
+  });
 }

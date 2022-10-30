@@ -4,7 +4,7 @@ import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import '../common.dart';
 import '../gravity/gravity.dart';
 
-class FillObject extends Resize {
+class BaseFillObject extends Resize {
   Gravity? gravity;
   dynamic x;
   dynamic y;
@@ -13,7 +13,7 @@ class FillObject extends Resize {
   String actionType = "fill";
 
 
-  FillObject(super.dimensions,
+  BaseFillObject(super.dimensions,
       {super.relative,
         super.regionRelative,
         this.gravity,
@@ -30,7 +30,7 @@ class FillObject extends Resize {
   }
 }
 
-class Fill extends BaseBuilder<Fill> {
+class Fill extends BaseBuilder<BaseFillObject> {
   Gravity? _gravity;
   dynamic _x;
   dynamic _y;
@@ -56,8 +56,8 @@ class Fill extends BaseBuilder<Fill> {
   }
 
   @override
-  FillObject build() {
-    return FillObject(
+  BaseFillObject build() {
+    return BaseFillObject(
         Dimensions(
             width: getWidth(),
             height: getHeight(),
@@ -77,5 +77,31 @@ class Fill extends BaseBuilder<Fill> {
     _gravity = other._gravity;
     _x = other._x;
     _y = other._y;
+  }
+}
+
+class LimitFillObject extends BaseFillObject {
+  @override
+  String actionType = "lfill";
+
+  LimitFillObject(super.dimensions,
+  {super.relative,
+  super.regionRelative,
+    super.gravity,
+    super.x,
+    super.y});
+}
+
+class LimitFill extends Fill {
+@override
+  LimitFillObject build() {
+    return LimitFillObject(
+        Dimensions(
+            width: getWidth(),
+            height: getHeight(),
+            aspectRatio: getAspectRatio()),
+        gravity: _gravity,
+        x: _x,
+        y: _y);
   }
 }
