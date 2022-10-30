@@ -1,6 +1,6 @@
-import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
-import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
-import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
+import 'package:cloudinary_dart/transformation/resize/fit.dart';
+import 'package:cloudinary_dart/transformation/resize/resize.dart';
+import 'package:cloudinary_dart/transformation/resize/scale.dart';
 import 'package:test/test.dart';
 
 import '../tests_utils.dart';

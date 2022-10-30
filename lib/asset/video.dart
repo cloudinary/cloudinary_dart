@@ -1,5 +1,6 @@
 import 'package:cloudinary_dart/asset/asset.dart';
-import 'package:cloudinary_dart/src/transformation/transformation.dart';
+
+import '../transformation/transformation.dart';
 
 class Video extends BaseAsset {
   Video.withBuilder(super.builder) : super.withBuilder();

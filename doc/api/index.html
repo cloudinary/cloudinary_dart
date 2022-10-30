@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 6.0.0">
+  <meta name="description" content="cloudinary_dart API docs, for the Dart programming language.">
+  <title>cloudinary_dart - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="" data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://www.cloudinary.com">cloudinary_dart package</a></li>
+  </ol>
+  <div class="self-name">cloudinary_dart</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h1 id="cloudinary-dart-sdk">Cloudinary Dart SDK</h1>
+<p><a href="https://app.travis-ci.com/github/cloudinary/cloudinary_dart"><img src="https://api.travis-ci.com/cloudinary/cloudinary_dart.svg?branch=master" alt="Build Status"></a></p>
+<h2 id="about">About</h2>
+<p>The Cloudinary Dart SDK allows you to quickly and easily integrate your application with Cloudinary.
+Effortlessly optimize and transform your cloud's assets.</p>
+<h3 id="note">Note</h3>
+<p>This Readme provides basic installation and usage information.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#key-features">Key Features</a></li>
+<li><a href="#Version-Support">Version Support</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#usage">Usage</a>
+<ul>
+<li><a href="#Setup">Setup</a></li>
+<li><a href="#Transform-and-Optimize-Assets">Transform and Optimize Assets</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="key-features">Key Features</h2>
+<p>Transform and optimize assets. Visit our documentation to learn more about <a href="https://cloudinary.com/documentation/media_optimization">media optimization</a> and <a href="https://cloudinary.com/documentation/image_transformations">transformations</a>.</p>
+<h2 id="version-support">Version Support</h2>
+<table><thead><tr><th>SDK Version</th><th>Dart Version</th></tr></thead><tbody><tr><td>0.0.3</td><td>&gt; 1.0</td></tr></tbody></table>
+<h2 id="installation">Installation</h2>
+<p>To use this SDK, add cloudinary as a <a href="https://flutter.dev/platform-plugins/">dependency in your pubspec.yaml file</a>.</p>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  cloudinary_dart: ^0.0.3
+</code></pre>
+<h2 id="usage">Usage</h2>
+<h3 id="setup">Setup</h3>
+<p>The <code>Cloudinary</code> class is the main entry point for using the library. Your <code>cloud_name</code> is required to create an instance of this class. Your <code>api_key</code> and <code>api_secret</code> are also needed to perform secure API calls to Cloudinary (e.g., image and video uploads). Setting the configuration parameters can be done either programmatically using an appropriate constructor of the Cloudinary class or globally using an environment variable. You can find your account-specific configuration parameters in the <strong>Dashboard</strong> page of your <a href="https://cloudinary.com/console">account console</a>.</p>
+<p>Here's an example of setting configuration parameters in your Dart application:</p>
+<pre class="language-dart"><code class="language-dart">import 'package:cloudinary_dart/src/cloudinary.dart';
+
+var cloudinary = Cloudinary.withStringUrl('cloudinary://&lt;your-api-key&gt;:&lt;your-api-secret&gt;@&lt;your-cloud-name&gt;');
+</code></pre>
+<h3 id="transform-and-optimize-assets">Transform and Optimize Assets</h3>
+<p>Generate a Cloudinary URL using the <code>cloudinary.media</code> helper method and pass this to your image or video view:</p>
+<p>For example, to generate an url for an image called <code>sample</code> on the <code>demo</code> account:</p>
+<pre class="language-dart"><code class="language-dart">String url = cloudinary.image('sample.jpg').toString();
+</code></pre>
+<p>To generate a transformation URL for the same image:</p>
+<pre class="language-dart"><code class="language-dart">String url = cloudinary.image('sample.jpg', ImageBuilder() ..transformation = "w_500").toString();
+</code></pre>
+<h2 id="contributions">Contributions</h2>
+<p>See <a href="/CONTRIBUTING.md">contributing guidelines</a>.</p>
+<h2 id="get-help">Get Help</h2>
+<p>If you run into an issue or have a question, you can either:</p>
+<ul>
+<li><a href="https://github.com/cloudinary/cloudinary_kotlin/issues">Open a GitHub issue</a> (for issues related to the SDK)</li>
+<li><a href="https://cloudinary.com/contact">Open a support ticket</a> (for issues related to your account)</li>
+</ul>
+<h2 id="about-cloudinary">About Cloudinary</h2>
+<p>Cloudinary is a powerful media API for websites and mobile apps alike, Cloudinary enables developers to efficiently manage, transform, optimize, and deliver images and videos through multiple CDNs. Ultimately, viewers enjoy responsive and personalized visual-media experiences—irrespective of the viewing device.</p>
+<h2 id="additional-resources">Additional Resources</h2>
+<ul>
+<li><a href="https://cloudinary.com/documentation/cloudinary_references">Cloudinary Transformation and REST API References</a>: Comprehensive references, including syntax and examples for all SDKs.</li>
+<li><a href="https://mediajams.dev/">MediaJams.dev</a>: Bite-size use-case tutorials written by and for Cloudinary Developers.</li>
+<li><a href="https://www.youtube.com/playlist?list=PL8dVGjLA2oMr09amgERARsZyrOz_sPvqw">DevJams</a>: Cloudinary developer podcasts on YouTube.</li>
+<li><a href="https://training.cloudinary.com/">Cloudinary Academy</a>: Free self-paced courses, instructor-led virtual courses, and on-site courses.</li>
+<li><a href="https://cloudinary.com/documentation/code_explorers_demos_index">Code Explorers and Feature Demos</a>: A one-stop shop for all code explorers, Postman collections, and feature demos found in the docs.</li>
+<li><a href="https://cloudinary.com/roadmap">Cloudinary Roadmap</a>: Your chance to follow, vote, or suggest what Cloudinary should develop next.</li>
+<li><a href="https://www.facebook.com/groups/CloudinaryCommunity">Cloudinary Facebook Community</a>: Learn from and offer help to other Cloudinary developers.</li>
+<li><a href="https://cloudinary.com/users/register/free">Cloudinary Account Registration</a>: Free Cloudinary account registration.</li>
+<li><a href="https://cloudinary.com">Cloudinary Website</a>: Learn about Cloudinary's products, partners, customers, pricing, and more.</li>
+</ul>
+<h2 id="licence">Licence</h2>
+<p>Released under the MIT license.</p>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="analytics">
+  <span class="name"><a href="analytics/analytics-library.html">analytics</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="asset">
+  <span class="name"><a href="asset_asset/asset_asset-library.html">asset</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="asset_builder">
+  <span class="name"><a href="asset_builders_asset_builder/asset_builders_asset_builder-library.html">asset_builder</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="auth_token">
+  <span class="name"><a href="auth_token/auth_token-library.html">auth_token</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="cloud_config">
+  <span class="name"><a href="config_cloud_config/config_cloud_config-library.html">cloud_config</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="cloudinary">
+  <span class="name"><a href="cloudinary/cloudinary-library.html">cloudinary</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="cloudinary_config">
+  <span class="name"><a href="config_cloudinary_config/config_cloudinary_config-library.html">cloudinary_config</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="common">
+  <span class="name"><a href="transformation_resize_common/transformation_resize_common-library.html">common</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="common">
+  <span class="name"><a href="transformation_common/transformation_common-library.html">common</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="delivery">
+  <span class="name"><a href="transformation_delivery_delivery/transformation_delivery_delivery-library.html">delivery</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="delivery_actions">
+  <span class="name"><a href="transformation_delivery_delivery_actions/transformation_delivery_delivery_actions-library.html">delivery_actions</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="fit">
+  <span class="name"><a href="transformation_resize_fit/transformation_resize_fit-library.html">fit</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="general_asset_builder">
+  <span class="name"><a href="asset_builders_general_asset_builder/asset_builders_general_asset_builder-library.html">general_asset_builder</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="image">
+  <span class="name"><a href="asset_image/asset_image-library.html">image</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="image_builder">
+  <span class="name"><a href="asset_builders_image_builder/asset_builders_image_builder-library.html">image_builder</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="resize">
+  <span class="name"><a href="transformation_resize_resize/transformation_resize_resize-library.html">resize</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="scale">
+  <span class="name"><a href="transformation_resize_scale/transformation_resize_scale-library.html">scale</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="transformation">
+  <span class="name"><a href="transformation_transformation/transformation_transformation-library.html">transformation</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="TransformationUtils">
+  <span class="name"><a href="transformation_TransformationUtils/transformation_TransformationUtils-library.html">TransformationUtils</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="url_config">
+  <span class="name"><a href="config_url_config/config_url_config-library.html">url_config</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="video">
+  <span class="name"><a href="asset_video/asset_video-library.html">video</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="video_builder">
+  <span class="name"><a href="asset_builders_video_builder/asset_builders_video_builder-library.html">video_builder</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="https://www.cloudinary.com">cloudinary_dart package</a></li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">cloudinary_dart</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="analytics/analytics-library.html">analytics</a></li>
+      <li><a href="asset_asset/asset_asset-library.html">asset</a></li>
+      <li><a href="asset_builders_asset_builder/asset_builders_asset_builder-library.html">asset_builder</a></li>
+      <li><a href="auth_token/auth_token-library.html">auth_token</a></li>
+      <li><a href="config_cloud_config/config_cloud_config-library.html">cloud_config</a></li>
+      <li><a href="cloudinary/cloudinary-library.html">cloudinary</a></li>
+      <li><a href="config_cloudinary_config/config_cloudinary_config-library.html">cloudinary_config</a></li>
+      <li><a href="transformation_resize_common/transformation_resize_common-library.html">common</a></li>
+      <li><a href="transformation_common/transformation_common-library.html">common</a></li>
+      <li><a href="transformation_delivery_delivery/transformation_delivery_delivery-library.html">delivery</a></li>
+      <li><a href="transformation_delivery_delivery_actions/transformation_delivery_delivery_actions-library.html">delivery_actions</a></li>
+      <li><a href="transformation_resize_fit/transformation_resize_fit-library.html">fit</a></li>
+      <li><a href="asset_builders_general_asset_builder/asset_builders_general_asset_builder-library.html">general_asset_builder</a></li>
+      <li><a href="asset_image/asset_image-library.html">image</a></li>
+      <li><a href="asset_builders_image_builder/asset_builders_image_builder-library.html">image_builder</a></li>
+      <li><a href="transformation_resize_resize/transformation_resize_resize-library.html">resize</a></li>
+      <li><a href="transformation_resize_scale/transformation_resize_scale-library.html">scale</a></li>
+      <li><a href="transformation_transformation/transformation_transformation-library.html">transformation</a></li>
+      <li><a href="transformation_TransformationUtils/transformation_TransformationUtils-library.html">TransformationUtils</a></li>
+      <li><a href="config_url_config/config_url_config-library.html">url_config</a></li>
+      <li><a href="asset_video/asset_video-library.html">video</a></li>
+      <li><a href="asset_builders_video_builder/asset_builders_video_builder-library.html">video_builder</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    cloudinary_dart
+      0.0.3
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

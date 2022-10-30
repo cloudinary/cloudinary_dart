@@ -1,6 +1,6 @@
 import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
-import '../../src/transformation/transformation.dart';
+import '../../transformation/transformation.dart';
 import '../video.dart';
 import 'general_asset_builder.dart';
 
