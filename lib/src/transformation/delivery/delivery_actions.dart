@@ -239,11 +239,11 @@ class Format implements TransformationComponentBuilder<Format> {
   String toString() {
     var lossyStr = (_lossy == true) ? "fl_lossy" : null;
     var preserveTransparencyStr =
-    (_preserveTransparency == true) ? "fl_preserve_transparency" : null;
+        (_preserveTransparency == true) ? "fl_preserve_transparency" : null;
     var progressiveStr =
-    (_progressive != null) ? _progressive.toString() : null;
+        (_progressive != null) ? _progressive.toString() : null;
     var ignoreMaskChannelsStr =
-    (_ignoreMaskChannels == true) ? "fl_ignore_mask_channels" : null;
+        (_ignoreMaskChannels == true) ? "fl_ignore_mask_channels" : null;
     return "f_$format".joinWithValues([
       lossyStr,
       preserveTransparencyStr,
