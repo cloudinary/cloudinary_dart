@@ -30,7 +30,7 @@ class BaseFillObject extends Resize {
   }
 }
 
-class Fill extends BaseBuilder<BaseFillObject> {
+class Fill extends BaseBuilder<Fill> {
   Gravity? _gravity;
   dynamic _x;
   dynamic _y;

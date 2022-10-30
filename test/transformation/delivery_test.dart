@@ -14,7 +14,6 @@ void main() {
         "q_100:420",
         Delivery.quality(
             Quality(100)..chromaSubSampling(ChromaSubSampling.chroma420())));
-    print(Delivery.quality(Quality(Quality.auto)));
     cldAssert("q_auto", Delivery.quality(Quality(Quality.auto)));
     cldAssert("q_auto:low", Delivery.quality(Quality(Quality.autoLow)));
     cldAssert(

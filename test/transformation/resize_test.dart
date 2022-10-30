@@ -45,7 +45,6 @@ void main() {
   });
 
   test('Test successful fit formatting', () {
-    print(Resize.fit(Fit()..width(100)));
     cldAssert("c_fit,w_100", Resize.fit(Fit()..width(100)));
     cldAssert(
         "c_fit,h_100,w_100",
