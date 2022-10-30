@@ -14,8 +14,8 @@ abstract class Delivery implements Action {
   ///
   /// Receives [Quality]
   ///
-  static QualityAction quality(Quality options) {
-    return options.build();
+  static Quality quality(Quality options) {
+    return options;
   }
 
   /// Forces format conversion to the given format.
@@ -23,7 +23,7 @@ abstract class Delivery implements Action {
   ///
   /// Receives[Format]
   /// Returns occupied [DeliveryFormat] object
-  static FormatAction format(Format options) {
-    return options.build();
+  static Format format(Format options) {
+    return options;
   }
 }

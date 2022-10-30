@@ -1,29 +1,6 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
 import '../common.dart';
 import '../transformation.dart';
-
-class QualityAction extends Delivery {
-  dynamic level;
-  dynamic quantization;
-  ChromaSubSampling? chromaSubSampling;
-  bool anyFormat = false;
-
-  QualityAction(this.level,
-      {this.chromaSubSampling, this.quantization, this.anyFormat = false});
-
-  @override
-  String toString() {
-    var anyFormatStr = anyFormat ? "fl_any_format$paramSeparator" : "";
-    var quantizationStr = (quantization != null)
-        ? "${defaultValuesSeparator}qmax_$quantization"
-        : "";
-    var chromaSubSamplingStr = (chromaSubSampling != null)
-        ? "$defaultValuesSeparator${chromaSubSampling.toString()}"
-        : "";
-    return "${anyFormatStr}q_$level$chromaSubSamplingStr$quantizationStr";
-  }
-}
 
 /// Quality Builder
 class Quality implements TransformationComponentBuilder<Quality> {
@@ -85,14 +62,6 @@ class Quality implements TransformationComponentBuilder<Quality> {
     return this;
   }
 
-  @override
-  QualityAction build() {
-    return QualityAction(level,
-        chromaSubSampling: _chromaSubSampling,
-        quantization: _quantization,
-        anyFormat: _anyFormat);
-  }
-
   /// Builder copy function
   @override
   void copyWith(Quality other) {
@@ -100,6 +69,18 @@ class Quality implements TransformationComponentBuilder<Quality> {
     _chromaSubSampling = other._chromaSubSampling;
     _quantization = other._quantization;
     _anyFormat = other._anyFormat;
+  }
+
+  @override
+  String toString() {
+    var anyFormatStr = _anyFormat ? "fl_any_format$paramSeparator" : "";
+    var quantizationStr = (_quantization != null)
+        ? "${defaultValuesSeparator}qmax_$_quantization"
+        : "";
+    var chromaSubSamplingStr = (_chromaSubSampling != null)
+        ? "$defaultValuesSeparator${_chromaSubSampling.toString()}"
+        : "";
+    return "${anyFormatStr}q_$level$chromaSubSamplingStr$quantizationStr";
   }
 }
 
@@ -115,42 +96,6 @@ class ChromaSubSampling {
   @override
   String toString() {
     return value;
-  }
-}
-
-class FormatAction extends Delivery {
-  final String? _format;
-  bool? _lossy;
-  Progressive? _progressive;
-  bool? _preserveTransparency;
-  bool? _ignoreMaskChannels;
-
-  FormatAction(this._format,
-      {bool? lossy,
-      Progressive? progressive,
-      bool? preserveTransparency,
-      bool? ignoreMaskChannels}) {
-    _lossy = lossy;
-    _progressive = progressive;
-    _preserveTransparency = preserveTransparency;
-    _ignoreMaskChannels = ignoreMaskChannels;
-  }
-
-  @override
-  String toString() {
-    var lossyStr = (_lossy == true) ? "fl_lossy" : null;
-    var preserveTransparencyStr =
-        (_preserveTransparency == true) ? "fl_preserve_transparency" : null;
-    var progressiveStr =
-        (_progressive != null) ? _progressive.toString() : null;
-    var ignoreMaskChannelsStr =
-        (_ignoreMaskChannels == true) ? "fl_ignore_mask_channels" : null;
-    return "f_$_format".joinWithValues([
-      lossyStr,
-      preserveTransparencyStr,
-      progressiveStr,
-      ignoreMaskChannelsStr
-    ], separator: paramSeparator);
   }
 }
 
@@ -280,15 +225,6 @@ class Format implements TransformationComponentBuilder<Format> {
     return this;
   }
 
-  @override
-  FormatAction build() {
-    return FormatAction(format,
-        lossy: _lossy,
-        progressive: _progressive,
-        preserveTransparency: _preserveTransparency,
-        ignoreMaskChannels: _ignoreMaskChannels);
-  }
-
   /// Builder copy function
   @override
   void copyWith(Format other) {
@@ -297,6 +233,23 @@ class Format implements TransformationComponentBuilder<Format> {
     _progressive = other._progressive;
     _preserveTransparency = other._preserveTransparency;
     _ignoreMaskChannels = other._ignoreMaskChannels;
+  }
+
+  @override
+  String toString() {
+    var lossyStr = (_lossy == true) ? "fl_lossy" : null;
+    var preserveTransparencyStr =
+    (_preserveTransparency == true) ? "fl_preserve_transparency" : null;
+    var progressiveStr =
+    (_progressive != null) ? _progressive.toString() : null;
+    var ignoreMaskChannelsStr =
+    (_ignoreMaskChannels == true) ? "fl_ignore_mask_channels" : null;
+    return "f_$format".joinWithValues([
+      lossyStr,
+      preserveTransparencyStr,
+      progressiveStr,
+      ignoreMaskChannelsStr
+    ], separator: paramSeparator);
   }
 }
 
