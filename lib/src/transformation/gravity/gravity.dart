@@ -55,9 +55,9 @@ class Gravity {
   /// Returns [CompassGravity]
   static center() => CompassGravity(Compass.center());
 
-  FocusOnGravity focusOn(List<FocusOn> focusOnObjects,
-      {FocusOnGravityBuilder? options}) {
-    var builder = FocusOnGravityBuilder(focusOnObjects);
+  FocusOnGravityQualifier focusOn(List<FocusOn> focusOnObjects,
+      {FocusOnGravity? options}) {
+    var builder = FocusOnGravity(focusOnObjects);
     if (options != null) {
       builder.copyWith(options);
     }
@@ -104,11 +104,11 @@ class Compass {
 ///
 /// Learn More
 /// https://cloudinary.com/documentation/cloudinary_object_aware_cropping_addon
-class FocusOnGravity extends Gravity {
+class FocusOnGravityQualifier extends Gravity {
   List<FocusOn> focusOnObjects;
   AutoGravity? fallbackGravity;
 
-  FocusOnGravity(this.focusOnObjects, this.fallbackGravity);
+  FocusOnGravityQualifier(this.focusOnObjects, this.fallbackGravity);
 
   @override
   String toString() {
@@ -119,19 +119,19 @@ class FocusOnGravity extends Gravity {
 }
 
 /// Class FocusOnGravityBuilder
-class FocusOnGravityBuilder implements GeneralBuilder {
+class FocusOnGravity implements GeneralBuilder {
   List<FocusOn> objects;
   AutoGravity? _fallbackGravity;
 
-  FocusOnGravityBuilder(this.objects);
+  FocusOnGravity(this.objects);
 
-  FocusOnGravityBuilder fallbackGravity(AutoGravity graviy) {
+  FocusOnGravity fallbackGravity(AutoGravity graviy) {
     _fallbackGravity = graviy;
     return this;
   }
 
-  FocusOnGravity build() {
-    return FocusOnGravity(objects, _fallbackGravity);
+  FocusOnGravityQualifier build() {
+    return FocusOnGravityQualifier(objects, _fallbackGravity);
   }
 
   @override
@@ -148,10 +148,10 @@ class FocusOnGravityBuilder implements GeneralBuilder {
 /// Automatic gravity for images
 /// "https://cloudinary.com/documentation/video_manipulation_and_delivery#automatic_cropping"
 /// Automatic gravity for videos
-class AutoGravity extends Gravity {
+class AutoGravityQualifier extends Gravity {
   List<FocusOn> objects;
 
-  AutoGravity(this.objects);
+  AutoGravityQualifier(this.objects);
 
   @override
   String toString() {
@@ -159,36 +159,36 @@ class AutoGravity extends Gravity {
   }
 }
 
-class AutoGravityBuilder {
+class AutoGravity {
   List<FocusOn> objects = [];
 
-  AutoGravityBuilder autoFocusOn(List<FocusOn> objects) {
+  AutoGravity autoFocusOn(List<FocusOn> objects) {
     this.objects.addAll(objects);
     return this;
   }
 
   build() {
-    return AutoGravity(objects);
+    return AutoGravityQualifier(objects);
   }
 }
 
 /// Class AutoFocus
 /// Defines the objects that can be focused on.
-class AutoFocus {
-  static AutoGravityObject focusOn(FocusOn focus,
-      {AutoGravityObjectBuilder? options}) {
-    var builder = AutoGravityObjectBuilder(focus);
+class AutoFocusQualifier {
+  static AutoGravityObjectQualifier focusOn(FocusOn focus,
+      {AutoGravityObject? options}) {
+    var builder = AutoGravityObject(focus);
     options ?? builder.copyWith(options);
     return builder.build();
   }
 }
 
-class AutoGravityObject {
+class AutoGravityObjectQualifier {
   FocusOn gravityObject;
   int? weight;
   bool? avoid;
 
-  AutoGravityObject(this.gravityObject, {this.weight, this.avoid});
+  AutoGravityObjectQualifier(this.gravityObject, {this.weight, this.avoid});
 
   @override
   String toString() {
@@ -198,25 +198,25 @@ class AutoGravityObject {
   }
 }
 
-class AutoGravityObjectBuilder implements GeneralBuilder {
+class AutoGravityObject implements GeneralBuilder {
   FocusOn focusOn;
   int? _weight;
   bool? _avoid;
 
-  AutoGravityObjectBuilder(this.focusOn);
+  AutoGravityObject(this.focusOn);
 
-  AutoGravityObjectBuilder weight(int weight) {
+  AutoGravityObject weight(int weight) {
     _weight = weight;
     return this;
   }
 
-  AutoGravityObjectBuilder avoid() {
+  AutoGravityObject avoid() {
     _avoid = true;
     return this;
   }
 
-  AutoGravityObject build() {
-    return AutoGravityObject(focusOn, weight: _weight, avoid: _avoid);
+  AutoGravityObjectQualifier build() {
+    return AutoGravityObjectQualifier(focusOn, weight: _weight, avoid: _avoid);
   }
 
   @override
