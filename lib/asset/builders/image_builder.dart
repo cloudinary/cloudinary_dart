@@ -1,6 +1,7 @@
+import 'package:cloudinary_dart/src/transformation/transformation.dart';
+
 import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
-import '../format.dart';
 import '../image.dart';
 import 'general_asset_builder.dart';
 
@@ -10,14 +11,14 @@ class ImageBuilder extends GeneralAssetBuilder {
       UrlConfig? urlConfig,
       String? version,
       String? publicId,
-      Format? extension,
+      String? extension,
       String? urlSuffix,
       String? assetType,
       String? deliveryType,
-      String? transformation})
+      TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
             assetType, deliveryType, transformation) {
-    super.assetType = 'image';
+    super.assetType('image');
   }
 
   @override

@@ -28,33 +28,36 @@ class Cloudinary {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
   }
 
-  Asset raw([AssetBuilder? options]) {
+  Asset raw(String publicId, [AssetBuilder? options]) {
     var builder = AssetBuilder()
-      ..cloudConfig = config.cloudConfig
-      ..urlConfig = config.urlConfig
-      ..assetType = 'raw';
+      ..publicId(publicId)
+      ..cloudConfig(config.cloudConfig)
+      ..urlConfig(config.urlConfig)
+      ..assetType('raw');
     if (options != null) {
       builder.combineWith(options);
     }
     return Asset.withBuilder(builder);
   }
 
-  Image image([ImageBuilder? options]) {
+  Image image(String publicId, [ImageBuilder? options]) {
     var builder = ImageBuilder()
-      ..cloudConfig = config.cloudConfig
-      ..urlConfig = config.urlConfig
-      ..assetType = 'image';
+      ..publicId(publicId)
+      ..cloudConfig(config.cloudConfig)
+      ..urlConfig(config.urlConfig)
+      ..assetType('image');
     if (options != null) {
       builder.combineWith(options);
     }
     return Image.withBuilder(builder);
   }
 
-  Video video([VideoBuilder? options]) {
+  Video video(String publicId, [VideoBuilder? options]) {
     var builder = VideoBuilder()
-      ..cloudConfig = config.cloudConfig
-      ..urlConfig = config.urlConfig
-      ..assetType = 'video';
+      ..publicId(publicId)
+      ..cloudConfig(config.cloudConfig)
+      ..urlConfig(config.urlConfig)
+      ..assetType('video');
     if (options != null) {
       builder.combineWith(options);
     }

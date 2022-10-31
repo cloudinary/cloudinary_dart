@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloudinary_dart/src/transformation/transformation.dart';
 import 'package:crypto/crypto.dart';
 
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
@@ -8,7 +9,6 @@ import 'package:cloudinary_dart/auth_token.dart';
 import '../config/cloud_config.dart';
 import '../config/url_config.dart';
 import 'builders/general_asset_builder.dart';
-import 'format.dart';
 
 final String akamaiSharedCDN = "res.cloudinary.com";
 final String defaultAssetType = "image";
@@ -23,16 +23,13 @@ class Asset extends BaseAsset {
 
   @override
   String getTransformationString() {
-    return transformation ?? "";
+    return (transformation != null) ? transformation.toString() : '';
   }
-  //TODO: Implement Transformation Class
 
-//Transformation? _transformation = null;
-
-// String getTransformationString() {
-//   return _transformation.toString();
-// }
-
+  @override
+  TransformationObject? getTransformation() {
+    return transformation;
+  }
 }
 
 abstract class BaseAsset {
@@ -44,11 +41,11 @@ abstract class BaseAsset {
   String? version;
   String? publicId;
 
-  Format? extension;
+  String? extension;
   String? urlSuffix;
   String assetType = defaultAssetType;
   String? deliveryType;
-  String? transformation;
+  TransformationObject? transformation;
 
   BaseAsset.withConfig(this.cloudConfig, this.urlConfig);
 
@@ -63,20 +60,21 @@ abstract class BaseAsset {
       this.deliveryType);
 
   BaseAsset.withBuilder(GeneralAssetBuilder builder)
-      : cloudConfig = builder.cloudConfig!,
-        urlConfig = builder.urlConfig!,
-        version = builder.version,
-        publicId = builder.publicId,
-        extension = builder.extension,
-        urlSuffix = builder.urlSuffix,
-        assetType = builder.assetType ?? defaultAssetType,
-        deliveryType = builder.deliveryType,
-        transformation = builder.transformation;
+      : cloudConfig = builder.getCloudConfig()!,
+        urlConfig = builder.getUrlConfig()!,
+        version = builder.getVersion(),
+        publicId = builder.getPublicId(),
+        extension = builder.getExtension(),
+        urlSuffix = builder.getUrlSuffix(),
+        assetType = builder.getAssetType() ?? defaultAssetType,
+        deliveryType = builder.getDeliveryType(),
+        transformation = builder.getTransformation();
 
   String getTransformationString();
+  TransformationObject? getTransformation();
 
   FinalizedSource finalizeSource(
-      String source, Format? extension, String urlSuffix) {
+      String source, String? extension, String urlSuffix) {
     var mutableSource = source.cldMergeSlashesInUrl();
     String sourceToSign;
     if (mutableSource.cldIsHttpUrl) {
@@ -192,15 +190,15 @@ abstract class BaseAsset {
     return prefix;
   }
 
-  String? generate([String? source]) {
+  String _generate() {
     var cloudName = cloudConfig.cloudName ?? "";
     if (cloudName.isBlank) {
       throw ArgumentError('Must supply cloud_name in configuration');
     }
 
-    String? mutableSource = (source ?? publicId);
+    String? mutableSource = publicId;
     if (mutableSource == null) {
-      return null;
+      return "";
     }
 
     var httpSource = mutableSource.cldIsHttpUrl;
@@ -326,6 +324,11 @@ abstract class BaseAsset {
       result = sha512.convert(bytes);
     }
     return (result != null) ? result.bytes : null;
+  }
+
+  @override
+  String toString() {
+    return _generate();
   }
 }
 

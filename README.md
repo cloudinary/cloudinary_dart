@@ -17,19 +17,19 @@ This Readme provides basic installation and usage information.
     - [Transform and Optimize Assets](#Transform-and-Optimize-Assets)
 
 ## Key Features
-- [Transform](https://cloudinary.com/documentation/kotlin_media_transformations) and [optimize](https://cloudinary.com/documentation/kotlin_media_transformations#image_optimizations) assets.
+Transform and optimize assets. Visit our documentation to learn more about [media optimization](https://cloudinary.com/documentation/media_optimization) and [transformations](https://cloudinary.com/documentation/image_transformations).
 
 ## Version Support
 | SDK Version | Dart Version |
 |-------------|--------------|
-| 0.0.1       | > 1.0        | 
+| 0.0.3       | > 1.0        | 
 
 ## Installation
 To use this SDK, add cloudinary as a [dependency in your pubspec.yaml file](https://flutter.dev/platform-plugins/).
 
 ```yaml
 dependencies:
-  cloudinary: ^0.0.1
+  cloudinary_dart: ^0.0.3
 ```
 
 ## Usage
@@ -48,10 +48,16 @@ var cloudinary = Cloudinary.withStringUrl('cloudinary://<your-api-key>:<your-api
 
 Generate a Cloudinary URL using the `cloudinary.media` helper method and pass this to your image or video view:
 
-For example, to generate a url for an image called `sample` on the `demo` account:
+For example, to generate an url for an image called `sample` on the `demo` account:
 
 ```dart
-String url = cloudinary.image().generate('sample.jpg');
+String url = cloudinary.image('sample.jpg').toString();
+```
+
+To generate a transformation URL for the same image:
+
+```dart
+String url = cloudinary.image('sample.jpg', ImageBuilder() ..transformation = "w_500").toString();
 ```
 
 ## Contributions

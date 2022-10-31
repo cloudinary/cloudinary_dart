@@ -27,9 +27,6 @@ void main() {
       var expReg = RegExp(r'exp=(\d+)').firstMatch(token);
       String? expString = expReg?.group(1);
       var actual = double.parse(expString!).round();
-      print(actual);
-      print(firstExp);
-      print(secondExp);
       assert(actual >= firstExp);
       assert(actual <= secondExp);
       assert(token ==
