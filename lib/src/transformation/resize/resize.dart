@@ -37,12 +37,33 @@ class Dimensions {
 
 /// Class Resize
 abstract class Resize extends Action {
-  Dimensions dimensions;
+  late Dimensions dimensions;
   bool? relative;
   bool? regionRelative;
   abstract String actionType;
 
-  Resize(this.dimensions, {this.relative, this.regionRelative});
+  Resize({Dimensions? dimensions, this.relative, this.regionRelative}) {
+    if(dimensions == null) {
+      this.dimensions = Dimensions();
+    } else {
+      this.dimensions = dimensions;
+    }
+  }
+
+  Resize width(dynamic width) {
+    dimensions.width = width;
+    return this;
+  }
+
+  Resize height(dynamic height) {
+    dimensions.height = height;
+    return this;
+  }
+
+  Resize aspectRatio(dynamic aspectRatio) {
+    dimensions.aspectRatio = aspectRatio;
+    return this;
+  }
 
   @override
   String toString() {
@@ -66,16 +87,16 @@ abstract class Resize extends Action {
   /// aspect ratio: all original image parts are visible but might be stretched or shrunk.
   ///
   /// Receives [width], [height] and/or [aspectRatio] and returns [Resize] object.
-  static Resize scale(Scale options) {
-    return options.build();
+  static Resize scale(Scale scale) {
+    return scale;
   }
 
   /// The image is resized so that it takes up as much space as possible within a bounding box defined by the given
   /// width and height qualifiers. The original aspect ratio is retained and all of the original image is visible.
   ///
   /// Receives [Fit] and returns [Resize] object.
-  static Resize fit(Fit options) {
-    return options.build();
+  static Resize fit(Fit fit) {
+    return fit;
   }
 
   /// Same as the Scale::fit mode but only if the original image is larger than the given limit (width and
@@ -84,8 +105,8 @@ abstract class Resize extends Action {
   /// original image is visible.
   ///
   /// Receives [LimitFit]
-  static Resize limitFit(LimitFit options) {
-    return options.build();
+  static Resize limitFit(LimitFit limitFit) {
+    return limitFit;
   }
 
   /// Same as the Scale::fit mode but only if the original image is smaller than the given minimum (width and
@@ -94,8 +115,8 @@ abstract class Resize extends Action {
   /// original image is visible.
   ///
   /// Receives [MinimumFit]
-  static Resize minimumFit(MinimumFit options) {
-    return options.build();
+  static Resize minimumFit(MinimumFit minimumFit) {
+    return minimumFit;
   }
 
   /// Extracts a region of the given width and height out of the original image.

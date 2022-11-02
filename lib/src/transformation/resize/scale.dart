@@ -3,11 +3,9 @@ import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import '../common.dart';
 import 'common.dart';
 
-class BaseScale extends Resize {
-  @override
-  String actionType = 'scale';
+abstract class BaseScale extends Resize {
 
-  BaseScale(super.dimensions, {super.relative, super.regionRelative});
+  BaseScale({super.dimensions, super.relative, super.regionRelative});
 
   @override
   List<Param?> params() {
@@ -16,7 +14,7 @@ class BaseScale extends Resize {
   }
 }
 
-class BaseScaleBuilder extends BaseBuilder<BaseScaleBuilder> {
+abstract class BaseScaleBuilder extends BaseResizeBuilder<BaseScaleBuilder> {
   BaseScaleBuilder({dynamic width, dynamic height}) {
     super.width(width);
     super.height(height);
@@ -28,17 +26,6 @@ class BaseScaleBuilder extends BaseBuilder<BaseScaleBuilder> {
   }
 
   @override
-  Action build() {
-    return BaseScale(
-        Dimensions(
-            width: getWidth(),
-            height: getHeight(),
-            aspectRatio: getAspectRatio()),
-        relative: getRelative(),
-        regionRelative: getRegionRelative());
-  }
-
-  @override
   void copyWith(other) {
     width(other.getWidth());
     height(other.getHeight());
@@ -46,26 +33,15 @@ class BaseScaleBuilder extends BaseBuilder<BaseScaleBuilder> {
   }
 }
 
-/// Class scale
-class ScaleObject extends BaseScale {
-  bool? liquidRescaling;
-
+class Scale extends BaseScale {
   @override
   String actionType = "scale";
 
-  ScaleObject(super.dimensions,
-      {super.relative, super.regionRelative, this.liquidRescaling = false});
-
-  @override
-  List<Param?> params() {
-    var params = super.params();
-    params.add((liquidRescaling == true) ? Param("g", "liquid") : null);
-    return params;
-  }
-}
-
-class Scale extends BaseScaleBuilder {
   bool? _liquidRescaling;
+
+  Scale({super.dimensions, super.relative, super.regionRelative, bool? liquidRescalingValue = false}) {
+    liquidRescaling(liquidRescalingValue);
+  }
 
   /// Changes the aspect ratio of an image while retaining all important content and avoiding unnatural distortions.
   ///
@@ -80,20 +56,9 @@ class Scale extends BaseScaleBuilder {
   }
 
   @override
-  ScaleObject build() {
-    return ScaleObject(
-        Dimensions(
-            width: getWidth(),
-            height: getHeight(),
-            aspectRatio: getAspectRatio()),
-        relative: getRelative(),
-        regionRelative: getRegionRelative(),
-        liquidRescaling: _liquidRescaling);
-  }
-
-  @override
-  void copyWith(other) {
-    super.copyWith(other);
-    _liquidRescaling = (other._liquidRescaling);
+  List<Param?> params() {
+    var params = super.params();
+    params.add((_liquidRescaling == true) ? Param("g", "liquid") : null);
+    return params;
   }
 }
