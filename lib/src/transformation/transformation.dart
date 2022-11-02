@@ -1,7 +1,6 @@
-import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
-import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
-
+import 'resize/resize.dart';
 import 'common.dart';
+import 'delivery/delivery_actions.dart';
 
 class TransformationObject {
   List<Action> actions = [];
@@ -32,7 +31,7 @@ class Transformation {
     return this;
   }
 
-  Transformation delivery(Delivery delivery) {
+  Transformation delivery(DeliveryAction delivery) {
     return add(delivery);
   }
 
@@ -55,6 +54,5 @@ class Transformation {
 
 /// Class Transformation Builder
 abstract class TransformationComponentBuilder<T> {
-  Action build();
   void copyWith(T other);
 }
