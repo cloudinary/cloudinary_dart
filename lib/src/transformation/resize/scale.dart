@@ -4,10 +4,8 @@ import '../common.dart';
 import 'common.dart';
 
 abstract class BaseScale extends Resize {
-  @override
-  String actionType = 'scale';
 
-  BaseScale(super.dimensions, {super.relative, super.regionRelative});
+  BaseScale({super.dimensions, super.relative, super.regionRelative});
 
   @override
   List<Param?> params() {
@@ -41,7 +39,7 @@ class Scale extends BaseScale {
 
   bool? _liquidRescaling;
 
-  Scale(super.dimensions, {super.relative, super.regionRelative, bool? liquidRescalingValue = false}) {
+  Scale({super.dimensions, super.relative, super.regionRelative, bool? liquidRescalingValue = false}) {
     liquidRescaling(liquidRescalingValue);
   }
 

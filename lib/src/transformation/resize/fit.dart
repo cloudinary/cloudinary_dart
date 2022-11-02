@@ -1,68 +1,19 @@
-import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
 
-/// Class FitObject
-class FitObject extends BaseScale {
+/// Class Fit
+class Fit extends BaseScale {
   @override
   String actionType = "fit";
-
-  FitObject(super.dimensions, {super.relative, super.regionRelative});
-}
-
-/// Class Fit
-class Fit extends BaseScaleBuilder {
-  @override
-  FitObject build() {
-    return FitObject(
-        Dimensions(
-            width: super.getWidth(),
-            height: super.getHeight(),
-            aspectRatio: super.getAspectRatio()),
-        relative: super.getRelative(),
-        regionRelative: super.getRegionRelative());
-  }
-}
-
-/// Class LimitFitObject
-class LimitFitObject extends BaseScale {
-  @override
-  String actionType = "limit";
-
-  LimitFitObject(super.dimensions, {super.relative, super.regionRelative});
 }
 
 /// Class LimitFit
-class LimitFit extends BaseScaleBuilder {
+class LimitFit extends BaseScale {
   @override
-  LimitFitObject build() {
-    return LimitFitObject(
-        Dimensions(
-            width: super.getWidth(),
-            height: super.getHeight(),
-            aspectRatio: super.getAspectRatio()),
-        relative: super.getRelative(),
-        regionRelative: super.getRegionRelative());
-  }
-}
-
-/// Class MinimumFitObject
-class MinimumFitObject extends BaseScale {
-  @override
-  String actionType = "mfit";
-
-  MinimumFitObject(super.dimensions, {super.relative, super.regionRelative});
+  String actionType = "limit";
 }
 
 /// Class MinimumFit
-class MinimumFit extends BaseScaleBuilder {
+class MinimumFit extends BaseScale {
   @override
-  MinimumFitObject build() {
-    return MinimumFitObject(
-        Dimensions(
-            width: super.getWidth(),
-            height: super.getHeight(),
-            aspectRatio: super.getAspectRatio()),
-        relative: super.getRelative(),
-        regionRelative: super.getRegionRelative());
-  }
+  String actionType = "mfit";
 }
