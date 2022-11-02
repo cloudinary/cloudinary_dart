@@ -43,7 +43,7 @@ abstract class Resize extends Action {
   abstract String actionType;
 
   Resize({Dimensions? dimensions, this.relative, this.regionRelative}) {
-    if(dimensions == null) {
+    if (dimensions == null) {
       this.dimensions = Dimensions();
     } else {
       this.dimensions = dimensions;
@@ -122,7 +122,7 @@ abstract class Resize extends Action {
   /// Extracts a region of the given width and height out of the original image.
   ///
   /// Receives [width], [height], [aspectRatio] and options, returns [Resize] object.
-  static Resize crop(Crop options) {
-    return options.build();
+  static Resize crop(Crop crop) {
+    return crop;
   }
 }
