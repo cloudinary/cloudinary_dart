@@ -18,7 +18,7 @@ class TestUtils {
 }
 
 void cldAssert(String expected, dynamic actual) {
-  if(expected != actual.toString()) {
+  if (expected != actual.toString()) {
     print("expected: $expected");
     print("actual  : $actual");
   }

@@ -4,7 +4,8 @@ import '../transformation.dart';
 import 'delivery.dart';
 
 /// Quality Builder
-class Quality implements TransformationComponentBuilder<Quality>, DeliveryAction {
+class Quality
+    implements TransformationComponentBuilder<Quality>, DeliveryAction {
   static const String auto = 'auto';
   static const String autoEco = 'auto:eco';
   static const String autoGood = 'auto:good';
@@ -292,7 +293,4 @@ class ProgressiveMode {
   }
 }
 
-
-class DeliveryAction extends Action {
-
-}
+class DeliveryAction extends Action {}

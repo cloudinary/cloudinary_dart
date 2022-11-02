@@ -270,8 +270,15 @@ void main() {
   });
 
   test('Test Format with Quality chaning returns valid URL', () {
-    var actual = cloudinary.image('test', ImageBuilder() ..transformation(Transformation() ..delivery(Delivery.quality(Quality(100))) ..delivery(Delivery.format(Format(Format.jpg)))));
-    cldAssert('https://res.cloudinary.com/test123/image/upload/q_100/f_jpg/test', actual);
+    var actual = cloudinary.image(
+        'test',
+        ImageBuilder()
+          ..transformation(Transformation()
+            ..delivery(Delivery.quality(Quality(100)))
+            ..delivery(Delivery.format(Format(Format.jpg)))));
+    cldAssert(
+        'https://res.cloudinary.com/test123/image/upload/q_100/f_jpg/test',
+        actual);
   });
 
   test('Test URL suffix with format produce valid URL', () {
