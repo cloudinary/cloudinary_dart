@@ -32,7 +32,7 @@ class Transformation {
     return this;
   }
 
-  Transformation delivery(Delivery delivery) {
+  Transformation delivery(DeliveryAction delivery) {
     return add(delivery);
   }
 

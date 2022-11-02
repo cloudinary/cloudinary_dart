@@ -6,6 +6,7 @@ import 'package:cloudinary_dart/asset/builders/video_builder.dart';
 import 'package:cloudinary_dart/cloudinary.dart';
 import 'package:cloudinary_dart/config/cloudinary_config.dart';
 import 'package:cloudinary_dart/config/url_config.dart';
+import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
@@ -266,6 +267,11 @@ void main() {
     cldAssert(
         'https://test123-res.cloudinary.com/images/c_scale,w_100/test/hello',
         actual);
+  });
+
+  test('Test Format with Quality chaning returns valid URL', () {
+    var actual = cloudinary.image('test', ImageBuilder() ..transformation(Transformation() ..delivery(Delivery.quality(Quality(100))) ..delivery(Delivery.format(Format(Format.jpg)))));
+    cldAssert('https://res.cloudinary.com/test123/image/upload/q_100/f_jpg/test', actual);
   });
 
   test('Test URL suffix with format produce valid URL', () {

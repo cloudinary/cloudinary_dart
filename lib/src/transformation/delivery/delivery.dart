@@ -6,24 +6,26 @@ import '../common.dart';
 ///
 /// **Learn more**: <a href=https://cloudinary.com/documentation/image_delivery_options target="_blank">
 /// Media delivery</a>
-abstract class Delivery implements Action {
+abstract class Delivery {
   /// Controls compression quality. 1 is the lowest quality and 100 is the
   /// highest.
   ///
   /// Reducing the quality is a trade-off between visual quality and file size.
   ///
-  /// Receives [Quality]
-  ///
-  static Quality quality(Quality options) {
-    return options;
+  /// Receives [Quality] and returns [Action]
+  static DeliveryAction quality(Quality quality) {
+    return quality;
   }
 
   /// Forces format conversion to the given format.
   /// (Formerly known as fetch format)
   ///
-  /// Receives[Format]
-  /// Returns occupied [DeliveryFormat] object
-  static Format format(Format options) {
-    return options;
+  /// Receives[Format] and returns occupied [Action] object
+  static DeliveryAction format(Format format) {
+    return format;
   }
+}
+
+class DeliveryAction extends Action {
+
 }

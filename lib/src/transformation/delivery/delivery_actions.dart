@@ -1,9 +1,10 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import '../common.dart';
 import '../transformation.dart';
+import 'delivery.dart';
 
 /// Quality Builder
-class Quality implements TransformationComponentBuilder<Quality> {
+class Quality implements TransformationComponentBuilder<Quality>, DeliveryAction {
   static const String auto = 'auto';
   static const String autoEco = 'auto:eco';
   static const String autoGood = 'auto:good';
@@ -99,7 +100,7 @@ class ChromaSubSampling {
   }
 }
 
-class Format implements TransformationComponentBuilder<Format> {
+class Format implements TransformationComponentBuilder<Format>, DeliveryAction {
   static const String glb = 'glb';
   static const String auto = 'auto';
   static const String ai = 'ai';
