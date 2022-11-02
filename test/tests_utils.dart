@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloudinary_dart/auth_token.dart';
 
 class TestUtils {
@@ -19,8 +21,8 @@ class TestUtils {
 
 void cldAssert(String expected, dynamic actual) {
   if (expected != actual.toString()) {
-    print("expected: $expected");
-    print("actual  : $actual");
+    stderr.writeln("expected: $expected");
+    stderr.writeln("actual  : $actual");
   }
   assert(expected == actual.toString());
 }

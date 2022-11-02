@@ -1,7 +1,7 @@
-import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 
 import 'common.dart';
+import 'delivery/delivery_actions.dart';
 
 class TransformationObject {
   List<Action> actions = [];
