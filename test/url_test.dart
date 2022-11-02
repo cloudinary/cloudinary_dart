@@ -20,11 +20,9 @@ const defaultUploadPath = '${defaultRootPath}image/upload/';
 const defaultCloudinaryURL = 'cloudinary://a:b@test123?analytics=false';
 
 void main() {
-  var cloudinary =
-      Cloudinary.withStringUrl(defaultCloudinaryURL);
+  var cloudinary = Cloudinary.withStringUrl(defaultCloudinaryURL);
 
-  var cloudinaryPrivateCdn =
-      Cloudinary.withStringUrl(defaultCloudinaryURL);
+  var cloudinaryPrivateCdn = Cloudinary.withStringUrl(defaultCloudinaryURL);
   cloudinaryPrivateCdn.config.urlConfig.privateCdn = true;
 
   var cloudinaryPrivateCdnUseRootPath =
@@ -37,12 +35,10 @@ void main() {
   cloudinaryPrivateCdnSignUrl.config.urlConfig.privateCdn = true;
   cloudinaryPrivateCdnSignUrl.config.urlConfig.signUrl = true;
 
-  var cloudinarySignedUrl =
-      Cloudinary.withStringUrl(defaultCloudinaryURL);
+  var cloudinarySignedUrl = Cloudinary.withStringUrl(defaultCloudinaryURL);
   cloudinarySignedUrl.config.urlConfig.signUrl = true;
 
-  var cloudinaryLongSignedUrl =
-      Cloudinary.withStringUrl(defaultCloudinaryURL);
+  var cloudinaryLongSignedUrl = Cloudinary.withStringUrl(defaultCloudinaryURL);
   cloudinaryLongSignedUrl.config.urlConfig.secure = false;
   cloudinaryLongSignedUrl.config.urlConfig.signUrl = true;
   cloudinaryLongSignedUrl.config.cloudConfig.signatureAlgorithm = 'SHA-256';
@@ -120,7 +116,8 @@ void main() {
       cldAssert('http://res.cloudinary.com/test123/image/upload/test', result);
 
       // should take secure distribution from config if secure=TRUE
-      var newConfig = cloudinary.clone()
+      var newConfig = cloudinary
+          .clone()
           .config; //.copy(urlConfig = cloudinary.config.urlConfig.copy(secureDistribution = "config.secure.distribution.com"))
       newConfig.urlConfig.secureDistribution = 'config.secure.distribution.com';
       var result2 = Cloudinary.withConfiguration(newConfig).image('test');
