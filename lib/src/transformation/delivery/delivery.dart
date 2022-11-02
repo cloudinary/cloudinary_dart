@@ -26,6 +26,3 @@ abstract class Delivery {
   }
 }
 
-class DeliveryAction extends Action {
-
-}

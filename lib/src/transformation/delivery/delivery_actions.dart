@@ -291,3 +291,8 @@ class ProgressiveMode {
     return _value;
   }
 }
+
+
+class DeliveryAction extends Action {
+
+}
