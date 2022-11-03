@@ -220,7 +220,7 @@ void main() {
           ..height(100)
           ..aspectRatio(1.5)
           ..background(
-              Background.border(BorderBackgroundBuilder()..contrast()))));
+              Background.border(BorderBackground()..contrast()))));
   });
 
   test('Test successful limit pad formatting', () {

@@ -3,13 +3,13 @@ import 'package:cloudinary_dart/src/transformation/background/background.dart';
 
 import '../color.dart';
 
-class BorderGradientBackground extends Background {
+class BorderGradientBackgroundObject extends Background {
   bool? contrast;
   List<Color>? palette;
   int? gradientColors;
   GradientDirection? gradientDirection;
 
-  BorderGradientBackground(
+  BorderGradientBackgroundObject(
       {this.contrast,
       this.palette,
       this.gradientColors,
@@ -32,39 +32,39 @@ class BorderGradientBackground extends Background {
   }
 }
 
-class BorderGradientBackgroundBuilder
+class BorderGradientBackground
     implements
-        BackgroundBuilder<BorderGradientBackground,
-            BorderGradientBackgroundBuilder> {
+        BackgroundBuilder<BorderGradientBackgroundObject,
+            BorderGradientBackground> {
   bool? _contrast;
   List<Color>? _palette;
   int? _gradientColors;
   GradientDirection? _gradientDirection;
 
-  BorderGradientBackgroundBuilder gradientColors(int gradientColors) {
+  BorderGradientBackground gradientColors(int gradientColors) {
     _gradientColors = gradientColors;
     return this;
   }
 
-  BorderGradientBackgroundBuilder gradientDirection(
+  BorderGradientBackground gradientDirection(
       GradientDirection gradientDirection) {
     _gradientDirection = gradientDirection;
     return this;
   }
 
-  BorderGradientBackgroundBuilder contrast() {
+  BorderGradientBackground contrast() {
     _contrast = _contrast;
     return this;
   }
 
-  BorderGradientBackgroundBuilder palette(List<Color> colors) {
+  BorderGradientBackground palette(List<Color> colors) {
     _palette = colors;
     return this;
   }
 
   @override
-  BorderGradientBackground build() {
-    return BorderGradientBackground(
+  BorderGradientBackgroundObject build() {
+    return BorderGradientBackgroundObject(
         contrast: _contrast,
         palette: _palette,
         gradientColors: _gradientColors,

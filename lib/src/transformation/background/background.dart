@@ -16,32 +16,32 @@ abstract class Background {
 
   static Background auto() => AutoBackground();
 
-  static Background blurred([BlurredBackgroundBuilder? options]) {
-    var builder = BlurredBackgroundBuilder();
+  static Background blurred([BlurredBackground? options]) {
+    var builder = BlurredBackground();
     if (options != null) {
       builder.copyWith(options);
     }
     return builder.build();
   }
 
-  static Background border([BorderBackgroundBuilder? options]) {
-    var builder = BorderBackgroundBuilder();
+  static Background border([BorderBackground? options]) {
+    var builder = BorderBackground();
     if (options != null) {
       builder.copyWith(options);
     }
     return builder.build();
   }
 
-  static Background borderGradient([BorderGradientBackgroundBuilder? options]) {
-    var builder = BorderGradientBackgroundBuilder();
+  static Background borderGradient([BorderGradientBackground? options]) {
+    var builder = BorderGradientBackground();
     if (options != null) {
       builder.copyWith(options);
     }
     return builder.build();
   }
 
-  static Background predominant([PredominantBackgroundBuilder? options]) {
-    var builder = PredominantBackgroundBuilder();
+  static Background predominant([PredominantBackground? options]) {
+    var builder = PredominantBackground();
     if (options != null) {
       builder.copyWith(options);
     }

@@ -3,11 +3,11 @@ import 'package:cloudinary_dart/src/util/validations.dart';
 
 import 'background.dart';
 
-class BlurredBackground extends Background {
+class BlurredBackgroundObject extends Background {
   final int? _intensity;
   final int? _brightness;
 
-  BlurredBackground([this._intensity, this._brightness]);
+  BlurredBackgroundObject([this._intensity, this._brightness]);
 
   @override
   String getValues() {
@@ -15,29 +15,29 @@ class BlurredBackground extends Background {
   }
 }
 
-class BlurredBackgroundBuilder
-    implements BackgroundBuilder<BlurredBackground, BlurredBackgroundBuilder> {
+class BlurredBackground
+    implements BackgroundBuilder<BlurredBackgroundObject, BlurredBackground> {
   int? _intensity;
   int? _brightness;
 
-  BlurredBackgroundBuilder({int? intensity, int? brightness}) {
+  BlurredBackground({int? intensity, int? brightness}) {
     _intensity = intensity.cldRange(1, 2000);
     _brightness = brightness.cldRange(-300, 100);
   }
 
-  BlurredBackgroundBuilder intensity(int intensity) {
+  BlurredBackground intensity(int intensity) {
     _intensity = _intensity;
     return this;
   }
 
-  BlurredBackgroundBuilder brightness(int brightness) {
+  BlurredBackground brightness(int brightness) {
     _brightness = _brightness;
     return this;
   }
 
   @override
-  BlurredBackground build() {
-    return BlurredBackground(_intensity, _brightness);
+  BlurredBackgroundObject build() {
+    return BlurredBackgroundObject(_intensity, _brightness);
   }
 
   @override

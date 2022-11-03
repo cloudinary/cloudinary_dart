@@ -4,11 +4,11 @@ import 'package:cloudinary_dart/src/transformation/background/background.dart';
 import '../color.dart';
 import 'border_gradient_background.dart';
 
-class PredominantBackground extends Background {
+class PredominantBackgroundObject extends Background {
   bool? contrast;
   List<Color>? palette;
 
-  PredominantBackground({this.contrast, this.palette}) {
+  PredominantBackgroundObject({this.contrast, this.palette}) {
     if (palette != null && palette!.isEmpty) {
       throw ArgumentError(
           'If using a palette it must contain at least one color');
@@ -24,25 +24,25 @@ class PredominantBackground extends Background {
   }
 }
 
-class PredominantBackgroundBuilder
+class PredominantBackground
     implements
-        BackgroundBuilder<PredominantBackground, PredominantBackgroundBuilder> {
+        BackgroundBuilder<PredominantBackgroundObject, PredominantBackground> {
   bool? _contrast;
   List<Color>? _palette;
 
-  PredominantBackgroundBuilder contrast() {
+  PredominantBackground contrast() {
     _contrast = true;
     return this;
   }
 
-  PredominantBackgroundBuilder palette(List<Color> colors) {
+  PredominantBackground palette(List<Color> colors) {
     _palette = colors;
     return this;
   }
 
   @override
-  PredominantBackground build() {
-    return PredominantBackground(contrast: _contrast, palette: _palette);
+  PredominantBackgroundObject build() {
+    return PredominantBackgroundObject(contrast: _contrast, palette: _palette);
   }
 
   @override

@@ -3,11 +3,11 @@ import 'package:cloudinary_dart/src/transformation/background/background.dart';
 
 import '../color.dart';
 
-class BorderBackground extends Background {
+class BorderBackgroundObject extends Background {
   bool? contrast;
   List<Color>? palette;
 
-  BorderBackground({this.contrast, this.palette}) {
+  BorderBackgroundObject({this.contrast, this.palette}) {
     if (palette != null && palette!.isEmpty) {
       throw ArgumentError(
           'If using a palette it must contain at least one color');
@@ -23,24 +23,24 @@ class BorderBackground extends Background {
   }
 }
 
-class BorderBackgroundBuilder
-    implements BackgroundBuilder<BorderBackground, BorderBackgroundBuilder> {
+class BorderBackground
+    implements BackgroundBuilder<BorderBackgroundObject, BorderBackground> {
   bool? _contrast;
   List<Color>? _palette;
 
-  BorderBackgroundBuilder contrast() {
+  BorderBackground contrast() {
     _contrast = true;
     return this;
   }
 
-  BorderBackgroundBuilder palette(List<Color> colors) {
+  BorderBackground palette(List<Color> colors) {
     _palette = colors;
     return this;
   }
 
   @override
-  BorderBackground build() {
-    return BorderBackground(contrast: _contrast, palette: _palette);
+  BorderBackgroundObject build() {
+    return BorderBackgroundObject(contrast: _contrast, palette: _palette);
   }
 
   @override
