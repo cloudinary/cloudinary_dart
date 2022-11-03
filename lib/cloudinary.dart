@@ -63,10 +63,4 @@ class Cloudinary {
     }
     return Video.withBuilder(builder);
   }
-
-  Cloudinary clone() {
-    Cloudinary cloudinary = Cloudinary.withConfiguration(config);
-    cloudinary.userAgent = userAgent;
-    return cloudinary;
-  }
 }
