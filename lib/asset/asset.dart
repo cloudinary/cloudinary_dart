@@ -17,9 +17,10 @@ final String defaultDeliveryType = "upload";
 final String assetTypeImage = "image";
 final String assetTypeVideo = "video";
 
-class Asset extends BaseAsset {
-  Asset.withConfig(super.cloudConfig, super.urlConfig) : super.withConfig();
-  Asset.withBuilder(super.builder) : super.withBuilder();
+class AssetObject extends BaseAsset {
+  AssetObject.withConfig(super.cloudConfig, super.urlConfig)
+      : super.withConfig();
+  AssetObject.withBuilder(super.builder) : super.withBuilder();
 
   @override
   String getTransformationString() {

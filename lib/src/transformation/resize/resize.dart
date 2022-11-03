@@ -42,7 +42,7 @@ abstract class Resize extends Action {
   abstract String actionType;
 
   Resize({Dimensions? dimensions, this.relative, this.regionRelative}) {
-    if(dimensions == null) {
+    if (dimensions == null) {
       this.dimensions = Dimensions();
     } else {
       this.dimensions = dimensions;

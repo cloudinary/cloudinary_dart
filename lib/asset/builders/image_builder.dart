@@ -5,8 +5,8 @@ import '../../config/url_config.dart';
 import '../image.dart';
 import 'general_asset_builder.dart';
 
-class ImageBuilder extends GeneralAssetBuilder {
-  ImageBuilder(
+class Image extends GeneralAssetBuilder {
+  Image(
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
       String? version,
@@ -22,7 +22,7 @@ class ImageBuilder extends GeneralAssetBuilder {
   }
 
   @override
-  Image build() {
-    return Image.withBuilder(this);
+  ImageObject build() {
+    return ImageObject.withBuilder(this);
   }
 }

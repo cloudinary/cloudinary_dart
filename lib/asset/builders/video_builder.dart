@@ -4,8 +4,8 @@ import '../../src/transformation/transformation.dart';
 import '../video.dart';
 import 'general_asset_builder.dart';
 
-class VideoBuilder extends GeneralAssetBuilder {
-  VideoBuilder(
+class Video extends GeneralAssetBuilder {
+  Video(
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
       String? version,
@@ -21,7 +21,7 @@ class VideoBuilder extends GeneralAssetBuilder {
   }
 
   @override
-  Video build() {
-    return Video.withBuilder(this);
+  VideoObject build() {
+    return VideoObject.withBuilder(this);
   }
 }

@@ -2,8 +2,8 @@ import 'package:cloudinary_dart/asset/asset.dart';
 
 import '../src/transformation/transformation.dart';
 
-class Image extends BaseAsset {
-  Image.withBuilder(super.builder) : super.withBuilder();
+class ImageObject extends BaseAsset {
+  ImageObject.withBuilder(super.builder) : super.withBuilder();
 
   @override
   String getTransformationString() {

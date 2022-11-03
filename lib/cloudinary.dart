@@ -28,8 +28,8 @@ class Cloudinary {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
   }
 
-  Asset raw(String publicId, [AssetBuilder? options]) {
-    var builder = AssetBuilder()
+  AssetObject raw(String publicId, [Asset? options]) {
+    var builder = Asset()
       ..publicId(publicId)
       ..cloudConfig(config.cloudConfig)
       ..urlConfig(config.urlConfig)
@@ -37,11 +37,11 @@ class Cloudinary {
     if (options != null) {
       builder.combineWith(options);
     }
-    return Asset.withBuilder(builder);
+    return AssetObject.withBuilder(builder);
   }
 
-  Image image(String publicId, [ImageBuilder? options]) {
-    var builder = ImageBuilder()
+  ImageObject image(String publicId, [Image? options]) {
+    var builder = Image()
       ..publicId(publicId)
       ..cloudConfig(config.cloudConfig)
       ..urlConfig(config.urlConfig)
@@ -49,11 +49,11 @@ class Cloudinary {
     if (options != null) {
       builder.combineWith(options);
     }
-    return Image.withBuilder(builder);
+    return ImageObject.withBuilder(builder);
   }
 
-  Video video(String publicId, [VideoBuilder? options]) {
-    var builder = VideoBuilder()
+  VideoObject video(String publicId, [Video? options]) {
+    var builder = Video()
       ..publicId(publicId)
       ..cloudConfig(config.cloudConfig)
       ..urlConfig(config.urlConfig)
@@ -61,7 +61,7 @@ class Cloudinary {
     if (options != null) {
       builder.combineWith(options);
     }
-    return Video.withBuilder(builder);
+    return VideoObject.withBuilder(builder);
   }
 
   Cloudinary clone() {

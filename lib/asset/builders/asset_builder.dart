@@ -5,8 +5,8 @@ import '../../config/url_config.dart';
 import '../asset.dart';
 import 'general_asset_builder.dart';
 
-class AssetBuilder extends GeneralAssetBuilder {
-  AssetBuilder(
+class Asset extends GeneralAssetBuilder {
+  Asset(
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
       String? version,
@@ -22,7 +22,7 @@ class AssetBuilder extends GeneralAssetBuilder {
   }
 
   @override
-  Asset build() {
-    return Asset.withBuilder(this);
+  AssetObject build() {
+    return AssetObject.withBuilder(this);
   }
 }
