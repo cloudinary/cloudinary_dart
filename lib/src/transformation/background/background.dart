@@ -16,45 +16,42 @@ abstract class Background {
 
   static Background auto() => AutoBackground();
 
-  static Background blurred([BlurredBackground? options]) {
-    var builder = BlurredBackground();
-    if (options != null) {
-      builder.copyWith(options);
+  static Background blurred([BlurredBackground? blurredBackground]) {
+    if (blurredBackground != null) {
+      return blurredBackground;
     }
-    return builder.build();
+    return BlurredBackground();
   }
 
-  static Background border([BorderBackground? options]) {
-    var builder = BorderBackground();
-    if (options != null) {
-      builder.copyWith(options);
+  static Background border([BorderBackground? borderBackground]) {
+    if (borderBackground != null) {
+      return borderBackground;
     }
-    return builder.build();
+    return BorderBackground();
   }
 
-  static Background borderGradient([BorderGradientBackground? options]) {
-    var builder = BorderGradientBackground();
-    if (options != null) {
-      builder.copyWith(options);
+  static Background borderGradient(
+      [BorderGradientBackground? borderGradientBackground]) {
+    if (borderGradientBackground != null) {
+      return borderGradientBackground;
     }
-    return builder.build();
+    return BorderGradientBackground();
   }
 
-  static Background predominant([PredominantBackground? options]) {
-    var builder = PredominantBackground();
-    if (options != null) {
-      builder.copyWith(options);
+  static Background predominant(
+      [PredominantBackground? predominantBackground]) {
+    if (predominantBackground != null) {
+      return predominantBackground;
     }
-    return builder.build();
+    return PredominantBackground();
   }
 
   static Background predominantGradient(
-      [PredominantGradientBackgroundBuilder? options]) {
-    var builder = PredominantGradientBackgroundBuilder();
-    if (options != null) {
-      builder.copyWith(options);
+      [PredominantGradientBackground? predominantGradientBackground]) {
+    if (predominantGradientBackground != null) {
+      return predominantGradientBackground;
     }
-    return builder.build();
+    return PredominantGradientBackground();
   }
 
   static Background color(Color color) {
@@ -71,9 +68,4 @@ class AutoBackground extends Background {
   String getValues() {
     return 'auto';
   }
-}
-
-abstract class BackgroundBuilder<T, B> {
-  T build();
-  copyWith(B);
 }

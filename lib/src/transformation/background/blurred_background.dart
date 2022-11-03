@@ -3,20 +3,7 @@ import 'package:cloudinary_dart/src/util/validations.dart';
 
 import 'background.dart';
 
-class BlurredBackgroundObject extends Background {
-  final int? _intensity;
-  final int? _brightness;
-
-  BlurredBackgroundObject([this._intensity, this._brightness]);
-
-  @override
-  String getValues() {
-    return 'blurred'.joinWithValues([_intensity, _brightness]);
-  }
-}
-
-class BlurredBackground
-    implements BackgroundBuilder<BlurredBackgroundObject, BlurredBackground> {
+class BlurredBackground extends Background {
   int? _intensity;
   int? _brightness;
 
@@ -36,13 +23,7 @@ class BlurredBackground
   }
 
   @override
-  BlurredBackgroundObject build() {
-    return BlurredBackgroundObject(_intensity, _brightness);
-  }
-
-  @override
-  void copyWith(other) {
-    _intensity = other._intensity;
-    _brightness = other._brightness;
+  String getValues() {
+    return 'blurred'.joinWithValues([_intensity, _brightness]);
   }
 }
