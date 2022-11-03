@@ -56,3 +56,7 @@ class Transformation {
 abstract class TransformationComponentBuilder<T> {
   void copyWith(T other);
 }
+
+abstract class GeneralBuilder<T> {
+  void copyWith(T other);
+}
