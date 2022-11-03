@@ -1,4 +1,10 @@
+import 'package:cloudinary_dart/src/transformation/background/background.dart';
+import 'package:cloudinary_dart/src/transformation/background/border_background.dart';
+import 'package:cloudinary_dart/src/transformation/color.dart';
+import 'package:cloudinary_dart/src/transformation/gravity/gravity.dart';
+import 'package:cloudinary_dart/src/transformation/resize/crop.dart';
 import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
+import 'package:cloudinary_dart/src/transformation/resize/pad.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
 import 'package:test/test.dart';
@@ -154,10 +160,8 @@ void main() {
           ..zoom(1.5)));
   });
 
-  test("Test successful crop formatting", ()
-  {
-    cldAssert('c_thumb,w_100', Resize.thumbnail(Thumbnail()
-      ..width(100)));
+  test("Test successful crop formatting", () {
+    cldAssert('c_thumb,w_100', Resize.thumbnail(Thumbnail()..width(100)));
 
     cldAssert(
         'ar_1.5,c_thumb,g_north,h_100,z_1.5',

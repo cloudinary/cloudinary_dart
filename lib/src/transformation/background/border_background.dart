@@ -21,7 +21,8 @@ class BorderBackground extends AutoBackground {
   @override
   String getValues() {
     var values = super.getValues();
-    return values.joinWithValues(['border'],separator: defaultValuesSeparator).joinWithValues([
+    return values.joinWithValues(['border'],
+        separator: defaultValuesSeparator).joinWithValues([
       (_contrast == true) ? 'contrast' : null
     ], separator: "_").joinWithValues(
         [(_palette != null) ? 'palette_${_palette!.join('_')}' : null]);
