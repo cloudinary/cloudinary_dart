@@ -1,7 +1,3 @@
-import 'package:cloudinary_dart/asset/builders/video_builder.dart';
-
-import 'asset/builders/asset_builder.dart';
-import 'asset/builders/image_builder.dart';
 import 'asset/image.dart';
 import 'asset/video.dart';
 import 'config/cloudinary_config.dart';
@@ -28,45 +24,21 @@ class Cloudinary {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
   }
 
-  Asset raw(String publicId, [AssetBuilder? options]) {
-    var builder = AssetBuilder()
-      ..publicId(publicId)
-      ..cloudConfig(config.cloudConfig)
-      ..urlConfig(config.urlConfig)
-      ..assetType('raw');
-    if (options != null) {
-      builder.combineWith(options);
-    }
-    return Asset.withBuilder(builder);
+  AssetObject raw(Asset options) {
+    options.cloudConfig(config.cloudConfig);
+    options.urlConfig(config.urlConfig);
+    return AssetObject.withBuilder(options);
   }
 
-  Image image(String publicId, [ImageBuilder? options]) {
-    var builder = ImageBuilder()
-      ..publicId(publicId)
-      ..cloudConfig(config.cloudConfig)
-      ..urlConfig(config.urlConfig)
-      ..assetType('image');
-    if (options != null) {
-      builder.combineWith(options);
-    }
-    return Image.withBuilder(builder);
+  ImageObject image(Image options) {
+    options.cloudConfig(config.cloudConfig);
+    options.urlConfig(config.urlConfig);
+    return ImageObject.withBuilder(options);
   }
 
-  Video video(String publicId, [VideoBuilder? options]) {
-    var builder = VideoBuilder()
-      ..publicId(publicId)
-      ..cloudConfig(config.cloudConfig)
-      ..urlConfig(config.urlConfig)
-      ..assetType('video');
-    if (options != null) {
-      builder.combineWith(options);
-    }
-    return Video.withBuilder(builder);
-  }
-
-  Cloudinary clone() {
-    Cloudinary cloudinary = Cloudinary.withConfiguration(config);
-    cloudinary.userAgent = userAgent;
-    return cloudinary;
+  VideoObject video(Video options) {
+    options.cloudConfig(config.cloudConfig);
+    options.urlConfig(config.urlConfig);
+    return VideoObject.withBuilder(options);
   }
 }
