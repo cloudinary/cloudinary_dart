@@ -6,11 +6,10 @@ import '../image.dart';
 import 'general_asset_builder.dart';
 
 class Image extends GeneralAssetBuilder {
-  Image(
+  Image(String? publicId,
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
       String? version,
-      String? publicId,
       String? extension,
       String? urlSuffix,
       String? assetType,

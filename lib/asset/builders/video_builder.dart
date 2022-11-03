@@ -5,11 +5,10 @@ import '../video.dart';
 import 'general_asset_builder.dart';
 
 class Video extends GeneralAssetBuilder {
-  Video(
+  Video(String publicId,
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
       String? version,
-      String? publicId,
       String? extension,
       String? urlSuffix,
       String? assetType,

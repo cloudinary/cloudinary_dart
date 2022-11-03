@@ -6,11 +6,10 @@ import '../asset.dart';
 import 'general_asset_builder.dart';
 
 class Asset extends GeneralAssetBuilder {
-  Asset(
+  Asset(String publicId,
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
       String? version,
-      String? publicId,
       String? extension,
       String? urlSuffix,
       String? assetType,
