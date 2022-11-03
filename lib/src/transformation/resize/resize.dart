@@ -134,4 +134,12 @@ abstract class Resize extends Action {
   static Resize crop(Crop crop) {
     return crop;
   }
+
+  /// The thumb cropping mode is specifically used for creating image thumbnails from either face or custom
+  /// coordinates, and must always be accompanied by the gravity qualifier set to one of the face detection or custom
+  /// values.
+  /// /// Receives [Thumbnail], returns [Resize] object.
+  static Resize thumbnail(Thumbnail thumbnail) {
+    return thumbnail;
+  }
 }

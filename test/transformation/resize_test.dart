@@ -155,4 +155,18 @@ void main() {
           ..gravity(Gravity.north())
           ..zoom(1.5)));
   });
+
+  test("Test successful crop formatting", ()
+  {
+    cldAssert('c_thumb,w_100', Resize.thumbnail(Thumbnail()
+      ..width(100)));
+
+    cldAssert(
+        'ar_1.5,c_thumb,g_north,h_100,z_1.5',
+        Resize.thumbnail(Thumbnail()
+          ..height(100)
+          ..aspectRatio(1.5)
+          ..gravity(Gravity.north())
+          ..zoom(1.5)));
+  });
 }
