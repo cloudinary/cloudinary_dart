@@ -131,8 +131,8 @@ abstract class Resize extends Action {
   /// padding is added to the image to reach the required size
   ///
   /// Receives [Pad] returns [Resize] object
-  static Resize pad(Pad options) {
-    return options.build();
+  static Resize pad(Pad pad) {
+    return pad;
   }
 
   /// Same as the [Pad] mode but only if the original image is larger than the given limit (width and
@@ -142,8 +142,8 @@ abstract class Resize extends Action {
   ///This mode doesn't scale up the image if your requested dimensions are bigger than the original image's.
   ///
   /// Receives [LimitPad] returns [Resize] object
-  static Resize limitPad(LimitPad options) {
-    return options.build();
+  static Resize limitPad(LimitPad limitPad) {
+    return limitPad;
   }
 
   /// Same as the [Pad] mode but only if the original image is smaller than the given minimum (width and
@@ -153,7 +153,7 @@ abstract class Resize extends Action {
   ///This mode doesn't scale down the image if your requested dimensions are smaller than the original image's.
   ///
   /// Receives [MinimumPad] returns [Resize] object
-  static Resize minimumPad(MinimumPad options) {
-    return options.build();
+  static Resize minimumPad(MinimumPad minimumPad) {
+    return minimumPad;
   }
 }
