@@ -1,10 +1,4 @@
-import 'package:cloudinary_dart/src/transformation/background/background.dart';
-import 'package:cloudinary_dart/src/transformation/background/border_background.dart';
-import 'package:cloudinary_dart/src/transformation/color.dart';
-import 'package:cloudinary_dart/src/transformation/gravity/gravity.dart';
-import 'package:cloudinary_dart/src/transformation/resize/crop.dart';
 import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
-import 'package:cloudinary_dart/src/transformation/resize/pad.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
 import 'package:test/test.dart';
@@ -120,6 +114,58 @@ void main() {
         Resize.minimumFit(MinimumFit()
           ..height(100)
           ..aspectRatio(1.5)));
+  });
+
+  test("Test successful crop formatting", () {
+    cldAssert('c_crop,w_100', Resize.crop(Crop()..width(100)));
+    cldAssert('c_crop,w_1.0', Resize.crop(Crop()..width(1.0)));
+    cldAssert(
+        'c_crop,h_100,w_100',
+        Resize.crop(Crop()
+          ..width(100)
+          ..height(100)));
+    cldAssert(
+        'c_crop,h_1.1,w_0.5',
+        Resize.crop(Crop()
+          ..width(0.5)
+          ..height(1.1)));
+    cldAssert(
+        'ar_1.5,c_crop,w_100',
+        Resize.crop(Crop()
+          ..width(100)
+          ..aspectRatio(1.5)));
+    cldAssert(
+        'ar_1.5,c_crop,h_100',
+        Resize.crop(Crop()
+          ..height(100)
+          ..aspectRatio(1.5)));
+    cldAssert(
+        'ar_1.5,c_crop,g_north,h_100',
+        Resize.crop(Crop()
+          ..height(100)
+          ..aspectRatio(1.5)
+          ..gravity(Gravity.north())));
+    cldAssert(
+        'ar_1.5,c_crop,g_north,h_100,z_1.5',
+        Resize.crop(Crop()
+          ..height(100)
+          ..aspectRatio(1.5)
+          ..gravity(Gravity.north())
+          ..zoom(1.5)));
+  });
+
+  test("Test successful crop formatting", ()
+  {
+    cldAssert('c_thumb,w_100', Resize.thumbnail(Thumbnail()
+      ..width(100)));
+
+    cldAssert(
+        'ar_1.5,c_thumb,g_north,h_100,z_1.5',
+        Resize.thumbnail(Thumbnail()
+          ..height(100)
+          ..aspectRatio(1.5)
+          ..gravity(Gravity.north())
+          ..zoom(1.5)));
   });
 
   test("Test successful crop formatting", () {
