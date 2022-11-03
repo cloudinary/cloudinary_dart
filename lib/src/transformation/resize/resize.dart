@@ -13,7 +13,6 @@ class Dimensions {
 
   Dimensions({this.width, this.height, this.aspectRatio});
 
-
   /// Returns [Param] with the width
   Param? getWidthParam() {
     if (width != null) {
