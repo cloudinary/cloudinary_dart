@@ -28,21 +28,29 @@ abstract class BasePad extends Resize {
     }
   }
 
+  /// Sets the background
+  /// Receives [Background] returns this object [BasePad]
   BasePad background(Background background) {
     _background = background;
     return this;
   }
 
+  /// Sets x offset
+  /// Receives [dynamic] returns this object [BasePad]
   BasePad offsetX(dynamic offsetX) {
     _offsetX = offsetX;
     return this;
   }
 
+  /// Sets y offset
+  /// Receives [dynamic] returns this object [BasePad]
   BasePad offsetY(dynamic offsetX) {
     _offsetX = offsetX;
     return this;
   }
 
+  /// Sets the gravity
+  /// Receives [CompassGravity] returns this object [BasePad]
   BasePad gravity(CompassGravity gravity) {
     _gravity = gravity;
     return this;
