@@ -67,20 +67,25 @@ abstract class BaseCrop extends Resize {
     _y = y;
     return this;
   }
+
+  @override
+  List<Param?> params() {
+    var params = super.params();
+    params.add((_gravity != null) ? Param('g', _gravity) : null);
+    params.add((_x != null) ? Param('x', _x) : null);
+    params.add((_y != null) ? Param('y', _y) : null);
+    params.add((_zoom != null) ? Param('z', _zoom) : null);
+    return params;
+  }
 }
 
 /// Class Crop
 class Crop extends BaseCrop {
   @override
   String actionType = "crop";
+}
 
+class Thumbnail extends BaseCrop {
   @override
-  List<Param?> params() {
-    var params = super.params();
-    params.add((_gravity != null) ? Param('g', _gravity) : null);
-    params.add((_x != null) ? Param('x', x) : null);
-    params.add((_y != null) ? Param('y', y) : null);
-    params.add((_zoom != null) ? Param('z', _zoom) : null);
-    return params;
-  }
+  String actionType = "thumb";
 }
