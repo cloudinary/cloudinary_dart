@@ -1,8 +1,7 @@
 import 'package:cloudinary_dart/analytics.dart';
 import 'package:cloudinary_dart/asset/asset.dart';
-import 'package:cloudinary_dart/asset/builders/asset_builder.dart';
-import 'package:cloudinary_dart/asset/builders/image_builder.dart';
-import 'package:cloudinary_dart/asset/builders/video_builder.dart';
+import 'package:cloudinary_dart/asset/image.dart';
+import 'package:cloudinary_dart/asset/video.dart';
 import 'package:cloudinary_dart/cloudinary.dart';
 import 'package:cloudinary_dart/config/cloudinary_config.dart';
 import 'package:cloudinary_dart/config/url_config.dart';
