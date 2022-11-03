@@ -3,7 +3,7 @@ import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import '../common.dart';
 import '../gravity/gravity.dart';
 
-/// Class CropObject
+/// Class BaseCrop
 abstract class BaseCrop extends Resize {
   Gravity? _gravity;
   dynamic _zoom;
@@ -40,21 +40,29 @@ abstract class BaseCrop extends Resize {
     }
   }
 
+  /// Sets the gravity
+  /// Receives [Gravity] returns this object [BaseCrop]
   BaseCrop gravity(Gravity gravity) {
     _gravity = gravity;
     return this;
   }
 
+  /// Sets the zoom
+  /// Receives [dynamic] returns this object [BaseCrop]
   BaseCrop zoom(dynamic zoom) {
     _zoom = zoom;
     return this;
   }
 
+  /// Sets the x value
+  /// Receives [dynamic] returns this object [BaseCrop]
   BaseCrop x(dynamic x) {
     _x = x;
     return this;
   }
 
+  /// Sets the y value
+  /// Receives [dynamic] returns this object [BaseCrop]
   BaseCrop y(dynamic y) {
     _y = y;
     return this;

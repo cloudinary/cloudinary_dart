@@ -13,6 +13,8 @@ class Dimensions {
 
   Dimensions({this.width, this.height, this.aspectRatio});
 
+
+  /// Returns [Param] with the width
   Param? getWidthParam() {
     if (width != null) {
       return Param("w", width);
@@ -20,6 +22,7 @@ class Dimensions {
     return null;
   }
 
+  /// Returns [Param] with the height
   Param? getHeightParam() {
     if (height != null) {
       return Param("h", height);
@@ -27,6 +30,7 @@ class Dimensions {
     return null;
   }
 
+  /// Returns [Param] with the aspect ratio
   Param? getAspectRatioParam() {
     if (aspectRatio != null) {
       return Param("ar", aspectRatio);
@@ -50,16 +54,22 @@ abstract class Resize extends Action {
     }
   }
 
+  /// Sets the width
+  /// Receives [dynamic] returns this object [Resize]
   Resize width(dynamic width) {
     dimensions.width = width;
     return this;
   }
 
+  /// Sets the height
+  /// Receives [dynamic] returns this object [Resize]
   Resize height(dynamic height) {
     dimensions.height = height;
     return this;
   }
 
+  /// Sets the aspect ratio
+  /// Receives [dynamic] returns this object [Resize]
   Resize aspectRatio(dynamic aspectRatio) {
     dimensions.aspectRatio = aspectRatio;
     return this;
@@ -86,7 +96,7 @@ abstract class Resize extends Action {
   /// Change the size of the image exactly to the given width and height without necessarily retaining the original
   /// aspect ratio: all original image parts are visible but might be stretched or shrunk.
   ///
-  /// Receives [width], [height] and/or [aspectRatio] and returns [Resize] object.
+  /// Receives [Scale] and returns [Resize] object.
   static Resize scale(Scale scale) {
     return scale;
   }
@@ -104,7 +114,7 @@ abstract class Resize extends Action {
   /// box defined by the given width and height qualifiers. The original aspect ratio is retained and all of the
   /// original image is visible.
   ///
-  /// Receives [LimitFit]
+  /// Receives [LimitFit] returns [Resize]
   static Resize limitFit(LimitFit limitFit) {
     return limitFit;
   }
@@ -114,14 +124,14 @@ abstract class Resize extends Action {
   /// box defined by the given width and height qualifiers. The original aspect ratio is retained and all of the
   /// original image is visible.
   ///
-  /// Receives [MinimumFit]
+  /// Receives [MinimumFit] returns [Resize]
   static Resize minimumFit(MinimumFit minimumFit) {
     return minimumFit;
   }
 
   /// Extracts a region of the given width and height out of the original image.
   ///
-  /// Receives [width], [height], [aspectRatio] and options, returns [Resize] object.
+  /// Receives [Crop], returns [Resize] object.
   static Resize crop(Crop crop) {
     return crop;
   }
