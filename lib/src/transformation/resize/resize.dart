@@ -179,13 +179,6 @@ abstract class Resize extends Action {
     return minimumPad;
   }
 
-  /// Extracts a region of the given width and height out of the original image.
-  ///
-  /// Receives [width], [height], [aspectRatio] and options, returns [Resize] object.
-  static Resize crop(Crop crop) {
-    return crop;
-  }
-
   /// Creates an asset with the exact given width and height without distorting the asset.
   ///
   /// This option first scales as much as needed to at least fill both of the given dimensions. If the requested

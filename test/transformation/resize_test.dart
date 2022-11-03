@@ -3,6 +3,7 @@ import 'package:cloudinary_dart/src/transformation/background/border_background.
 import 'package:cloudinary_dart/src/transformation/color.dart';
 import 'package:cloudinary_dart/src/transformation/gravity/gravity.dart';
 import 'package:cloudinary_dart/src/transformation/resize/crop.dart';
+import 'package:cloudinary_dart/src/transformation/resize/fill.dart';
 import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
 import 'package:cloudinary_dart/src/transformation/resize/pad.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
