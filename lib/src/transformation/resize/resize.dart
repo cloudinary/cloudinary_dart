@@ -134,8 +134,8 @@ abstract class Resize extends Action {
   /// size after scaling.
   ///
   /// Receives [Fill], returns [Resize] object
-  static Resize fill(Fill options) {
-    return options.build();
+  static Resize fill(Fill fill) {
+    return fill;
   }
 
   /// Creates an asset with the exact given width and height without distorting the asset, but only if the original
@@ -146,7 +146,7 @@ abstract class Resize extends Action {
   /// not resized at all.
   ///
   /// Receives [LimitFill], returns [Resize] object.
-  static Resize limitFill(LimitFill options) {
-    return options.build();
+  static Resize limitFill(LimitFill limitFill) {
+    return limitFill;
   }
 }

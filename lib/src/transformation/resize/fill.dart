@@ -1,107 +1,58 @@
-import 'package:cloudinary_dart/src/transformation/resize/common.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 
 import '../common.dart';
 import '../gravity/gravity.dart';
 
-class BaseFillObject extends Resize {
-  Gravity? gravity;
-  dynamic x;
-  dynamic y;
-
-  @override
-  String actionType = "fill";
-
-
-  BaseFillObject(super.dimensions,
-      {super.relative,
-        super.regionRelative,
-        this.gravity,
-        this.x,
-        this.y});
-
-  @override
-  List<Param?> params() {
-    var params = super.params();
-    params.add((gravity != null) ? Param('g', gravity) : null);
-    params.add((x != null) ? Param('x', x) : null);
-    params.add((y != null) ? Param('y', y) : null);
-    return params;
-  }
-}
-
-class Fill extends BaseBuilder<Fill> {
+abstract class BaseFill extends Resize {
   Gravity? _gravity;
   dynamic _x;
   dynamic _y;
 
-  Fill gravity(Gravity gravity) {
+  BaseFill(
+      {super.dimensions,
+      super.relative,
+      super.regionRelative,
+      Gravity? gravityValue,
+      dynamic xValue,
+      dynamic yValue}) {
+    if (gravityValue != null) {
+      gravity(gravityValue);
+    }
+    x(xValue);
+    y(yValue);
+  }
+
+  BaseFill gravity(Gravity gravity) {
     _gravity = gravity;
     return this;
   }
 
-  Fill x(dynamic x) {
+  BaseFill x(dynamic x) {
     _x = x;
     return this;
   }
 
-  Fill y(dynamic y) {
+  BaseFill y(dynamic y) {
     _y = y;
     return this;
   }
 
   @override
-  Object getThis() {
-    return this;
-  }
-
-  @override
-  BaseFillObject build() {
-    return BaseFillObject(
-        Dimensions(
-            width: getWidth(),
-            height: getHeight(),
-            aspectRatio: getAspectRatio()),
-        gravity: _gravity,
-        x: _x,
-        y: _y);
-  }
-
-  @override
-  void copyWith(other) {
-    width(other.getWidth());
-    height(other.getHeight());
-    aspectRatio(other.getAspectRatio());
-    relative(other.getRelative());
-    regionRelative(other.getRegionRelative());
-    _gravity = other._gravity;
-    _x = other._x;
-    _y = other._y;
+  List<Param?> params() {
+    var params = super.params();
+    params.add((_gravity != null) ? Param('g', _gravity) : null);
+    params.add((_x != null) ? Param('x', _x) : null);
+    params.add((_y != null) ? Param('y', _y) : null);
+    return params;
   }
 }
 
-class LimitFillObject extends BaseFillObject {
+class Fill extends BaseFill {
+  @override
+  String actionType = "fill";
+}
+
+class LimitFill extends BaseFill {
   @override
   String actionType = "lfill";
-
-  LimitFillObject(super.dimensions,
-  {super.relative,
-  super.regionRelative,
-    super.gravity,
-    super.x,
-    super.y});
-}
-
-class LimitFill extends Fill {
-@override
-  LimitFillObject build() {
-    return LimitFillObject(
-        Dimensions(
-            width: getWidth(),
-            height: getHeight(),
-            aspectRatio: getAspectRatio()),
-        gravity: _gravity,
-        x: _x,
-        y: _y);
-  }
 }
