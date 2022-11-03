@@ -3,6 +3,7 @@ import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import '../common.dart';
 import '../gravity/gravity.dart';
 
+/// Class BaseFill
 abstract class BaseFill extends Resize {
   Gravity? _gravity;
   dynamic _x;
@@ -22,16 +23,22 @@ abstract class BaseFill extends Resize {
     y(yValue);
   }
 
+  /// Sets the gravity.
+  /// Receives [Gravity] returns this [BaseFill]
   BaseFill gravity(Gravity gravity) {
     _gravity = gravity;
     return this;
   }
 
+  /// Sets the x value.
+  /// Receives [dynamic] returns this [BaseFill]
   BaseFill x(dynamic x) {
     _x = x;
     return this;
   }
 
+  /// Sets the y value.
+  /// Receives [dynamic] returns this [BaseFill]
   BaseFill y(dynamic y) {
     _y = y;
     return this;
@@ -47,11 +54,12 @@ abstract class BaseFill extends Resize {
   }
 }
 
+/// Class Fill
 class Fill extends BaseFill {
   @override
   String actionType = "fill";
 }
-
+/// Class LimitFill
 class LimitFill extends BaseFill {
   @override
   String actionType = "lfill";
