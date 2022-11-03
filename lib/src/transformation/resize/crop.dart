@@ -3,7 +3,7 @@ import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
 import '../common.dart';
 import '../gravity/gravity.dart';
 
-/// Class CropObject
+/// Class BaseCrop
 abstract class BaseCrop extends Resize {
   Gravity? _gravity;
   dynamic _zoom;
@@ -40,24 +40,42 @@ abstract class BaseCrop extends Resize {
     }
   }
 
+  /// Sets the gravity
+  /// Receives [Gravity] returns this object [BaseCrop]
   BaseCrop gravity(Gravity gravity) {
     _gravity = gravity;
     return this;
   }
 
+  /// Sets the zoom
+  /// Receives [dynamic] returns this object [BaseCrop]
   BaseCrop zoom(dynamic zoom) {
     _zoom = zoom;
     return this;
   }
 
+  /// Sets the x value
+  /// Receives [dynamic] returns this object [BaseCrop]
   BaseCrop x(dynamic x) {
     _x = x;
     return this;
   }
 
+  /// Sets the y value
+  /// Receives [dynamic] returns this object [BaseCrop]
   BaseCrop y(dynamic y) {
     _y = y;
     return this;
+  }
+
+  @override
+  List<Param?> params() {
+    var params = super.params();
+    params.add((_gravity != null) ? Param('g', _gravity) : null);
+    params.add((_x != null) ? Param('x', _x) : null);
+    params.add((_y != null) ? Param('y', _y) : null);
+    params.add((_zoom != null) ? Param('z', _zoom) : null);
+    return params;
   }
 }
 
@@ -65,14 +83,9 @@ abstract class BaseCrop extends Resize {
 class Crop extends BaseCrop {
   @override
   String actionType = "crop";
+}
 
+class Thumbnail extends BaseCrop {
   @override
-  List<Param?> params() {
-    var params = super.params();
-    params.add((_gravity != null) ? Param('g', _gravity) : null);
-    params.add((_x != null) ? Param('x', x) : null);
-    params.add((_y != null) ? Param('y', y) : null);
-    params.add((_zoom != null) ? Param('z', _zoom) : null);
-    return params;
-  }
+  String actionType = "thumb";
 }
