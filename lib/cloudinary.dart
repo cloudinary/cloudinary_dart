@@ -41,10 +41,4 @@ class Cloudinary {
     options.urlConfig(config.urlConfig);
     return VideoObject.withBuilder(options);
   }
-
-  Cloudinary clone() {
-    Cloudinary cloudinary = Cloudinary.withConfiguration(config);
-    cloudinary.userAgent = userAgent;
-    return cloudinary;
-  }
 }
