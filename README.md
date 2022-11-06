@@ -50,10 +50,6 @@ Generate a Cloudinary URL using the `cloudinary.media` helper method and pass th
 
 For example, to generate an url for an image called `sample` on the `demo` account:
 
-```dart
-String url = cloudinary.image('sample.jpg').toString();
-```
-
 A transformation is also added to the image - cropping:
 
 ```dart
