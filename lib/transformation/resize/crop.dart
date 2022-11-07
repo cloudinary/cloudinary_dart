@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
+import 'package:cloudinary_dart/transformation/resize/resize.dart';
 
 import '../common.dart';
 import '../gravity/gravity.dart';

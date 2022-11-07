@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cloudinary_dart/src/transformation/transformation.dart';
 import 'package:crypto/crypto.dart';
 
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
@@ -8,6 +7,7 @@ import 'package:cloudinary_dart/analytics.dart';
 import 'package:cloudinary_dart/auth_token.dart';
 import '../config/cloud_config.dart';
 import '../config/url_config.dart';
+import '../transformation/transformation.dart';
 import 'builders/general_asset_builder.dart';
 
 final String akamaiSharedCDN = "res.cloudinary.com";
