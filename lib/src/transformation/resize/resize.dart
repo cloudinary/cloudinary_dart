@@ -1,5 +1,6 @@
 import 'package:cloudinary_dart/src/transformation/TransformationUtils.dart';
 import 'package:cloudinary_dart/src/transformation/resize/common.dart';
+import 'package:cloudinary_dart/src/transformation/resize/fill.dart';
 import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
 import 'package:cloudinary_dart/src/transformation/resize/pad.dart';
 import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
@@ -176,5 +177,28 @@ abstract class Resize extends Action {
   /// Receives [MinimumPad] returns [Resize] object
   static Resize minimumPad(MinimumPad minimumPad) {
     return minimumPad;
+  }
+
+  /// Creates an asset with the exact given width and height without distorting the asset.
+  ///
+  /// This option first scales as much as needed to at least fill both of the given dimensions. If the requested
+  /// aspect ratio is different than the original, cropping will occur on the dimension that exceeds the requested
+  /// size after scaling.
+  ///
+  /// Receives [Fill], returns [Resize] object
+  static Resize fill(Fill fill) {
+    return fill;
+  }
+
+  /// Creates an asset with the exact given width and height without distorting the asset, but only if the original
+  /// asset is larger than the specified resolution limits.
+  ///
+  /// The asset is scaled down to fill the given width and height without distorting the asset, and then the dimension
+  /// that exceeds the request is cropped. If the original dimensions are both smaller than the requested size, it is
+  /// not resized at all.
+  ///
+  /// Receives [LimitFill], returns [Resize] object.
+  static Resize limitFill(LimitFill limitFill) {
+    return limitFill;
   }
 }

@@ -55,6 +55,8 @@ class Gravity {
   /// Returns [CompassGravity]
   static center() => CompassGravity(Compass.center());
 
+  static xyCenter() => XYCenterGravity();
+
   FocusOnGravityQualifier focusOn(List<FocusOn> focusOnObjects,
       {FocusOnGravity? options}) {
     var builder = FocusOnGravity(focusOnObjects);
@@ -224,5 +226,12 @@ class AutoGravityObject implements GeneralBuilder {
     focusOn = other.focusOn;
     _weight = other._weight;
     _avoid = other._avoid;
+  }
+}
+
+class XYCenterGravity extends Gravity {
+  @override
+  String toString() {
+    return 'xy_center';
   }
 }
