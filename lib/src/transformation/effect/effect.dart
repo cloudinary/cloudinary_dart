@@ -50,6 +50,18 @@ class Effect extends Action {
     return dither ?? Dither();
   }
 
+  static Effect vignette([Vignette? vignette]) {
+    return vignette ?? Vignette();
+  }
+
+  static Effect simulateColorBlind([SimulateColorBlind? simulateColorBlind]) {
+    return simulateColorBlind ?? SimulateColorBlind();
+  }
+
+  static Effect cartoonify([Cartoonify? cartoonify]) {
+    return cartoonify ?? Cartoonify();
+  }
+
   @override
   String toString() {
     return 'e';

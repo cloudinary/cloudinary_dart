@@ -59,4 +59,25 @@ void main() {
     cldAssert("e_ordered_dither:0",
         Effect.dither(Dither(DitherObject.threshold1x1NonDither())));
   });
+  test('Test successful vignette effect formatting', () {
+    cldAssert("e_vignette", Effect.vignette());
+    cldAssert("e_vignette:30", Effect.vignette(Vignette(30)));
+    cldAssert("e_vignette:30", Effect.vignette(Vignette() ..strength(30)));
+  });
+  test('Test successful simulate blind effect formatting', () {
+    cldAssert("e_simulate_colorblind", Effect.simulateColorBlind());
+    cldAssert(
+        "e_simulate_colorblind:deuteranopia",
+        Effect.simulateColorBlind(SimulateColorBlind(SimulateColorBlindObject.deuteranopia())));
+  });
+  test('Test successful cartoonify effect formatting', () {
+    cldAssert("e_cartoonify", Effect.cartoonify());
+    cldAssert("e_cartoonify:20", Effect.cartoonify(Cartoonify(lineStrength: 20)));
+    cldAssert("e_cartoonify:20:60", Effect.cartoonify(Cartoonify() ..lineStrength(20) ..colorReductionLevel(60)));
+    cldAssert("e_cartoonify:30:bw", Effect.cartoonify(Cartoonify(lineStrength: 30, blackwhite: true)));
+    cldAssert(
+        "e_cartoonify:30:bw",
+        Effect.cartoonify(Cartoonify() ..lineStrength(30) ..colorReductionLevel(60) ..blackwhite()));
+    cldAssert("e_cartoonify:bw", Effect.cartoonify(Cartoonify() ..colorReductionLevel(60) ..blackwhite()));
+  });
 }

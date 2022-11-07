@@ -186,6 +186,74 @@ class Dither extends Effect {
   }
 }
 
+class Vignette extends Effect {
+  dynamic _strength;
+
+  Vignette([dynamic strength]) {
+    _strength = strength;
+  }
+
+  Vignette strength(dynamic strength) {
+    _strength = strength;
+    return this;
+  }
+  
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['vignette'], separator: paramKeyValueSeparator).joinWithValues([_strength]);
+  }
+}
+
+class SimulateColorBlind extends Effect {
+  SimulateColorBlindObject? _condition;
+
+  SimulateColorBlind([SimulateColorBlindObject? condition]) {
+    _condition = condition;
+  }
+
+  SimulateColorBlind condition(SimulateColorBlindObject condition) {
+    _condition = condition;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['simulate_colorblind'], separator: paramKeyValueSeparator).joinWithValues([_condition]);
+  }
+}
+
+class Cartoonify extends Effect {
+  dynamic _lineStrength;
+  dynamic _colorReductionLevel;
+  late bool _blackwhite;
+
+  Cartoonify({dynamic lineStrength, dynamic colorReductionLevel, bool? blackwhite}) {
+    _lineStrength = lineStrength;
+    _colorReductionLevel = colorReductionLevel;
+    _blackwhite = blackwhite ?? false;
+  }
+
+  Cartoonify lineStrength(dynamic lineStrength) {
+    _lineStrength = lineStrength;
+    return this;
+  }
+
+  Cartoonify colorReductionLevel(dynamic colorReductionLevel) {
+    _colorReductionLevel = colorReductionLevel;
+    return this;
+  }
+
+  Cartoonify blackwhite([bool blackwhite = true]) {
+    _blackwhite = blackwhite;
+    return this;
+  }
+  
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['cartoonify'], separator: paramKeyValueSeparator).joinWithValues([_lineStrength, ((_blackwhite) ? 'bw' : _colorReductionLevel)]);
+  }
+}
+
 class Noise extends Effect {
   dynamic level;
 
@@ -242,5 +310,23 @@ class DitherObject {
   @override
   String toString() {
     return value.toString();
+  }
+}
+
+class SimulateColorBlindObject {
+  String value;
+
+  SimulateColorBlindObject(this.value);
+  static deuteranopia() => SimulateColorBlindObject("deuteranopia");
+  static protanopia() => SimulateColorBlindObject("protanopia");
+  static tritanopia() => SimulateColorBlindObject("tritanopia");
+  static tritanomaly() => SimulateColorBlindObject("tritanomaly");
+  static deuteranomaly() => SimulateColorBlindObject("deuteranomaly");
+  static cone_monochromacy() => SimulateColorBlindObject("cone_monochromacy");
+  static rod_monochromacy() => SimulateColorBlindObject("rod_monochromacy");
+
+  @override
+  String toString() {
+    return value;
   }
 }
