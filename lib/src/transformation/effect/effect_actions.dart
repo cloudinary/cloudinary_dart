@@ -4,14 +4,14 @@ import 'package:cloudinary_dart/src/transformation/common.dart';
 import 'effect.dart';
 
 class Sepia extends Effect {
-
   dynamic level;
 
   Sepia([this.level]);
 
   @override
   String toString() {
-    return super.toString().joinWithValues(['sepia'], separator: paramKeyValueSeparator).joinWithValues([level]);
+    return super.toString().joinWithValues(['sepia'],
+        separator: paramKeyValueSeparator).joinWithValues([level]);
   }
 }
 
@@ -27,12 +27,12 @@ class Accelerate extends Effect {
 
   @override
   String toString() {
-    return super.toString().joinWithValues(['accelerate'], separator: paramKeyValueSeparator).joinWithValues([_rate]);
+    return super.toString().joinWithValues(['accelerate'],
+        separator: paramKeyValueSeparator).joinWithValues([_rate]);
   }
 }
 
 class Deshake extends Effect {
-
   ShakeStrength? factor;
 
   Deshake([this.factor]);
@@ -44,21 +44,26 @@ class Deshake extends Effect {
 
   @override
   String toString() {
-    return super.toString().joinWithValues(['deshake'], separator: paramKeyValueSeparator).joinWithValues([factor]);
+    return super.toString().joinWithValues(['deshake'],
+        separator: paramKeyValueSeparator).joinWithValues([factor]);
   }
 }
 
 class Reverse extends Effect {
   @override
   String toString() {
-    return super.toString().joinWithValues(['reverse'], separator: paramKeyValueSeparator);
+    return super
+        .toString()
+        .joinWithValues(['reverse'], separator: paramKeyValueSeparator);
   }
 }
 
 class Boomerang extends Effect {
   @override
   String toString() {
-    return super.toString().joinWithValues(['boomerang'], separator: paramKeyValueSeparator);
+    return super
+        .toString()
+        .joinWithValues(['boomerang'], separator: paramKeyValueSeparator);
   }
 }
 
@@ -80,10 +85,104 @@ class MakeTransparent extends Effect {
     _colorToReplace = colorToReplace;
     return this;
   }
-  
+
   @override
   String toString() {
-    return super.toString().joinWithValues(['make_transparent'], separator: paramKeyValueSeparator).joinWithValues([_tolerance]).joinWithValues([(_colorToReplace != null ? 'co_'.joinWithValues([_colorToReplace]) : null)]);
+    return super.toString().joinWithValues(['make_transparent'],
+        separator:
+            paramKeyValueSeparator).joinWithValues(
+        [_tolerance]).joinWithValues([
+      (_colorToReplace != null ? 'co_'.joinWithValues([_colorToReplace]) : null)
+    ]);
+  }
+}
+
+class FadeIn extends Effect {
+  int? _duration;
+
+  FadeIn([int? duration]) {
+    _duration = duration;
+  }
+
+  FadeIn duration(int duration) {
+    _duration = duration;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['fade'],
+        separator: paramKeyValueSeparator).joinWithValues([_duration]);
+  }
+}
+
+class FadeOut extends Effect {
+  int? _duration;
+
+  FadeOut([int? duration]) {
+    _duration = duration;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['fade'],
+        separator: paramKeyValueSeparator).joinWithValues(['-$_duration']);
+  }
+}
+
+class Loop extends Effect {
+  int? _additionalIterations;
+
+  Loop([int? additionalIterations]) {
+    _additionalIterations = additionalIterations;
+  }
+
+  Loop additionalIterations(int additionalIterations) {
+    _additionalIterations = additionalIterations;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['loop'],
+        separator:
+            paramKeyValueSeparator).joinWithValues([_additionalIterations]);
+  }
+}
+
+class Blackwhite extends Effect {
+  dynamic _threshold;
+
+  Blackwhite([dynamic threshold]) {
+    _threshold = threshold;
+  }
+
+  Blackwhite threshold(dynamic threshold) {
+    _threshold = threshold;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['blackwhite'],
+        separator: paramKeyValueSeparator).joinWithValues([_threshold]);
+  }
+}
+
+class Dither extends Effect {
+  DitherObject? filter;
+
+  Dither([this.filter]);
+
+  Dither type(DitherObject filter) {
+    this.filter = filter;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['ordered_dither'],
+        separator: paramKeyValueSeparator).joinWithValues([filter]);
   }
 }
 
@@ -94,12 +193,12 @@ class Noise extends Effect {
 
   @override
   String toString() {
-    return super.toString().joinWithValues(['noise'], separator: paramKeyValueSeparator).joinWithValues([level]);
+    return super.toString().joinWithValues(['noise'],
+        separator: paramKeyValueSeparator).joinWithValues([level]);
   }
 }
 
 class ShakeStrength {
-
   int factor;
 
   ShakeStrength(this.factor);
@@ -112,5 +211,36 @@ class ShakeStrength {
   @override
   String toString() {
     return factor.toString();
+  }
+}
+
+class DitherObject {
+  int value;
+
+  DitherObject(this.value);
+
+  static DitherObject threshold1x1NonDither() => DitherObject(0);
+  static DitherObject checkerboard2x1Dither() => DitherObject(1);
+  static DitherObject ordered2x2Dispersed() => DitherObject(2);
+  static DitherObject ordered3x3Dispersed() => DitherObject(3);
+  static DitherObject ordered4x4Dispersed() => DitherObject(4);
+  static DitherObject ordered8x8Dispersed() => DitherObject(5);
+  static DitherObject halftone4x4Angled() => DitherObject(6);
+  static DitherObject halftone6x6Angled() => DitherObject(7);
+  static DitherObject halftone8x8Angled() => DitherObject(8);
+  static DitherObject halftone4x4Orthogonal() => DitherObject(9);
+  static DitherObject halftone6x6Orthogonal() => DitherObject(10);
+  static DitherObject halftone8x8Orthogonal() => DitherObject(11);
+  static DitherObject halftone16x16Orthogonal() => DitherObject(12);
+  static DitherObject circles5x5Black() => DitherObject(13);
+  static DitherObject circles5x5White() => DitherObject(14);
+  static DitherObject circles6x6Black() => DitherObject(15);
+  static DitherObject circles6x6White() => DitherObject(16);
+  static DitherObject circles7x7Black() => DitherObject(17);
+  static DitherObject circles7x7White() => DitherObject(18);
+
+  @override
+  String toString() {
+    return value.toString();
   }
 }

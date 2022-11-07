@@ -17,7 +17,8 @@ void main() {
 
   test('Test successful deshake effect formatting', () {
     cldAssert("e_deshake", Effect.deshake());
-    cldAssert("e_deshake:16", Effect.deshake(Deshake(ShakeStrength.pixels16())));
+    cldAssert(
+        "e_deshake:16", Effect.deshake(Deshake(ShakeStrength.pixels16())));
   });
 
   test('Test successful reverse effect formatting', () {
@@ -33,7 +34,29 @@ void main() {
   });
   test('Test successful make transparent effect formatting', () {
     cldAssert("e_make_transparent", Effect.makeTransparent());
-    cldAssert("e_make_transparent:50", Effect.makeTransparent(MakeTransparent(tolerance: 50)));
-    cldAssert("e_make_transparent:50", Effect.makeTransparent(MakeTransparent() ..tolerance(50)));
+    cldAssert("e_make_transparent:50",
+        Effect.makeTransparent(MakeTransparent(tolerance: 50)));
+    cldAssert("e_make_transparent:50",
+        Effect.makeTransparent(MakeTransparent()..tolerance(50)));
+  });
+  test('Test successful fade in effect formatting', () {
+    cldAssert("e_fade", Effect.fadeIn());
+    cldAssert("e_fade:2000", Effect.fadeIn(FadeIn(2000)));
+    cldAssert("e_fade:-2000", Effect.fadeOut(FadeOut(2000)));
+  });
+  test('Test successful loop in effect formatting', () {
+    cldAssert("e_loop", Effect.loop());
+    cldAssert("e_loop:2", Effect.loop(Loop(2)));
+    cldAssert("e_loop:2", Effect.loop(Loop()..additionalIterations(2)));
+  });
+  test('Test successful black white effect formatting', () {
+    cldAssert("e_blackwhite", Effect.blackwhite());
+    cldAssert("e_blackwhite:50", Effect.blackwhite(Blackwhite(50)));
+    cldAssert(
+        "e_blackwhite:50", Effect.blackwhite(Blackwhite()..threshold(50)));
+  });
+  test('Test successful dither effect formatting', () {
+    cldAssert("e_ordered_dither:0",
+        Effect.dither(Dither(DitherObject.threshold1x1NonDither())));
   });
 }
