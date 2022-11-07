@@ -1,8 +1,8 @@
 import 'package:cloudinary_dart/asset/asset.dart';
+import 'package:cloudinary_dart/transformation/transformation.dart';
 
 import '../config/cloud_config.dart';
 import '../config/url_config.dart';
-import '../src/transformation/transformation.dart';
 import 'builders/general_asset_builder.dart';
 
 class Image extends GeneralAssetBuilder {
