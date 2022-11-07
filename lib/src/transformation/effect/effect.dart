@@ -62,6 +62,10 @@ class Effect extends Action {
     return cartoonify ?? Cartoonify();
   }
 
+  static Effect shadow([Shadow? shadow]) {
+    return shadow ?? Shadow();
+  }
+
   @override
   String toString() {
     return 'e';

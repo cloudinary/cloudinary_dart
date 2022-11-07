@@ -1,4 +1,6 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
+import 'package:cloudinary_dart/src/transformation/TransformationUtils.dart';
+import 'package:cloudinary_dart/src/transformation/color.dart';
 import 'package:cloudinary_dart/src/transformation/common.dart';
 
 import 'effect.dart';
@@ -197,10 +199,11 @@ class Vignette extends Effect {
     _strength = strength;
     return this;
   }
-  
+
   @override
   String toString() {
-    return super.toString().joinWithValues(['vignette'], separator: paramKeyValueSeparator).joinWithValues([_strength]);
+    return super.toString().joinWithValues(['vignette'],
+        separator: paramKeyValueSeparator).joinWithValues([_strength]);
   }
 }
 
@@ -218,7 +221,8 @@ class SimulateColorBlind extends Effect {
 
   @override
   String toString() {
-    return super.toString().joinWithValues(['simulate_colorblind'], separator: paramKeyValueSeparator).joinWithValues([_condition]);
+    return super.toString().joinWithValues(['simulate_colorblind'],
+        separator: paramKeyValueSeparator).joinWithValues([_condition]);
   }
 }
 
@@ -227,7 +231,8 @@ class Cartoonify extends Effect {
   dynamic _colorReductionLevel;
   late bool _blackwhite;
 
-  Cartoonify({dynamic lineStrength, dynamic colorReductionLevel, bool? blackwhite}) {
+  Cartoonify(
+      {dynamic lineStrength, dynamic colorReductionLevel, bool? blackwhite}) {
     _lineStrength = lineStrength;
     _colorReductionLevel = colorReductionLevel;
     _blackwhite = blackwhite ?? false;
@@ -247,10 +252,61 @@ class Cartoonify extends Effect {
     _blackwhite = blackwhite;
     return this;
   }
-  
+
   @override
   String toString() {
-    return super.toString().joinWithValues(['cartoonify'], separator: paramKeyValueSeparator).joinWithValues([_lineStrength, ((_blackwhite) ? 'bw' : _colorReductionLevel)]);
+    return super.toString().joinWithValues(['cartoonify'],
+        separator:
+            paramKeyValueSeparator).joinWithValues(
+        [_lineStrength, ((_blackwhite) ? 'bw' : _colorReductionLevel)]);
+  }
+}
+
+class Shadow extends Effect {
+  dynamic _strength;
+  Color? _color;
+  dynamic _offsetX;
+  dynamic _offsetY;
+
+  Shadow({dynamic strength, Color? color, dynamic offsetX, dynamic offsetY}) {
+    _strength = strength;
+    _color = color;
+    _offsetX = offsetX;
+    _offsetY = offsetY;
+  }
+
+  Shadow strength(dynamic strength) {
+    _strength = strength;
+    return this;
+  }
+
+  Shadow color(Color color) {
+    _color = color;
+    return this;
+  }
+
+  Shadow offsetX(dynamic offsetX) {
+    _offsetX = offsetX;
+    return this;
+  }
+
+  Shadow offsetY(dynamic offsetY) {
+    _offsetY = offsetY;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return asComponentString([
+      ((_color != null) ? 'co_$_color' : null),
+      super.toString().joinWithValues(['shadow'],
+          separator:
+              paramKeyValueSeparator).joinWithValues(
+          [_strength]).joinWithValues([
+        ((_offsetX != null) ? 'x_$_offsetX' : null),
+        ((_offsetY != null) ? 'y_$_offsetY' : null)
+      ], separator: paramSeparator)
+    ]);
   }
 }
 

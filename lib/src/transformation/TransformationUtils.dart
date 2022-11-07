@@ -11,3 +11,9 @@ String toComponentString(List<Param?> params) {
       .toList()
       .join(paramSeparator);
 }
+
+String asComponentString(List<String?> args) {
+  var noNullValues = args.whereType<String>().toList();
+  noNullValues.sort((a, b) => a.toString().compareTo(b.toString()));
+  return noNullValues.join(paramSeparator);
+}
