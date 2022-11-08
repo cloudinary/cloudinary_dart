@@ -608,7 +608,7 @@ class GradientFade extends Effect {
 
   GradientFade horizontalStartPoint(dynamic horizontalStartPoint) {
     _horizontalStartPoint = horizontalStartPoint;
-        return this;
+    return this;
   }
 
   GradientFade verticalStartPoint(dynamic verticalStartPoint) {
@@ -619,7 +619,9 @@ class GradientFade extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['gradient_fade'],
-        separator: paramKeyValueSeparator).joinWithValues([_type, _strength, _horizontalStartPoint, _verticalStartPoint]);
+        separator:
+            paramKeyValueSeparator).joinWithValues(
+        [_type, _strength, _horizontalStartPoint, _verticalStartPoint]);
   }
 }
 
@@ -647,19 +649,21 @@ class AssistColorBlind extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['assist_colorblind'],
-        separator: paramKeyValueSeparator).joinWithValues([_strength,(_type == Type.xray) ? 'xray' : null]);
+        separator:
+            paramKeyValueSeparator).joinWithValues(
+        [_strength, (_type == Type.xray) ? 'xray' : null]);
   }
 }
 
 class Theme extends Effect {
   Color _color;
-  int?  _photosensitivity;
+  int? _photosensitivity;
 
   Theme(this._color, {int? photosensitivity}) {
     _photosensitivity = photosensitivity;
   }
 
-  Theme photosensitivity(int photosensitivity){
+  Theme photosensitivity(int photosensitivity) {
     _photosensitivity = photosensitivity;
     return this;
   }
@@ -667,9 +671,11 @@ class Theme extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['theme'],
-        separator: paramKeyValueSeparator).joinWithValues(['color_$_color', (_photosensitivity != null) ? 'photosensitivity_$_photosensitivity' : null]);
+        separator: paramKeyValueSeparator).joinWithValues([
+      'color_$_color',
+      (_photosensitivity != null) ? 'photosensitivity_$_photosensitivity' : null
+    ]);
   }
-
 }
 
 class Noise extends Effect {
@@ -798,7 +804,4 @@ class ArtisticFilter {
   }
 }
 
-enum Type {
-  stripes,
-  xray
-}
+enum Type { stripes, xray }

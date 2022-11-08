@@ -225,21 +225,22 @@ void main() {
         Effect.colorize(Colorize(level: 80)..color(Color.blue())));
   });
   test('Test successful gradient fade effect formatting', () {
-    cldAssert('e_gradient_fade:100', Effect.gradientFade(GradientFade() ..strength(100)));
+    cldAssert('e_gradient_fade:100',
+        Effect.gradientFade(GradientFade()..strength(100)));
   });
   test('Test successful assist color blind effect formatting', () {
     cldAssert("e_assist_colorblind", Effect.assistColorBlind());
-    cldAssert("e_assist_colorblind:8", Effect.assistColorBlind(AssistColorBlind() ..stripesStrength(8)));
-    cldAssert(
-        "e_assist_colorblind:xray", Effect.assistColorBlind(AssistColorBlind() ..xray()));
+    cldAssert("e_assist_colorblind:8",
+        Effect.assistColorBlind(AssistColorBlind()..stripesStrength(8)));
+    cldAssert("e_assist_colorblind:xray",
+        Effect.assistColorBlind(AssistColorBlind()..xray()));
     // cldAssert(
     //     "e_assist_colorblind:\$var1",
     //     Effect.assistColorBlind { stripesStrength("\$var1") })
   });
-  test('Test successful assist theme effect formatting', ()
-  {
+  test('Test successful assist theme effect formatting', () {
     cldAssert("e_theme:color_black", Effect.theme(Theme(Color.black())));
-    cldAssert(
-        "e_theme:color_black:photosensitivity_30", Effect.theme(Theme(Color.black()) ..photosensitivity(30)));
+    cldAssert("e_theme:color_black:photosensitivity_30",
+        Effect.theme(Theme(Color.black())..photosensitivity(30)));
   });
 }
