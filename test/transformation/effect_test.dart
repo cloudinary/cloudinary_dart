@@ -224,4 +224,16 @@ void main() {
     cldAssert("co_blue,e_colorize:80",
         Effect.colorize(Colorize(level: 80)..color(Color.blue())));
   });
+  test('Test successful gradient fade effect formatting', () {
+    cldAssert('e_gradient_fade:100', Effect.gradientFade(GradientFade() ..strength(100)));
+  });
+  test('Test successful assist color blind effect formatting', () {
+    cldAssert("e_assist_colorblind", Effect.assistColorBlind());
+    cldAssert("e_assist_colorblind:8", Effect.assistColorBlind(AssistColorBlind() ..stripesStrength(8)));
+    cldAssert(
+        "e_assist_colorblind:xray", Effect.assistColorBlind(AssistColorBlind() ..xray()));
+    // cldAssert(
+    //     "e_assist_colorblind:\$var1",
+    //     Effect.assistColorBlind { stripesStrength("\$var1") })
+  });
 }

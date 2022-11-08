@@ -110,6 +110,14 @@ class Effect extends Action {
     return colorize ?? Colorize();
   }
 
+  static gradientFade([GradientFade? gradientFade]) {
+    return gradientFade ?? GradientFade();
+  }
+
+  static assistColorBlind([AssistColorBlind? assistColorBlind]) {
+    return assistColorBlind ?? AssistColorBlind();
+  }
+
   @override
   String toString() {
     return 'e';

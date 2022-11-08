@@ -590,6 +590,67 @@ class Colorize extends Effect {
   }
 }
 
+class GradientFade extends Effect {
+  dynamic _strength;
+  dynamic _type;
+  dynamic _horizontalStartPoint;
+  dynamic _verticalStartPoint;
+
+  GradientFade strength(dynamic strength) {
+    _strength = strength;
+    return this;
+  }
+
+  GradientFade type(dynamic type) {
+    _type = type;
+    return this;
+  }
+
+  GradientFade horizontalStartPoint(dynamic horizontalStartPoint) {
+    _horizontalStartPoint = horizontalStartPoint;
+        return this;
+  }
+
+  GradientFade verticalStartPoint(dynamic verticalStartPoint) {
+    _verticalStartPoint = verticalStartPoint;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['gradient_fade'],
+        separator: paramKeyValueSeparator).joinWithValues([_type, _strength, _horizontalStartPoint, _verticalStartPoint]);
+  }
+}
+
+class AssistColorBlind extends Effect {
+  dynamic _strength;
+  Type? _type;
+
+  AssistColorBlind({dynamic strength, Type? type}) {
+    _strength = strength;
+    _type = type;
+  }
+
+  AssistColorBlind stripesStrength(dynamic strength) {
+    _type = Type.stripes;
+    _strength = strength;
+    return this;
+  }
+
+  AssistColorBlind xray() {
+    _type = Type.xray;
+    _strength = null;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['assist_colorblind'],
+        separator: paramKeyValueSeparator).joinWithValues([_strength,(_type == Type.xray) ? 'xray' : null]);
+  }
+}
+
 class Noise extends Effect {
   dynamic level;
 
@@ -714,4 +775,9 @@ class ArtisticFilter {
   String toString() {
     return value;
   }
+}
+
+enum Type {
+  stripes,
+  xray
 }
