@@ -4,6 +4,7 @@ import 'package:cloudinary_dart/src/transformation/color.dart';
 import 'package:cloudinary_dart/src/transformation/common.dart';
 import 'package:cloudinary_dart/src/util/validations.dart';
 
+import '../region.dart';
 import 'effect.dart';
 
 class Sepia extends Effect {
@@ -431,36 +432,95 @@ class Artistic extends Effect {
   }
 }
 
-class ArtisticFilter {
-  String value;
+class Negate extends Effect {
+  @override
+  String toString() {
+    return super
+        .toString()
+        .joinWithValues(['negate'], separator: paramKeyValueSeparator);
+  }
+}
 
-  ArtisticFilter(this.value);
+class RedEye extends Effect {
+  @override
+  String toString() {
+    return super
+        .toString()
+        .joinWithValues(['redeye'], separator: paramKeyValueSeparator);
+  }
+}
 
-  static alDente() => ArtisticFilter("al_dente");
-  static athena() => ArtisticFilter("athena");
-  static audrey() => ArtisticFilter("audrey");
-  static aurora() => ArtisticFilter("aurora");
-  static daguerre() => ArtisticFilter("daguerre");
-  static eucalyptus() => ArtisticFilter("eucalyptus");
-  static fes() => ArtisticFilter("fes");
-  static frost() => ArtisticFilter("frost");
-  static hairspray() => ArtisticFilter("hairspray");
-  static hokusai() => ArtisticFilter("hokusai");
-  static incognito() => ArtisticFilter("incognito");
-  static linen() => ArtisticFilter("linen");
-  static peacock() => ArtisticFilter("peacock");
-  static primavera() => ArtisticFilter("primavera");
-  static quartz() => ArtisticFilter("quartz");
-  static redRock() => ArtisticFilter("red_rock");
-  static refresh() => ArtisticFilter("refresh");
-  static sizzle() => ArtisticFilter("sizzle");
-  static sonnet() => ArtisticFilter("sonnet");
-  static ukulele() => ArtisticFilter("ukulele");
-  static zorro() => ArtisticFilter("zorro");
+class Grayscale extends Effect {
+  @override
+  String toString() {
+    return super
+        .toString()
+        .joinWithValues(['grayscale'], separator: paramKeyValueSeparator);
+  }
+}
+
+class OilPaint extends Effect {
+  dynamic _strength;
+
+  OilPaint([dynamic strength]) {
+    _strength = strength;
+  }
+
+  OilPaint strength(dynamic strength) {
+    _strength = strength;
+    return this;
+  }
 
   @override
   String toString() {
-    return value;
+    return super.toString().joinWithValues(['oil_paint'],
+        separator: paramKeyValueSeparator).joinWithValues([_strength]);
+  }
+}
+
+class AdvancedRedEye extends Effect {
+  @override
+  String toString() {
+    return super
+        .toString()
+        .joinWithValues(['adv_redeye'], separator: paramKeyValueSeparator);
+  }
+}
+
+class Pixelate extends Effect {
+  dynamic _squareSize;
+  Region? _region;
+
+  Pixelate({dynamic squareSize, Region? region}) {
+    _squareSize = squareSize;
+    _region = region;
+  }
+
+  Pixelate squareSize(dynamic squareSize) {
+    _squareSize = squareSize;
+    return this;
+  }
+
+  Pixelate region(Region region) {
+    _region = region;
+    return this;
+  }
+
+  @override
+  String toString() {
+    var parent = super
+        .toString()
+        .joinWithValues(['pixelate'], separator: paramKeyValueSeparator);
+    if (_region != null) {
+      if (_region is Faces) {
+        return parent.joinWithValues([_region],
+            separator: paramKeyValueSeparator).joinWithValues([_squareSize]);
+      }
+      return parent +
+          '_region'.joinWithValues([_squareSize]).joinWithValues([_region],
+              separator: paramSeparator);
+    }
+    return parent.joinWithValues([_squareSize]);
   }
 }
 
@@ -550,6 +610,39 @@ class OutlineMode {
   static innerFill() => OutlineMode("inner_fill");
   static outer() => OutlineMode("outer");
   static fill() => OutlineMode("fill");
+
+  @override
+  String toString() {
+    return value;
+  }
+}
+
+class ArtisticFilter {
+  String value;
+
+  ArtisticFilter(this.value);
+
+  static alDente() => ArtisticFilter("al_dente");
+  static athena() => ArtisticFilter("athena");
+  static audrey() => ArtisticFilter("audrey");
+  static aurora() => ArtisticFilter("aurora");
+  static daguerre() => ArtisticFilter("daguerre");
+  static eucalyptus() => ArtisticFilter("eucalyptus");
+  static fes() => ArtisticFilter("fes");
+  static frost() => ArtisticFilter("frost");
+  static hairspray() => ArtisticFilter("hairspray");
+  static hokusai() => ArtisticFilter("hokusai");
+  static incognito() => ArtisticFilter("incognito");
+  static linen() => ArtisticFilter("linen");
+  static peacock() => ArtisticFilter("peacock");
+  static primavera() => ArtisticFilter("primavera");
+  static quartz() => ArtisticFilter("quartz");
+  static redRock() => ArtisticFilter("red_rock");
+  static refresh() => ArtisticFilter("refresh");
+  static sizzle() => ArtisticFilter("sizzle");
+  static sonnet() => ArtisticFilter("sonnet");
+  static ukulele() => ArtisticFilter("ukulele");
+  static zorro() => ArtisticFilter("zorro");
 
   @override
   String toString() {

@@ -78,6 +78,30 @@ class Effect extends Action {
     return Artistic(filter);
   }
 
+  static Effect negate([Negate? negate]) {
+    return negate ?? Negate();
+  }
+
+  static Effect redEye([RedEye? redEye]) {
+    return redEye ?? RedEye();
+  }
+
+  static Effect grayscale([Grayscale? grayscale]) {
+    return grayscale ?? Grayscale();
+  }
+
+  static oilPaint([OilPaint? oilPaint]) {
+    return oilPaint ?? OilPaint();
+  }
+
+  static advancedRedEye([AdvancedRedEye? advancedRedEye]) {
+    return advancedRedEye ?? AdvancedRedEye();
+  }
+
+  static pixelate([Pixelate? pixelate]) {
+    return pixelate ?? Pixelate();
+  }
+
   @override
   String toString() {
     return 'e';

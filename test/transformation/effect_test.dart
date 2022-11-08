@@ -1,6 +1,7 @@
 import 'package:cloudinary_dart/src/transformation/color.dart';
 import 'package:cloudinary_dart/src/transformation/effect/effect.dart';
 import 'package:cloudinary_dart/src/transformation/effect/effect_actions.dart';
+import 'package:cloudinary_dart/src/transformation/region.dart';
 import 'package:test/test.dart';
 
 import '../tests_utils.dart';
@@ -150,5 +151,46 @@ void main() {
   test('Test successful artistic effect formatting', () {
     cldAssert(
         "e_art:al_dente", Effect.artisticFilter(ArtisticFilter.alDente()));
+  });
+  test('Test successful negate effect formatting', () {
+    cldAssert("e_negate", Effect.negate());
+  });
+  test('Test successful redeye effect formatting', () {
+    cldAssert("e_redeye", Effect.redEye());
+  });
+  test('Test successful grayscale effect formatting', () {
+    cldAssert("e_grayscale", Effect.grayscale());
+  });
+  test('Test successful oil paint effect formatting', () {
+    cldAssert("e_oil_paint", Effect.oilPaint());
+    cldAssert("e_oil_paint:40", Effect.oilPaint(OilPaint(40)));
+    cldAssert("e_oil_paint:40", Effect.oilPaint(OilPaint()..strength(40)));
+  });
+  test('Test successful advanced redeye effect formatting', () {
+    cldAssert("e_adv_redeye", Effect.advancedRedEye());
+  });
+  test('Test successful pixelate effect formatting', () {
+    cldAssert("e_pixelate", Effect.pixelate());
+    cldAssert("e_pixelate:3", Effect.pixelate(Pixelate()..squareSize(3)));
+    cldAssert(
+        "e_pixelate_region:20,h_40,w_40,x_20,y_20",
+        Effect.pixelate(Pixelate()
+          ..squareSize(20)
+          ..region(Custom()
+            ..x(20)
+            ..y(20)
+            ..width(40)
+            ..height(40)))); // {
+    cldAssert("e_pixelate_faces", Effect.pixelate(Pixelate()..region(Faces())));
+    cldAssert(
+        "e_pixelate_faces:7",
+        Effect.pixelate(Pixelate()
+          ..squareSize(7)
+          ..region(Faces())));
+    cldAssert(
+        "e_pixelate_region:7,g_ocr_text",
+        Effect.pixelate(Pixelate()
+          ..squareSize(7)
+          ..region(OCR())));
   });
 }
