@@ -193,4 +193,35 @@ void main() {
           ..squareSize(7)
           ..region(OCR())));
   });
+  test('Test successful blur effect formatting', () {
+    cldAssert("e_blur", Effect.blur());
+    // cldAssert("e_blur:100_div_2", Effect.blur { strength(Expression("100 / 2")) })
+    cldAssert("e_blur:300", Effect.blur(Blur()..strength(300)));
+    cldAssert(
+        "e_blur_region:200,h_40,w_40,x_10,y_20",
+        Effect.blur(Blur()
+          ..strength(200)
+          ..region(Custom()
+            ..x(10)
+            ..y(20)
+            ..width(40)
+            ..height(40))));
+    cldAssert("e_blur_faces", Effect.blur(Blur()..region(Faces())));
+    cldAssert(
+        "e_blur_faces:600",
+        Effect.blur(Blur()
+          ..region(Faces())
+          ..strength(600)));
+    cldAssert(
+        "e_blur_region:600,g_ocr_text",
+        Effect.blur(Blur()
+          ..region(OCR())
+          ..strength(600)));
+  });
+  test('Test successful colorize effect formatting', () {
+    cldAssert("e_colorize", Effect.colorize());
+    cldAssert("e_colorize:80", Effect.colorize(Colorize()..level(80)));
+    cldAssert("co_blue,e_colorize:80",
+        Effect.colorize(Colorize(level: 80)..color(Color.blue())));
+  });
 }

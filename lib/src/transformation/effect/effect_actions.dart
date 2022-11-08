@@ -524,6 +524,72 @@ class Pixelate extends Effect {
   }
 }
 
+class Blur extends Effect {
+  dynamic _strength;
+  Region? _region;
+
+  Blur({dynamic strength, Region? region}) {
+    _strength = strength;
+    _region = region;
+  }
+
+  Blur strength(dynamic strength) {
+    _strength = strength;
+    return this;
+  }
+
+  Blur region(Region region) {
+    _region = region;
+    return this;
+  }
+
+  @override
+  String toString() {
+    var parent = super
+        .toString()
+        .joinWithValues(['blur'], separator: paramKeyValueSeparator);
+    if (_region != null) {
+      if (_region is Faces) {
+        return parent.joinWithValues([_region],
+            separator: paramKeyValueSeparator).joinWithValues([_strength]);
+      }
+      return parent +
+          '_region'.joinWithValues([_strength]).joinWithValues([_region],
+              separator: paramSeparator);
+    }
+    return parent.joinWithValues([_strength]);
+  }
+}
+
+class Colorize extends Effect {
+  dynamic _level;
+  Color? _color;
+
+  Colorize({dynamic level, Color? color}) {
+    _level = level;
+    _color = color;
+  }
+
+  Colorize level(dynamic level) {
+    _level = level;
+    return this;
+  }
+
+  Colorize color(Color color) {
+    _color = color;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return asComponentString([
+      ((_color != null) ? 'co_$_color' : null),
+      super.toString().joinWithValues(['colorize'],
+          separator: paramKeyValueSeparator).joinWithValues([_level])
+    ]);
+  }
+}
+
 class Noise extends Effect {
   dynamic level;
 

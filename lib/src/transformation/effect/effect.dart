@@ -102,6 +102,14 @@ class Effect extends Action {
     return pixelate ?? Pixelate();
   }
 
+  static blur([Blur? blur]) {
+    return blur ?? Blur();
+  }
+
+  static colorize([Colorize? colorize]) {
+    return colorize ?? Colorize();
+  }
+
   @override
   String toString() {
     return 'e';
