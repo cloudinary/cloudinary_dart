@@ -651,6 +651,27 @@ class AssistColorBlind extends Effect {
   }
 }
 
+class Theme extends Effect {
+  Color _color;
+  int?  _photosensitivity;
+
+  Theme(this._color, {int? photosensitivity}) {
+    _photosensitivity = photosensitivity;
+  }
+
+  Theme photosensitivity(int photosensitivity){
+    _photosensitivity = photosensitivity;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['theme'],
+        separator: paramKeyValueSeparator).joinWithValues(['color_$_color', (_photosensitivity != null) ? 'photosensitivity_$_photosensitivity' : null]);
+  }
+
+}
+
 class Noise extends Effect {
   dynamic level;
 

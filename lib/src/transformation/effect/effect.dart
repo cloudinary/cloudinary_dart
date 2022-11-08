@@ -118,6 +118,10 @@ class Effect extends Action {
     return assistColorBlind ?? AssistColorBlind();
   }
 
+  static theme(Theme theme) {
+    return theme;
+  }
+
   @override
   String toString() {
     return 'e';

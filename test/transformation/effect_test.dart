@@ -236,4 +236,10 @@ void main() {
     //     "e_assist_colorblind:\$var1",
     //     Effect.assistColorBlind { stripesStrength("\$var1") })
   });
+  test('Test successful assist theme effect formatting', ()
+  {
+    cldAssert("e_theme:color_black", Effect.theme(Theme(Color.black())));
+    cldAssert(
+        "e_theme:color_black:photosensitivity_30", Effect.theme(Theme(Color.black()) ..photosensitivity(30)));
+  });
 }
