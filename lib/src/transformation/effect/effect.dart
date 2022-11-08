@@ -66,6 +66,18 @@ class Effect extends Action {
     return shadow ?? Shadow();
   }
 
+  static Effect vectorize([Vectorize? vectorize]) {
+    return vectorize ?? Vectorize();
+  }
+
+  static Effect outline([Outline? outline]) {
+    return outline ?? Outline();
+  }
+
+  static Effect artisticFilter(ArtisticFilter filter) {
+    return Artistic(filter);
+  }
+
   @override
   String toString() {
     return 'e';

@@ -2,6 +2,7 @@ import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_dart/src/transformation/TransformationUtils.dart';
 import 'package:cloudinary_dart/src/transformation/color.dart';
 import 'package:cloudinary_dart/src/transformation/common.dart';
+import 'package:cloudinary_dart/src/util/validations.dart';
 
 import 'effect.dart';
 
@@ -310,6 +311,159 @@ class Shadow extends Effect {
   }
 }
 
+class Vectorize extends Effect {
+  dynamic _numOfColors;
+  dynamic _detailsLevel;
+  dynamic _despeckleLevel;
+  dynamic _paths;
+  dynamic _cornersLevel;
+
+  Vectorize(
+      {dynamic numOfColors,
+      dynamic detailsLevel,
+      dynamic despeckleLevel,
+      dynamic paths,
+      dynamic cornersLevel}) {
+    _numOfColors = numOfColors;
+    _detailsLevel = detailsLevel;
+    _despeckleLevel = despeckleLevel;
+    _paths = paths;
+    _cornersLevel = cornersLevel;
+  }
+
+  Vectorize numOfColors(dynamic numOfColors) {
+    _numOfColors = numOfColors;
+    return this;
+  }
+
+  Vectorize detailsLevel(dynamic detailsLevel) {
+    _detailsLevel = detailsLevel;
+    return this;
+  }
+
+  Vectorize despeckleLevel(dynamic despeckleLevel) {
+    _despeckleLevel = despeckleLevel;
+    return this;
+  }
+
+  Vectorize paths(dynamic paths) {
+    _paths = paths;
+    return this;
+  }
+
+  Vectorize cornersLevel(dynamic cornersLevel) {
+    _cornersLevel = cornersLevel;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['vectorize'],
+        separator: paramKeyValueSeparator).joinWithValues([
+      ((_numOfColors != null) ? 'colors:$_numOfColors' : null),
+      ((_detailsLevel != null) ? 'detail:$_detailsLevel' : null),
+      ((_despeckleLevel != null) ? 'despeckle:$_despeckleLevel' : null),
+      ((_paths != null) ? 'paths:$_paths' : null),
+      ((_cornersLevel != null) ? 'corners:$_cornersLevel' : null)
+    ]);
+  }
+}
+
+class Outline extends Effect {
+  dynamic _mode;
+  Color? _color;
+  int? _width;
+  int? _blurLevel;
+
+  Outline({dynamic mode, Color? color, int? width, int? blurLevel}) {
+    _mode = mode;
+    _color = color;
+    _width = width.cldRange(1, 100);
+    _blurLevel = blurLevel.cldRange(0, 200);
+  }
+
+  Outline mode(dynamic mode) {
+    _mode = mode;
+    return this;
+  }
+
+  Outline color(Color color) {
+    _color = color;
+    return this;
+  }
+
+  Outline colorWithString(String color) {
+    _color = Color.parseString(color);
+    return this;
+  }
+
+  Outline width(int width) {
+    _width = width;
+    return this;
+  }
+
+  Outline blurLevel(int blurLevel) {
+    _blurLevel = blurLevel;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return asComponentString([
+      ((_color != null) ? 'co_$_color' : null),
+      super.toString().joinWithValues(['outline'],
+          separator:
+              paramKeyValueSeparator).joinWithValues(
+          [_mode, _width, _blurLevel])
+    ]);
+  }
+}
+
+class Artistic extends Effect {
+  ArtisticFilter filter;
+
+  Artistic(this.filter);
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['art'],
+        separator: paramKeyValueSeparator).joinWithValues([filter]);
+  }
+}
+
+class ArtisticFilter {
+  String value;
+
+  ArtisticFilter(this.value);
+
+  static alDente() => ArtisticFilter("al_dente");
+  static athena() => ArtisticFilter("athena");
+  static audrey() => ArtisticFilter("audrey");
+  static aurora() => ArtisticFilter("aurora");
+  static daguerre() => ArtisticFilter("daguerre");
+  static eucalyptus() => ArtisticFilter("eucalyptus");
+  static fes() => ArtisticFilter("fes");
+  static frost() => ArtisticFilter("frost");
+  static hairspray() => ArtisticFilter("hairspray");
+  static hokusai() => ArtisticFilter("hokusai");
+  static incognito() => ArtisticFilter("incognito");
+  static linen() => ArtisticFilter("linen");
+  static peacock() => ArtisticFilter("peacock");
+  static primavera() => ArtisticFilter("primavera");
+  static quartz() => ArtisticFilter("quartz");
+  static redRock() => ArtisticFilter("red_rock");
+  static refresh() => ArtisticFilter("refresh");
+  static sizzle() => ArtisticFilter("sizzle");
+  static sonnet() => ArtisticFilter("sonnet");
+  static ukulele() => ArtisticFilter("ukulele");
+  static zorro() => ArtisticFilter("zorro");
+
+  @override
+  String toString() {
+    return value;
+  }
+}
+
 class Noise extends Effect {
   dynamic level;
 
@@ -380,6 +534,22 @@ class SimulateColorBlindObject {
   static deuteranomaly() => SimulateColorBlindObject("deuteranomaly");
   static cone_monochromacy() => SimulateColorBlindObject("cone_monochromacy");
   static rod_monochromacy() => SimulateColorBlindObject("rod_monochromacy");
+
+  @override
+  String toString() {
+    return value;
+  }
+}
+
+class OutlineMode {
+  String value;
+
+  OutlineMode(this.value);
+
+  static inner() => OutlineMode("inner");
+  static innerFill() => OutlineMode("inner_fill");
+  static outer() => OutlineMode("outer");
+  static fill() => OutlineMode("fill");
 
   @override
   String toString() {

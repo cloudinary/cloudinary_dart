@@ -112,4 +112,43 @@ void main() {
           ..offsetX(20)
           ..offsetY(-20)));
   });
+  test('Test successful vectorize effect formatting', () {
+    cldAssert("e_vectorize", Effect.vectorize());
+    cldAssert(
+        "e_vectorize:colors:15:detail:2:despeckle:0.5:paths:4:corners:5",
+        Effect.vectorize(Vectorize()
+          ..numOfColors(15)
+          ..detailsLevel(2)
+          ..despeckleLevel(0.5)
+          ..paths(4)
+          ..cornersLevel(5)));
+  });
+  test('Test successful outline effect formatting', () {
+    cldAssert("e_outline", Effect.outline());
+    cldAssert("e_outline:inner_fill",
+        Effect.outline(Outline()..mode(OutlineMode.innerFill())));
+    cldAssert(
+        "co_red,e_outline:inner_fill:5",
+        Effect.outline(Outline()
+          ..mode(OutlineMode.innerFill())
+          ..width(5)
+          ..color(Color.red())));
+
+    cldAssert(
+        "co_red,e_outline:inner_fill:5:200",
+        Effect.outline(Outline()
+          ..mode(OutlineMode.innerFill())
+          ..blurLevel(200).width(5)
+          ..color(Color.red())));
+    cldAssert(
+        "co_red,e_outline:inner_fill:5:200",
+        Effect.outline(Outline()
+          ..mode(OutlineMode.innerFill())
+          ..blurLevel(200).width(5)
+          ..colorWithString('red')));
+  });
+  test('Test successful artistic effect formatting', () {
+    cldAssert(
+        "e_art:al_dente", Effect.artisticFilter(ArtisticFilter.alDente()));
+  });
 }
