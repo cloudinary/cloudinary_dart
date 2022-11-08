@@ -90,39 +90,39 @@ class Effect extends Action {
     return grayscale ?? Grayscale();
   }
 
-  static oilPaint([OilPaint? oilPaint]) {
+  static Effect oilPaint([OilPaint? oilPaint]) {
     return oilPaint ?? OilPaint();
   }
 
-  static advancedRedEye([AdvancedRedEye? advancedRedEye]) {
+  static Effect advancedRedEye([AdvancedRedEye? advancedRedEye]) {
     return advancedRedEye ?? AdvancedRedEye();
   }
 
-  static pixelate([Pixelate? pixelate]) {
+  static Effect pixelate([Pixelate? pixelate]) {
     return pixelate ?? Pixelate();
   }
 
-  static blur([Blur? blur]) {
+  static Effect blur([Blur? blur]) {
     return blur ?? Blur();
   }
 
-  static colorize([Colorize? colorize]) {
+  static Effect colorize([Colorize? colorize]) {
     return colorize ?? Colorize();
   }
 
-  static gradientFade([GradientFade? gradientFade]) {
+  static Effect gradientFade([GradientFade? gradientFade]) {
     return gradientFade ?? GradientFade();
   }
 
-  static assistColorBlind([AssistColorBlind? assistColorBlind]) {
+  static Effect assistColorBlind([AssistColorBlind? assistColorBlind]) {
     return assistColorBlind ?? AssistColorBlind();
   }
 
-  static theme(Theme theme) {
+  static Effect theme(Theme theme) {
     return theme;
   }
 
-  static removeBackground([RemoveBackground? removeBackground]) {
+  static Effect removeBackground([RemoveBackground? removeBackground]) {
     return removeBackground ?? RemoveBackground();
   }
 
