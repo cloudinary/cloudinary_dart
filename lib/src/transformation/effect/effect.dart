@@ -122,6 +122,10 @@ class Effect extends Action {
     return theme;
   }
 
+  static removeBackground([RemoveBackground? removeBackground]) {
+    return removeBackground ?? RemoveBackground();
+  }
+
   @override
   String toString() {
     return 'e';

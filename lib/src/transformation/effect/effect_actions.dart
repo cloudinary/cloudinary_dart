@@ -678,6 +678,35 @@ class Theme extends Effect {
   }
 }
 
+class RemoveBackground extends Effect {
+  bool? _screen;
+  Color? _colorToRemove;
+
+  RemoveBackground({bool? screen, Color? color}) {
+    _screen = screen;
+    _colorToRemove = color;
+  }
+
+  RemoveBackground screen(bool screen) {
+    _screen = screen;
+    return this;
+  }
+
+  RemoveBackground colorToRemove(Color colorToRemove) {
+    _colorToRemove = colorToRemove;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['bgremoval'],
+        separator: paramKeyValueSeparator).joinWithValues([
+      ((_screen != null) ? 'screen' : null),
+      _colorToRemove?.toStringWithPrefix(false)
+    ]);
+  }
+}
+
 class Noise extends Effect {
   dynamic level;
 

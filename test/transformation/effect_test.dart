@@ -238,9 +238,24 @@ void main() {
     //     "e_assist_colorblind:\$var1",
     //     Effect.assistColorBlind { stripesStrength("\$var1") })
   });
-  test('Test successful assist theme effect formatting', () {
+  test('Test successful theme effect formatting', () {
     cldAssert("e_theme:color_black", Effect.theme(Theme(Color.black())));
     cldAssert("e_theme:color_black:photosensitivity_30",
         Effect.theme(Theme(Color.black())..photosensitivity(30)));
+  });
+  test('Test successful remove background effect formatting', () {
+    cldAssert("e_bgremoval", Effect.removeBackground());
+
+    cldAssert("e_bgremoval:screen",
+        Effect.removeBackground(RemoveBackground()..screen(true)));
+    cldAssert(
+        "e_bgremoval:red",
+        Effect.removeBackground(
+            RemoveBackground()..colorToRemove(Color.red())));
+    cldAssert(
+        "e_bgremoval:screen:red",
+        Effect.removeBackground(RemoveBackground()
+          ..screen(true)
+          ..colorToRemove(Color.red())));
   });
 }
