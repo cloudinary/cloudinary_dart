@@ -5,7 +5,7 @@ import '../config/url_config.dart';
 import '../transformation/transformation.dart';
 import 'builders/general_asset_builder.dart';
 
-class Video extends GeneralAssetBuilder {
+class Video extends GeneralAsset {
   Video(String publicId,
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,

@@ -2,7 +2,7 @@ import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
 import '../../transformation/transformation.dart';
 
-abstract class GeneralAssetBuilder {
+abstract class GeneralAsset {
   //config
   CloudConfig? _cloudConfig;
   UrlConfig? _urlConfig = UrlConfig();
@@ -17,7 +17,7 @@ abstract class GeneralAssetBuilder {
   String? _deliveryType;
   TransformationObject? _transformation;
 
-  GeneralAssetBuilder(
+  GeneralAsset(
       [this._cloudConfig,
       this._urlConfig,
       this._version,
@@ -28,47 +28,47 @@ abstract class GeneralAssetBuilder {
       this._deliveryType,
       this._transformation]);
 
-  GeneralAssetBuilder cloudConfig(CloudConfig cloudConfig) {
+  GeneralAsset cloudConfig(CloudConfig cloudConfig) {
     _cloudConfig = cloudConfig;
     return this;
   }
 
-  GeneralAssetBuilder urlConfig(UrlConfig urlConfig) {
+  GeneralAsset urlConfig(UrlConfig urlConfig) {
     _urlConfig = urlConfig;
     return this;
   }
 
-  GeneralAssetBuilder version(String version) {
+  GeneralAsset version(String version) {
     _version = version;
     return this;
   }
 
-  GeneralAssetBuilder publicId(String publicId) {
+  GeneralAsset publicId(String publicId) {
     _publicId = publicId;
     return this;
   }
 
-  GeneralAssetBuilder extension(String extension) {
+  GeneralAsset extension(String extension) {
     _extension = extension;
     return this;
   }
 
-  GeneralAssetBuilder urlSuffix(String urlSuffix) {
+  GeneralAsset urlSuffix(String urlSuffix) {
     _urlSuffix = urlSuffix;
     return this;
   }
 
-  GeneralAssetBuilder deliveryType(String deliveryType) {
+  GeneralAsset deliveryType(String deliveryType) {
     _deliveryType = deliveryType;
     return this;
   }
 
-  GeneralAssetBuilder assetType(String assetType) {
+  GeneralAsset assetType(String assetType) {
     _assetType = assetType;
     return this;
   }
 
-  GeneralAssetBuilder transformation(Transformation transformation) {
+  GeneralAsset transformation(Transformation transformation) {
     _transformation = transformation.build();
     return this;
   }
