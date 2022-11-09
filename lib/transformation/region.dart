@@ -1,5 +1,6 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/src/transformation/common.dart';
+
+import 'common.dart';
 
 class Region {
   static Region faces(Faces faces) {

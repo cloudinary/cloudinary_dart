@@ -1,9 +1,9 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/src/transformation/TransformationUtils.dart';
-import 'package:cloudinary_dart/src/transformation/color.dart';
-import 'package:cloudinary_dart/src/transformation/common.dart';
 import 'package:cloudinary_dart/src/util/validations.dart';
 
+import '../TransformationUtils.dart';
+import '../color.dart';
+import '../common.dart';
 import '../region.dart';
 import 'effect.dart';
 
@@ -20,6 +20,7 @@ class Sepia extends Effect {
         separator: paramKeyValueSeparator).joinWithValues([level]);
   }
 }
+
 /// Class Accelerate
 /// rate  The percentage change of speed. Positive numbers speed up the playback, negative numbers
 /// slow down the playback (Range: -50 to 100, Server default: 0).
@@ -44,7 +45,6 @@ class Deshake extends Effect {
   ShakeStrength? factor;
 
   Deshake([this.factor]);
-
 
   /// shakeStrength   The maximum number of pixels in the horizontal and vertical direction that will be
   /// addressed. (Possible values: 16, 32, 48, 64. Server default: 16)
@@ -412,6 +412,7 @@ class Vectorize extends Effect {
     ]);
   }
 }
+
 /// Class Outline
 /// mode      The type of outline effect. Use the constants defined in the Outline class.
 /// (Default: OutlineMode.inner() and OutlineMode.outer()).
@@ -655,6 +656,17 @@ class GradientFade extends Effect {
   dynamic _type;
   dynamic _horizontalStartPoint;
   dynamic _verticalStartPoint;
+
+  GradientFade(
+      {dynamic strength,
+      dynamic type,
+      dynamic horizontalStartPoint,
+      dynamic verticalStartPoint}) {
+    _strength = strength;
+    _type = type;
+    _horizontalStartPoint = horizontalStartPoint;
+    _verticalStartPoint = verticalStartPoint;
+  }
 
   GradientFade strength(dynamic strength) {
     _strength = strength;
