@@ -96,17 +96,17 @@ abstract class Resize extends Action {
   /// Change the size of the image exactly to the given width and height without necessarily retaining the original
   /// aspect ratio: all original image parts are visible but might be stretched or shrunk.
   ///
-  /// Receives [Scale] and returns [Resize] object.
-  static Resize scale(Scale scale) {
-    return scale;
+  /// returns [Scale] object.
+  static Scale scale() {
+    return Scale();
   }
 
   /// The image is resized so that it takes up as much space as possible within a bounding box defined by the given
   /// width and height qualifiers. The original aspect ratio is retained and all of the original image is visible.
   ///
-  /// Receives [Fit] and returns [Resize] object.
-  static Resize fit(Fit fit) {
-    return fit;
+  /// returns [Fit] object.
+  static Fit fit() {
+    return Fit();
   }
 
   /// Same as the Scale::fit mode but only if the original image is larger than the given limit (width and
@@ -114,9 +114,9 @@ abstract class Resize extends Action {
   /// box defined by the given width and height qualifiers. The original aspect ratio is retained and all of the
   /// original image is visible.
   ///
-  /// Receives [LimitFit] returns [Resize]
-  static Resize limitFit(LimitFit limitFit) {
-    return limitFit;
+  /// returns [LimitFit]
+  static LimitFit limitFit() {
+    return LimitFit();
   }
 
   /// Same as the Scale::fit mode but only if the original image is smaller than the given minimum (width and
@@ -124,25 +124,25 @@ abstract class Resize extends Action {
   /// box defined by the given width and height qualifiers. The original aspect ratio is retained and all of the
   /// original image is visible.
   ///
-  /// Receives [MinimumFit] returns [Resize]
-  static Resize minimumFit(MinimumFit minimumFit) {
-    return minimumFit;
+  /// returns [MinimumFit]
+  static MinimumFit minimumFit() {
+    return MinimumFit();
   }
 
   /// Extracts a region of the given width and height out of the original image.
   ///
-  /// Receives [Crop], returns [Resize] object.
-  static Resize crop(Crop crop) {
-    return crop;
+  /// returns [Crop] object.
+  static Crop crop() {
+    return Crop();
   }
 
   /// The thumb cropping mode is specifically used for creating image thumbnails from either face or custom
   /// coordinates, and must always be accompanied by the gravity qualifier set to one of the face detection or custom
   /// values.
   ///
-  /// Receives [Thumbnail], returns [Resize] object.
-  static Resize thumbnail(Thumbnail thumbnail) {
-    return thumbnail;
+  /// returns [Thumbnail] object.
+  static Thumbnail thumbnail() {
+    return Thumbnail();
   }
 
   /// * Resizes the image to fill the given width and height while retaining the original aspect ratio and with all of
@@ -151,9 +151,9 @@ abstract class Resize extends Action {
   /// If the proportions of the original image do not match the given width and height,
   /// padding is added to the image to reach the required size
   ///
-  /// Receives [Pad] returns [Resize] object
-  static Resize pad(Pad pad) {
-    return pad;
+  /// returns [Pad] object
+  static Pad pad() {
+    return Pad();
   }
 
   /// Same as the [Pad] mode but only if the original image is larger than the given limit (width and
@@ -162,9 +162,9 @@ abstract class Resize extends Action {
   ///
   ///This mode doesn't scale up the image if your requested dimensions are bigger than the original image's.
   ///
-  /// Receives [LimitPad] returns [Resize] object
-  static Resize limitPad(LimitPad limitPad) {
-    return limitPad;
+  /// returns [LimitPad] object
+  static LimitPad limitPad() {
+    return LimitPad();
   }
 
   /// Same as the [Pad] mode but only if the original image is smaller than the given minimum (width and
@@ -173,9 +173,9 @@ abstract class Resize extends Action {
   ///
   ///This mode doesn't scale down the image if your requested dimensions are smaller than the original image's.
   ///
-  /// Receives [MinimumPad] returns [Resize] object
-  static Resize minimumPad(MinimumPad minimumPad) {
-    return minimumPad;
+  /// returns [MinimumPad] object
+  static MinimumPad minimumPad() {
+    return MinimumPad();
   }
 
   /// Creates an asset with the exact given width and height without distorting the asset.
@@ -184,9 +184,9 @@ abstract class Resize extends Action {
   /// aspect ratio is different than the original, cropping will occur on the dimension that exceeds the requested
   /// size after scaling.
   ///
-  /// Receives [Fill], returns [Resize] object
-  static Resize fill(Fill fill) {
-    return fill;
+  /// returns [Fill] object
+  static Fill fill() {
+    return Fill();
   }
 
   /// Creates an asset with the exact given width and height without distorting the asset, but only if the original
@@ -196,8 +196,8 @@ abstract class Resize extends Action {
   /// that exceeds the request is cropped. If the original dimensions are both smaller than the requested size, it is
   /// not resized at all.
   ///
-  /// Receives [LimitFill], returns [Resize] object.
-  static Resize limitFill(LimitFill limitFill) {
-    return limitFill;
+  /// returns [LimitFill] object.
+  static LimitFill limitFill() {
+    return LimitFill();
   }
 }
