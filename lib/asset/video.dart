@@ -24,6 +24,11 @@ class Video extends GeneralAssetBuilder {
   VideoObject build() {
     return VideoObject.withBuilder(this);
   }
+
+  @override
+  String toString() {
+    return VideoObject.withBuilder(this).toString();
+  }
 }
 
 class VideoObject extends BaseAsset {

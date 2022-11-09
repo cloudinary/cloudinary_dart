@@ -36,6 +36,11 @@ class Asset extends GeneralAssetBuilder {
   AssetObject build() {
     return AssetObject.withBuilder(this);
   }
+
+  @override
+  String toString() {
+    return AssetObject.withBuilder(this).toString();
+  }
 }
 
 class AssetObject extends BaseAsset {
