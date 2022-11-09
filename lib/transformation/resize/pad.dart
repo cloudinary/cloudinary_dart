@@ -1,8 +1,8 @@
-import 'package:cloudinary_dart/src/transformation/gravity/gravity.dart';
-import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
+import 'package:cloudinary_dart/transformation/resize/resize.dart';
 
 import '../background/background.dart';
 import '../common.dart';
+import '../gravity/gravity.dart';
 
 abstract class BasePad extends Resize {
   Gravity? _gravity;

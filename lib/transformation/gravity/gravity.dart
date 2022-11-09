@@ -1,5 +1,5 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/src/transformation/transformation.dart';
+import 'package:cloudinary_dart/transformation/transformation.dart';
 
 import 'focus_on.dart';
 

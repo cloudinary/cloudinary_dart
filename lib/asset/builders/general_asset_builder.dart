@@ -1,7 +1,6 @@
-import 'package:cloudinary_dart/src/transformation/transformation.dart';
-
 import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
+import '../../transformation/transformation.dart';
 import '../asset.dart';
 
 abstract class GeneralAssetBuilder {
