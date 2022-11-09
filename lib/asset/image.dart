@@ -21,11 +21,6 @@ class Image extends GeneralAssetBuilder {
   }
 
   @override
-  ImageObject build() {
-    return ImageObject.withBuilder(this);
-  }
-
-  @override
   String toString() {
     return ImageObject.withBuilder(this).toString();
   }

@@ -1,7 +1,6 @@
 import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
 import '../../transformation/transformation.dart';
-import '../asset.dart';
 
 abstract class GeneralAssetBuilder {
   //config
@@ -108,19 +107,5 @@ abstract class GeneralAssetBuilder {
 
   TransformationObject? getTransformation() {
     return _transformation;
-  }
-
-  void combineWith(GeneralAssetBuilder other) {
-    _version = other._version ?? _version;
-    _publicId = other._publicId ?? _publicId;
-    _extension = other._extension ?? _extension;
-    _urlSuffix = other._urlSuffix ?? _urlSuffix;
-    _assetType = other._assetType;
-    _deliveryType = other._deliveryType ?? _deliveryType;
-    _transformation = other._transformation ?? _transformation;
-  }
-
-  dynamic build() {
-    return AssetObject.withBuilder(this);
   }
 }

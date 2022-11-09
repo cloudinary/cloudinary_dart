@@ -33,11 +33,6 @@ class Asset extends GeneralAssetBuilder {
   }
 
   @override
-  AssetObject build() {
-    return AssetObject.withBuilder(this);
-  }
-
-  @override
   String toString() {
     return AssetObject.withBuilder(this).toString();
   }
