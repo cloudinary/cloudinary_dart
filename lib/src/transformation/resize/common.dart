@@ -28,7 +28,7 @@ class AspectRatio {
   }
 }
 
-abstract class BaseBuilder<R> extends TransformationComponentBuilder {
+abstract class BaseResizeBuilder<R> extends TransformationComponentBuilder {
   dynamic _width;
   dynamic _height;
   dynamic _aspectRatio;

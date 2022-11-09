@@ -122,6 +122,6 @@ abstract class GeneralAssetBuilder {
   }
 
   dynamic build() {
-    return Asset.withBuilder(this);
+    return AssetObject.withBuilder(this);
   }
 }
