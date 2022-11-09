@@ -5,10 +5,10 @@ import 'package:cloudinary_dart/asset/video.dart';
 import 'package:cloudinary_dart/cloudinary.dart';
 import 'package:cloudinary_dart/config/cloudinary_config.dart';
 import 'package:cloudinary_dart/config/url_config.dart';
-import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
-import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
-import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
-import 'package:cloudinary_dart/src/transformation/transformation.dart';
+import 'package:cloudinary_dart/transformation/delivery/delivery.dart';
+import 'package:cloudinary_dart/transformation/delivery/delivery_actions.dart';
+import 'package:cloudinary_dart/transformation/resize/resize.dart';
+import 'package:cloudinary_dart/transformation/transformation.dart';
 import 'package:test/test.dart';
 
 import 'tests_utils.dart';

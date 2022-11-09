@@ -1,8 +1,8 @@
-import 'package:cloudinary_dart/src/transformation/background/background.dart';
-import 'package:cloudinary_dart/src/transformation/background/border_background.dart';
-import 'package:cloudinary_dart/src/transformation/color.dart';
-import 'package:cloudinary_dart/src/transformation/gravity/gravity.dart';
-import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
+import 'package:cloudinary_dart/transformation/background/background.dart';
+import 'package:cloudinary_dart/transformation/background/border_background.dart';
+import 'package:cloudinary_dart/transformation/color.dart';
+import 'package:cloudinary_dart/transformation/gravity/gravity.dart';
+import 'package:cloudinary_dart/transformation/resize/resize.dart';
 import 'package:test/scaffolding.dart';
 
 import '../tests_utils.dart';
