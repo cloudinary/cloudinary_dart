@@ -7,6 +7,8 @@ import 'package:cloudinary_dart/src/util/validations.dart';
 import '../region.dart';
 import 'effect.dart';
 
+/// Class Sepia
+/// level The level of sepia to apply. (Range: 1 to 100, Server default: 80)
 class Sepia extends Effect {
   dynamic level;
 
@@ -18,7 +20,9 @@ class Sepia extends Effect {
         separator: paramKeyValueSeparator).joinWithValues([level]);
   }
 }
-
+/// Class Accelerate
+/// rate  The percentage change of speed. Positive numbers speed up the playback, negative numbers
+/// slow down the playback (Range: -50 to 100, Server default: 0).
 class Accelerate extends Effect {
   dynamic _rate;
 
@@ -41,6 +45,9 @@ class Deshake extends Effect {
 
   Deshake([this.factor]);
 
+
+  /// shakeStrength   The maximum number of pixels in the horizontal and vertical direction that will be
+  /// addressed. (Possible values: 16, 32, 48, 64. Server default: 16)
   Deshake shakeStrength(ShakeStrength shakeStrength) {
     factor = shakeStrength;
     return this;
@@ -71,6 +78,9 @@ class Boomerang extends Effect {
   }
 }
 
+/// Class MakeTransparent
+/// tolerance The tolerance used to accommodate variance in the background color.
+/// (Range: 0 to 100, Server default: 10)
 class MakeTransparent extends Effect {
   dynamic _tolerance;
   dynamic _colorToReplace;
@@ -101,6 +111,8 @@ class MakeTransparent extends Effect {
   }
 }
 
+/// Class FadeIn
+/// duration The time in ms for the fade to occur. (Server default: 1000)
 class FadeIn extends Effect {
   int? _duration;
 
@@ -120,6 +132,8 @@ class FadeIn extends Effect {
   }
 }
 
+/// Class FadeOut
+/// duration The time in ms for the fade to occur.
 class FadeOut extends Effect {
   int? _duration;
 
@@ -134,6 +148,8 @@ class FadeOut extends Effect {
   }
 }
 
+/// Class Loop
+/// additionalIterations The additional number of times to play the animated GIF.
 class Loop extends Effect {
   int? _additionalIterations;
 
@@ -154,6 +170,8 @@ class Loop extends Effect {
   }
 }
 
+/// Class Blacwhite
+/// threshold (Range: 0 to 100, Server default: 50)
 class Blackwhite extends Effect {
   dynamic _threshold;
 
@@ -173,6 +191,7 @@ class Blackwhite extends Effect {
   }
 }
 
+/// Class Dither
 class Dither extends Effect {
   DitherObject? filter;
 
@@ -209,6 +228,8 @@ class Vignette extends Effect {
   }
 }
 
+/// Class SimulateColorBlind
+/// condition The color blind condition. Use the constants defined in the SimulateColorBlind class.
 class SimulateColorBlind extends Effect {
   SimulateColorBlindObject? _condition;
 
@@ -228,6 +249,12 @@ class SimulateColorBlind extends Effect {
   }
 }
 
+/// Class Cartoonify
+/// lineStrength   The thickness of the lines. (Range: 0 to 100, Server default: 50)
+/// colorReduction The decrease in the number of colors and corresponding saturation boost of
+/// the remaining colors. (Range: 0 to 100, Server default: automatically
+/// adjusts according to the line_strength value). Higher reduction values
+/// result in a less realistic look.
 class Cartoonify extends Effect {
   dynamic _lineStrength;
   dynamic _colorReductionLevel;
@@ -264,6 +291,12 @@ class Cartoonify extends Effect {
   }
 }
 
+/// Class Shadow
+/// The shadow is offset by the x and y values specified in the $position qualifier.
+///
+/// strength The strength of the shadow. (Range: 0 to 100, Server default: 40)
+/// position The position of the shadow. (Server default: bottom right)
+/// color    The color of the shadow (Server default: gray)
 class Shadow extends Effect {
   dynamic _strength;
   Color? _color;
@@ -312,6 +345,16 @@ class Shadow extends Effect {
   }
 }
 
+/// Class Vectorize
+/// colors    The number of colors. (Range: 2 to 30, Server default: 10)
+/// detail    The level of detail. Specify either a percentage of the original image (Range: 0.0 to
+/// 1.0) or an absolute number of pixels (Range: 0 to 1000). (Server default: 300)
+/// The size of speckles to suppress. Specify either a percentage of the original image
+/// (Range: 0.0 to 1.0) or an absolute number of pixels (Range: 0 to 100, Server default: 2)
+/// The corner threshold.  Specify 100 for no smoothing (polygon corners), 0 for completely
+/// smooth corners. (Range: 0 to 100, Default: 25)
+/// The optimization value. Specify 100 for least optimization and the largest file.
+/// (Range: 0 to 100, Server default: 100).
 class Vectorize extends Effect {
   dynamic _numOfColors;
   dynamic _detailsLevel;
@@ -369,7 +412,11 @@ class Vectorize extends Effect {
     ]);
   }
 }
-
+/// Class Outline
+/// mode      The type of outline effect. Use the constants defined in the Outline class.
+/// (Default: OutlineMode.inner() and OutlineMode.outer()).
+/// width     The thickness of the outline in pixels. (Range: 1 to 100, Server default: 5)
+/// blurLevel The level of blur of the outline. (Range: 0 to 2000, Server default: 0)
 class Outline extends Effect {
   dynamic _mode;
   Color? _color;
@@ -459,6 +506,8 @@ class Grayscale extends Effect {
   }
 }
 
+/// Class OilPaint
+/// strength The strength of the effect. (Range: 0 to 100, Server default: 30)
 class OilPaint extends Effect {
   dynamic _strength;
 
@@ -487,6 +536,8 @@ class AdvancedRedEye extends Effect {
   }
 }
 
+/// Class Pixelate
+/// squareSize The width of each pixelation square in pixels.  (Range: 1 to 200, Server default: 5)
 class Pixelate extends Effect {
   dynamic _squareSize;
   Region? _region;
@@ -524,6 +575,8 @@ class Pixelate extends Effect {
   }
 }
 
+/// Class Blur
+/// strength The strength of the blur. (Range: 1 to 2000, Server default: 100)
 class Blur extends Effect {
   dynamic _strength;
   Region? _region;
@@ -561,6 +614,10 @@ class Blur extends Effect {
   }
 }
 
+/// Class Colorize
+/// level The strength of the color. (Range: 0 to 100, Server default: 100)
+/// color The color to use for colorization.  Specify HTML name or RGB hex code.
+/// (Server default: gray)
 class Colorize extends Effect {
   dynamic _level;
   Color? _color;
@@ -590,6 +647,9 @@ class Colorize extends Effect {
   }
 }
 
+/// Class GradientFade
+/// strength The strength of the fade effect. (Range: 0 to 100, Server default: 20)
+/// type     The type of gradient fade: GradientFade::SYMMETRIC or GradientFade::SYMMETRIC_PAD.
 class GradientFade extends Effect {
   dynamic _strength;
   dynamic _type;
@@ -625,6 +685,8 @@ class GradientFade extends Effect {
   }
 }
 
+/// Class AsistColorBlind
+/// strength The strength of the stripes.  (Range: 1 to 100, Server default: 10)
 class AssistColorBlind extends Effect {
   dynamic _strength;
   Type? _type;
@@ -678,6 +740,12 @@ class Theme extends Effect {
   }
 }
 
+/// Class RemoveBackground
+/// screen When true, provides better results for images with near perfect green/blue
+/// background.
+/// colorToRemove The background color as an RGB/A hex code. Overrides the algorithm's choice of
+/// background color.
+/// Default: The algorithm's choice - often the edge color of the image.
 class RemoveBackground extends Effect {
   bool? _screen;
   Color? _colorToRemove;
@@ -707,6 +775,8 @@ class RemoveBackground extends Effect {
   }
 }
 
+/// Class Noise
+/// level The percent of noise to apply. (Range: 0 to 100 Server default: 0)
 class Noise extends Effect {
   dynamic level;
 
@@ -800,6 +870,8 @@ class OutlineMode {
   }
 }
 
+/// Class ArtisticFilter
+/// value The filter to apply. Use the constants defined in the ArtisticFilter class.
 class ArtisticFilter {
   String value;
 
