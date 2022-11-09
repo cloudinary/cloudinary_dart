@@ -8,7 +8,6 @@ import 'package:cloudinary_dart/config/url_config.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
 import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
 import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
-import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
 import 'package:cloudinary_dart/src/transformation/transformation.dart';
 import 'package:test/test.dart';
 
@@ -249,8 +248,7 @@ void main() {
 
     actual = cloudinaryPrivateCdn.image(Image('test')
       ..urlSuffix('hello')
-      ..transformation(
-          (Transformation()..resize(Resize.scale(Scale()..width(100))))));
+      ..transformation((Transformation()..resize(Resize.scale()..width(100)))));
     cldAssert(
         'https://test123-res.cloudinary.com/images/c_scale,w_100/test/hello',
         actual);
@@ -260,8 +258,8 @@ void main() {
     var actual =
         Cloudinary.withStringUrl(defaultCloudinaryUrl).image(Image('test')
           ..transformation(Transformation()
-            ..delivery(Delivery.quality(Quality(100)))
-            ..delivery(Delivery.format(Format(Format.jpg)))));
+            ..delivery(Delivery.quality(100))
+            ..delivery(Delivery.format(Format.jpg))));
     cldAssert(
         'https://res.cloudinary.com/test123/image/upload/q_100/f_jpg/test',
         actual);
@@ -450,9 +448,9 @@ void main() {
     var actual = cloudinarySignedUrl.image(Image('image.jpg')
       ..version('1234')
       ..transformation(Transformation()
-        ..resize(Resize.scale(Scale()
+        ..resize(Resize.scale()
           ..width(10)
-          ..height(20)))));
+          ..height(20))));
     cldAssert(expected, actual);
     expected = '${defaultUploadPath}s----SjmNDA--/v1234/image.jpg';
     actual = cloudinarySignedUrl.image(Image('image.jpg')..version('1234'));
@@ -461,14 +459,12 @@ void main() {
     expected = '${defaultUploadPath}s--p9ZnzGgi--/c_scale,h_20,w_10/image.jpg';
     actual = cloudinarySignedUrl.image(Image('image.jpg')
       ..transformation(Transformation()
-        ..resize(Resize.scale(Scale()
+        ..resize(Resize.scale()
           ..width(10)
-          ..height(20)))));
+          ..height(20))));
     cldAssert(expected, actual);
-
     expected =
         'http://res.cloudinary.com/test123/image/upload/s--2hbrSMPO--/sample.jpg';
-
     actual = cloudinaryLongSignedUrl.image(Image('sample.jpg'));
     cldAssert(expected, actual);
   });
