@@ -1,5 +1,5 @@
-import 'package:cloudinary_dart/src/transformation/delivery/delivery.dart';
-import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
+import 'package:cloudinary_dart/transformation/delivery/delivery.dart';
+import 'package:cloudinary_dart/transformation/delivery/delivery_actions.dart';
 import 'package:test/test.dart';
 import '../tests_utils.dart';
 

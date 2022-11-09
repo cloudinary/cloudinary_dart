@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
+import 'delivery_actions.dart';
 
 /// Defines transformations for delivering your assets without changing the visual or audio experience
 /// for the end user.

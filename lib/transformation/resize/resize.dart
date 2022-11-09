@@ -1,11 +1,10 @@
-import 'package:cloudinary_dart/src/transformation/TransformationUtils.dart';
-import 'package:cloudinary_dart/src/transformation/resize/common.dart';
-import 'package:cloudinary_dart/src/transformation/resize/fill.dart';
-import 'package:cloudinary_dart/src/transformation/resize/fit.dart';
-import 'package:cloudinary_dart/src/transformation/resize/pad.dart';
-import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
-
+import 'package:cloudinary_dart/transformation/resize/fill.dart';
+import 'package:cloudinary_dart/transformation/resize/scale.dart';
+import 'package:cloudinary_dart/transformation/resize/fit.dart';
+import 'package:cloudinary_dart/transformation/resize/pad.dart';
+import '../TransformationUtils.dart';
 import '../common.dart';
+import 'common.dart';
 import 'crop.dart';
 
 class Dimensions {
