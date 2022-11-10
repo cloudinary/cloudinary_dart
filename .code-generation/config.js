@@ -2,27 +2,27 @@ module.exports = {
   "SDKSpecVersion": "master",
   "langConfig": {
     lang: 'Dart',
-    methodDelimiter: ' ',
+    methodDelimiter: ' ..',
     groupDelimiter: '.',
+    openQualifiersChar: '',
+    closeQualifiersChar: '',
+    closeTransformationChar: '',
     hideActionGroups: false,
     specialCharacterMapping: [
       ['$', '\$']
     ],
-    openQualifiersChar : ' {',
-    closeQualifiersChar : ' }',
     openActionChar: '(',
     closeActionChar: ')',
     unsupportedTxParams: ['fl_waveform', 'e_anti_removal:', 'fl_animated', 'l_fetch', 'l_text', 'u_text', 'af_', 'if_', 'e_fade', '$overlaywidth_$mainvideowidth_div_3'],
     unsupportedSyntaxList: ['stroke(', 'textFit(', 'Animated.edit', 'RoundCorners(', 'getVideoFrame'],
     mainTransformationString: {
       openSyntaxString: {
-        image: 'cloudinary.image {\n\tpublicId("#publicID")',
-        video: 'cloudinary.video {\n\tpublicId("#publicID")',
-        media: 'cloudinary.media {\n\tpublicId("#publicID")'
+        image: 'cloudinary.image("#publicID") ..transformation(Transformation()',
+        video: 'cloudinary.video("#publicID")',
+        media: 'cloudinary.asset("#publicID")'
       },
-      closeSyntaxString : ' \n}.generate()',
+      closeSyntaxString : '));',
     },
-    closeTransformationChar: ' }', // Note how this is needed because the openSyntaxString contains an open transformation {
     overwritePreset: 'dart',
     newInstanceSyntax: '#name(#req)#optional',
     arrayOpen: '[',
@@ -33,9 +33,9 @@ module.exports = {
       formatMethod: 'camelCase',
       formatFloat: (f) => {
         if (!f.toString().includes('.')) {
-          return `${f}.0F` // In JS world, 1.0 is 1, so we make sure 1.0 stays 1.0
+          return `'${f}.0'` // In JS world, 1.0 is 1, so we make sure 1.0 stays 1.0
         } else {
-          return `${f}F`
+          return f;
         }
       }
     },
@@ -43,7 +43,7 @@ module.exports = {
     classNameMap: {},
     childTransformations: {
       image: {
-        open: 'ImageTransformation {',
+        open: 'Image1Transformation {',
         close: ' }',
       },
       video: {
