@@ -23,4 +23,8 @@ abstract class Delivery {
   static Format format([String? format]) {
     return Format(format);
   }
+
+  static Dpr dpr([dynamic dpr]) {
+    return Dpr(dpr);
+  }
 }

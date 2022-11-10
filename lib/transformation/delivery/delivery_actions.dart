@@ -254,6 +254,30 @@ class Format implements TransformationComponentBuilder<Format>, DeliveryAction {
   }
 }
 
+class Dpr extends DeliveryAction {
+
+  dynamic dpr;
+  static const String auto = 'auto';
+
+  Dpr([this.dpr]);
+
+  @override
+  String toString() {
+    return 'dpr_$dpr';
+  }
+}
+
+class DprValue {
+  dynamic value;
+
+  DprValue(this.value);
+
+  @override
+  String toString() {
+    return value;
+  }
+}
+
 class Progressive {
   ProgressiveMode? _mode;
 

@@ -62,4 +62,10 @@ void main() {
             ..ignoreMaskChannels());
     });
   });
+
+  test('Test dpr syntax with options', () {
+    cldAssert("dpr_auto", Delivery.dpr(Dpr.auto));
+    cldAssert("dpr_2:3", Delivery.dpr("2:3"));
+    cldAssert("dpr_1.5", Delivery.dpr(1.5));
+  });
 }
