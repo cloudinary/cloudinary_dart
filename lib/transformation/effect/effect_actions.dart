@@ -701,21 +701,21 @@ class GradientFade extends Effect {
 /// strength The strength of the stripes.  (Range: 1 to 100, Server default: 10)
 class AssistColorBlind extends Effect {
   dynamic _strength;
-  Type? _type;
+  AssistColorBlindType? _type;
 
-  AssistColorBlind({dynamic strength, Type? type}) {
+  AssistColorBlind({dynamic strength, AssistColorBlindType? type}) {
     _strength = strength;
     _type = type;
   }
 
   AssistColorBlind stripesStrength(dynamic strength) {
-    _type = Type.stripes;
+    _type = AssistColorBlindType.stripes;
     _strength = strength;
     return this;
   }
 
   AssistColorBlind xray() {
-    _type = Type.xray;
+    _type = AssistColorBlindType.xray;
     _strength = null;
     return this;
   }
@@ -725,7 +725,7 @@ class AssistColorBlind extends Effect {
     return super.toString().joinWithValues(['assist_colorblind'],
         separator:
             paramKeyValueSeparator).joinWithValues(
-        [_strength, (_type == Type.xray) ? 'xray' : null]);
+        [_strength, (_type == AssistColorBlindType.xray) ? 'xray' : null]);
   }
 }
 
@@ -917,4 +917,4 @@ class ArtisticFilter {
   }
 }
 
-enum Type { stripes, xray }
+enum AssistColorBlindType { stripes, xray }

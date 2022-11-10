@@ -251,8 +251,9 @@ class Effect extends Action {
   ///
   /// You can replace colors using the xRay() method of the \Cloudinary\Transformation\AssistColorBlind class.
   ///
-  /// Receives [dynamic], [Type] object returns [Effect].
-  static AssistColorBlind assistColorBlind({dynamic strength, Type? type}) {
+  /// Receives [dynamic], [AssistColorBlindType] object returns [Effect].
+  static AssistColorBlind assistColorBlind(
+      {dynamic strength, AssistColorBlindType? type}) {
     return AssistColorBlind(strength: strength, type: type);
   }
 
