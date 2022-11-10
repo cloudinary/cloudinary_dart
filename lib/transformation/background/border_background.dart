@@ -1,6 +1,6 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/src/transformation/background/background.dart';
-import 'package:cloudinary_dart/src/transformation/common.dart';
+import '../common.dart';
+import 'background.dart';
 
 import '../color.dart';
 

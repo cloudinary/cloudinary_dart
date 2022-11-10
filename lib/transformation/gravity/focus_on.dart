@@ -1,5 +1,3 @@
-import 'gravity.dart';
-
 /// Defines the objects that can be focused on.
 enum FocusOn {
   ocr,

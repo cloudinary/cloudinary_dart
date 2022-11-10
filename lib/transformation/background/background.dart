@@ -1,10 +1,9 @@
-import 'package:cloudinary_dart/src/transformation/background/blurred_background.dart';
-import 'package:cloudinary_dart/src/transformation/background/predominant_background.dart';
-
 import '../color.dart';
 import 'border_background.dart';
 import 'border_gradient_background.dart';
 import 'color_background.dart';
+import 'blurred_background.dart';
+import 'predominant_background.dart';
 
 abstract class Background {
   String getValues();

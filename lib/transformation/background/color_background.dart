@@ -1,6 +1,5 @@
-import 'package:cloudinary_dart/src/transformation/background/background.dart';
-
 import '../color.dart';
+import 'background.dart';
 
 class ColorBackground extends Background {
   Color color;

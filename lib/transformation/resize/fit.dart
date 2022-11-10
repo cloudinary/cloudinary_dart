@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/src/transformation/resize/scale.dart';
+import 'scale.dart';
 
 /// Class Fit
 class Fit extends BaseScale {
