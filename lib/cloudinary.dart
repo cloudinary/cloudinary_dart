@@ -24,21 +24,24 @@ class Cloudinary {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
   }
 
-  AssetObject raw(Asset options) {
-    options.cloudConfig(config.cloudConfig);
-    options.urlConfig(config.urlConfig);
-    return AssetObject.withBuilder(options);
+  Asset raw(String publicId) {
+    Asset asset = Asset(publicId);
+    asset.cloudConfig(config.cloudConfig);
+    asset.urlConfig(config.urlConfig);
+    return asset;
   }
 
-  ImageObject image(Image options) {
-    options.cloudConfig(config.cloudConfig);
-    options.urlConfig(config.urlConfig);
-    return ImageObject.withBuilder(options);
+  Image image(String publicId) {
+    Image image = Image(publicId);
+    image.cloudConfig(config.cloudConfig);
+    image.urlConfig(config.urlConfig);
+    return image;
   }
 
-  VideoObject video(Video options) {
-    options.cloudConfig(config.cloudConfig);
-    options.urlConfig(config.urlConfig);
-    return VideoObject.withBuilder(options);
+  Video video(String publicId) {
+    Video video = Video(publicId);
+    video.cloudConfig(config.cloudConfig);
+    video.urlConfig(config.urlConfig);
+    return video;
   }
 }
