@@ -255,7 +255,6 @@ class Format implements TransformationComponentBuilder<Format>, DeliveryAction {
 }
 
 class Dpr extends DeliveryAction {
-
   dynamic dpr;
   static const String auto = 'auto';
 
