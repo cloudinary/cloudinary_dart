@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cloudinary_dart/src/transformation/transformation.dart';
 import 'package:crypto/crypto.dart';
 
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
@@ -8,6 +7,7 @@ import 'package:cloudinary_dart/analytics.dart';
 import 'package:cloudinary_dart/auth_token.dart';
 import '../config/cloud_config.dart';
 import '../config/url_config.dart';
+import '../transformation/transformation.dart';
 import 'builders/general_asset_builder.dart';
 
 final String akamaiSharedCDN = "res.cloudinary.com";
@@ -17,7 +17,7 @@ final String defaultDeliveryType = "upload";
 final String assetTypeImage = "image";
 final String assetTypeVideo = "video";
 
-class Asset extends GeneralAssetBuilder {
+class Asset extends GeneralAsset {
   Asset(String publicId,
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
@@ -33,8 +33,8 @@ class Asset extends GeneralAssetBuilder {
   }
 
   @override
-  AssetObject build() {
-    return AssetObject.withBuilder(this);
+  String toString() {
+    return AssetObject.withBuilder(this).toString();
   }
 }
 
@@ -81,7 +81,7 @@ abstract class BaseAsset {
       this.assetType,
       this.deliveryType);
 
-  BaseAsset.withBuilder(GeneralAssetBuilder builder)
+  BaseAsset.withBuilder(GeneralAsset builder)
       : cloudConfig = builder.getCloudConfig()!,
         urlConfig = builder.getUrlConfig()!,
         version = builder.getVersion(),

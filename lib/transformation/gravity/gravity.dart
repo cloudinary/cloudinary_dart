@@ -1,5 +1,5 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/src/transformation/transformation.dart';
+import 'package:cloudinary_dart/transformation/transformation.dart';
 
 import 'focus_on.dart';
 
@@ -54,6 +54,8 @@ class Gravity {
   ///
   /// Returns [CompassGravity]
   static center() => CompassGravity(Compass.center());
+
+  static xyCenter() => XYCenterGravity();
 
   FocusOnGravityQualifier focusOn(List<FocusOn> focusOnObjects,
       {FocusOnGravity? options}) {
@@ -224,5 +226,12 @@ class AutoGravityObject implements GeneralBuilder {
     focusOn = other.focusOn;
     _weight = other._weight;
     _avoid = other._avoid;
+  }
+}
+
+class XYCenterGravity extends Gravity {
+  @override
+  String toString() {
+    return 'xy_center';
   }
 }

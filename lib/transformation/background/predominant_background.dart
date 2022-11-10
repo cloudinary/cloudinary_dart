@@ -1,8 +1,8 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/src/transformation/background/background.dart';
 
 import '../color.dart';
 import 'border_gradient_background.dart';
+import 'background.dart';
 
 class PredominantBackground extends Background {
   bool? _contrast;

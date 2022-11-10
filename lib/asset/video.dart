@@ -1,11 +1,11 @@
 import 'package:cloudinary_dart/asset/asset.dart';
-import 'package:cloudinary_dart/src/transformation/transformation.dart';
 
 import '../config/cloud_config.dart';
 import '../config/url_config.dart';
+import '../transformation/transformation.dart';
 import 'builders/general_asset_builder.dart';
 
-class Video extends GeneralAssetBuilder {
+class Video extends GeneralAsset {
   Video(String publicId,
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
@@ -21,8 +21,8 @@ class Video extends GeneralAssetBuilder {
   }
 
   @override
-  VideoObject build() {
-    return VideoObject.withBuilder(this);
+  String toString() {
+    return VideoObject.withBuilder(this).toString();
   }
 }
 

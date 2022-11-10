@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/src/transformation/delivery/delivery_actions.dart';
+import 'delivery_actions.dart';
 
 /// Defines transformations for delivering your assets without changing the visual or audio experience
 /// for the end user.
@@ -11,16 +11,16 @@ abstract class Delivery {
   ///
   /// Reducing the quality is a trade-off between visual quality and file size.
   ///
-  /// Receives [Quality] and returns [DeliveryAction]
-  static DeliveryAction quality(Quality quality) {
-    return quality;
+  /// returns [Quality]
+  static Quality quality(dynamic level) {
+    return Quality(level);
   }
 
   /// Forces format conversion to the given format.
   /// (Formerly known as fetch format)
   ///
-  /// Receives[Format] and returns occupied [DeliveryAction] object
-  static DeliveryAction format(Format format) {
-    return format;
+  /// returns [Format] object
+  static Format format([String? format]) {
+    return Format(format);
   }
 }

@@ -1,5 +1,4 @@
-import 'package:cloudinary_dart/src/transformation/resize/resize.dart';
-
+import 'resize.dart';
 import '../common.dart';
 
 abstract class BaseScale extends Resize {

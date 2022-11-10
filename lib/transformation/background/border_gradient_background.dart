@@ -1,7 +1,7 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/src/transformation/background/background.dart';
 
 import '../color.dart';
+import 'background.dart';
 
 class BorderGradientBackground extends Background {
   bool? _contrast;
