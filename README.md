@@ -53,12 +53,11 @@ For example, to generate an url for an image called `sample` on the `demo` accou
 A transformation is also added to the image - cropping:
 
 ```dart
-String url = cloudinary
-        .image(Image('sample.jpg')
-          ..transformation(Transformation()
-            ..resize(Resize.crop(Crop()
-              ..width(100)
-              ..height(150)))))
+String url = (cloudinary.image('sample.jpg')
+  ..transformation(Transformation()
+    ..resize(Resize.crop()
+      ..width(100)
+      ..height(150))))
         .toString();
 ```
 
