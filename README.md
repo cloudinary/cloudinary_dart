@@ -48,9 +48,13 @@ var cloudinary = Cloudinary.withStringUrl('cloudinary://<your-api-key>:<your-api
 
 Generate a Cloudinary URL using the `cloudinary.media` helper method and pass this to your image or video view:
 
-For example, to generate an url for an image called `sample` on the `demo` account:
+For example, to generate a URL for an image called `sample`:
 
-A transformation is also added to the image - cropping:
+```dart
+String url = cloudinary.image('sample.jpg').toString();
+```
+
+To add a transformation to the URL that resizes an image:
 
 ```dart
 String url = (cloudinary.image('sample.jpg')
