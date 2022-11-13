@@ -92,11 +92,12 @@ extension StringManipulation on String {
     return (lastToRemove < 0) ? this : substring(lastToRemove + 1);
   }
 
+  String cldEncodePublicId() {
+    return replaceAll('/', ':').replaceAll(',', '%2c');
+  }
+
   String cldRemoveColorPrefixes() {
-    return this
-        .replaceFirst('#', '')
-        .replaceFirst('rgb', '')
-        .replaceFirst(':', "");
+    return replaceFirst('#', '').replaceFirst('rgb', '').replaceFirst(':', "");
   }
 
   String safeBase64Encoding() {
