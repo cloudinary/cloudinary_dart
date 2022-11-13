@@ -34,17 +34,6 @@ class Tint extends Adjust {
   }
 }
 
-class Vibrance extends LevelAdjust {
-  Vibrance(super.name, [dynamic strength]) {
-    super._level = strength;
-  }
-
-  Vibrance strength(dynamic strength) {
-    super._level = strength;
-    return this;
-  }
-}
-
 class AutoColor extends Adjust {
   dynamic _blend;
 
@@ -62,10 +51,6 @@ class AutoColor extends Adjust {
     return super.toString().joinWithValues(['auto_color'],
         separator: paramKeyValueSeparator).joinWithValues([_blend]);
   }
-}
-
-class Brightness extends LevelAdjust {
-  Brightness(super.name, [super.level]);
 }
 
 class AutoBrightness extends Adjust {
@@ -87,10 +72,6 @@ class AutoBrightness extends Adjust {
   }
 }
 
-class BrightnessHSB extends LevelAdjust {
-  BrightnessHSB(super.name, [super.level]);
-}
-
 class AutoContrast extends Adjust {
   dynamic _blend;
 
@@ -107,15 +88,6 @@ class AutoContrast extends Adjust {
   String toString() {
     return super.toString().joinWithValues(['auto_contrast'],
         separator: paramKeyValueSeparator).joinWithValues([_blend]);
-  }
-}
-
-class UnsharpMask extends LevelAdjust {
-  UnsharpMask(super.name, [super.level]);
-
-  UnsharpMask strength(dynamic strength) {
-    super._level = strength;
-    return this;
   }
 }
 
@@ -153,38 +125,6 @@ class ViesusCorrect extends Adjust {
           : null)
     ]);
   }
-}
-
-class Hue extends LevelAdjust {
-  Hue(super.name, [super.level]);
-}
-
-class Gamma extends LevelAdjust {
-  Gamma(super.name, [super.level]);
-}
-
-class Contrast extends LevelAdjust {
-  Contrast(super.name, [super.level]);
-}
-
-class Blue extends LevelAdjust {
-  Blue(super.name, [super.level]);
-}
-
-class Green extends LevelAdjust {
-  Green(super.name, [super.level]);
-}
-
-class Red extends LevelAdjust {
-  Red(super.name, [super.level]);
-}
-
-class OpacityThreshold extends LevelAdjust {
-  OpacityThreshold(super.name, [super.level]);
-}
-
-class Saturation extends LevelAdjust {
-  Saturation(super.name, [super.level]);
 }
 
 class Sharpen extends Adjust {
@@ -331,7 +271,7 @@ class Improve extends Adjust {
   }
 }
 
-abstract class LevelAdjust extends Adjust {
+class LevelAdjust extends Adjust {
   String name;
   dynamic _level;
 
@@ -341,6 +281,11 @@ abstract class LevelAdjust extends Adjust {
 
   LevelAdjust level(dynamic level) {
     _level = level;
+    return this;
+  }
+
+  LevelAdjust strength(dynamic strength) {
+    _level = strength;
     return this;
   }
 

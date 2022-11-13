@@ -1,3 +1,5 @@
+import 'package:cloudinary_dart/transformation/adjust/adjust.dart';
+
 import 'resize/resize.dart';
 import 'common.dart';
 import 'delivery/delivery_actions.dart';
@@ -41,6 +43,10 @@ class Transformation {
 
   Transformation resize(Resize resize) {
     return add(resize);
+  }
+
+  Transformation adjust(Adjust adjust) {
+    return add(adjust);
   }
 
   TransformationObject build() {

@@ -24,9 +24,9 @@ class Adjust extends Action {
   /// Applies a vibrance filter on the image.
   ///
   /// Receives strength [dynamic] The strength of the vibrance. (Range: -100 to 100, Server default: 20)
-  /// Returns [Vibrance].
-  static Vibrance vibrance([dynamic strength]) {
-    return Vibrance('vibrance', strength);
+  /// Returns [LevelAdjust].
+  static LevelAdjust vibrance([dynamic strength]) {
+    return LevelAdjust('vibrance', strength);
   }
 
   /// Adjusts the color balance and blends the result with the original image.
@@ -40,9 +40,9 @@ class Adjust extends Action {
   /// Adjusts the brightness.
   ///
   /// level [dynamic] The level of brightness (Range: -99 to 100, Server default: 80)
-  /// Returns [Brightness]
-  static Brightness brightness([dynamic level]) {
-    return Brightness('brightness', level);
+  /// Returns [LevelAdjust]
+  static LevelAdjust brightness([dynamic level]) {
+    return LevelAdjust('brightness', level);
   }
 
   /// Adjusts the brightness and blends the result with the original image.
@@ -56,9 +56,9 @@ class Adjust extends Action {
   /// Adjusts image brightness modulation in HSB to prevent artifacts in some images.
   ///
   /// @param int $level The level of modulation. (Range: -99 to 100, Server default: 80)
-  /// Returns [BrightnessHSB]
-  static BrightnessHSB brightnessHSB([dynamic level]) {
-    return BrightnessHSB('brightness_hsb', level);
+  /// Returns [LevelAdjust]
+  static LevelAdjust brightnessHSB([dynamic level]) {
+    return LevelAdjust('brightness_hsb', level);
   }
 
   /// Adjusts the contrast and blends the result with the original image.
@@ -73,9 +73,9 @@ class Adjust extends Action {
   /// Applies an unsharp mask filter to the image.
   ///
   /// Receives strength [dynamic] The strength of the filter. (Range: 1 to 2000, Server default: 100)
-  /// Returns [UnsharpMask]
-  static UnsharpMask unsharpMask([dynamic strength]) {
-    return UnsharpMask('unsharp_mask', strength);
+  /// Returns [LevelAdjust]
+  static LevelAdjust unsharpMask([dynamic strength]) {
+    return LevelAdjust('unsharp_mask', strength);
   }
 
   /// Enhances an image to its best visual quality with the Viesus Automatic Image Enhancement add-on.
@@ -95,48 +95,49 @@ class Adjust extends Action {
   /// Adjusts the image's hue.
   ///
   /// Receives level [dynamic] The level of hue. (Range: -100 to 100, Server default: 80)
-  /// Returns [Hue]
-  static Hue hue([dynamic level]) {
-    return Hue('hue', level);
+  /// Returns [LevelAdjust]
+  static LevelAdjust hue([dynamic level]) {
+    return LevelAdjust('hue', level);
   }
 
   /// Adjusts the gamma level.
   ///
   /// Receives level [dynamic] The level of gamma (Range: -50 to 150, Server default: 0).
-  /// Returns [Gamma]
-  static Gamma gamma([dynamic level]) {
-    return Gamma('gamma', level);
+  /// Returns [LevelAdjust]
+  static LevelAdjust gamma([dynamic level]) {
+    return LevelAdjust('gamma', level);
   }
 
   /// Adjusts the contrast.
   ///
   /// level [dynamic] The level of contrast (Range: -100 to 100, Server default: 0)
-  static Contrast contrast([dynamic level]) {
-    return Contrast('contrast', level);
+  /// Returns [LevelAdjust]
+  static LevelAdjust contrast([dynamic level]) {
+    return LevelAdjust('contrast', level);
   }
 
   /// Adjusts the image's green channel.
   ///
   /// Receives level [dynamic] The level of green. (Range: -100 to 100, Server default: 0)
-  /// Returns [Green]
-  static Green green([dynamic level]) {
-    return Green('green', level);
+  /// Returns [LevelAdjust]
+  static LevelAdjust green([dynamic level]) {
+    return LevelAdjust('green', level);
   }
 
   /// Adjusts the image's blue channel.
   ///
   /// Receives level [dynamic] The level of blue. (Range: -100 to 100, Server default: 0)
-  /// Returns [Blue]
-  static Blue blue([dynamic level]) {
-    return Blue('blue', level);
+  /// Returns [LevelAdjust]
+  static LevelAdjust blue([dynamic level]) {
+    return LevelAdjust('blue', level);
   }
 
   /// Adjusts the image's red channel.
   ///
   /// Receives level [dynamic] The level of red. (Range: -100 to 100, Server default: 0)
-  /// Returns [Red]
-  static Red red([dynamic level]) {
-    return Red('red', level);
+  /// Returns [LevelAdjust]
+  static LevelAdjust red([dynamic level]) {
+    return LevelAdjust('red', level);
   }
 
   /// Causes all semi-transparent pixels in an image to be either fully transparent or fully opaque.
@@ -148,17 +149,17 @@ class Adjust extends Action {
   /// format supporting partial transparency, such as PNG, and the results without this effect are not as expected.
   ///
   /// Receives level [dynamic] The level of the threshold. (Range: 1 to 100, Server default: 50)
-  /// Returns [OpacityThreshold]
-  static OpacityThreshold opacityThreshold([dynamic level]) {
-    return OpacityThreshold('opacity_threshold', level);
+  /// Returns [LevelAdjust]
+  static LevelAdjust opacityThreshold([dynamic level]) {
+    return LevelAdjust('opacity_threshold', level);
   }
 
   /// Adjusts the color saturation.
   ///
   /// level [dynamic] The level of color saturation (Range: -100 to 100, Server default: 80).
-  /// Returns [Saturation]
-  static Saturation saturation([dynamic level]) {
-    return Saturation('saturation', level);
+  /// Returns [LevelAdjust]
+  static LevelAdjust saturation([dynamic level]) {
+    return LevelAdjust('saturation', level);
   }
 
   /// Applies a sharpening filter to the image.
