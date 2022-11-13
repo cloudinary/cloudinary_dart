@@ -225,16 +225,6 @@ class Adjust extends Action {
     return Improve(mode: mode, blend: blend);
   }
 
-  /// Applies the 3D LUT file to the asset.
-  ///
-  /// https://cloudinary.com/documentation/image_transformations#applying_3d_luts_to_images
-  ///
-  /// Receives lutId [String] The 3D LUT file id
-  /// Returns [By3dLut]
-  static By3dLut by3dLut(String publicId) {
-    return By3dLut(publicId);
-  }
-
   @override
   String toString() {
     return 'e';

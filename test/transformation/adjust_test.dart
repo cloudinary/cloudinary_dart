@@ -154,7 +154,4 @@ void main() {
     cldAssert("e_improve:outdoor:30",
         Adjust.improve(blend: 30, mode: ImproveMode.outdoor()));
   });
-  test('Test successful by 3d lut formatting', () {
-    cldAssert("l_lut:iwltbap_aspen.3dl", Adjust.by3dLut("iwltbap_aspen.3dl"));
-  });
 }

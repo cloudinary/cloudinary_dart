@@ -331,17 +331,6 @@ class Improve extends Adjust {
   }
 }
 
-class By3dLut {
-  String publicId;
-
-  By3dLut(this.publicId);
-
-  @override
-  String toString() {
-    return 'l_lut'.joinWithValues([publicId.cldEncodePublicId()]);
-  }
-}
-
 abstract class LevelAdjust extends Adjust {
   String name;
   dynamic _level;
