@@ -23,4 +23,11 @@ abstract class Delivery {
   static Format format([String? format]) {
     return Format(format);
   }
+
+  /// Deliver the image in the specified device pixel ratio.
+  ///
+  /// dpr [dynamic] The DPR (Device Pixel Ratio). Any positive float value.
+  static Dpr dpr([dynamic dpr]) {
+    return Dpr(dpr);
+  }
 }
