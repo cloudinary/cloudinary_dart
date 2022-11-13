@@ -67,6 +67,85 @@ class Brightness extends LevelAdjust {
   Brightness(super.name, [super.level]);
 }
 
+class AutoBrightness extends Adjust {
+  dynamic _blend;
+
+  AutoBrightness([dynamic blend]) {
+    _blend = blend;
+  }
+
+  AutoBrightness blend(dynamic blend) {
+    _blend = blend;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['auto_brightness'], separator: paramKeyValueSeparator).joinWithValues([_blend]);
+  }
+}
+
+class BrightnessHSB extends LevelAdjust {
+  BrightnessHSB(super.name, [super.level]);
+}
+
+class AutoContrast extends Adjust {
+  dynamic _blend;
+
+  AutoContrast([dynamic blend]) {
+    _blend = blend;
+  }
+
+  AutoContrast blend(dynamic blend) {
+    _blend = blend;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['auto_contrast'], separator: paramKeyValueSeparator).joinWithValues([_blend]);
+  }
+}
+
+class UnsharpMask extends LevelAdjust {
+
+  UnsharpMask(super.name, [super.level]);
+
+  UnsharpMask strength(dynamic strength){
+    super._level = strength;
+    return this;
+  }
+}
+
+class ViesusCorrect extends Adjust {
+  bool? _noRedEye;
+  bool? _skinSaturation;
+  int? _skinSaturationLevel;
+
+  ViesusCorrect({bool? noRedEye, bool? skinSaturation, int? skinSaturationLevel}) {
+    _noRedEye = noRedEye;
+    _skinSaturation = skinSaturation;
+    _skinSaturationLevel = _skinSaturationLevel;
+  }
+
+  ViesusCorrect noRedEye() {
+    _noRedEye = true;
+    return this;
+  }
+
+  ViesusCorrect skinSaturation([int? skinSaturationLevel]) {
+    _skinSaturation = true;
+    _skinSaturationLevel = skinSaturationLevel;
+    return this;
+  }
+  
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['viesus_correct'], separator: paramKeyValueSeparator).joinWithValues([(_noRedEye != null && _noRedEye!) ? 'no_redeye' : null,((_skinSaturation != null && _skinSaturation!) ? 'skin_saturation'.joinWithValues([_skinSaturationLevel], separator: paramKeyValueSeparator) : null)]);
+  }
+}
+
+
 abstract class LevelAdjust extends Adjust {
   String name;
   dynamic _level;

@@ -22,6 +22,26 @@ class Adjust extends Action {
     return Brightness('brightness', level);
   }
 
+  static AutoBrightness autoBrightness([dynamic blend]) {
+    return AutoBrightness(blend);
+  }
+
+  static BrightnessHSB brightnessHSB([dynamic level]) {
+    return BrightnessHSB('brightness_hsb', level);
+  }
+
+  static AutoContrast autoContrast([dynamic blend]) {
+    return AutoContrast(blend);
+  }
+
+  static UnsharpMask unsharpMask([dynamic strength]) {
+    return UnsharpMask('unsharp_mask', strength);
+  }
+
+  static ViesusCorrect viesusCorrect({bool? noRedEye, bool? skinSaturation, int? skinSaturationLevel}) {
+    return ViesusCorrect(noRedEye: noRedEye, skinSaturation: skinSaturation, skinSaturationLevel: skinSaturationLevel);
+  }
+
   @override
   String toString() {
     return 'e';
