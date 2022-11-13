@@ -1,3 +1,7 @@
+## 0.0.4
+- Add Transformation Builder
+- Add Delivery, Effect and Resize actions support.
+
 ## 0.0.3
 - Update file tree
 

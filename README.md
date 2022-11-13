@@ -22,14 +22,14 @@ Transform and optimize assets. Visit our documentation to learn more about [medi
 ## Version Support
 | SDK Version | Dart Version |
 |-------------|--------------|
-| 0.0.3       | > 1.0        | 
+| 0.0.4       | > 1.0        | 
 
 ## Installation
 To use this SDK, add cloudinary as a [dependency in your pubspec.yaml file](https://flutter.dev/platform-plugins/).
 
 ```yaml
 dependencies:
-  cloudinary_dart: ^0.0.3
+  cloudinary_dart: ^0.0.4
 ```
 
 ## Usage
@@ -50,14 +50,15 @@ Generate a Cloudinary URL using the `cloudinary.media` helper method and pass th
 
 For example, to generate an url for an image called `sample` on the `demo` account:
 
-```dart
-String url = cloudinary.image('sample.jpg').toString();
-```
-
-To generate a transformation URL for the same image:
+A transformation is also added to the image - cropping:
 
 ```dart
-String url = cloudinary.image('sample.jpg', ImageBuilder() ..transformation = "w_500").toString();
+String url = (cloudinary.image('sample.jpg')
+  ..transformation(Transformation()
+    ..resize(Resize.crop()
+      ..width(100)
+      ..height(150))))
+        .toString();
 ```
 
 ## Contributions
