@@ -1,5 +1,6 @@
 import 'package:cloudinary_dart/transformation/adjust/adjust.dart';
 import 'package:cloudinary_dart/transformation/rotate.dart';
+import 'effect/effect.dart';
 import 'resize/resize.dart';
 import 'common.dart';
 import 'delivery/delivery_actions.dart';
@@ -51,6 +52,10 @@ class Transformation {
 
   Transformation adjust(Adjust adjust) {
     return add(adjust);
+  }
+
+  Transformation effect(Effect effect) {
+    return add(effect);
   }
 
   TransformationObject build() {
