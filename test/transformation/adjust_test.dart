@@ -16,7 +16,7 @@ void main() {
   test('Test successful vibrance formatting', () {
     cldAssert("e_vibrance", Adjust.vibrance());
     cldAssert("e_vibrance:70", Adjust.vibrance(70));
-    cldAssert("e_vibrance:70", Adjust.vibrance() ..strength(70));
+    cldAssert("e_vibrance:70", Adjust.vibrance()..strength(70));
   });
   test('Test successful auto color formatting', () {
     cldAssert("e_auto_color", Adjust.autoColor());

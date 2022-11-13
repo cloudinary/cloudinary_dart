@@ -1,7 +1,6 @@
 import 'package:cloudinary_dart/transformation/common.dart';
 
 class Rotate extends Action {
-
   dynamic _rotation;
 
   Rotate(dynamic rotation) {
