@@ -1,5 +1,5 @@
 import 'package:cloudinary_dart/transformation/adjust/adjust.dart';
-
+import 'package:cloudinary_dart/transformation/rotate.dart';
 import 'resize/resize.dart';
 import 'common.dart';
 import 'delivery/delivery_actions.dart';
@@ -45,6 +45,10 @@ class Transformation {
     return add(resize);
   }
 
+  Transformation rotate(Rotate rotate) {
+    return add(rotate);
+  }
+
   Transformation adjust(Adjust adjust) {
     return add(adjust);
   }
@@ -55,6 +59,11 @@ class Transformation {
 
   void copyWith(Transformation other) {
     components = other.components;
+  }
+
+  @override
+  String toString() {
+    return components.join(defaultComponentSeparator);
   }
 }
 
