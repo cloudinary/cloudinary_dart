@@ -1,3 +1,5 @@
+import 'package:cloudinary_dart/transformation/rotate.dart';
+
 import 'resize/resize.dart';
 import 'common.dart';
 import 'delivery/delivery_actions.dart';
@@ -43,12 +45,21 @@ class Transformation {
     return add(resize);
   }
 
+  Transformation rotate(Rotate rotate) {
+    return add(rotate);
+  }
+
   TransformationObject build() {
     return TransformationObject(components);
   }
 
   void copyWith(Transformation other) {
     components = other.components;
+  }
+
+  @override
+  String toString() {
+    return components.join(defaultComponentSeparator);
   }
 }
 
