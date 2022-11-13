@@ -65,6 +65,11 @@ module.exports = {
 
         // TODO Color - this should be streamlined with how we deal with color.
         return `.colorOverride(Color.${colorName.toUpperCase()})`
+      },
+      quality_override: (payload) => {
+        const {qualifierDTO} = payload;
+        const qualityName = qualifierDTO.qualifiers[0].name;
+        return `.qualityOverride(Quality.${qualityName})`
       }
     }
   }
