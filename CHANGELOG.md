@@ -1,3 +1,7 @@
+## 0.0.5
+- Add Rotate action
+- Add Adjust action
+
 ## 0.0.4
 - Add Transformation Builder
 - Add Delivery, Effect and Resize actions support.
