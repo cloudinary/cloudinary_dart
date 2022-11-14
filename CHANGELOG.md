@@ -1,3 +1,6 @@
+## 0.0.6
+- Refactor class names
+
 ## 0.0.5
 - Add Rotate action
 - Add Adjust action

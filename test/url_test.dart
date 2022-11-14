@@ -1,5 +1,5 @@
 import 'package:cloudinary_dart/analytics.dart';
-import 'package:cloudinary_dart/asset/asset.dart';
+import 'package:cloudinary_dart/asset/cld_asset.dart';
 import 'package:cloudinary_dart/cloudinary.dart';
 import 'package:cloudinary_dart/config/cloudinary_config.dart';
 import 'package:cloudinary_dart/config/url_config.dart';

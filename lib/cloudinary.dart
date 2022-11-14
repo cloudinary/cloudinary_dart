@@ -1,9 +1,9 @@
-import 'asset/image.dart';
-import 'asset/video.dart';
+import 'asset/cld_image.dart';
+import 'asset/cld_video.dart';
 import 'config/cloudinary_config.dart';
 import 'src/util/environment.dart';
 
-import 'asset/asset.dart';
+import 'asset/cld_asset.dart';
 
 final sdkVersion = '0.0.1';
 
