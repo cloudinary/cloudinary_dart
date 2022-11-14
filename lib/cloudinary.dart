@@ -24,22 +24,34 @@ class Cloudinary {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
   }
 
-  Asset raw(String publicId) {
-    Asset asset = Asset(publicId);
+  /// Creates a new Raw instance using the current configuration instance.
+  ///
+  /// Receives publicId [String] The public ID of the file.
+  /// return [CldAsset]
+  CldAsset raw(String publicId) {
+    CldAsset asset = CldAsset(publicId);
     asset.cloudConfig(config.cloudConfig);
     asset.urlConfig(config.urlConfig);
     return asset;
   }
 
-  Image image(String publicId) {
-    Image image = Image(publicId);
+  /// Creates a new Image instance using the current configuration instance.
+  ///
+  /// Receives publicId [String] The public ID of the image.
+  /// return [CldImage]
+  CldImage image(String publicId) {
+    CldImage image = CldImage(publicId);
     image.cloudConfig(config.cloudConfig);
     image.urlConfig(config.urlConfig);
     return image;
   }
 
-  Video video(String publicId) {
-    Video video = Video(publicId);
+  /// Creates a new Video instance using the current configuration instance.
+  ///
+  /// Receives publicId [String] The public ID of the video.
+  /// return [CldVideo]
+  CldVideo video(String publicId) {
+    CldVideo video = CldVideo(publicId);
     video.cloudConfig(config.cloudConfig);
     video.urlConfig(config.urlConfig);
     return video;
