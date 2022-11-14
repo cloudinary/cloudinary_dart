@@ -17,8 +17,8 @@ final String defaultDeliveryType = "upload";
 final String assetTypeImage = "image";
 final String assetTypeVideo = "video";
 
-class Asset extends GeneralAsset {
-  Asset(String publicId,
+class CldAsset extends GeneralAsset {
+  CldAsset(String publicId,
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
       String? version,

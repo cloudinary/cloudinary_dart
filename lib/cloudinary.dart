@@ -24,22 +24,22 @@ class Cloudinary {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
   }
 
-  Asset raw(String publicId) {
-    Asset asset = Asset(publicId);
+  CldAsset raw(String publicId) {
+    CldAsset asset = CldAsset(publicId);
     asset.cloudConfig(config.cloudConfig);
     asset.urlConfig(config.urlConfig);
     return asset;
   }
 
-  Image image(String publicId) {
-    Image image = Image(publicId);
+  CldImage image(String publicId) {
+    CldImage image = CldImage(publicId);
     image.cloudConfig(config.cloudConfig);
     image.urlConfig(config.urlConfig);
     return image;
   }
 
-  Video video(String publicId) {
-    Video video = Video(publicId);
+  CldVideo video(String publicId) {
+    CldVideo video = CldVideo(publicId);
     video.cloudConfig(config.cloudConfig);
     video.urlConfig(config.urlConfig);
     return video;
