@@ -41,7 +41,7 @@ Here's an example of setting configuration parameters in your Dart application:
 ```dart
 import 'package:cloudinary_dart/src/cloudinary.dart';
 
-var cloudinary = Cloudinary.withStringUrl('cloudinary://<your-api-key>:<your-api-secret>@<your-cloud-name>');
+var cloudinary = Cloudinary.fromStringUrl('cloudinary://<your-api-key>:<your-api-secret>@<your-cloud-name>');
 ```
 
 ### Transform and Optimize Assets
