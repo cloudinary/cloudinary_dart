@@ -12,15 +12,15 @@ class Cloudinary {
 
   var userAgent = 'CloudinaryFlutter/$sdkVersion';
 
-  Cloudinary.withStringUrl(String cloudinaryUrl) {
+  Cloudinary.fromStringUrl(String cloudinaryUrl) {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
   }
 
-  Cloudinary.withCloudName({required String cloudName, String? apiKey}) {
+  Cloudinary.fromCloudName({required String cloudName, String? apiKey}) {
     config = CloudinaryConfig.fromUri('cloudinary://$apiKey:@$cloudName');
   }
 
-  Cloudinary.withConfiguration(this.config);
+  Cloudinary.fromConfiguration(this.config);
 
   Cloudinary() {
     String cloudinaryUrl = Environment.cloudinaryUrlFromEnv() ??

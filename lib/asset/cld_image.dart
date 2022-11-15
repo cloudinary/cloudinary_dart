@@ -22,12 +22,12 @@ class CldImage extends GeneralAsset {
 
   @override
   String toString() {
-    return ImageObject.withBuilder(this).toString();
+    return ImageObject.fromBuilder(this).toString();
   }
 }
 
 class ImageObject extends BaseAsset {
-  ImageObject.withBuilder(super.builder) : super.withBuilder();
+  ImageObject.fromBuilder(super.builder) : super.fromBuilder();
 
   @override
   String getTransformationString() {

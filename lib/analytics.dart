@@ -17,7 +17,7 @@ class Analytics {
     techVersion = Platform.version.split(" ")[0];
   }
 
-  Analytics.withParameters(sdkVersion, this.techVersion);
+  Analytics.fromParameters(sdkVersion, this.techVersion);
 
   String generateAnalyticsString() {
     try {

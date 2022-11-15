@@ -10,7 +10,7 @@ void main() {
 
   group('Authtoken Tests', () {
     test('Should successfully generate authtoken with start and duration', () {
-      var token = AuthToken.withParameters(key,
+      var token = AuthToken.fromParameters(key,
           startTime: 1111111111, duration: 300, acl: "/image/*");
       assert(
           "__cld_token__=st=1111111111~exp=1111111411~acl=%2fimage%2f*~hmac=1751370bcc6cfe9e03f30dd1a9722ba0f2cdca283fa3e6df3342a00a7528cc51" ==
@@ -20,7 +20,7 @@ void main() {
       var firstExp = (DateTime.now().millisecondsSinceEpoch / 1000 + 300);
       sleep(Duration(milliseconds: 1200));
       String token =
-          AuthToken.withParameters(key, acl: "*", duration: 300).generate();
+          AuthToken.fromParameters(key, acl: "*", duration: 300).generate();
       sleep(Duration(milliseconds: 1200));
       var secondExp = DateTime.now().millisecondsSinceEpoch / 1000 + 300;
       assert(true == RegExp(r'exp=(\d+)').hasMatch(token));
@@ -30,11 +30,11 @@ void main() {
       assert(actual >= firstExp);
       assert(actual <= secondExp);
       assert(token ==
-          AuthToken.withParameters(key, acl: "*", expiration: actual)
+          AuthToken.fromParameters(key, acl: "*", expiration: actual)
               .generate());
     });
     test('Must provide Expiration or Duration error', () {
-      expect(() => AuthToken.withParameters(key, acl: "*").generate(),
+      expect(() => AuthToken.fromParameters(key, acl: "*").generate(),
           throwsArgumentError);
     });
     test('Should successfully authenticated url', () {
@@ -45,14 +45,14 @@ void main() {
       //TODO: Complete TESTS!!!!
     });
     test('Should successfully initializes with configuration', () {
-      Cloudinary cloudinary = Cloudinary.withStringUrl(
+      Cloudinary cloudinary = Cloudinary.fromStringUrl(
           "cloudinary://a:b@test123?load_strategies=false&auth_token[key]=aabbcc112233&auth_token[duration]=200");
       assert(TestUtils.compareAuthToken(cloudinary.config.cloudConfig.authToken,
-          AuthToken.withParameters("aabbcc112233", duration: 200)));
+          AuthToken.fromParameters("aabbcc112233", duration: 200)));
     });
     test('Should successfully generate token', () {
       var user = "foobar";
-      var token = AuthToken.withParameters(key,
+      var token = AuthToken.fromParameters(key,
           duration: 300, acl: "/*/t_$user", startTime: 222222222);
       var cookieToken = token.generate();
       assert(
@@ -60,10 +60,10 @@ void main() {
               cookieToken);
     });
     test("Should successfully ignore url if acl is provided", () {
-      var token = AuthToken.withParameters(key,
+      var token = AuthToken.fromParameters(key,
           duration: 300, acl: "/*/t_user", startTime: 222222222);
       var cookieToken = token.generate();
-      var aclToken = AuthToken.withParameters(key,
+      var aclToken = AuthToken.fromParameters(key,
           duration: 300, acl: "/*/t_user", startTime: 222222222);
       var cookieAclToken = aclToken.generate(
           "http://res.cloudinary.com/test123/image/upload/v1486020273/sample.jpg");
