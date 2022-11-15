@@ -1,3 +1,4 @@
+import 'package:cloudinary_dart/cloudinary.dart';
 import 'package:cloudinary_dart/config/cloud_config.dart';
 import 'package:cloudinary_dart/config/cloudinary_config.dart';
 import 'package:cloudinary_dart/config/url_config.dart';
@@ -15,6 +16,17 @@ void main() {
       assert("3Sf3FAdasa2easdFGDS3afADFS2" == config.cloudConfig.apiSecret);
       assert("custom.domain.com" == config.urlConfig.cname);
       assert(true == config.urlConfig.shorten);
+    });
+
+    test('Should successfully initialize cloudinary with cloud name only', () {
+      var cloudinary = Cloudinary.withCloudName(cloudName: 'cloudname');
+      assert("cloudname" == cloudinary.config.cloudConfig.cloudName);
+    });
+
+    test('Should successfully initialize cloudinary with cloud name and apikey only', () {
+      var cloudinary = Cloudinary.withCloudName(cloudName: 'cloudname', apiKey: "apiKey");
+      assert("cloudname" == cloudinary.config.cloudConfig.cloudName);
+      assert("apiKey" == cloudinary.config.cloudConfig.apiKey);
     });
 
     test(
