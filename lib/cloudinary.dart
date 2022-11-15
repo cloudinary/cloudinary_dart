@@ -16,6 +16,10 @@ class Cloudinary {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
   }
 
+  Cloudinary.withCloudName({required String cloudName, String? apiKey}) {
+    config = CloudinaryConfig.fromUri('cloudinary://$apiKey:@$cloudName');
+  }
+
   Cloudinary.withConfiguration(this.config);
 
   Cloudinary() {
