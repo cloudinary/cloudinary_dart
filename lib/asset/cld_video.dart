@@ -22,12 +22,12 @@ class CldVideo extends GeneralAsset {
 
   @override
   String toString() {
-    return VideoObject.withBuilder(this).toString();
+    return VideoObject.fromBuilder(this).toString();
   }
 }
 
 class VideoObject extends BaseAsset {
-  VideoObject.withBuilder(super.builder) : super.withBuilder();
+  VideoObject.fromBuilder(super.builder) : super.fromBuilder();
 
   @override
   String getTransformationString() {

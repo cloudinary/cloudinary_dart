@@ -16,25 +16,25 @@ const defaultUploadPath = '${defaultRootPath}image/upload/';
 const defaultCloudinaryUrl = 'cloudinary://a:b@test123?analytics=false';
 
 void main() {
-  var cloudinary = Cloudinary.withStringUrl(defaultCloudinaryUrl);
+  var cloudinary = Cloudinary.fromStringUrl(defaultCloudinaryUrl);
 
-  var cloudinaryPrivateCdn = Cloudinary.withStringUrl(defaultCloudinaryUrl);
+  var cloudinaryPrivateCdn = Cloudinary.fromStringUrl(defaultCloudinaryUrl);
   cloudinaryPrivateCdn.config.urlConfig.privateCdn = true;
 
   var cloudinaryPrivateCdnUseRootPath =
-      Cloudinary.withStringUrl(defaultCloudinaryUrl);
+      Cloudinary.fromStringUrl(defaultCloudinaryUrl);
   cloudinaryPrivateCdnUseRootPath.config.urlConfig.privateCdn = true;
   cloudinaryPrivateCdnUseRootPath.config.urlConfig.useRootPath = true;
 
   var cloudinaryPrivateCdnSignUrl =
-      Cloudinary.withStringUrl(defaultCloudinaryUrl);
+      Cloudinary.fromStringUrl(defaultCloudinaryUrl);
   cloudinaryPrivateCdnSignUrl.config.urlConfig.privateCdn = true;
   cloudinaryPrivateCdnSignUrl.config.urlConfig.signUrl = true;
 
-  var cloudinarySignedUrl = Cloudinary.withStringUrl(defaultCloudinaryUrl);
+  var cloudinarySignedUrl = Cloudinary.fromStringUrl(defaultCloudinaryUrl);
   cloudinarySignedUrl.config.urlConfig.signUrl = true;
 
-  var cloudinaryLongSignedUrl = Cloudinary.withStringUrl(defaultCloudinaryUrl);
+  var cloudinaryLongSignedUrl = Cloudinary.fromStringUrl(defaultCloudinaryUrl);
   cloudinaryLongSignedUrl.config.urlConfig.secure = false;
   cloudinaryLongSignedUrl.config.urlConfig.signUrl = true;
   cloudinaryLongSignedUrl.config.cloudConfig.signatureAlgorithm = 'SHA-256';
@@ -49,14 +49,14 @@ void main() {
         secure: true,
         analytics: false);
     var cloudConfig = cloudinary.config.cloudConfig;
-    var asset = AssetObject.withConfig(cloudConfig, urlConfig);
+    var asset = AssetObject.fromConfig(cloudConfig, urlConfig);
     asset.publicId = "sample";
     cldAssert('https://secure.api.com/sample', asset);
   });
 
   test('Should successfully generate URL with analytics', () {
     var cloudinaryWithAnalytics =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=true');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=true');
     var result = cloudinaryWithAnalytics.image('test');
 
     // note: This test validates the concatenation of analytics query param to the url.
@@ -88,7 +88,7 @@ void main() {
     });
     test('Test different cloud name in options ', () {
       var cloudinaryDifferentCloud =
-          Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+          Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
       cloudinaryDifferentCloud.config.cloudConfig.cloudName = 'test321';
       var result = cloudinaryDifferentCloud.image('test');
       cldAssert('https://res.cloudinary.com/test321/image/upload/test', result);
@@ -98,17 +98,17 @@ void main() {
   group('Test secure distribution', () {
     test('Test should use default secure distribution if secure is true', () {
       var cloudinarySecureFalse =
-          Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+          Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
       cloudinarySecureFalse.config.urlConfig.secure = false;
 
       var result = cloudinarySecureFalse.image('test');
       cldAssert('http://res.cloudinary.com/test123/image/upload/test', result);
 
       // should take secure distribution from config if secure=TRUE
-      var newConfig = Cloudinary.withStringUrl(defaultCloudinaryUrl)
+      var newConfig = Cloudinary.fromStringUrl(defaultCloudinaryUrl)
           .config; //.copy(urlConfig = cloudinary.config.urlConfig.copy(secureDistribution = "config.secure.distribution.com"))
       newConfig.urlConfig.secureDistribution = 'config.secure.distribution.com';
-      var result2 = Cloudinary.withConfiguration(newConfig).image('test');
+      var result2 = Cloudinary.fromConfiguration(newConfig).image('test');
       cldAssert(
           'https://config.secure.distribution.com/test123/image/upload/test',
           result2);
@@ -116,7 +116,7 @@ void main() {
 
     test('Test should overwrite secure distribution successfully', () {
       var cloudinarySecureDistribution =
-          Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+          Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
       cloudinarySecureDistribution.config.urlConfig.secureDistribution =
           'something.else.com';
 
@@ -128,7 +128,7 @@ void main() {
   group('Test Akamai CDN', () {
     test('Test secure true successfully produce valid URL', () {
       var cloudinarySecureWithPrivateCdn =
-          Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+          Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
       cloudinarySecureWithPrivateCdn.config.urlConfig.secure = true;
       cloudinarySecureWithPrivateCdn.config.urlConfig.privateCdn = true;
       var result = cloudinarySecureWithPrivateCdn.image('test');
@@ -137,7 +137,7 @@ void main() {
 
     test('Test non Akamai CDN successfully produce valid URL', () {
       var cloudinarySecureDistribution =
-          Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+          Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
       cloudinarySecureDistribution.config.urlConfig.secure = true;
       cloudinarySecureDistribution.config.urlConfig.privateCdn = true;
       cloudinarySecureDistribution.config.urlConfig.secureDistribution =
@@ -149,7 +149,7 @@ void main() {
 
   test('Test private Cdn with http successfully produce valid URL', () {
     var cloudinaryWithPrivateCdn =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
     cloudinaryWithPrivateCdn.config.urlConfig.privateCdn = true;
     var result = cloudinaryWithPrivateCdn.image('test');
     cldAssert("https://test123-res.cloudinary.com/image/upload/test", result);
@@ -157,21 +157,21 @@ void main() {
 
   test('Test using extension successfully produces valid URL', () {
     var cloudinary =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
     var result = cloudinary.image('test')..extension(Format.jpg);
     cldAssert("${defaultUploadPath}test.jpg", result);
   });
 
   test('Test successfully URL with setting delivery type', () {
     var cloudinary =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
     var result = cloudinary.image('test')..deliveryType('facebook');
     cldAssert('https://res.cloudinary.com/test123/image/facebook/test', result);
   });
 
   test('Test successfully URL with setting resource type', () {
     var cloudinary =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
     var result = cloudinary.raw('test');
     cldAssert("https://res.cloudinary.com/test123/raw/upload/test", result);
   });
@@ -179,7 +179,7 @@ void main() {
   test('Test public id with http prefix produce valid url from public id only',
       () {
     var cloudinary =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
     var result = cloudinary.image('http://test');
     cldAssert('http://test', result);
     result = cloudinary.image(
@@ -193,7 +193,7 @@ void main() {
 
   test('Test fetch as delivery type produce valid URL', () {
     var cloudinary =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
     var result = cloudinary.image('http://blah.com/hello?a=b')
       ..deliveryType("fetch");
     cldAssert(
@@ -203,7 +203,7 @@ void main() {
 
   test('Test url config with cname produce valid URL', () {
     var cloudinarySecureFalseWithCname =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
     cloudinarySecureFalseWithCname.config.urlConfig.cname = 'hello.com';
     cloudinarySecureFalseWithCname.config.urlConfig.secure = false;
 
@@ -244,7 +244,7 @@ void main() {
   });
 
   test('Test Format with Quality chaining returns valid URL', () {
-    var actual = Cloudinary.withStringUrl(defaultCloudinaryUrl).image('test')
+    var actual = Cloudinary.fromStringUrl(defaultCloudinaryUrl).image('test')
       ..transformation(Transformation()
         ..delivery(Delivery.quality(100))
         ..delivery(Delivery.format(Format.jpg)));
@@ -354,7 +354,7 @@ void main() {
 
   test('Test http escape produce valid url', () {
     var cloudinary =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
     var result = cloudinary.image('http://www.youtube.com/watch?v=d9NF2edxy-M')
       ..deliveryType('youtube');
     cldAssert(
@@ -365,14 +365,14 @@ void main() {
   group('Test folder', () {
     test('Test folder in public id produce valid url', () {
       var cloudinary =
-          Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+          Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
       var result = cloudinary.image('folder/test');
       cldAssert('${defaultUploadPath}v1/folder/test', result);
     });
 
     test('Test folder with exclude version produce valid url', () {
       var cloudinaryForceVersionFalse =
-          Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+          Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
       cloudinaryForceVersionFalse.config.urlConfig.forceVersion = false;
       var result = cloudinaryForceVersionFalse.image('folder/test');
       cldAssert('${defaultUploadPath}folder/test', result);
@@ -383,7 +383,7 @@ void main() {
 
       // should add version if no value specified for forceVersion:
       var cloudinary =
-          Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+          Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
       result = cloudinary.image('folder/test');
       cldAssert('${defaultUploadPath}v1/folder/test', result);
 
@@ -395,7 +395,7 @@ void main() {
 
     test('Test folder with version produce valid url', () {
       var cloudinary =
-          Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+          Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
       var result = cloudinary.image('v1234/test');
       cldAssert('${defaultUploadPath}v1234/test', result);
     });
@@ -403,7 +403,7 @@ void main() {
 
   test('test shortne enabled produce valid url', () {
     var cloudinaryShortenTrue =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
     cloudinaryShortenTrue.config.urlConfig.shorten = true;
 
     var result = cloudinaryShortenTrue.image('test');
@@ -412,7 +412,7 @@ void main() {
 
   test('Test escape in public id produce valid url', () {
     var cloudinary =
-        Cloudinary.withStringUrl('cloudinary://a:b@test123?analytics=false');
+        Cloudinary.fromStringUrl('cloudinary://a:b@test123?analytics=false');
     var publicIdsToTest = {
       'a b': 'a%20b',
       'a+b': 'a%2Bb',

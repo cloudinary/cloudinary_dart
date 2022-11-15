@@ -19,12 +19,12 @@ void main() {
     });
 
     test('Should successfully initialize cloudinary with cloud name only', () {
-      var cloudinary = Cloudinary.withCloudName(cloudName: 'cloudname');
+      var cloudinary = Cloudinary.fromCloudName(cloudName: 'cloudname');
       assert("cloudname" == cloudinary.config.cloudConfig.cloudName);
     });
 
     test('Should successfully initialize cloudinary with cloud name and apikey only', () {
-      var cloudinary = Cloudinary.withCloudName(cloudName: 'cloudname', apiKey: "apiKey");
+      var cloudinary = Cloudinary.fromCloudName(cloudName: 'cloudname', apiKey: "apiKey");
       assert("cloudname" == cloudinary.config.cloudConfig.cloudName);
       assert("apiKey" == cloudinary.config.cloudConfig.apiKey);
     });
