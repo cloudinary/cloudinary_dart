@@ -22,3 +22,9 @@ enum FocusOn {
   classic,
   subject
 }
+
+extension ParseToString on FocusOn {
+  String toShortString() {
+    return toString().split('.').last;
+  }
+}
