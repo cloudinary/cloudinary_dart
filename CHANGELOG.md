@@ -1,3 +1,7 @@
+# 0.0.7
+- Add Cloudinary initialisation option
+- Update Cloudinary syntax
+
 ## 0.0.6
 - Refactor class names
 
