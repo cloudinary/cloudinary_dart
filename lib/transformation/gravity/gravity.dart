@@ -57,13 +57,8 @@ class Gravity {
 
   static xyCenter() => XYCenterGravity();
 
-  static FocusOnGravityQualifier focusOn(List<FocusOn> focusOnObjects,
-      {FocusOnGravity? options}) {
-    var builder = FocusOnGravity(focusOnObjects);
-    if (options != null) {
-      builder.copyWith(options);
-    }
-    return builder.build();
+  static FocusOnGravity focusOn(List<FocusOn> focusOnObjects) {
+    return FocusOnGravity(focusOnObjects);
   }
 
   static AutoGravity autoGravity([List<FocusOn>? focusOnObjects]) {
@@ -105,45 +100,23 @@ class Compass {
   }
 }
 
-/// Class FocusOnGravity
-///  Defines objects to use as the focal gravity of crops.
-///
-/// Learn More
-/// https://cloudinary.com/documentation/cloudinary_object_aware_cropping_addon
-class FocusOnGravityQualifier extends Gravity {
-  List<FocusOn>? focusOnObjects;
-  AutoGravity? fallbackGravity;
-
-  FocusOnGravityQualifier([this.focusOnObjects, this.fallbackGravity]);
-
-  @override
-  String toString() {
-    return ((focusOnObjects != null) ? focusOnObjects!.join(":") : "")
-        .joinWithValues(
-            [(fallbackGravity != null) ? fallbackGravity.toString() : null]);
-  }
-}
-
 /// Class FocusOnGravityBuilder
-class FocusOnGravity implements GeneralBuilder {
-  List<FocusOn>? objects;
+class FocusOnGravity extends Gravity {
+  List<FocusOn> objects;
   AutoGravity? _fallbackGravity;
 
-  FocusOnGravity([this.objects]);
+  FocusOnGravity(this.objects);
 
   FocusOnGravity fallbackGravity(AutoGravity gravity) {
     _fallbackGravity = gravity;
     return this;
   }
 
-  FocusOnGravityQualifier build() {
-    return FocusOnGravityQualifier(objects, _fallbackGravity);
-  }
-
   @override
-  void copyWith(other) {
-    objects?.addAll((other.objects != null) ? other.objects : []);
-    _fallbackGravity = other._fallbackGravity;
+  String toString() {
+    return objects!.join(":")
+        .joinWithValues(
+        [(_fallbackGravity != null) ? _fallbackGravity.toString() : null]);
   }
 }
 

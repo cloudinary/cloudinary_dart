@@ -7,7 +7,7 @@ import '../tests_utils.dart';
 void main() {
   test('Test successful gravity formatting', () {
     cldAssert("cat:bird", Gravity.focusOn([FocusOn.cat(), FocusOn.bird()]));
-    cldAssert("cat:bird:auto:microwave_30:bottle_avoid", Gravity.focusOn([FocusOn.cat(), FocusOn.bird()], options: FocusOnGravity() ..fallbackGravity(Gravity.autoGravity([FocusOn.microwave().weight(30), FocusOn.bottle().avoid()]))));
+    cldAssert("cat:bird:auto:microwave_30:bottle_avoid", Gravity.focusOn([FocusOn.cat(), FocusOn.bird()]) ..fallbackGravity(Gravity.autoGravity([FocusOn.microwave().weight(30), FocusOn.bottle().avoid()])));
     cldAssert("west", Gravity.west());
   });
   test('Test successful auto gravity formatting', ()
