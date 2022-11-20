@@ -1,3 +1,7 @@
+# 0.0.8
+- Fix FocusOn syntax
+- Fix Auto Gravity syntax
+
 # 0.0.7
 - Add Cloudinary initialisation option
 - Update Cloudinary syntax
