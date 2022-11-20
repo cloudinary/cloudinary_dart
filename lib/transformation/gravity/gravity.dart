@@ -1,5 +1,4 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/transformation/transformation.dart';
 
 import 'focus_on.dart';
 
@@ -114,7 +113,7 @@ class FocusOnGravity extends Gravity {
 
   @override
   String toString() {
-    return objects!.join(":")
+    return objects.join(":")
         .joinWithValues(
         [(_fallbackGravity != null) ? _fallbackGravity.toString() : null]);
   }
