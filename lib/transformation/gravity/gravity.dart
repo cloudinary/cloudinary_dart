@@ -1,7 +1,6 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_dart/transformation/transformation.dart';
 
-import '../common.dart';
 import 'focus_on.dart';
 
 /// Defines the focal gravity for certain methods of cropping.
