@@ -115,8 +115,10 @@ class FocusOnGravityQualifier extends Gravity {
   @override
   String toString() {
     return focusOnObjects
+        .map((e) => e.toShortString())
         .join(":")
-        .joinWithValues([fallbackGravity.toString()]);
+        .joinWithValues(
+            [(fallbackGravity != null) ? fallbackGravity.toString() : null]);
   }
 }
 
