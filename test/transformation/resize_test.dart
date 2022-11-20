@@ -159,7 +159,7 @@ void main() {
         Resize.crop()
           ..height(100)
           ..aspectRatio(1.5)
-          ..gravity(Gravity().focusOn([FocusOn.face])));
+          ..gravity(Gravity.focusOn([FocusOn.face()])));
   });
 
   test("Test successful thumbnail formatting", () {
