@@ -1,14 +1,15 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
+import 'package:cloudinary_dart/transformation/round_corners.dart';
 
 import 'common.dart';
 
 class Border extends Action {
   dynamic _width;
   dynamic _color;
-  dynamic _roundCorners;
+  RoundCorners? _roundCorners;
   String type = 'solid';
 
-  Border({dynamic width, dynamic color, dynamic roundCorners}) {
+  Border({dynamic width, dynamic color, RoundCorners? roundCorners}) {
     _width = width;
     _color = color;
     _roundCorners = roundCorners;
@@ -18,10 +19,13 @@ class Border extends Action {
     return Border(width: width, color: color);
   }
 
-  //TODO: Round corners
+  Border roundCorners(RoundCorners roundCorners) {
+    _roundCorners = roundCorners;
+    return this;
+  }
 
   @override
   String toString() {
-    return 'bo_${_width}px_${type}_$_color'.joinWithValues(_roundCorners, separator: paramSeparator);
+    return 'bo_${_width}px_${type}_$_color'.joinWithValues([(_roundCorners != null) ? _roundCorners! : null], separator: paramSeparator);
   }
 }
