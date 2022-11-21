@@ -63,9 +63,6 @@ class Transformation {
     if (value is RoundCorners) {
       return add(value);
     }
-    if (value is int) {
-      return add(RoundCorners.byRadius(value));
-    }
     return add(RoundCorners(value));
   }
 
