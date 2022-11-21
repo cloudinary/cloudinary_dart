@@ -1,5 +1,6 @@
 import 'package:cloudinary_dart/transformation/adjust/adjust.dart';
 import 'package:cloudinary_dart/transformation/rotate.dart';
+import 'package:cloudinary_dart/transformation/round_corners.dart';
 import 'effect/effect.dart';
 import 'resize/resize.dart';
 import 'common.dart';
@@ -56,6 +57,16 @@ class Transformation {
 
   Transformation effect(Effect effect) {
     return add(effect);
+  }
+
+  Transformation roundCorners(dynamic value) {
+    if (value is RoundCorners) {
+      return add(value);
+    }
+    if (value is int) {
+      return add(RoundCorners.byRadius(value));
+    }
+    return add(RoundCorners(value));
   }
 
   TransformationObject build() {
