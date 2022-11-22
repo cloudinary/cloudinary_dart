@@ -35,6 +35,9 @@ void main() {
   });
   test('Test successful named transformation formatting', () {
     cldAssert("t_named", Transformation().namedTransformation('named'));
-    cldAssert("t_named", Transformation().namedTransformation(NamedTransformation.name("named")));
+    cldAssert(
+        "t_named",
+        Transformation()
+            .namedTransformation(NamedTransformation.name("named")));
   });
 }
