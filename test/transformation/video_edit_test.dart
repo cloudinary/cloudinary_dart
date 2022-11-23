@@ -1,4 +1,5 @@
 import 'package:cloudinary_dart/transformation/video_edit/video_edit.dart';
+import 'package:cloudinary_dart/transformation/video_edit/video_edit_actions.dart';
 import 'package:test/scaffolding.dart';
 
 import '../tests_utils.dart';
@@ -22,5 +23,11 @@ void main() {
 
     cldAssert("du_2.63,so_3.0", VideoEdit.trim().startOffset(3.0).duration(2.63));
     cldAssert("du_35.0p,so_auto", VideoEdit.trim().startOffset("auto").duration("35.0p"));
+  });
+  test('Test successful video edit volume formatting', () {
+    cldAssert("e_volume:50", VideoEdit.volume(50));
+    cldAssert("e_volume:50", VideoEdit.volume(Volume.byPercent(50)));
+    cldAssert("e_volume:10db", VideoEdit.volume(Volume.byDecibels(10)));
+    cldAssert("e_volume:mute", VideoEdit.volume(Volume.mute()));
   });
 }
