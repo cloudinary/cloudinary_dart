@@ -2,8 +2,7 @@ import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import '../common.dart';
 
 /// Quality Builder
-class Quality
-    implements  DeliveryAction {
+class Quality implements DeliveryAction {
   static const String auto = 'auto';
   static const String autoEco = 'auto:eco';
   static const String autoGood = 'auto:good';
