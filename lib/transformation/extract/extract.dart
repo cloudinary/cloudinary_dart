@@ -1,13 +1,13 @@
 import '../common.dart';
 
 class Extract extends Action {
-    static GetFrame getFrame([List<dynamic>? numbers]) {
-        return GetFrame(numbers);
-    }
+  static GetFrame getFrame([List<dynamic>? numbers]) {
+    return GetFrame(numbers);
+  }
 
-    static GetPage getPage([List<dynamic>? numbers]) {
-      return GetPage(numbers);
-    }
+  static GetPage getPage([List<dynamic>? numbers]) {
+    return GetPage(numbers);
+  }
 }
 
 class GetFrame extends Extract {
