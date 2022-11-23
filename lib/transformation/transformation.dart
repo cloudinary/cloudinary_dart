@@ -1,6 +1,7 @@
 import 'package:cloudinary_dart/transformation/adjust/adjust.dart';
 import 'package:cloudinary_dart/transformation/rotate.dart';
 import 'package:cloudinary_dart/transformation/round_corners.dart';
+import 'border.dart';
 import 'effect/effect.dart';
 import 'named_transformation.dart';
 import 'resize/resize.dart';
@@ -65,6 +66,10 @@ class Transformation {
       return add(value);
     }
     return add(RoundCorners(value));
+  }
+
+  Transformation border(Border border) {
+    return add(border);
   }
 
   Transformation namedTransformation(dynamic namedTransformation) {
