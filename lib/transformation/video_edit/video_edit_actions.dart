@@ -1,10 +1,14 @@
 import 'dart:math';
 
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
+import 'package:cloudinary_dart/transformation/delivery/delivery_actions.dart';
+import 'package:cloudinary_dart/transformation/flag.dart';
 import 'package:cloudinary_dart/transformation/video_edit/video_edit.dart';
 
 import '../TransformationUtils.dart';
+import '../color.dart';
 import '../common.dart';
+import '../effect/effect.dart';
 
 class Trim extends VideoEdit {
   dynamic _startOffset;
@@ -93,6 +97,34 @@ class Preview extends VideoEdit {
 
   Preview minimumSegmentDuration(dynamic minimumSegmentDuration) {
     _minimumSegmentDuration = minimumSegmentDuration;
+    return this;
+  }
+}
+
+class Waveform extends Effect {
+  Format _format;
+  dynamic _color;
+  dynamic _background;
+
+  Waveform(this._format, {dynamic color, Color? background}) {
+    _color = color;
+    _background = background;
+  }
+
+  @override
+  String toString() {
+    List<String?> paramsList = ['$_format', ((_background != null) ? 'b_$_background' : null), ((_color != null) ? 'co_$_color' : null)];
+    paramsList.add(Flag.waveform().toString());
+    return asComponentString(paramsList);
+  }
+
+  Waveform color(Color color) {
+    _color = color;
+    return this;
+  }
+
+  Waveform background(Color background) {
+    _background = background;
     return this;
   }
 }

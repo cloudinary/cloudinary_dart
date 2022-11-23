@@ -1,3 +1,5 @@
+import 'package:cloudinary_dart/transformation/color.dart';
+import 'package:cloudinary_dart/transformation/delivery/delivery_actions.dart';
 import 'package:cloudinary_dart/transformation/video_edit/video_edit.dart';
 import 'package:cloudinary_dart/transformation/video_edit/video_edit_actions.dart';
 import 'package:test/scaffolding.dart';
@@ -32,5 +34,12 @@ void main() {
   });
   test('Test successful video edit preview formatting', () {
     cldAssert("e_preview:duration_12.0:max_seg_3:min_seg_dur_3", VideoEdit.preview().duration(12).maximumSegments(3).minimumSegmentDuration(3));
+  });
+  test('Test successful video edit waveform formatting', () {
+    cldAssert("f_jpg,fl_waveform", VideoEdit.waveform(Format(Format.jpg)));
+    cldAssert(
+        "b_white,co_black,f_png,fl_waveform",
+        VideoEdit.waveform(Format(Format.png)).color(Color.black()).background(
+            Color.white()));
   });
 }
