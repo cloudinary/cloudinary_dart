@@ -23,8 +23,10 @@ void main() {
     cldAssert("du_2.63", VideoEdit.trim().duration(2.63));
     cldAssert("du_35.0p", VideoEdit.trim().duration("35.0p"));
 
-    cldAssert("du_2.63,so_3.0", VideoEdit.trim().startOffset(3.0).duration(2.63));
-    cldAssert("du_35.0p,so_auto", VideoEdit.trim().startOffset("auto").duration("35.0p"));
+    cldAssert(
+        "du_2.63,so_3.0", VideoEdit.trim().startOffset(3.0).duration(2.63));
+    cldAssert("du_35.0p,so_auto",
+        VideoEdit.trim().startOffset("auto").duration("35.0p"));
   });
   test('Test successful video edit volume formatting', () {
     cldAssert("e_volume:50", VideoEdit.volume(50));
@@ -33,13 +35,19 @@ void main() {
     cldAssert("e_volume:mute", VideoEdit.volume(Volume.mute()));
   });
   test('Test successful video edit preview formatting', () {
-    cldAssert("e_preview:duration_12.0:max_seg_3:min_seg_dur_3", VideoEdit.preview().duration(12).maximumSegments(3).minimumSegmentDuration(3));
+    cldAssert(
+        "e_preview:duration_12.0:max_seg_3:min_seg_dur_3",
+        VideoEdit.preview()
+            .duration(12)
+            .maximumSegments(3)
+            .minimumSegmentDuration(3));
   });
   test('Test successful video edit waveform formatting', () {
     cldAssert("f_jpg,fl_waveform", VideoEdit.waveform(Format(Format.jpg)));
     cldAssert(
         "b_white,co_black,f_png,fl_waveform",
-        VideoEdit.waveform(Format(Format.png)).color(Color.black()).background(
-            Color.white()));
+        VideoEdit.waveform(Format(Format.png))
+            .color(Color.black())
+            .background(Color.white()));
   });
 }

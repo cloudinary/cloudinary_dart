@@ -1,7 +1,6 @@
 import 'package:cloudinary_dart/transformation/common.dart';
 
 class Flag {
-
   List<dynamic> values = [];
 
   Flag(this.values);

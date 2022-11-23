@@ -28,9 +28,11 @@ class Trim extends VideoEdit {
 
   @override
   String toString() {
-    List<Param?> paramsList = [((_endOffset != null) ? Param('eo', _endOffset) : null),
+    List<Param?> paramsList = [
+      ((_endOffset != null) ? Param('eo', _endOffset) : null),
       ((_startOffset != null) ? Param('so', _startOffset) : null),
-      ((_duration != null) ? Param('du', _duration) : null)];
+      ((_duration != null) ? Param('du', _duration) : null)
+    ];
     return toComponentString(paramsList);
   }
 
@@ -61,7 +63,8 @@ class Volume extends VideoEdit {
 
   @override
   String toString() {
-    return 'e_volume'.joinWithValues(['$_value${((_suffix != null) ? _suffix : "")}']);
+    return 'e_volume'
+        .joinWithValues(['$_value${((_suffix != null) ? _suffix : "")}']);
   }
 
   static Volume mute() => Volume('mute');
@@ -74,7 +77,10 @@ class Preview extends VideoEdit {
   int? _maximumSegments;
   dynamic _minimumSegmentDuration;
 
-  Preview({double? duration, int? maximumSegments, dynamic minimumSegmentDuration}) {
+  Preview(
+      {double? duration,
+      int? maximumSegments,
+      dynamic minimumSegmentDuration}) {
     _duration = duration;
     _maximumSegments = maximumSegments;
     _minimumSegmentDuration = minimumSegmentDuration;
@@ -82,7 +88,13 @@ class Preview extends VideoEdit {
 
   @override
   String toString() {
-     return 'e_preview'.joinWithValues([((_duration != null) ? 'duration_$_duration' : null), ((_maximumSegments != null) ? 'max_seg_$_maximumSegments' : null), ((_minimumSegmentDuration != null) ? 'min_seg_dur_$_minimumSegmentDuration' : null)]);
+    return 'e_preview'.joinWithValues([
+      ((_duration != null) ? 'duration_$_duration' : null),
+      ((_maximumSegments != null) ? 'max_seg_$_maximumSegments' : null),
+      ((_minimumSegmentDuration != null)
+          ? 'min_seg_dur_$_minimumSegmentDuration'
+          : null)
+    ]);
   }
 
   Preview duration(double duration) {
@@ -113,7 +125,11 @@ class Waveform extends Effect {
 
   @override
   String toString() {
-    List<String?> paramsList = ['$_format', ((_background != null) ? 'b_$_background' : null), ((_color != null) ? 'co_$_color' : null)];
+    List<String?> paramsList = [
+      '$_format',
+      ((_background != null) ? 'b_$_background' : null),
+      ((_color != null) ? 'co_$_color' : null)
+    ];
     paramsList.add(Flag.waveform().toString());
     return asComponentString(paramsList);
   }
