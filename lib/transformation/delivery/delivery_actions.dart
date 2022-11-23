@@ -1,6 +1,5 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import '../common.dart';
-import '../transformation.dart';
 
 /// Quality Builder
 class Quality

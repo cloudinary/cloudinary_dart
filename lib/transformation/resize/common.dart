@@ -1,5 +1,3 @@
-import '../transformation.dart';
-
 /// Class Aspect Ratio
 class AspectRatio {
   String value;
