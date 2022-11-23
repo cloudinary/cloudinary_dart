@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_dart/transformation/delivery/delivery_actions.dart';
 import 'package:cloudinary_dart/transformation/flag.dart';
