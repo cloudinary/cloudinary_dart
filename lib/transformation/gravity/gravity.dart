@@ -113,8 +113,7 @@ class FocusOnGravity extends Gravity {
 
   @override
   String toString() {
-    return objects.join(":")
-        .joinWithValues(
+    return objects.join(":").joinWithValues(
         [(_fallbackGravity != null) ? _fallbackGravity.toString() : null]);
   }
 }
@@ -140,7 +139,8 @@ class AutoGravity extends Gravity {
 
   @override
   String toString() {
-      return "auto".joinWithValues([(objects != null) ? objects!.join(":") : null]);
+    return "auto"
+        .joinWithValues([(objects != null) ? objects!.join(":") : null]);
   }
 }
 
