@@ -147,7 +147,7 @@ class Sharpen extends Adjust {
 }
 
 class ReplaceColor extends Adjust {
-  Color _toColor;
+  final Color _toColor;
   int? _tolerance;
   Color? _fromColor;
 

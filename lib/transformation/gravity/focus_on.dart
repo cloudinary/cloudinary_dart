@@ -25,8 +25,8 @@ class FocusOn {
   static FocusOn body() => FocusOn("body");
   static FocusOn face() => FocusOn("face");
   static FocusOn faces() => FocusOn("faces");
-  static FocusOn no_faces() => FocusOn("no_faces");
-  static FocusOn custom_no_override() => FocusOn("custom_no_override");
+  static FocusOn noFaces() => FocusOn("no_faces");
+  static FocusOn customNoOverride() => FocusOn("custom_no_override");
   static FocusOn person() => FocusOn("person");
   static FocusOn classic() => FocusOn("classic");
   static FocusOn subject() => FocusOn("subject");

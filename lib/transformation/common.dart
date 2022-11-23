@@ -11,10 +11,6 @@ class Param {
 }
 
 abstract class Action {
-  @override
-  String toString() {
-    return super.toString();
-  }
 }
 
 class GenericAction extends Action {
