@@ -4,7 +4,7 @@ import '../transformation.dart';
 
 /// Quality Builder
 class Quality
-    implements TransformationComponentBuilder<Quality>, DeliveryAction {
+    implements  DeliveryAction {
   static const String auto = 'auto';
   static const String autoEco = 'auto:eco';
   static const String autoGood = 'auto:good';
@@ -63,15 +63,6 @@ class Quality
     return this;
   }
 
-  /// Builder copy function
-  @override
-  void copyWith(Quality other) {
-    level = other.level ?? level;
-    _chromaSubSampling = other._chromaSubSampling;
-    _quantization = other._quantization;
-    _anyFormat = other._anyFormat;
-  }
-
   @override
   String toString() {
     var anyFormatStr = _anyFormat ? "fl_any_format$paramSeparator" : "";
@@ -100,7 +91,7 @@ class ChromaSubSampling {
   }
 }
 
-class Format implements TransformationComponentBuilder<Format>, DeliveryAction {
+class Format implements DeliveryAction {
   static const String glb = 'glb';
   static const String auto = 'auto';
   static const String ai = 'ai';
@@ -224,16 +215,6 @@ class Format implements TransformationComponentBuilder<Format>, DeliveryAction {
   Format ignoreMaskChannels() {
     _ignoreMaskChannels = true;
     return this;
-  }
-
-  /// Builder copy function
-  @override
-  void copyWith(Format other) {
-    format = other.format ?? format;
-    _lossy = other._lossy;
-    _progressive = other._progressive;
-    _preserveTransparency = other._preserveTransparency;
-    _ignoreMaskChannels = other._ignoreMaskChannels;
   }
 
   @override
