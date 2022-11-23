@@ -26,6 +26,8 @@ class Border extends Action {
 
   @override
   String toString() {
-    return 'bo_${_width}px_${type}_$_color'.joinWithValues([(_roundCorners != null) ? _roundCorners! : null], separator: paramSeparator);
+    return 'bo_${_width}px_${type}_$_color'.joinWithValues(
+        [(_roundCorners != null) ? _roundCorners! : null],
+        separator: paramSeparator);
   }
 }
