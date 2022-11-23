@@ -30,4 +30,7 @@ void main() {
     cldAssert("e_volume:10db", VideoEdit.volume(Volume.byDecibels(10)));
     cldAssert("e_volume:mute", VideoEdit.volume(Volume.mute()));
   });
+  test('Test successful video edit preview formatting', () {
+    cldAssert("e_preview:duration_12.0:max_seg_3:min_seg_dur_3", VideoEdit.preview().duration(12).maximumSegments(3).minimumSegmentDuration(3));
+  });
 }

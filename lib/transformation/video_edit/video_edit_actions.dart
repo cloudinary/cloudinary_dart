@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_dart/transformation/video_edit/video_edit.dart';
 
@@ -61,4 +63,36 @@ class Volume extends VideoEdit {
   static Volume mute() => Volume('mute');
   static Volume byPercent(int percentage) => Volume(percentage);
   static Volume byDecibels(int decibels) => Volume(decibels, suffix: 'db');
+}
+
+class Preview extends VideoEdit {
+  double? _duration;
+  int? _maximumSegments;
+  dynamic _minimumSegmentDuration;
+
+  Preview({double? duration, int? maximumSegments, dynamic minimumSegmentDuration}) {
+    _duration = duration;
+    _maximumSegments = maximumSegments;
+    _minimumSegmentDuration = minimumSegmentDuration;
+  }
+
+  @override
+  String toString() {
+     return 'e_preview'.joinWithValues([((_duration != null) ? 'duration_$_duration' : null), ((_maximumSegments != null) ? 'max_seg_$_maximumSegments' : null), ((_minimumSegmentDuration != null) ? 'min_seg_dur_$_minimumSegmentDuration' : null)]);
+  }
+
+  Preview duration(double duration) {
+    _duration = duration;
+    return this;
+  }
+
+  Preview maximumSegments(int maximumSegments) {
+    _maximumSegments = maximumSegments;
+    return this;
+  }
+
+  Preview minimumSegmentDuration(dynamic minimumSegmentDuration) {
+    _minimumSegmentDuration = minimumSegmentDuration;
+    return this;
+  }
 }

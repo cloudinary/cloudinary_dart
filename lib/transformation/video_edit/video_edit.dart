@@ -13,4 +13,8 @@ class VideoEdit extends Action {
     }
     return Volume(volume);
   }
+
+  static Preview preview() {
+    return Preview();
+  }
 }
