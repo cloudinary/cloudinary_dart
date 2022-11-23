@@ -1,12 +1,8 @@
-
-
-
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_dart/transformation/common.dart';
 
 /// Defines the objects that can be focused on.
 class FocusOn {
-
   String value;
   int? _weight;
   bool? _avoid;
@@ -47,8 +43,11 @@ class FocusOn {
 
   @override
   String toString() {
-    var weightStr =
-    (_avoid != null && _avoid == true) ? "avoid" : (_weight != null) ? _weight.toString() : null;
+    var weightStr = (_avoid != null && _avoid == true)
+        ? "avoid"
+        : (_weight != null)
+            ? _weight.toString()
+            : null;
     return value.joinWithValues([weightStr], separator: paramKeyValueSeparator);
   }
 }
