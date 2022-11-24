@@ -21,12 +21,6 @@ class TransformationObject {
   void add(Action action) {
     actions.add(action);
   }
-
-  static TransformationObject transformation(Transformation options) {
-    var builder = Transformation();
-    builder.copyWith(options);
-    return builder.build();
-  }
 }
 
 class Transformation {
@@ -83,21 +77,8 @@ class Transformation {
     return TransformationObject(components);
   }
 
-  void copyWith(Transformation other) {
-    components = other.components;
-  }
-
   @override
   String toString() {
     return components.join(defaultComponentSeparator);
   }
-}
-
-/// Class Transformation Builder
-abstract class TransformationComponentBuilder<T> {
-  void copyWith(T other);
-}
-
-abstract class GeneralBuilder<T> {
-  void copyWith(T other);
 }
