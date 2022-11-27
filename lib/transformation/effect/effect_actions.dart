@@ -1,7 +1,7 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_dart/src/util/validations.dart';
 
-import '../TransformationUtils.dart';
+import '../transformation_utils.dart';
 import '../color.dart';
 import '../common.dart';
 import '../region.dart';
@@ -730,7 +730,7 @@ class AssistColorBlind extends Effect {
 }
 
 class Theme extends Effect {
-  Color _color;
+  final Color _color;
   int? _photosensitivity;
 
   Theme(this._color, {int? photosensitivity}) {
@@ -857,8 +857,8 @@ class SimulateColorBlindObject {
   static tritanopia() => SimulateColorBlindObject("tritanopia");
   static tritanomaly() => SimulateColorBlindObject("tritanomaly");
   static deuteranomaly() => SimulateColorBlindObject("deuteranomaly");
-  static cone_monochromacy() => SimulateColorBlindObject("cone_monochromacy");
-  static rod_monochromacy() => SimulateColorBlindObject("rod_monochromacy");
+  static coneMonochromacy() => SimulateColorBlindObject("cone_monochromacy");
+  static rodMonochromacy() => SimulateColorBlindObject("rod_monochromacy");
 
   @override
   String toString() {
