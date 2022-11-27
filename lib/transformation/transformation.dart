@@ -1,7 +1,9 @@
 import 'package:cloudinary_dart/transformation/adjust/adjust.dart';
 import 'package:cloudinary_dart/transformation/rotate.dart';
 import 'package:cloudinary_dart/transformation/round_corners.dart';
+import 'border.dart';
 import 'effect/effect.dart';
+import 'named_transformation.dart';
 import 'resize/resize.dart';
 import 'common.dart';
 import 'delivery/delivery_actions.dart';
@@ -18,12 +20,6 @@ class TransformationObject {
 
   void add(Action action) {
     actions.add(action);
-  }
-
-  static TransformationObject transformation(Transformation options) {
-    var builder = Transformation();
-    builder.copyWith(options);
-    return builder.build();
   }
 }
 
@@ -66,25 +62,23 @@ class Transformation {
     return add(RoundCorners(value));
   }
 
-  TransformationObject build() {
-    return TransformationObject(components);
+  Transformation border(Border border) {
+    return add(border);
   }
 
-  void copyWith(Transformation other) {
-    components = other.components;
+  Transformation namedTransformation(dynamic namedTransformation) {
+    if (namedTransformation is NamedTransformation) {
+      return add(namedTransformation);
+    }
+    return add(NamedTransformation(namedTransformation));
+  }
+
+  TransformationObject build() {
+    return TransformationObject(components);
   }
 
   @override
   String toString() {
     return components.join(defaultComponentSeparator);
   }
-}
-
-/// Class Transformation Builder
-abstract class TransformationComponentBuilder<T> {
-  void copyWith(T other);
-}
-
-abstract class GeneralBuilder<T> {
-  void copyWith(T other);
 }

@@ -1,6 +1,7 @@
 import 'package:cloudinary_dart/transformation/adjust/adjust.dart';
 import 'package:cloudinary_dart/transformation/delivery/delivery_actions.dart';
 import 'package:cloudinary_dart/transformation/effect/effect.dart';
+import 'package:cloudinary_dart/transformation/named_transformation.dart';
 import 'package:cloudinary_dart/transformation/resize/resize.dart';
 import 'package:cloudinary_dart/transformation/rotate.dart';
 import 'package:cloudinary_dart/transformation/transformation.dart';
@@ -31,5 +32,12 @@ void main() {
   });
   test('Test successful generic transformation formatting', () {
     cldAssert('a_0', Transformation()..generic('a_0'));
+  });
+  test('Test successful named transformation formatting', () {
+    cldAssert("t_named", Transformation().namedTransformation('named'));
+    cldAssert(
+        "t_named",
+        Transformation()
+            .namedTransformation(NamedTransformation.name("named")));
   });
 }

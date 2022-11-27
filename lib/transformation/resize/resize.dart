@@ -2,7 +2,7 @@ import 'package:cloudinary_dart/transformation/resize/fill.dart';
 import 'package:cloudinary_dart/transformation/resize/scale.dart';
 import 'package:cloudinary_dart/transformation/resize/fit.dart';
 import 'package:cloudinary_dart/transformation/resize/pad.dart';
-import '../TransformationUtils.dart';
+import '../transformation_utils.dart';
 import '../common.dart';
 import 'common.dart';
 import 'crop.dart';

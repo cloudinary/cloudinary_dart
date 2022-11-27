@@ -1,12 +1,8 @@
-
-
-
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_dart/transformation/common.dart';
 
 /// Defines the objects that can be focused on.
 class FocusOn {
-
   String value;
   int? _weight;
   bool? _avoid;
@@ -29,8 +25,8 @@ class FocusOn {
   static FocusOn body() => FocusOn("body");
   static FocusOn face() => FocusOn("face");
   static FocusOn faces() => FocusOn("faces");
-  static FocusOn no_faces() => FocusOn("no_faces");
-  static FocusOn custom_no_override() => FocusOn("custom_no_override");
+  static FocusOn noFaces() => FocusOn("no_faces");
+  static FocusOn customNoOverride() => FocusOn("custom_no_override");
   static FocusOn person() => FocusOn("person");
   static FocusOn classic() => FocusOn("classic");
   static FocusOn subject() => FocusOn("subject");
@@ -47,8 +43,11 @@ class FocusOn {
 
   @override
   String toString() {
-    var weightStr =
-    (_avoid != null && _avoid == true) ? "avoid" : (_weight != null) ? _weight.toString() : null;
+    var weightStr = (_avoid != null && _avoid == true)
+        ? "avoid"
+        : (_weight != null)
+            ? _weight.toString()
+            : null;
     return value.joinWithValues([weightStr], separator: paramKeyValueSeparator);
   }
 }
