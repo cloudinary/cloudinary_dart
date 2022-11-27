@@ -14,7 +14,7 @@ class CldVideo extends GeneralAsset {
       String? urlSuffix,
       String? assetType,
       String? deliveryType,
-        String? signature,
+      String? signature,
       TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
             assetType, deliveryType, signature, transformation) {

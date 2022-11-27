@@ -26,7 +26,7 @@ class CldAsset extends GeneralAsset {
       String? urlSuffix,
       String? assetType,
       String? deliveryType,
-        String? signature,
+      String? signature,
       TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
             assetType, deliveryType, signature, transformation) {
@@ -262,7 +262,7 @@ abstract class BaseAsset {
     if (cloudConfig.authToken == null ||
         cloudConfig.authToken == nullAutoToken) {
       if (this.signature != null) {
-          signature = this.signature!;
+        signature = this.signature!;
       } else if ((urlConfig.signUrl != null && urlConfig.signUrl == true)) {
         var signatureAlgorithm = "";
         if (urlConfig.longUrlSignature == true) {
@@ -276,12 +276,11 @@ abstract class BaseAsset {
             .cldMergeSlashesInUrl();
         (cloudConfig.apiSecret != null) ? cloudConfig.apiSecret! : "";
         var hashString =
-        hash(toSign + cloudConfig.apiSecret!, signatureAlgorithm);
+            hash(toSign + cloudConfig.apiSecret!, signatureAlgorithm);
         if (hashString != null) {
           signature = base64.encode(hashString).safeBase64Encoding();
           signature =
-          's--${signature.substring(0, (urlConfig.longUrlSignature != null &&
-              urlConfig.longUrlSignature == true) ? 32 : 8)}--';
+              's--${signature.substring(0, (urlConfig.longUrlSignature != null && urlConfig.longUrlSignature == true) ? 32 : 8)}--';
         }
       }
     }

@@ -292,14 +292,17 @@ void main() {
   });
 
   test('Test set signature outputs valid url', () {
-    var actual = cloudinary.image('test').signature("s--123456789");
-    cldAssert("https://res.cloudinary.com/test123/image/upload/s--123456789/test", actual);
+    var actual = cloudinary.image('test').signature("q123456789");
+    cldAssert("https://res.cloudinary.com/test123/image/upload/q123456789/test",
+        actual);
 
-    actual = cloudinary.video('test').signature("s--123456789");
-    cldAssert("https://res.cloudinary.com/test123/video/upload/s--123456789/test", actual);
+    actual = cloudinary.video('test').signature("q123456789");
+    cldAssert("https://res.cloudinary.com/test123/video/upload/q123456789/test",
+        actual);
 
-    actual = cloudinary.raw('test').signature("s--123456789");
-    cldAssert("https://res.cloudinary.com/test123/raw/upload/s--123456789/test", actual);
+    actual = cloudinary.raw('test').signature("q123456789");
+    cldAssert("https://res.cloudinary.com/test123/raw/upload/q123456789/test",
+        actual);
   });
 
   group('Test url suffix for different asset types', () {
