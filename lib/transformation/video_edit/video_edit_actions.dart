@@ -3,10 +3,10 @@ import 'package:cloudinary_dart/transformation/delivery/delivery_actions.dart';
 import 'package:cloudinary_dart/transformation/flag.dart';
 import 'package:cloudinary_dart/transformation/video_edit/video_edit.dart';
 
-import '../TransformationUtils.dart';
 import '../color.dart';
 import '../common.dart';
 import '../effect/effect.dart';
+import '../transformation_utils.dart';
 
 class Trim extends VideoEdit {
   dynamic _startOffset;
