@@ -55,11 +55,11 @@ class GradientDirection {
     return GradientDirection('vertical');
   }
 
-  static GradientDirection diagonal_desc() {
+  static GradientDirection diagonalDesc() {
     return GradientDirection('diagonal_desc');
   }
 
-  static GradientDirection diagonal_asc() {
+  static GradientDirection diagonalAsc() {
     return GradientDirection('diagonal_asc');
   }
 

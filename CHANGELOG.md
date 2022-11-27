@@ -1,8 +1,13 @@
-# 0.0.8
-- Fix FocusOn syntax
-- Fix Auto Gravity syntax
+## 0.0.9
+- Add `Border` action support
+- Add `Extract` action support
+- Add named transformation action support
 
-# 0.0.7
+## 0.0.8
+- Fix `FocusOn` syntax
+- Fix `AutoGravity` syntax
+
+## 0.0.7
 - Add Cloudinary initialisation option
 - Update Cloudinary syntax
 
@@ -10,12 +15,12 @@
 - Refactor class names
 
 ## 0.0.5
-- Add Rotate action
-- Add Adjust action
+- Add `Rotate` action
+- Add `Adjust` action
 
 ## 0.0.4
 - Add Transformation Builder
-- Add Delivery, Effect and Resize actions support.
+- Add `Delivery`, `Effect` and `Resize` actions support.
 
 ## 0.0.3
 - Update file tree
