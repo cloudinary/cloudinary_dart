@@ -291,6 +291,11 @@ void main() {
         actual);
   });
 
+  test('Test set signature outputs valid url', () {
+    var actual = cloudinary.image('test').signature("s--123456789");
+    cldAssert("https://res.cloudinary.com/test123/image/upload/s--123456789/test", actual);
+  });
+
   group('Test url suffix for different asset types', () {
     test('Test using url suffix for raw uploads produce valid url', () {
       var actual = cloudinaryPrivateCdn.raw('test')..urlSuffix('hello');

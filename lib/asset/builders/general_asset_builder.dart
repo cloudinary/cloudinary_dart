@@ -15,6 +15,7 @@ abstract class GeneralAsset {
   String? _urlSuffix;
   String? _assetType;
   String? _deliveryType;
+  String? _signature;
   TransformationObject? _transformation;
 
   GeneralAsset(
@@ -26,6 +27,7 @@ abstract class GeneralAsset {
       this._urlSuffix,
       this._assetType,
       this._deliveryType,
+      this._signature,
       this._transformation]);
 
   GeneralAsset cloudConfig(CloudConfig cloudConfig) {
@@ -73,6 +75,11 @@ abstract class GeneralAsset {
     return this;
   }
 
+  GeneralAsset signature(String signature) {
+    _signature = signature;
+    return this;
+  }
+
   CloudConfig? getCloudConfig() {
     return _cloudConfig;
   }
@@ -103,6 +110,10 @@ abstract class GeneralAsset {
 
   String? getDeliveryType() {
     return _deliveryType;
+  }
+
+  String? getSignature() {
+    return _signature;
   }
 
   TransformationObject? getTransformation() {

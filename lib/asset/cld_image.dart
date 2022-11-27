@@ -14,9 +14,10 @@ class CldImage extends GeneralAsset {
       String? urlSuffix,
       String? assetType,
       String? deliveryType,
+        String? signature,
       TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
-            assetType, deliveryType, transformation) {
+            assetType, deliveryType, signature, transformation) {
     super.assetType('image');
   }
 
