@@ -292,16 +292,16 @@ void main() {
   });
 
   test('Test set signature outputs valid url', () {
-    var actual = cloudinary.image('test').signature("q123456789");
-    cldAssert("https://res.cloudinary.com/test123/image/upload/q123456789/test",
+    var actual = cloudinary.image('test').signature("q1234567");
+    cldAssert("https://res.cloudinary.com/test123/image/upload/s--q1234567--/test",
         actual);
 
-    actual = cloudinary.video('test').signature("q123456789");
-    cldAssert("https://res.cloudinary.com/test123/video/upload/q123456789/test",
+    actual = cloudinary.video('test').signature("q1234567");
+    cldAssert("https://res.cloudinary.com/test123/video/upload/s--q1234567--/test",
         actual);
 
-    actual = cloudinary.raw('test').signature("q123456789");
-    cldAssert("https://res.cloudinary.com/test123/raw/upload/q123456789/test",
+    actual = cloudinary.raw('test').signature("q1234567");
+    cldAssert("https://res.cloudinary.com/test123/raw/upload/s--q1234567--/test",
         actual);
   });
 
