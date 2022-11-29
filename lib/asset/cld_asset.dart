@@ -262,7 +262,7 @@ abstract class BaseAsset {
     if (cloudConfig.authToken == null ||
         cloudConfig.authToken == nullAutoToken) {
       if (this.signature != null) {
-        signature = wrapSignature(this.signature!);
+        signature = formatSignature(this.signature!);
       } else if ((urlConfig.signUrl != null && urlConfig.signUrl == true)) {
         var signatureAlgorithm = "";
         if (urlConfig.longUrlSignature == true) {
@@ -279,8 +279,12 @@ abstract class BaseAsset {
             hash(toSign + cloudConfig.apiSecret!, signatureAlgorithm);
         if (hashString != null) {
           signature = base64.encode(hashString).safeBase64Encoding();
-          signature =
-              wrapSignature(signature.substring(0, (urlConfig.longUrlSignature != null && urlConfig.longUrlSignature == true) ? 32 : 8));
+          signature = formatSignature(signature.substring(
+              0,
+              (urlConfig.longUrlSignature != null &&
+                      urlConfig.longUrlSignature == true)
+                  ? 32
+                  : 8));
         }
       }
     }
@@ -361,7 +365,7 @@ abstract class BaseAsset {
   }
 }
 
-String wrapSignature(String signature) {
+String formatSignature(String signature) {
   return 's--$signature--';
 }
 

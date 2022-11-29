@@ -1,5 +1,6 @@
 import 'package:cloudinary_dart/analytics.dart';
 import 'package:cloudinary_dart/asset/cld_asset.dart';
+import 'package:cloudinary_dart/auth_token.dart';
 import 'package:cloudinary_dart/cloudinary.dart';
 import 'package:cloudinary_dart/config/cloudinary_config.dart';
 import 'package:cloudinary_dart/config/url_config.dart';
@@ -38,6 +39,11 @@ void main() {
   cloudinaryLongSignedUrl.config.urlConfig.secure = false;
   cloudinaryLongSignedUrl.config.urlConfig.signUrl = true;
   cloudinaryLongSignedUrl.config.cloudConfig.signatureAlgorithm = 'SHA-256';
+
+  var cloudinaryWithToken = Cloudinary.fromStringUrl(defaultCloudinaryUrl);
+  var token = AuthToken.fromParameters('00112233FF99',
+      startTime: 1111111111, duration: 300, acl: "/image/*");
+  cloudinaryWithToken.config.cloudConfig.authToken = token;
 
   test('Should successfully initialize config values', () {
     var urlConfig = UrlConfig.withParameters('secure.api.com',
@@ -291,18 +297,41 @@ void main() {
         actual);
   });
 
-  test('Test set signature outputs valid url', () {
-    var actual = cloudinary.image('test').signature("q1234567");
-    cldAssert("https://res.cloudinary.com/test123/image/upload/s--q1234567--/test",
-        actual);
+  group('Test set signature and auth token', () {
+    test('Test set signature outputs valid url', () {
+      var actual = cloudinary.image('test').signature('q1234567');
+      cldAssert(
+          'https://res.cloudinary.com/test123/image/upload/s--q1234567--/test',
+          actual);
 
-    actual = cloudinary.video('test').signature("q1234567");
-    cldAssert("https://res.cloudinary.com/test123/video/upload/s--q1234567--/test",
-        actual);
+      actual = cloudinary.video('test').signature('q1234567');
+      cldAssert(
+          'https://res.cloudinary.com/test123/video/upload/s--q1234567--/test',
+          actual);
 
-    actual = cloudinary.raw('test').signature("q1234567");
-    cldAssert("https://res.cloudinary.com/test123/raw/upload/s--q1234567--/test",
-        actual);
+      actual = cloudinary.raw('test').signature('q1234567');
+      cldAssert(
+          'https://res.cloudinary.com/test123/raw/upload/s--q1234567--/test',
+          actual);
+    });
+
+    test(
+        'Auth token with signurl false and signature produce url with no token or signature',
+        () {
+      cloudinaryWithToken.config.urlConfig.signUrl = false;
+      var actual = cloudinaryWithToken.image('test').signature('q1234567');
+      cldAssert('https://res.cloudinary.com/test123/image/upload/test', actual);
+    });
+
+    test(
+        'Auth token wiht signurl true and signature produce url with auth token only',
+        () {
+      cloudinaryWithToken.config.urlConfig.signUrl = true;
+      var actual = cloudinaryWithToken.image('test').signature('q1234567');
+      cldAssert(
+          'https://res.cloudinary.com/test123/image/upload/test?__cld_token__=st=1111111111~exp=1111111411~acl=%2fimage%2f*~hmac=1751370bcc6cfe9e03f30dd1a9722ba0f2cdca283fa3e6df3342a00a7528cc51',
+          actual);
+    });
   });
 
   group('Test url suffix for different asset types', () {
