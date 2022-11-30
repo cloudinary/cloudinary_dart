@@ -10,8 +10,7 @@ class Param {
   Param(this.key, this.value);
 }
 
-abstract class Action {
-}
+abstract class Action {}
 
 class GenericAction extends Action {
   String? value;

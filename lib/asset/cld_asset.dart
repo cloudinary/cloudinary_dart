@@ -26,9 +26,10 @@ class CldAsset extends GeneralAsset {
       String? urlSuffix,
       String? assetType,
       String? deliveryType,
+      String? signature,
       TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
-            assetType, deliveryType, transformation) {
+            assetType, deliveryType, signature, transformation) {
     super.assetType('raw');
   }
 
@@ -67,6 +68,7 @@ abstract class BaseAsset {
   String? urlSuffix;
   String assetType = defaultAssetType;
   String? deliveryType;
+  String? signature;
   TransformationObject? transformation;
 
   BaseAsset.fromConfig(this.cloudConfig, this.urlConfig);
@@ -79,7 +81,8 @@ abstract class BaseAsset {
       this.extension,
       this.urlSuffix,
       this.assetType,
-      this.deliveryType);
+      this.deliveryType,
+      this.signature);
 
   BaseAsset.fromBuilder(GeneralAsset builder)
       : cloudConfig = builder.getCloudConfig()!,
@@ -90,6 +93,7 @@ abstract class BaseAsset {
         urlSuffix = builder.getUrlSuffix(),
         assetType = builder.getAssetType() ?? defaultAssetType,
         deliveryType = builder.getDeliveryType(),
+        signature = builder.getSignature(),
         transformation = builder.getTransformation();
 
   String getTransformationString();
@@ -255,26 +259,33 @@ abstract class BaseAsset {
     var transformationString = getTransformationString();
 
     //Signature
-    if ((urlConfig.signUrl != null && urlConfig.signUrl == true) &&
-        (cloudConfig.authToken == null ||
-            cloudConfig.authToken == nullAutoToken)) {
-      var signatureAlgorithm = "";
-      if (urlConfig.longUrlSignature == true) {
-        signatureAlgorithm = 'SHA-256';
-      } else {
-        signatureAlgorithm = cloudConfig.signatureAlgorithm;
-      }
-      var toSign = <String>[transformationString, sourceToSign]
-          .join('/')
-          .cldRemoveStartingChars('/')
-          .cldMergeSlashesInUrl();
-      (cloudConfig.apiSecret != null) ? cloudConfig.apiSecret! : "";
-      var hashString =
-          hash(toSign + cloudConfig.apiSecret!, signatureAlgorithm);
-      if (hashString != null) {
-        signature = base64.encode(hashString).safeBase64Encoding();
-        signature =
-            's--${signature.substring(0, (urlConfig.longUrlSignature != null && urlConfig.longUrlSignature == true) ? 32 : 8)}--';
+    if (cloudConfig.authToken == null ||
+        cloudConfig.authToken == nullAutoToken) {
+      if (this.signature != null) {
+        signature = formatSignature(this.signature!);
+      } else if ((urlConfig.signUrl != null && urlConfig.signUrl == true)) {
+        var signatureAlgorithm = "";
+        if (urlConfig.longUrlSignature == true) {
+          signatureAlgorithm = 'SHA-256';
+        } else {
+          signatureAlgorithm = cloudConfig.signatureAlgorithm;
+        }
+        var toSign = <String>[transformationString, sourceToSign]
+            .join('/')
+            .cldRemoveStartingChars('/')
+            .cldMergeSlashesInUrl();
+        (cloudConfig.apiSecret != null) ? cloudConfig.apiSecret! : "";
+        var hashString =
+            hash(toSign + cloudConfig.apiSecret!, signatureAlgorithm);
+        if (hashString != null) {
+          signature = base64.encode(hashString).safeBase64Encoding();
+          signature = formatSignature(signature.substring(
+              0,
+              (urlConfig.longUrlSignature != null &&
+                      urlConfig.longUrlSignature == true)
+                  ? 32
+                  : 8));
+        }
       }
     }
 
@@ -352,6 +363,10 @@ abstract class BaseAsset {
   String toString() {
     return _generate();
   }
+}
+
+String formatSignature(String signature) {
+  return 's--$signature--';
 }
 
 class FinalizedSource {
