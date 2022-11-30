@@ -3,15 +3,15 @@ import '../common.dart';
 
 /// Quality Builder
 class Quality implements DeliveryAction {
-  static const String auto = 'auto';
-  static const String autoEco = 'auto:eco';
-  static const String autoGood = 'auto:good';
-  static const String autoBest = 'auto:best';
-  static const String autoLow = 'auto:low';
-  static const String jpegmini = 'jpegmini';
-  static const String jpegminiHigh = 'jpegmini:1';
-  static const String jpegminiMedium = 'jpegmini:2';
-  static const String jpegminiBest = 'jpegmini:0';
+  static String auto() => 'auto';
+  static String autoEco() => 'auto:eco';
+  static String autoGood() => 'auto:good';
+  static String autoBest() => 'auto:best';
+  static String autoLow() => 'auto:low';
+  static String jpegmini() => 'jpegmini';
+  static String jpegminiHigh() => 'jpegmini:1';
+  static String jpegminiMedium() => 'jpegmini:2';
+  static String jpegminiBest() => 'jpegmini:0';
 
   dynamic level;
   bool _anyFormat = false;

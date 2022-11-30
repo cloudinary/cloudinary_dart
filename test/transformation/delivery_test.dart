@@ -14,23 +14,23 @@ void main() {
         "q_100:420",
         Delivery.quality(100)
           ..chromaSubSampling(ChromaSubSampling.chroma420()));
-    cldAssert("q_auto", Delivery.quality(Quality.auto));
-    cldAssert("q_auto:low", Delivery.quality(Quality.autoLow));
+    cldAssert("q_auto", Delivery.quality(Quality.auto()));
+    cldAssert("q_auto:low", Delivery.quality(Quality.autoLow()));
     cldAssert(
         "q_auto:low:444",
-        Delivery.quality(Quality.autoLow)
+        Delivery.quality(Quality.autoLow())
           ..chromaSubSampling(ChromaSubSampling.chroma444()));
     cldAssert("q_70:qmax_80", Delivery.quality(70)..quantization(80));
-    cldAssert("q_jpegmini:0", Delivery.quality(Quality.jpegminiBest));
-    cldAssert("q_jpegmini:1", Delivery.quality(Quality.jpegminiHigh));
-    cldAssert("q_jpegmini:2", Delivery.quality(Quality.jpegminiMedium));
+    cldAssert("q_jpegmini:0", Delivery.quality(Quality.jpegminiBest()));
+    cldAssert("q_jpegmini:1", Delivery.quality(Quality.jpegminiHigh()));
+    cldAssert("q_jpegmini:2", Delivery.quality(Quality.jpegminiMedium()));
   });
 
   test('Test quality with any format parameter', () {
     cldAssert("fl_any_format,q_auto",
-        Delivery.quality(Quality.auto)..anyFormat(true));
+        Delivery.quality(Quality.auto())..anyFormat(true));
     cldAssert("fl_any_format,q_auto",
-        Delivery.quality(Quality.auto)..anyFormat(true));
+        Delivery.quality(Quality.auto())..anyFormat(true));
   });
 
   group('Test format class', () {

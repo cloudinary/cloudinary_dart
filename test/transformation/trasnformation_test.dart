@@ -1,4 +1,5 @@
 import 'package:cloudinary_dart/transformation/adjust/adjust.dart';
+import 'package:cloudinary_dart/transformation/delivery/delivery.dart';
 import 'package:cloudinary_dart/transformation/delivery/delivery_actions.dart';
 import 'package:cloudinary_dart/transformation/effect/effect.dart';
 import 'package:cloudinary_dart/transformation/named_transformation.dart';
@@ -22,7 +23,7 @@ void main() {
         'c_scale,w_500', Transformation()..resize(Resize.scale()..width(500)));
   });
   test('Test successful delivery transformation formatting', () {
-    cldAssert('q_auto', Transformation()..delivery(Quality(Quality.auto)));
+    cldAssert('q_auto', Transformation()..delivery(Delivery.quality(Quality.auto())));
   });
   test('Test successful effect transformation formatting', () {
     cldAssert('e_sepia:50', Transformation()..effect(Effect.sepia(50)));
