@@ -297,7 +297,7 @@ void main() {
         actual);
   });
 
-  group('Test set signature and auth token', () {
+  group('Test set signature', () {
     test('Test set signature outputs valid url', () {
       var actual = cloudinary.image('test').signature('q1234567');
       cldAssert(
@@ -314,7 +314,8 @@ void main() {
           'https://res.cloudinary.com/test123/raw/upload/s--q1234567--/test',
           actual);
     });
-
+  });
+  group('Test set signature and auth token', () {
     test(
         'Auth token with signurl false and signature produce url with no token or signature',
         () {
@@ -324,7 +325,7 @@ void main() {
     });
 
     test(
-        'Auth token wiht signurl true and signature produce url with auth token only',
+        'Auth token with signurl true and signature produce url with auth token only',
         () {
       cloudinaryWithToken.config.urlConfig.signUrl = true;
       var actual = cloudinaryWithToken.image('test').signature('q1234567');
