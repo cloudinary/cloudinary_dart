@@ -2,32 +2,29 @@ module.exports = {
   "SDKSpecVersion": "master",
   "langConfig": {
     lang: 'Dart',
-    methodDelimiter: ' ..',
+    newInstanceSyntax: '#name(#req)#optional',
+    methodDelimiter: '.',
     groupDelimiter: '.',
     openQualifiersChar: '',
     closeQualifiersChar: '',
     closeTransformationChar: '',
     hideActionGroups: false,
-    specialCharacterMapping: [
-      ['$', '\$']
-    ],
-    openActionChar: '(',
-    closeActionChar: ')',
     unsupportedTxParams: ['fl_waveform', 'e_anti_removal:', 'fl_animated', 'l_fetch', 'l_text', 'u_text', 'af_', 'if_', 'e_fade', '$overlaywidth_$mainvideowidth_div_3'],
     unsupportedSyntaxList: ['stroke(', 'textFit(', 'Animated.edit', 'RoundCorners(', 'getVideoFrame'],
     mainTransformationString: {
       openSyntaxString: {
-        image: 'cloudinary.image("#publicID") ..transformation(Transformation()',
-        video: 'cloudinary.video("#publicID")',
-        media: 'cloudinary.asset("#publicID")'
+        image: 'cloudinary.image(\'#publicID\').transformation(Transformation()',
+        video: 'cloudinary.video(\'#publicID\').transformation(Transformation()',
+        media: 'cloudinary.media(\'#publicID\').transformation(Transformation()'
       },
-      closeSyntaxString : '));',
+      closeSyntaxString : ');',
     },
     overwritePreset: 'dart',
-    newInstanceSyntax: '#name(#req)#optional',
+    openActionChar: '(',
+    closeActionChar: ')',
+    arraySeparator: ', ',
     arrayOpen: '[',
     arrayClose: ']',
-    arraySeparator: ', ',
     formats: {
       formatClassOrEnum: 'PascalCase',
       formatMethod: 'camelCase',
@@ -39,38 +36,41 @@ module.exports = {
         }
       }
     },
-    methodNameMap: {},
+    methodNameMap: {
+      'delivery_type': 'set_delivery_type',
+      'asset_type': 'set_asset_type',
+      'deliveryType': 'set_delivery_type',
+      'assetType': 'set_asset_type',
+      'signature': 'setSignature',
+    },
+    canGenerateSignature:false,
     classNameMap: {},
     childTransformations: {
       image: {
-        open: 'Image1Transformation {',
-        close: ' }',
+        open: "new ImageTransformation()",
+        close: '',
       },
       video: {
-        open: 'VideoTransformation {',
-        close: ' }',
+        open: "new VideoTransformation()",
+        close: '',
       },
       media: {
-        open: 'Transformation {',
-        close: ' }',
+        open: "new Transformation()",
+        close: '',
       }
-    }
+    },
   },
   "overwrites": {
     qualifiers: {
+      // colorOverride is a qualifier of Reshape.trim action.
       color_override: (payload) => {
         const {qualifierDTO} = payload;
         const colorName = qualifierDTO.qualifiers[0].name;
-        const group = qualifierDTO.qualifiers[0].group;
 
-        // TODO Color - this should be streamlined with how we deal with color.
-        return `.colorOverride(Color.${colorName.toUpperCase()})`
+        // TODO this should be streamlined with how we deal with color.
+        return `.colorOverride("${colorName}")`
       },
-      quality_override: (payload) => {
-        const {qualifierDTO} = payload;
-        const qualityName = qualifierDTO.qualifiers[0].name;
-        return `.qualityOverride(Quality.${qualityName})`
-      }
+
     }
   }
 }
