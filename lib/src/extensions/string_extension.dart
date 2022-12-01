@@ -93,10 +93,7 @@ extension StringManipulation on String {
   }
 
   String cldRemoveColorPrefixes() {
-    return this
-        .replaceFirst('#', '')
-        .replaceFirst('rgb', '')
-        .replaceFirst(':', "");
+    return replaceFirst('#', '').replaceFirst('rgb', '').replaceFirst(':', "");
   }
 
   String safeBase64Encoding() {

@@ -17,8 +17,8 @@ final String defaultDeliveryType = "upload";
 final String assetTypeImage = "image";
 final String assetTypeVideo = "video";
 
-class Asset extends GeneralAsset {
-  Asset(String publicId,
+class CldAsset extends GeneralAsset {
+  CldAsset(String publicId,
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
       String? version,
@@ -34,14 +34,14 @@ class Asset extends GeneralAsset {
 
   @override
   String toString() {
-    return AssetObject.withBuilder(this).toString();
+    return AssetObject.fromBuilder(this).toString();
   }
 }
 
 class AssetObject extends BaseAsset {
-  AssetObject.withConfig(super.cloudConfig, super.urlConfig)
-      : super.withConfig();
-  AssetObject.withBuilder(super.builder) : super.withBuilder();
+  AssetObject.fromConfig(super.cloudConfig, super.urlConfig)
+      : super.fromConfig();
+  AssetObject.fromBuilder(super.builder) : super.fromBuilder();
 
   @override
   String getTransformationString() {
@@ -69,9 +69,9 @@ abstract class BaseAsset {
   String? deliveryType;
   TransformationObject? transformation;
 
-  BaseAsset.withConfig(this.cloudConfig, this.urlConfig);
+  BaseAsset.fromConfig(this.cloudConfig, this.urlConfig);
 
-  BaseAsset.withParameters(
+  BaseAsset.fromParameters(
       this.cloudConfig,
       this.urlConfig,
       this.version,
@@ -81,7 +81,7 @@ abstract class BaseAsset {
       this.assetType,
       this.deliveryType);
 
-  BaseAsset.withBuilder(GeneralAsset builder)
+  BaseAsset.fromBuilder(GeneralAsset builder)
       : cloudConfig = builder.getCloudConfig()!,
         urlConfig = builder.getUrlConfig()!,
         version = builder.getVersion(),

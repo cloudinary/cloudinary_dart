@@ -1,5 +1,4 @@
 import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/transformation/transformation.dart';
 
 import 'focus_on.dart';
 
@@ -57,13 +56,12 @@ class Gravity {
 
   static xyCenter() => XYCenterGravity();
 
-  FocusOnGravityQualifier focusOn(List<FocusOn> focusOnObjects,
-      {FocusOnGravity? options}) {
-    var builder = FocusOnGravity(focusOnObjects);
-    if (options != null) {
-      builder.copyWith(options);
-    }
-    return builder.build();
+  static FocusOnGravity focusOn(List<FocusOn> focusOnObjects) {
+    return FocusOnGravity(focusOnObjects);
+  }
+
+  static AutoGravity autoGravity([List<FocusOn>? focusOnObjects]) {
+    return AutoGravity(focusOnObjects);
   }
 }
 
@@ -101,45 +99,22 @@ class Compass {
   }
 }
 
-/// Class FocusOnGravity
-///  Defines objects to use as the focal gravity of crops.
-///
-/// Learn More
-/// https://cloudinary.com/documentation/cloudinary_object_aware_cropping_addon
-class FocusOnGravityQualifier extends Gravity {
-  List<FocusOn> focusOnObjects;
-  AutoGravity? fallbackGravity;
-
-  FocusOnGravityQualifier(this.focusOnObjects, this.fallbackGravity);
-
-  @override
-  String toString() {
-    return focusOnObjects
-        .join(":")
-        .joinWithValues([fallbackGravity.toString()]);
-  }
-}
-
 /// Class FocusOnGravityBuilder
-class FocusOnGravity implements GeneralBuilder {
+class FocusOnGravity extends Gravity {
   List<FocusOn> objects;
   AutoGravity? _fallbackGravity;
 
   FocusOnGravity(this.objects);
 
-  FocusOnGravity fallbackGravity(AutoGravity graviy) {
-    _fallbackGravity = graviy;
+  FocusOnGravity fallbackGravity(AutoGravity gravity) {
+    _fallbackGravity = gravity;
     return this;
   }
 
-  FocusOnGravityQualifier build() {
-    return FocusOnGravityQualifier(objects, _fallbackGravity);
-  }
-
   @override
-  void copyWith(other) {
-    objects = other.objects;
-    _fallbackGravity = other._fallbackGravity;
+  String toString() {
+    return objects.join(":").joinWithValues(
+        [(_fallbackGravity != null) ? _fallbackGravity.toString() : null]);
   }
 }
 
@@ -150,82 +125,22 @@ class FocusOnGravity implements GeneralBuilder {
 /// Automatic gravity for images
 /// "https://cloudinary.com/documentation/video_manipulation_and_delivery#automatic_cropping"
 /// Automatic gravity for videos
-class AutoGravityQualifier extends Gravity {
-  List<FocusOn> objects;
+class AutoGravity extends Gravity {
+  List<FocusOn>? objects;
 
-  AutoGravityQualifier(this.objects);
+  AutoGravity(this.objects);
+
+  AutoGravity autoFocusOn(List<FocusOn>? objects) {
+    if (objects != null) {
+      this.objects?.addAll(objects);
+    }
+    return this;
+  }
 
   @override
   String toString() {
-    return "auto".joinWithValues(objects);
-  }
-}
-
-class AutoGravity {
-  List<FocusOn> objects = [];
-
-  AutoGravity autoFocusOn(List<FocusOn> objects) {
-    this.objects.addAll(objects);
-    return this;
-  }
-
-  build() {
-    return AutoGravityQualifier(objects);
-  }
-}
-
-/// Class AutoFocus
-/// Defines the objects that can be focused on.
-class AutoFocusQualifier {
-  static AutoGravityObjectQualifier focusOn(FocusOn focus,
-      {AutoGravityObject? options}) {
-    var builder = AutoGravityObject(focus);
-    options ?? builder.copyWith(options);
-    return builder.build();
-  }
-}
-
-class AutoGravityObjectQualifier {
-  FocusOn gravityObject;
-  int? weight;
-  bool? avoid;
-
-  AutoGravityObjectQualifier(this.gravityObject, {this.weight, this.avoid});
-
-  @override
-  String toString() {
-    var weightStr =
-        (avoid != null && avoid == true) ? "avoid" : weight.toString();
-    return '$gravityObject'.joinWithValues([weightStr], separator: "_");
-  }
-}
-
-class AutoGravityObject implements GeneralBuilder {
-  FocusOn focusOn;
-  int? _weight;
-  bool? _avoid;
-
-  AutoGravityObject(this.focusOn);
-
-  AutoGravityObject weight(int weight) {
-    _weight = weight;
-    return this;
-  }
-
-  AutoGravityObject avoid() {
-    _avoid = true;
-    return this;
-  }
-
-  AutoGravityObjectQualifier build() {
-    return AutoGravityObjectQualifier(focusOn, weight: _weight, avoid: _avoid);
-  }
-
-  @override
-  void copyWith(other) {
-    focusOn = other.focusOn;
-    _weight = other._weight;
-    _avoid = other._avoid;
+    return "auto"
+        .joinWithValues([(objects != null) ? objects!.join(":") : null]);
   }
 }
 

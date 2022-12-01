@@ -1,6 +1,7 @@
 import 'package:cloudinary_dart/transformation/background/background.dart';
 import 'package:cloudinary_dart/transformation/background/border_background.dart';
 import 'package:cloudinary_dart/transformation/color.dart';
+import 'package:cloudinary_dart/transformation/gravity/focus_on.dart';
 import 'package:cloudinary_dart/transformation/gravity/gravity.dart';
 import 'package:cloudinary_dart/transformation/resize/resize.dart';
 import 'package:test/scaffolding.dart';
@@ -153,6 +154,12 @@ void main() {
           ..aspectRatio(1.5)
           ..gravity(Gravity.north())
           ..zoom(1.5));
+    cldAssert(
+        'ar_1.5,c_crop,g_face,h_100',
+        Resize.crop()
+          ..height(100)
+          ..aspectRatio(1.5)
+          ..gravity(Gravity.focusOn([FocusOn.face()])));
   });
 
   test("Test successful thumbnail formatting", () {

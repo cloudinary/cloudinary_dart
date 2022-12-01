@@ -1,12 +1,12 @@
-import 'package:cloudinary_dart/asset/asset.dart';
+import 'package:cloudinary_dart/asset/cld_asset.dart';
+import 'package:cloudinary_dart/transformation/transformation.dart';
 
 import '../config/cloud_config.dart';
 import '../config/url_config.dart';
-import '../transformation/transformation.dart';
 import 'builders/general_asset_builder.dart';
 
-class Video extends GeneralAsset {
-  Video(String publicId,
+class CldImage extends GeneralAsset {
+  CldImage(String? publicId,
       {CloudConfig? cloudConfig,
       UrlConfig? urlConfig,
       String? version,
@@ -17,17 +17,17 @@ class Video extends GeneralAsset {
       TransformationObject? transformation})
       : super(cloudConfig, urlConfig, version, publicId, extension, urlSuffix,
             assetType, deliveryType, transformation) {
-    super.assetType('video');
+    super.assetType('image');
   }
 
   @override
   String toString() {
-    return VideoObject.withBuilder(this).toString();
+    return ImageObject.fromBuilder(this).toString();
   }
 }
 
-class VideoObject extends BaseAsset {
-  VideoObject.withBuilder(super.builder) : super.withBuilder();
+class ImageObject extends BaseAsset {
+  ImageObject.fromBuilder(super.builder) : super.fromBuilder();
 
   @override
   String getTransformationString() {

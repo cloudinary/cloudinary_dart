@@ -33,7 +33,7 @@ class CloudConfig with ICloudConfig {
     signatureAlgorithm =
         params[signatureAlgorithmKey]?.toString() ?? defaultSignatureAlgorithm;
     if (params[authTokenKey] != null) {
-      authToken = AuthToken.withMap(params[authTokenKey]);
+      authToken = AuthToken.fromMap(params[authTokenKey]);
     }
   }
 }

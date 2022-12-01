@@ -11,7 +11,7 @@ class Color {
     if (prefix != null) {
       return '$prefix:$value';
     }
-    return '$value';
+    return value;
   }
 
   String toStringWithPrefix(bool includedPrefix) {
