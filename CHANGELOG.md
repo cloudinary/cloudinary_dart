@@ -1,3 +1,8 @@
+## 0.0.10 
+- Fix `Quality` action 
+- Add signature support 
+- Add Code-Snippets support
+
 ## 0.0.9
 - Add `Border` action support
 - Add `Extract` action support
