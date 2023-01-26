@@ -274,6 +274,10 @@ class Effect extends Action {
     return RemoveBackground(screen: screen, color: color);
   }
 
+  static DropShadow dropShadow({int? azimuth, int? elevation, int? spread}) {
+    return DropShadow(azimuth: azimuth, elevation: elevation, spread: spread);
+  }
+
   @override
   String toString() {
     return 'e';

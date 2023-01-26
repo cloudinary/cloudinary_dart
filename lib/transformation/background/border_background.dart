@@ -22,9 +22,12 @@ class BorderBackground extends AutoBackground {
   String getValues() {
     var values = super.getValues();
     return values.joinWithValues(['border'],
-        separator: defaultValuesSeparator).joinWithValues([
-      (_contrast == true) ? 'contrast' : null
-    ], separator: "_").joinWithValues(
+        separator:
+            defaultValuesSeparator).joinWithValues(
+        [(_contrast == true) ? 'contrast' : null],
+        separator: paramKeyValueSeparator,
+        actionSeparator:
+            paramKeyValueSeparator).joinWithValues(
         [(_palette != null) ? 'palette_${_palette!.join('_')}' : null]);
   }
 }

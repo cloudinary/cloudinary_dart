@@ -17,7 +17,7 @@ class Sepia extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['sepia'],
-        separator: paramKeyValueSeparator).joinWithValues([level]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([level]);
   }
 }
 
@@ -37,7 +37,7 @@ class Accelerate extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['accelerate'],
-        separator: paramKeyValueSeparator).joinWithValues([_rate]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([_rate]);
   }
 }
 
@@ -56,7 +56,7 @@ class Deshake extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['deshake'],
-        separator: paramKeyValueSeparator).joinWithValues([factor]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([factor]);
   }
 }
 
@@ -65,7 +65,7 @@ class Reverse extends Effect {
   String toString() {
     return super
         .toString()
-        .joinWithValues(['reverse'], separator: paramKeyValueSeparator);
+        .joinWithValues(['reverse'], actionSeparator: paramKeyValueSeparator);
   }
 }
 
@@ -74,7 +74,7 @@ class Boomerang extends Effect {
   String toString() {
     return super
         .toString()
-        .joinWithValues(['boomerang'], separator: paramKeyValueSeparator);
+        .joinWithValues(['boomerang'], actionSeparator: paramKeyValueSeparator);
   }
 }
 
@@ -103,7 +103,7 @@ class MakeTransparent extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['make_transparent'],
-        separator:
+        actionSeparator:
             paramKeyValueSeparator).joinWithValues(
         [_tolerance]).joinWithValues([
       (_colorToReplace != null ? 'co_'.joinWithValues([_colorToReplace]) : null)
@@ -128,7 +128,7 @@ class FadeIn extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['fade'],
-        separator: paramKeyValueSeparator).joinWithValues([_duration]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([_duration]);
   }
 }
 
@@ -144,7 +144,8 @@ class FadeOut extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['fade'],
-        separator: paramKeyValueSeparator).joinWithValues(['-$_duration']);
+        actionSeparator:
+            paramKeyValueSeparator).joinWithValues(['-$_duration']);
   }
 }
 
@@ -165,7 +166,7 @@ class Loop extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['loop'],
-        separator:
+        actionSeparator:
             paramKeyValueSeparator).joinWithValues([_additionalIterations]);
   }
 }
@@ -187,7 +188,7 @@ class Blackwhite extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['blackwhite'],
-        separator: paramKeyValueSeparator).joinWithValues([_threshold]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([_threshold]);
   }
 }
 
@@ -205,7 +206,7 @@ class Dither extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['ordered_dither'],
-        separator: paramKeyValueSeparator).joinWithValues([filter]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([filter]);
   }
 }
 
@@ -224,7 +225,7 @@ class Vignette extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['vignette'],
-        separator: paramKeyValueSeparator).joinWithValues([_strength]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([_strength]);
   }
 }
 
@@ -245,7 +246,7 @@ class SimulateColorBlind extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['simulate_colorblind'],
-        separator: paramKeyValueSeparator).joinWithValues([_condition]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([_condition]);
   }
 }
 
@@ -285,7 +286,7 @@ class Cartoonify extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['cartoonify'],
-        separator:
+        actionSeparator:
             paramKeyValueSeparator).joinWithValues(
         [_lineStrength, ((_blackwhite) ? 'bw' : _colorReductionLevel)]);
   }
@@ -335,12 +336,12 @@ class Shadow extends Effect {
     return asComponentString([
       ((_color != null) ? 'co_$_color' : null),
       super.toString().joinWithValues(['shadow'],
-          separator:
+          actionSeparator:
               paramKeyValueSeparator).joinWithValues(
           [_strength]).joinWithValues([
         ((_offsetX != null) ? 'x_$_offsetX' : null),
         ((_offsetY != null) ? 'y_$_offsetY' : null)
-      ], separator: paramSeparator)
+      ], separator: paramSeparator, actionSeparator: paramSeparator)
     ]);
   }
 }
@@ -403,7 +404,7 @@ class Vectorize extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['vectorize'],
-        separator: paramKeyValueSeparator).joinWithValues([
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
       ((_numOfColors != null) ? 'colors:$_numOfColors' : null),
       ((_detailsLevel != null) ? 'detail:$_detailsLevel' : null),
       ((_despeckleLevel != null) ? 'despeckle:$_despeckleLevel' : null),
@@ -461,7 +462,7 @@ class Outline extends Effect {
     return asComponentString([
       ((_color != null) ? 'co_$_color' : null),
       super.toString().joinWithValues(['outline'],
-          separator:
+          actionSeparator:
               paramKeyValueSeparator).joinWithValues(
           [_mode, _width, _blurLevel])
     ]);
@@ -476,7 +477,7 @@ class Artistic extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['art'],
-        separator: paramKeyValueSeparator).joinWithValues([filter]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([filter]);
   }
 }
 
@@ -485,7 +486,7 @@ class Negate extends Effect {
   String toString() {
     return super
         .toString()
-        .joinWithValues(['negate'], separator: paramKeyValueSeparator);
+        .joinWithValues(['negate'], actionSeparator: paramKeyValueSeparator);
   }
 }
 
@@ -494,7 +495,7 @@ class RedEye extends Effect {
   String toString() {
     return super
         .toString()
-        .joinWithValues(['redeye'], separator: paramKeyValueSeparator);
+        .joinWithValues(['redeye'], actionSeparator: paramKeyValueSeparator);
   }
 }
 
@@ -503,7 +504,7 @@ class Grayscale extends Effect {
   String toString() {
     return super
         .toString()
-        .joinWithValues(['grayscale'], separator: paramKeyValueSeparator);
+        .joinWithValues(['grayscale'], actionSeparator: paramKeyValueSeparator);
   }
 }
 
@@ -524,16 +525,15 @@ class OilPaint extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['oil_paint'],
-        separator: paramKeyValueSeparator).joinWithValues([_strength]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([_strength]);
   }
 }
 
 class AdvancedRedEye extends Effect {
   @override
   String toString() {
-    return super
-        .toString()
-        .joinWithValues(['adv_redeye'], separator: paramKeyValueSeparator);
+    return super.toString().joinWithValues(['adv_redeye'],
+        actionSeparator: paramKeyValueSeparator);
   }
 }
 
@@ -562,15 +562,16 @@ class Pixelate extends Effect {
   String toString() {
     var parent = super
         .toString()
-        .joinWithValues(['pixelate'], separator: paramKeyValueSeparator);
+        .joinWithValues(['pixelate'], actionSeparator: paramKeyValueSeparator);
     if (_region != null) {
       if (_region is Faces) {
         return parent.joinWithValues([_region],
-            separator: paramKeyValueSeparator).joinWithValues([_squareSize]);
+            actionSeparator:
+                paramKeyValueSeparator).joinWithValues([_squareSize]);
       }
       return parent +
           '_region'.joinWithValues([_squareSize]).joinWithValues([_region],
-              separator: paramSeparator);
+              separator: paramSeparator, actionSeparator: paramSeparator);
     }
     return parent.joinWithValues([_squareSize]);
   }
@@ -601,15 +602,16 @@ class Blur extends Effect {
   String toString() {
     var parent = super
         .toString()
-        .joinWithValues(['blur'], separator: paramKeyValueSeparator);
+        .joinWithValues(['blur'], actionSeparator: paramKeyValueSeparator);
     if (_region != null) {
       if (_region is Faces) {
         return parent.joinWithValues([_region],
-            separator: paramKeyValueSeparator).joinWithValues([_strength]);
+            actionSeparator:
+                paramKeyValueSeparator).joinWithValues([_strength]);
       }
       return parent +
           '_region'.joinWithValues([_strength]).joinWithValues([_region],
-              separator: paramSeparator);
+              actionSeparator: paramSeparator);
     }
     return parent.joinWithValues([_strength]);
   }
@@ -643,7 +645,7 @@ class Colorize extends Effect {
     return asComponentString([
       ((_color != null) ? 'co_$_color' : null),
       super.toString().joinWithValues(['colorize'],
-          separator: paramKeyValueSeparator).joinWithValues([_level])
+          actionSeparator: paramKeyValueSeparator).joinWithValues([_level])
     ]);
   }
 }
@@ -691,7 +693,7 @@ class GradientFade extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['gradient_fade'],
-        separator:
+        actionSeparator:
             paramKeyValueSeparator).joinWithValues(
         [_type, _strength, _horizontalStartPoint, _verticalStartPoint]);
   }
@@ -723,7 +725,7 @@ class AssistColorBlind extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['assist_colorblind'],
-        separator:
+        actionSeparator:
             paramKeyValueSeparator).joinWithValues(
         [_strength, (_type == AssistColorBlindType.xray) ? 'xray' : null]);
   }
@@ -745,7 +747,7 @@ class Theme extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['theme'],
-        separator: paramKeyValueSeparator).joinWithValues([
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
       'color_$_color',
       (_photosensitivity != null) ? 'photosensitivity_$_photosensitivity' : null
     ]);
@@ -780,7 +782,7 @@ class RemoveBackground extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['bgremoval'],
-        separator: paramKeyValueSeparator).joinWithValues([
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
       ((_screen != null) ? 'screen' : null),
       _colorToRemove?.toStringWithPrefix(false)
     ]);
@@ -797,7 +799,48 @@ class Noise extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['noise'],
-        separator: paramKeyValueSeparator).joinWithValues([level]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([level]);
+  }
+}
+
+/// Class Noise
+/// Azimuth (range: 0 to 360 )
+/// Elevation (range: 0 - 90 (degrees))
+/// Spread (range 0 - 100)
+class DropShadow extends Effect {
+  int? _azimuth;
+  int? _elevation;
+  int? _spread;
+
+  DropShadow({int? azimuth, int? elevation, int? spread}) {
+    _azimuth = azimuth;
+    _elevation = elevation;
+    _spread = spread;
+  }
+
+  DropShadow azimuth(int azimuth) {
+    _azimuth = azimuth;
+    return this;
+  }
+
+  DropShadow elevation(int elevation) {
+    _elevation = elevation;
+    return this;
+  }
+
+  DropShadow spread(int spread) {
+    _spread = spread;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['dropshadow'],
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
+      (_azimuth != null) ? 'azimuth_$_azimuth' : null,
+      (_elevation != null) ? 'elevation_$_elevation' : null,
+      (_spread != null) ? 'spread_$_spread' : null
+    ], separator: ';', actionSeparator: ':');
   }
 }
 
@@ -807,8 +850,11 @@ class ShakeStrength {
   ShakeStrength(this.factor);
 
   static ShakeStrength pixels16() => ShakeStrength(16);
+
   static ShakeStrength pixels32() => ShakeStrength(32);
+
   static ShakeStrength pixels48() => ShakeStrength(48);
+
   static ShakeStrength pixels64() => ShakeStrength(64);
 
   @override
@@ -823,23 +869,41 @@ class DitherObject {
   DitherObject(this.value);
 
   static DitherObject threshold1x1NonDither() => DitherObject(0);
+
   static DitherObject checkerboard2x1Dither() => DitherObject(1);
+
   static DitherObject ordered2x2Dispersed() => DitherObject(2);
+
   static DitherObject ordered3x3Dispersed() => DitherObject(3);
+
   static DitherObject ordered4x4Dispersed() => DitherObject(4);
+
   static DitherObject ordered8x8Dispersed() => DitherObject(5);
+
   static DitherObject halftone4x4Angled() => DitherObject(6);
+
   static DitherObject halftone6x6Angled() => DitherObject(7);
+
   static DitherObject halftone8x8Angled() => DitherObject(8);
+
   static DitherObject halftone4x4Orthogonal() => DitherObject(9);
+
   static DitherObject halftone6x6Orthogonal() => DitherObject(10);
+
   static DitherObject halftone8x8Orthogonal() => DitherObject(11);
+
   static DitherObject halftone16x16Orthogonal() => DitherObject(12);
+
   static DitherObject circles5x5Black() => DitherObject(13);
+
   static DitherObject circles5x5White() => DitherObject(14);
+
   static DitherObject circles6x6Black() => DitherObject(15);
+
   static DitherObject circles6x6White() => DitherObject(16);
+
   static DitherObject circles7x7Black() => DitherObject(17);
+
   static DitherObject circles7x7White() => DitherObject(18);
 
   @override
@@ -852,12 +916,19 @@ class SimulateColorBlindObject {
   String value;
 
   SimulateColorBlindObject(this.value);
+
   static deuteranopia() => SimulateColorBlindObject("deuteranopia");
+
   static protanopia() => SimulateColorBlindObject("protanopia");
+
   static tritanopia() => SimulateColorBlindObject("tritanopia");
+
   static tritanomaly() => SimulateColorBlindObject("tritanomaly");
+
   static deuteranomaly() => SimulateColorBlindObject("deuteranomaly");
+
   static coneMonochromacy() => SimulateColorBlindObject("cone_monochromacy");
+
   static rodMonochromacy() => SimulateColorBlindObject("rod_monochromacy");
 
   @override
@@ -872,8 +943,11 @@ class OutlineMode {
   OutlineMode(this.value);
 
   static inner() => OutlineMode("inner");
+
   static innerFill() => OutlineMode("inner_fill");
+
   static outer() => OutlineMode("outer");
+
   static fill() => OutlineMode("fill");
 
   @override
@@ -890,25 +964,45 @@ class ArtisticFilter {
   ArtisticFilter(this.value);
 
   static alDente() => ArtisticFilter("al_dente");
+
   static athena() => ArtisticFilter("athena");
+
   static audrey() => ArtisticFilter("audrey");
+
   static aurora() => ArtisticFilter("aurora");
+
   static daguerre() => ArtisticFilter("daguerre");
+
   static eucalyptus() => ArtisticFilter("eucalyptus");
+
   static fes() => ArtisticFilter("fes");
+
   static frost() => ArtisticFilter("frost");
+
   static hairspray() => ArtisticFilter("hairspray");
+
   static hokusai() => ArtisticFilter("hokusai");
+
   static incognito() => ArtisticFilter("incognito");
+
   static linen() => ArtisticFilter("linen");
+
   static peacock() => ArtisticFilter("peacock");
+
   static primavera() => ArtisticFilter("primavera");
+
   static quartz() => ArtisticFilter("quartz");
+
   static redRock() => ArtisticFilter("red_rock");
+
   static refresh() => ArtisticFilter("refresh");
+
   static sizzle() => ArtisticFilter("sizzle");
+
   static sonnet() => ArtisticFilter("sonnet");
+
   static ukulele() => ArtisticFilter("ukulele");
+
   static zorro() => ArtisticFilter("zorro");
 
   @override

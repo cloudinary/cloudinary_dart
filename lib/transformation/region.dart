@@ -55,6 +55,6 @@ class Custom extends Region {
       ((_width != null) ? 'w_$_width' : null),
       ((_x != null) ? 'x_$_x' : null),
       ((_y != null) ? 'y_$_y' : null)
-    ], separator: paramSeparator).replaceFirst(',', '');
+    ], separator: paramSeparator, actionSeparator: '');
   }
 }
