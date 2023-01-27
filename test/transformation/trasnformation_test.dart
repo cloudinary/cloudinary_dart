@@ -23,7 +23,8 @@ void main() {
         'c_scale,w_500', Transformation()..resize(Resize.scale()..width(500)));
   });
   test('Test successful delivery transformation formatting', () {
-    cldAssert('q_auto', Transformation()..delivery(Delivery.quality(Quality.auto())));
+    cldAssert(
+        'q_auto', Transformation()..delivery(Delivery.quality(Quality.auto())));
   });
   test('Test successful effect transformation formatting', () {
     cldAssert('e_sepia:50', Transformation()..effect(Effect.sepia(50)));

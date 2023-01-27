@@ -111,12 +111,13 @@ extension StringManipulation on String {
   }
 
   String joinWithValues(List<dynamic> args,
-      {String separator = defaultValuesSeparator}) {
+      {String separator = defaultValuesSeparator,
+      String actionSeparator = defaultValuesSeparator}) {
     final List<dynamic> noNullList =
         args.where((element) => element != null).toList();
     if (noNullList.isEmpty) {
       return this;
     }
-    return "${this}$separator${noNullList.map((e) => e.toString()).toList().join(separator)}";
+    return "${this}$actionSeparator${noNullList.map((e) => e.toString()).toList().join(separator)}";
   }
 }

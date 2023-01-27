@@ -30,7 +30,7 @@ class Tint extends Adjust {
   @override
   String toString() {
     return super.toString().joinWithValues(['tint'],
-        separator: paramKeyValueSeparator).joinWithValues([options]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([options]);
   }
 }
 
@@ -49,7 +49,7 @@ class AutoColor extends Adjust {
   @override
   String toString() {
     return super.toString().joinWithValues(['auto_color'],
-        separator: paramKeyValueSeparator).joinWithValues([_blend]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([_blend]);
   }
 }
 
@@ -68,7 +68,7 @@ class AutoBrightness extends Adjust {
   @override
   String toString() {
     return super.toString().joinWithValues(['auto_brightness'],
-        separator: paramKeyValueSeparator).joinWithValues([_blend]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([_blend]);
   }
 }
 
@@ -87,7 +87,7 @@ class AutoContrast extends Adjust {
   @override
   String toString() {
     return super.toString().joinWithValues(['auto_contrast'],
-        separator: paramKeyValueSeparator).joinWithValues([_blend]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([_blend]);
   }
 }
 
@@ -117,11 +117,12 @@ class ViesusCorrect extends Adjust {
   @override
   String toString() {
     return super.toString().joinWithValues(['viesus_correct'],
-        separator: paramKeyValueSeparator).joinWithValues([
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
       (_noRedEye != null && _noRedEye!) ? 'no_redeye' : null,
       ((_skinSaturation != null && _skinSaturation!)
           ? 'skin_saturation'.joinWithValues([_skinSaturationLevel],
-              separator: paramKeyValueSeparator)
+              separator: paramKeyValueSeparator,
+              actionSeparator: paramKeyValueSeparator)
           : null)
     ]);
   }
@@ -142,7 +143,7 @@ class Sharpen extends Adjust {
   @override
   String toString() {
     return super.toString().joinWithValues(['sharpen'],
-        separator: paramKeyValueSeparator).joinWithValues([_strength]);
+        actionSeparator: paramKeyValueSeparator).joinWithValues([_strength]);
   }
 }
 
@@ -169,7 +170,7 @@ class ReplaceColor extends Adjust {
   @override
   String toString() {
     return super.toString().joinWithValues(['replace_color'],
-        separator: paramKeyValueSeparator).joinWithValues([
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
       _toColor.toStringWithPrefix(false),
       _tolerance,
       _fromColor?.toStringWithPrefix(false)
@@ -206,7 +207,7 @@ class Recolor extends Adjust {
   @override
   String toString() {
     return super.toString().joinWithValues(['recolor'],
-        separator:
+        actionSeparator:
             paramKeyValueSeparator).joinWithValues([joinMatrix(_colorMatrix)]);
   }
 
@@ -241,7 +242,8 @@ class FillLight extends Adjust {
   @override
   String toString() {
     return super.toString().joinWithValues(['fill_light'],
-        separator: paramKeyValueSeparator).joinWithValues([_blend, _bias]);
+        actionSeparator:
+            paramKeyValueSeparator).joinWithValues([_blend, _bias]);
   }
 }
 
@@ -267,7 +269,8 @@ class Improve extends Adjust {
   @override
   String toString() {
     return super.toString().joinWithValues(['improve'],
-        separator: paramKeyValueSeparator).joinWithValues([_mode, _blend]);
+        actionSeparator:
+            paramKeyValueSeparator).joinWithValues([_mode, _blend]);
   }
 }
 

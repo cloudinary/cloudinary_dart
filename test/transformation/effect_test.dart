@@ -246,4 +246,16 @@ void main() {
           ..screen(true)
           ..colorToRemove(Color.red()));
   });
+  test('Test successful drop shadow effect formatting', () {
+    cldAssert('e_dropshadow', Effect.dropShadow());
+    cldAssert('e_dropshadow:elevation_11', Effect.dropShadow(elevation: 11));
+    cldAssert('e_dropshadow:azimuth_10;elevation_11;spread_12',
+        Effect.dropShadow(azimuth: 10, elevation: 11, spread: 12));
+    cldAssert(
+        'e_dropshadow:azimuth_10;elevation_11;spread_12',
+        Effect.dropShadow()
+          ..spread(12)
+          ..elevation(11)
+          ..azimuth(10));
+  });
 }

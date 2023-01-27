@@ -48,6 +48,7 @@ class FocusOn {
         : (_weight != null)
             ? _weight.toString()
             : null;
-    return value.joinWithValues([weightStr], separator: paramKeyValueSeparator);
+    return value
+        .joinWithValues([weightStr], actionSeparator: paramKeyValueSeparator);
   }
 }

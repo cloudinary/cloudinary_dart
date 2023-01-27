@@ -229,7 +229,7 @@ class Format implements DeliveryAction {
       preserveTransparencyStr,
       progressiveStr,
       ignoreMaskChannelsStr
-    ], separator: paramSeparator);
+    ], separator: paramSeparator, actionSeparator: paramSeparator);
   }
 }
 
