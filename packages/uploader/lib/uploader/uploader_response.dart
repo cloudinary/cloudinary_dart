@@ -1,4 +1,4 @@
-import '../response/upload_error.dart';
+import '../src/response/upload_error.dart';
 
 class UploaderResponse<T> {
   int responseCode;

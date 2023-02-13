@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart/request/payload.dart';
+import 'payload.dart';
 
 class NetworkRequest<T> {
   String url;

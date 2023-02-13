@@ -1,19 +1,18 @@
 import 'dart:io';
-
-import 'package:cloudinary_dart/http/extensions/list_extension.dart';
-import 'package:cloudinary_dart/request/params/upload_params.dart';
-import 'package:cloudinary_dart/request/payload.dart';
-import 'package:cloudinary_dart/request/uploader_options.dart';
-import 'package:cloudinary_dart/response/upload_result.dart';
+import 'package:cloudinary_dart/src/http/extensions/list_extension.dart';
 import 'package:cloudinary_dart/uploader/abstract_uploader_request.dart';
 import 'package:cloudinary_dart/uploader/uploader_response.dart';
 import 'package:cloudinary_dart_url_gen/cloudinary.dart';
 import 'package:cloudinary_dart_url_gen/config/api_config.dart';
 import 'package:cloudinary_dart_url_gen/config/cloudinary_config.dart';
 
-import '../http/session/network_delegate.dart';
-import '../request/network_request.dart';
-import '../request/upload_request.dart';
+import '../src/http/session/network_delegate.dart';
+import '../src/request/network_request.dart';
+import '../src/request/params/upload_params.dart';
+import '../src/request/payload.dart';
+import '../src/request/upload_request.dart';
+import '../src/request/uploader_options.dart';
+import '../src/response/upload_result.dart';
 
 class Uploader {
 

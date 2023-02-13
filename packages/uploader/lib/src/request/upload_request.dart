@@ -1,12 +1,11 @@
-import 'package:cloudinary_dart/request/params/upload_params.dart';
-import 'package:cloudinary_dart/request/payload.dart';
-import 'package:cloudinary_dart/request/uploader_options.dart';
+import 'package:cloudinary_dart/uploader/abstract_uploader_request.dart';
 import 'package:cloudinary_dart/uploader/uploader.dart';
 import 'package:cloudinary_dart/uploader/uploader_response.dart';
 import 'package:cloudinary_dart_url_gen/config/cloudinary_config.dart';
-
 import '../response/upload_result.dart';
-import '../uploader/abstract_uploader_request.dart';
+import 'params/upload_params.dart';
+import 'payload.dart';
+import 'uploader_options.dart';
 
 typedef ProgressCallback = void Function(int bytesUploaded, int totalBytes); //((bytesUploaded: Long, totalBytes: Long) -> Unit)
 

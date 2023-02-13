@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'package:cloudinary_dart/request/network_request.dart';
-import 'package:cloudinary_dart/response/upload_error.dart';
-import 'package:cloudinary_dart/response/upload_result.dart';
+import 'package:cloudinary_dart/uploader/uploader_response.dart';
 import 'package:http/http.dart';
-import '../../uploader/uploader_response.dart';
 import 'package:http/http.dart' as http;
+
+import '../../request/network_request.dart';
+import '../../response/upload_error.dart';
+import '../../response/upload_result.dart';
 
 class NetworkDelegate {
   NetworkDelegate();
