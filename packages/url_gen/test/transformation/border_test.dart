@@ -12,7 +12,7 @@ void main() {
         Transformation().border(Border.solid(3, Color.rgb("00390b"))));
   });
 
-  test('Test sucessful border with round corners formatting', () {
+  test('Test successful border with round corners formatting', () {
     cldAssert(
         "bo_4px_solid_black,r_20:30",
         Transformation().border(Border.solid(4, Color.black())

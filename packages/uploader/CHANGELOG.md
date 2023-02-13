@@ -1,3 +1,6 @@
+## 0.0.11
+- Add `DropShadow` action
+
 ## 0.0.10 
 - Fix `Quality` action 
 - Add signature support 
