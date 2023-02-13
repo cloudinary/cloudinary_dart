@@ -24,9 +24,9 @@ class Uploader {
 
 
   // Api calls
-  Future<UploaderResponse<UploadResult>?> upload(File file, {UploadParams? params, UploaderOptions? options, CloudinaryConfig? cloudinaryConfig}) {
+  Future<UploaderResponse<UploadResult>?> upload(File file, {UploadParams? params, UploaderOptions? options, CloudinaryConfig? cloudinaryConfig, ProgressCallback? progressCallback}) {
     FilePayload payload = FilePayload(file);
-    UploadRequest request = UploadRequest(this, params ?? UploadParams(), options ?? UploaderOptions(), cloudinaryConfig ?? cloudinary.config, payload);
+    UploadRequest request = UploadRequest(this, params ?? UploadParams(), options ?? UploaderOptions(), cloudinaryConfig ?? cloudinary.config, payload, progressCallback: progressCallback);
     return request.execute();
   }
 
@@ -57,5 +57,25 @@ class Uploader {
 
   Future<UploaderResponse<UploadResult>> callApi(AbstractUploaderRequest request, String action, String adapter) async {
     return await networkDelegate.callApi(prepareNetworkRequest(action, (request as UploadRequest), adapter));
+  }
+
+  Future<UploaderResponse<UploadResult>> performUpload(UploadRequest request) {
+    if(request.payload == null) {
+      ArgumentError('An upload request must have a payload');
+    }
+    var value = request.payload.value;
+    var payload = request.payload;
+    var chunkSize = request.options.chunkSize ?? request.cloudinaryConfig.apiConfig.chunkSize;
+    // if it's a remote url or the total size is known and smaller than chunk size we fallback to
+    // a regular upload api (no need for chunks)
+    if(value is String && isRemoteUrl(value) || (1 > payload.length || payload.length < chunkSize!)) {
+      return callApi(request, 'upload', 'UploadResult');
+    }
+    //Upload large
+    return callApi(request, 'upload', 'UploadResult');
+  }
+
+  bool isRemoteUrl(String value) {
+    return RegExp('ftp:.*|https?:.*|s3:.*|gs:.*|data:([w-]+/[w-]+)?(;[w-]+=[w-]+)*;base64,([a-zA-Z0-9/+ =]+)').hasMatch(value);
   }
 }

@@ -8,6 +8,8 @@ import 'package:cloudinary_dart_url_gen/config/cloudinary_config.dart';
 import '../response/upload_result.dart';
 import '../uploader/abstract_uploader_request.dart';
 
+typedef ProgressCallback = void Function(int bytesUploaded, int totalBytes); //((bytesUploaded: Long, totalBytes: Long) -> Unit)
+
 class UploadRequest implements AbstractUploaderRequest<UploadResult> {
   @override
   Uploader uploader;
@@ -18,9 +20,9 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
   CloudinaryConfig cloudinaryConfig;
   @override
   Payload<dynamic> payload;
-  // ProgressCallback progressCallback;
+  ProgressCallback? progressCallback;
 
-  UploadRequest(this.uploader, this.params, this.options, this.cloudinaryConfig, this.payload);//, this.progressCallback);
+  UploadRequest(this.uploader, this.params, this.options, this.cloudinaryConfig, this.payload, {this.progressCallback});
 
   @override
   Map<String, dynamic> buildParams() {
@@ -65,7 +67,7 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
 
   @override
   Future<UploaderResponse<UploadResult>?> execute() async {
-    return await uploader.callApi(this, 'upload', 'UploadResult');
+    return await uploader.performUpload(this);
   }
 
 

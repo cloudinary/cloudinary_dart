@@ -9,14 +9,10 @@ import 'package:test/test.dart';
 void main() {
   group('Uploader Tests', () {
     test('Test Cloudinary object with uploader', () async {
-      Cloudinary cloudinary = Cloudinary.fromCloudName(cloudName: 'adimizrahi2');
+      Cloudinary cloudinary = Cloudinary();
       File file = File('test/assets/sample.jpeg');
       var response = await cloudinary.uploader().upload(file, params: UploadParams(uploadPreset: "ios_sample"));
-      if(response?.error != null) {
-          print(response?.error?.message);
-      } else {
-        print(response?.data);
-      }
+      assert(response?.data != null);
     });
   });
 
