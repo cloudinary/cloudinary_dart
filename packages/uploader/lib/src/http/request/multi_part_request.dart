@@ -5,15 +5,13 @@ import 'package:http/http.dart' as http;
 typedef ProgressCallback = void Function(int bytesUploaded, int totalBytes);
 
 class CldMultipartRequest extends http.MultipartRequest {
-
   final ProgressCallback? onProgress;
 
-  /// Creates a new [MultipartRequest].
-  CldMultipartRequest(
-      String method,
-      Uri url, {
-        this.onProgress,
-      }) : super(method, url);
+  Map<String, String> headers;
+
+  /// Creates a new [CldMultipartRequest].
+  CldMultipartRequest(String method, Uri url, this.headers, {this.onProgress})
+      : super(method, url);
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// that will emit the request body.
@@ -28,10 +26,10 @@ class CldMultipartRequest extends http.MultipartRequest {
     final t = StreamTransformer.fromHandlers(
       handleData: (List<int> data, EventSink<List<int>> sink) {
         bytes += data.length;
-        if(onProgress != null) {
+        if (onProgress != null) {
           onProgress!(bytes, total);
         }
-        if(total >= bytes) {
+        if (total >= bytes) {
           sink.add(data);
         }
       },
@@ -39,4 +37,31 @@ class CldMultipartRequest extends http.MultipartRequest {
     final stream = byteStream.transform(t);
     return http.ByteStream(stream);
   }
+
+  @override
+  Future<http.StreamedResponse> send() async {
+    var client = http.Client();
+
+    try {
+      print(this.headers);
+      var response = await client.send(this);
+      var stream = onDone(response.stream, client.close);
+      return http.StreamedResponse(http.ByteStream(stream), response.statusCode,
+          contentLength: response.contentLength,
+          request: response.request,
+          headers: response.headers,
+          isRedirect: response.isRedirect,
+          persistentConnection: response.persistentConnection,
+          reasonPhrase: response.reasonPhrase);
+    } catch (_) {
+      client.close();
+      rethrow;
+    }
+  }
+
+  Stream<T> onDone<T>(Stream<T> stream, void Function() onDone) =>
+      stream.transform(StreamTransformer.fromHandlers(handleDone: (sink) {
+        sink.close();
+        onDone();
+      }));
 }

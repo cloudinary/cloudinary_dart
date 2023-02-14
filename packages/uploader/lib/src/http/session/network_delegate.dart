@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cloudinary_dart/src/http/request/multi_part_request.dart';
 import 'package:cloudinary_dart/uploader/uploader_response.dart';
+import 'package:cloudinary_dart_url_gen/cloudinary.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,12 +10,14 @@ import '../../response/upload_error.dart';
 import '../../response/upload_result.dart';
 
 class NetworkDelegate {
+
   NetworkDelegate();
 
   Future<UploaderResponse<UploadResult>> callApi(NetworkRequest request) async {
     StreamedResponse requestResponse;
+    request.headers.addEntries(addUserAgent());
     var multiPartRequest =
-        CldMultipartRequest('POST', Uri.parse(request.url), onProgress: request.progressCallback);
+        CldMultipartRequest('POST', Uri.parse(request.url), request.headers , onProgress: request.progressCallback);
     multiPartRequest.fields.addAll(paramsToFields(request.params));
     multiPartRequest.files
         .add(await http.MultipartFile.fromPath('file', request.payload.path));
@@ -54,4 +57,10 @@ class NetworkDelegate {
         params.map((key, value) => MapEntry(key, value.toString()));
     return stringQueryParameters;
   }
+
+  Iterable<MapEntry<String, String>> addUserAgent() {
+    return {'User-Agent': Cloudinary.userAgent}.entries;
+  }
+
+
 }
