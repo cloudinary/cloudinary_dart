@@ -1,3 +1,4 @@
+import '../http/request/multi_part_request.dart';
 import 'payload.dart';
 
 class NetworkRequest<T> {
@@ -7,7 +8,7 @@ class NetworkRequest<T> {
   Map<String, dynamic> params;
   String adapter;
   Payload<dynamic> payload;
-  // ProgressCallback progressCallback;
+  ProgressCallback? progressCallback;
 
-  NetworkRequest(this.url, this.filename, this.headers, this.params, this.adapter, this.payload);//, this.progressCallback);
+  NetworkRequest(this.url, this.filename, this.headers, this.params, this.adapter, this.payload, this.progressCallback);
 }

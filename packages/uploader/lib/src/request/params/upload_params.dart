@@ -51,6 +51,9 @@ class UploadParams {
   String? autoTagging;
   bool? accessibilityAnalysis;
   String? filenameOverride;
+  bool? unsigned;
+  String? filename;
+  String? resourceType;
 
 
   UploadParams({this.backup, this.exif, this.faces, this.colors,
@@ -61,7 +64,7 @@ class UploadParams {
     this.proxy, this.folder, this.allowedFormats, this.moderation, this.cinemagraphAnalysis, this.qualityAnalysis,
     this.accessMode, Transformation? transformation, this.signature, this.timestamp, this.headers, this.tags, this.context,
     this.ocr, this.rawConvert, this.categorization, this.detection, this.similaritySearch, this.backgroundRemoval,
-    this.autoTagging, this.accessibilityAnalysis, this.filenameOverride}) {
+    this.autoTagging, this.accessibilityAnalysis, this.filenameOverride, this.unsigned, this.filename, this.resourceType}) {
     _transformation = transformation;
   }
 

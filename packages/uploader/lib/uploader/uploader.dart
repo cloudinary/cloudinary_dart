@@ -4,14 +4,13 @@ import 'package:cloudinary_dart/uploader/abstract_uploader_request.dart';
 import 'package:cloudinary_dart/uploader/uploader_response.dart';
 import 'package:cloudinary_dart_url_gen/cloudinary.dart';
 import 'package:cloudinary_dart_url_gen/config/api_config.dart';
-import 'package:cloudinary_dart_url_gen/config/cloudinary_config.dart';
 
 import '../src/http/session/network_delegate.dart';
+import '../src/http/request/multi_part_request.dart';
 import '../src/request/network_request.dart';
 import '../src/request/params/upload_params.dart';
 import '../src/request/payload.dart';
 import '../src/request/upload_request.dart';
-import '../src/request/uploader_options.dart';
 import '../src/response/upload_result.dart';
 
 class Uploader {
@@ -23,17 +22,17 @@ class Uploader {
 
 
   // Api calls
-  Future<UploaderResponse<UploadResult>?> upload(File file, {UploadParams? params, UploaderOptions? options, CloudinaryConfig? cloudinaryConfig, ProgressCallback? progressCallback}) {
+  Future<UploaderResponse<UploadResult>?> upload(File file, {UploadParams? params, ProgressCallback? progressCallback, Map<String, String>? extraHeaders}) {
     FilePayload payload = FilePayload(file);
-    UploadRequest request = UploadRequest(this, params ?? UploadParams(), options ?? UploaderOptions(), cloudinaryConfig ?? cloudinary.config, payload, progressCallback: progressCallback);
+    UploadRequest request = UploadRequest(this, params ?? UploadParams(), payload, progressCallback: progressCallback, extraHeaders: extraHeaders);
     return request.execute();
   }
 
   NetworkRequest prepareNetworkRequest(String action, UploadRequest request, String adapter) {
-    var config = request.cloudinaryConfig;
-    var prefix = config.apiConfig.uploadPrefix;
-    var cloudName = config.cloudConfig.cloudName;
-    var resourceType = (action != 'delete_by_token') ? request.options.resourceType ?? defaultResourceType : defaultResourceType;
+    var config = cloudinary.config.cloudConfig;
+    var prefix = cloudinary.config.apiConfig.uploadPrefix;
+    var cloudName = cloudinary.config.cloudConfig.cloudName;
+    var resourceType = defaultResourceType;
 
     Map<String, dynamic> paramsMap = request.buildParams();
 
@@ -51,7 +50,7 @@ class Uploader {
 
     var url = [prefix, apiVersion, cloudName, resourceType, action].noNullList().join("/");
 
-    return NetworkRequest(url, request.options.filename, request.options.headers ?? <String, String>{}, paramsMap, adapter, request.payload);//, request.progressCallback);
+    return NetworkRequest(url, request.params.filename, request.extraHeaders ?? <String, String>{}, paramsMap, adapter, request.payload, request.progressCallback);
   }
 
   Future<UploaderResponse<UploadResult>> callApi(AbstractUploaderRequest request, String action, String adapter) async {
@@ -64,7 +63,7 @@ class Uploader {
     }
     var value = request.payload.value;
     var payload = request.payload;
-    var chunkSize = request.options.chunkSize ?? request.cloudinaryConfig.apiConfig.chunkSize;
+    var chunkSize = request.uploader.cloudinary.config.apiConfig.chunkSize;
     // if it's a remote url or the total size is known and smaller than chunk size we fallback to
     // a regular upload api (no need for chunks)
     if(value is String && isRemoteUrl(value) || (1 > payload.length || payload.length < chunkSize!)) {

@@ -43,5 +43,4 @@ class ApiConfig implements IApiConfig {
     connectionTimeout = params[connectTimeoutKey] ?? defaultConnectionTimeout;
     callbackUrl = params[callbackUrlKey]?.toString();
   }
-
 }

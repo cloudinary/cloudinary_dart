@@ -12,7 +12,9 @@ void main() {
     test('Test Cloudinary object with uploader', () async {
       Cloudinary cloudinary = Cloudinary();
       File file = File('test/assets/sample.jpeg');
-      var response = await cloudinary.uploader().upload(file, params: UploadParams(uploadPreset: "ios_sample"));
+      var response = await cloudinary.uploader().upload(file, params: UploadParams(uploadPreset: "ios_sample"), progressCallback: (progress, total) {
+        print("This is progress - $progress out of total - $total ");
+      });
       assert(response?.data != null);
     });
   });

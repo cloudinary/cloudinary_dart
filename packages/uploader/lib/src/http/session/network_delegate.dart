@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloudinary_dart/src/http/request/multi_part_request.dart';
 import 'package:cloudinary_dart/uploader/uploader_response.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
@@ -12,13 +13,12 @@ class NetworkDelegate {
 
   Future<UploaderResponse<UploadResult>> callApi(NetworkRequest request) async {
     StreamedResponse requestResponse;
-      var multiPartRequest =
-          http.MultipartRequest('POST', Uri.parse(request.url));
-
-      multiPartRequest.fields.addAll(paramsToFields(request.params));
-      multiPartRequest.files.add(await http.MultipartFile.fromPath(
-          'file', request.payload.path));
-      requestResponse = await multiPartRequest.send();
+    var multiPartRequest =
+        CldMultipartRequest('POST', Uri.parse(request.url), onProgress: request.progressCallback);
+    multiPartRequest.fields.addAll(paramsToFields(request.params));
+    multiPartRequest.files
+        .add(await http.MultipartFile.fromPath('file', request.payload.path));
+    requestResponse = await multiPartRequest.send();
     return processResponse(requestResponse, request.adapter);
   }
 

@@ -1,27 +1,23 @@
 import 'package:cloudinary_dart/uploader/abstract_uploader_request.dart';
 import 'package:cloudinary_dart/uploader/uploader.dart';
 import 'package:cloudinary_dart/uploader/uploader_response.dart';
-import 'package:cloudinary_dart_url_gen/config/cloudinary_config.dart';
 import '../response/upload_result.dart';
+import '../http/request/multi_part_request.dart';
 import 'params/upload_params.dart';
 import 'payload.dart';
-import 'uploader_options.dart';
-
-typedef ProgressCallback = void Function(int bytesUploaded, int totalBytes); //((bytesUploaded: Long, totalBytes: Long) -> Unit)
 
 class UploadRequest implements AbstractUploaderRequest<UploadResult> {
   @override
   Uploader uploader;
   UploadParams params;
   @override
-  UploaderOptions options;
-  @override
-  CloudinaryConfig cloudinaryConfig;
-  @override
   Payload<dynamic> payload;
+  @override
   ProgressCallback? progressCallback;
+  @override
+  Map<String, String>? extraHeaders;
 
-  UploadRequest(this.uploader, this.params, this.options, this.cloudinaryConfig, this.payload, {this.progressCallback});
+  UploadRequest(this.uploader, this.params, this.payload, {this.progressCallback, this.extraHeaders});
 
   @override
   Map<String, dynamic> buildParams() {
