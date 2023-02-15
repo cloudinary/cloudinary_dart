@@ -37,8 +37,8 @@ class UrlPayload extends Payload<String> {
   }
 }
 
-class StreamPayload extends Payload<ByteStream> {
-  StreamPayload(ByteStream stream) {
+class StreamPayload extends Payload<Stream> {
+  StreamPayload(Stream stream) {
     value = stream;
     name = 'file';
     stream.length.then((value) => length = value);
