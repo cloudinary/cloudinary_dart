@@ -26,13 +26,19 @@ class Uploader {
 
 
   // Api calls
-  Future<UploaderResponse<UploadResult>?> upload(dynamic file, {UploadParams? params, ProgressCallback? progressCallback, Map<String, String>? extraHeaders}) {
+  Future<UploaderResponse<UploadResult>?> upload(dynamic file,
+      {UploadParams? params, ProgressCallback? progressCallback, Map<
+          String,
+          String>? extraHeaders}) {
     Payload<dynamic> payload = buildPayload(file);
-    UploadRequest request = UploadRequest(this, params ?? UploadParams(), payload, progressCallback: progressCallback, extraHeaders: extraHeaders);
+    UploadRequest request = UploadRequest(
+        this, params ?? UploadParams(), payload,
+        progressCallback: progressCallback, extraHeaders: extraHeaders);
     return request.execute();
   }
 
-  NetworkRequest prepareNetworkRequest(String action, UploadRequest request, String adapter) {
+  NetworkRequest prepareNetworkRequest(String action, UploadRequest request,
+      String adapter) {
     var config = cloudinary.config.cloudConfig;
     var prefix = cloudinary.config.apiConfig.uploadPrefix;
     var cloudName = cloudinary.config.cloudConfig.cloudName;
@@ -52,17 +58,28 @@ class Uploader {
     //   paramsMap['apiKey'] = config.cloudConfig.apiKey;
     // }
 
-    var url = [prefix, apiVersion, cloudName, resourceType, action].noNullList().join("/");
+    var url = [prefix, apiVersion, cloudName, resourceType, action]
+        .noNullList()
+        .join("/");
 
-    return NetworkRequest(url, request.params.filename, request.extraHeaders ?? <String, String>{}, paramsMap, adapter, request.payload, request.progressCallback);
+    return NetworkRequest(
+        url,
+        request.params.filename,
+        request.extraHeaders ?? <String, String>{},
+        paramsMap,
+        adapter,
+        request.payload,
+        request.progressCallback);
   }
 
-  Future<UploaderResponse<UploadResult>> callApi(AbstractUploaderRequest request, String action, String adapter) async {
-    return processResponse(await networkDelegate.callApi(prepareNetworkRequest(action, (request as UploadRequest), adapter)));
+  Future<UploaderResponse<UploadResult>> callApi(
+      AbstractUploaderRequest request, String action, String adapter) async {
+    return processResponse(await networkDelegate.callApi(
+        prepareNetworkRequest(action, (request as UploadRequest), adapter)));
   }
 
   Future<UploaderResponse<UploadResult>> performUpload(UploadRequest request) {
-    if(request.payload == null) {
+    if (request.payload == null) {
       ArgumentError('An upload request must have a payload');
     }
     var value = request.payload.value;
@@ -70,7 +87,8 @@ class Uploader {
     var chunkSize = request.uploader.cloudinary.config.apiConfig.chunkSize;
     // if it's a remote url or the total size is known and smaller than chunk size we fallback to
     // a regular upload api (no need for chunks)
-    if(value is String && isRemoteUrl(value) || (1 > payload.length || payload.length < chunkSize!)) {
+    if (value is String && isRemoteUrl(value) ||
+        (1 > payload.length || payload.length < chunkSize!)) {
       return callApi(request, 'upload', 'UploadResult');
     }
     //Upload large
@@ -78,15 +96,17 @@ class Uploader {
   }
 
   bool isRemoteUrl(String value) {
-    return RegExp('ftp:.*|https?:.*|s3:.*|gs:.*|data:([w-]+/[w-]+)?(;[w-]+=[w-]+)*;base64,([a-zA-Z0-9/+ =]+)').hasMatch(value);
+    return RegExp(
+        'ftp:.*|https?:.*|s3:.*|gs:.*|data:([w-]+/[w-]+)?(;[w-]+=[w-]+)*;base64,([a-zA-Z0-9/+ =]+)')
+        .hasMatch(value);
   }
 
   Payload buildPayload(dynamic file) {
     if (file is File) {
       return FilePayload(file);
-    } else if(file is String) {
+    } else if (file is String) {
       return UrlPayload(file);
-    } else if(file is Stream) {
+    } else if (file is Stream) {
       return StreamPayload(file);
     }
     throw ArgumentError("Current file type is not supported");
@@ -112,9 +132,18 @@ class Uploader {
         var responseError = UploadError("Error");
         return UploaderResponse(statusCode, null, responseError, body);
       }
-    } else {
+    } else if (statusCode >= 400 && statusCode < 499) {
       return UploaderResponse(
-          statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
+          statusCode, null, UploadError(errorHeader ?? "Unknown Error"),
+          body);
+    } else if (statusCode >= 500 && statusCode < 500) {
+      return UploaderResponse(
+          statusCode, null, UploadError(
+          errorHeader ?? "We had an internal error, please contact support"),
+          body);
     }
+    return UploaderResponse(
+        statusCode, null, UploadError(errorHeader ?? "Unknown Error"),
+        body);
   }
-}
+}}
