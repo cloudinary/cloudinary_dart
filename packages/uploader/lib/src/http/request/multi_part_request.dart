@@ -43,7 +43,6 @@ class CldMultipartRequest extends http.MultipartRequest {
     var client = http.Client();
 
     try {
-      print(this.headers);
       var response = await client.send(this);
       var stream = onDone(response.stream, client.close);
       return http.StreamedResponse(http.ByteStream(stream), response.statusCode,
@@ -65,3 +64,4 @@ class CldMultipartRequest extends http.MultipartRequest {
         onDone();
       }));
 }
+

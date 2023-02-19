@@ -1,3 +1,5 @@
+import 'dart:math';
+import 'package:async/async.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:cloudinary_dart/src/http/extensions/list_extension.dart';
@@ -78,7 +80,7 @@ class Uploader {
         prepareNetworkRequest(action, (request as UploadRequest), adapter)));
   }
 
-  Future<UploaderResponse<UploadResult>> performUpload(UploadRequest request) {
+  Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request) {
     if (request.payload == null) {
       ArgumentError('An upload request must have a payload');
     }
@@ -92,8 +94,11 @@ class Uploader {
       return callApi(request, 'upload', 'UploadResult');
     }
     //Upload large
+    var uniqueUploadId = createRandomUploadId(8);
+    uploadLargeParts(payload, request, uniqueUploadId)!;
     return callApi(request, 'upload', 'UploadResult');
   }
+
 
   bool isRemoteUrl(String value) {
     return RegExp(
@@ -116,13 +121,13 @@ class Uploader {
       StreamedResponse? requestResponse) {
     return getProcessedResponse(
         requestResponse!.statusCode,
-        requestResponse!.stream,
+        requestResponse.stream,
         requestResponse!.headers['x-cld-error']);
   }
 
   Future<UploaderResponse<UploadResult>> getProcessedResponse(int statusCode,
-      ByteStream stream, String? errorHeader) async {
-    String body = await stream.transform(utf8.decoder).join();
+      ByteStream? stream, String? errorHeader) async {
+    String body = await stream?.transform(utf8.decoder).join() ?? "";
     if (statusCode >= 200 && statusCode <= 299) {
       if (body != null) {
         var response =
@@ -139,11 +144,53 @@ class Uploader {
     } else if (statusCode >= 500 && statusCode < 500) {
       return UploaderResponse(
           statusCode, null, UploadError(
-          errorHeader ?? "We had an internal error, please contact support"),
+          errorHeader ?? "We had an problem, please contact support"),
           body);
     }
     return UploaderResponse(
         statusCode, null, UploadError(errorHeader ?? "Unknown Error"),
         body);
   }
-}}
+
+  Future<UploaderResponse<UploadResult>?> uploadLargeParts(Payload payload,
+      UploadRequest request, String uniqueUploadId) async {
+    Future<UploaderResponse<UploadResult>> response;
+    int chunkSize = cloudinary.config.apiConfig.chunkSize!;
+    Map<String, String> extraHeaders = request.extraHeaders ??
+        <String, String>{};
+
+    request.extraHeaders?.addEntries({'X-Unique-Upload-Id': uniqueUploadId}.entries);
+    int chunkCount = (payload.length / chunkSize).round();
+
+    for (int index = 0; index < chunkCount; index++) {
+      final startOffset = getStartOffset(index, chunkSize);
+      final endOffset = getEndOffset(index, chunkSize, payload.length);
+      final stream = getStream(startOffset, endOffset, payload);
+      return processResponse(await networkDelegate.uploadLarge(
+          stream, prepareNetworkRequest('upload', request, ''), startOffset,
+          endOffset, payload.length));
+    }
+    return null;
+  }
+
+  int getStartOffset(int index, int chunkSize) {
+    return index * chunkSize;
+  }
+
+  int getEndOffset(int index, int chunkSize, int fileSize) {
+    return min((index + 1) * chunkSize, fileSize);
+  }
+
+  Stream<List<int>> getStream(int start, int end, Payload payload) {
+    return (payload as FilePayload).value.openRead(start, end);
+  }
+
+  final Random _random = Random();
+  String createRandomUploadId(int length) {
+    StringBuffer sb = StringBuffer();
+    for (var i = 0; i < length; i++) {
+      sb.write(_random.nextInt(16).toRadixString(16));
+    }
+    return sb.toString();
+  }
+}

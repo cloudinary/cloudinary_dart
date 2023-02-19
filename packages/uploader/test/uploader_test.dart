@@ -8,11 +8,22 @@ import 'package:test/test.dart';
 
 
 void main() {
+  // group('Uploader Tests', () {
+  //   test('Test Cloudinary object with uploader', () async {
+  //     Cloudinary cloudinary = Cloudinary();
+  //     File file = File('test/assets/sample.jpeg');
+  //     var response = await cloudinary.uploader().upload(file, params: UploadParams(uploadPreset: "ios_sample"), progressCallback: (progress, total) {
+  //       print("This is progress - $progress out of total - $total ");
+  //     });
+  //     assert(response?.data != null);
+  //   });
+  // });
+
   group('Uploader Tests', () {
-    test('Test Cloudinary object with uploader', () async {
+    test('Test Cloudinary upload large', () async {
       Cloudinary cloudinary = Cloudinary();
-      File file = File('test/assets/sample.jpeg');
-      var response = await cloudinary.uploader().upload(file, params: UploadParams(uploadPreset: "ios_sample"), progressCallback: (progress, total) {
+      File file = File('test/assets/temp.jpg');
+      var response = await cloudinary.uploader().upload(file, params: UploadParams(uploadPreset: "ios_sample", resourceType: 'image'), progressCallback: (progress, total) {
         print("This is progress - $progress out of total - $total ");
       });
       assert(response?.data != null);

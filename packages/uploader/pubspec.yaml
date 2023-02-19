@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   http: ^0.13.5
+  async: ^2.10.0
   cloudinary_dart_url_gen:
     path: ../url_gen
 

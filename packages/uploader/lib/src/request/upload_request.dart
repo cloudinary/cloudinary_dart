@@ -17,7 +17,12 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
   @override
   Map<String, String>? extraHeaders;
 
-  UploadRequest(this.uploader, this.params, this.payload, {this.progressCallback, this.extraHeaders});
+  UploadRequest(this.uploader, this.params, this.payload, {this.progressCallback, Map<String, String>? extraHeaders}) {
+    this.extraHeaders = <String, String>{};
+    if (extraHeaders != null) {
+      this.extraHeaders?.addAll(extraHeaders);
+    }
+  }
 
   @override
   Map<String, dynamic> buildParams() {
@@ -56,6 +61,7 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
     mapParams['cinemagraph_analysis'] = params.cinemagraphAnalysis?.toString();
     mapParams['accessibility_analysis'] = params.accessibilityAnalysis?.toString();
     mapParams['filename_override'] = params.filenameOverride;
+    mapParams['resource_type'] = params.resourceType;
     mapParams.removeWhere((key, value) => value == null);
     return mapParams;
   }

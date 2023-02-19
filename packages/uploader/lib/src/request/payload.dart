@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:http/http.dart';
-
 abstract class Payload<T> {
   late T value;
   late String name;
@@ -9,6 +7,7 @@ abstract class Payload<T> {
   late String path;
 
   Future<String> readAsString();
+  Stream<dynamic> readAsStream();
 }
 
 class FilePayload extends Payload<File> {
@@ -23,6 +22,11 @@ class FilePayload extends Payload<File> {
   Future<String> readAsString() {
     return value.readAsString();
   }
+
+  @override
+  Stream<List<int>> readAsStream() {
+    return value.openRead();
+  }
 }
 
 class UrlPayload extends Payload<String> {
@@ -33,6 +37,11 @@ class UrlPayload extends Payload<String> {
 
   @override
   Future<String> readAsString() {
+    throw ArgumentError("Remote url doesn't not support input streams");
+  }
+
+  @override
+  Stream<File> readAsStream() {
     throw ArgumentError("Remote url doesn't not support input streams");
   }
 }
@@ -47,5 +56,10 @@ class StreamPayload extends Payload<Stream> {
   @override
   Future<String> readAsString() {
     return value.join();
+  }
+
+  @override
+  Stream<dynamic> readAsStream() {
+    return value!;
   }
 }
