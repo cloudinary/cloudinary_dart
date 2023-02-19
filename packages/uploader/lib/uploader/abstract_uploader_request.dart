@@ -1,4 +1,5 @@
 
+import 'package:cloudinary_dart/src/request/params/upload_options.dart';
 import 'package:cloudinary_dart/uploader/uploader.dart';
 import 'package:cloudinary_dart/uploader/uploader_response.dart';
 
@@ -10,7 +11,7 @@ abstract class AbstractUploaderRequest<T> {
   late Uploader uploader;
   late Payload<dynamic> payload;
   late ProgressCallback? progressCallback;
-  Map<String, String>? extraHeaders = {};
+  late UploadOptions? options;
 
   Map<String, dynamic> buildParams();
 

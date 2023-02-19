@@ -1,3 +1,4 @@
+import 'package:cloudinary_dart/src/request/params/upload_options.dart';
 import 'package:cloudinary_dart/uploader/abstract_uploader_request.dart';
 import 'package:cloudinary_dart/uploader/uploader.dart';
 import 'package:cloudinary_dart/uploader/uploader_response.dart';
@@ -15,14 +16,9 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
   @override
   ProgressCallback? progressCallback;
   @override
-  Map<String, String>? extraHeaders;
+  UploadOptions? options;
 
-  UploadRequest(this.uploader, this.params, this.payload, {this.progressCallback, Map<String, String>? extraHeaders}) {
-    this.extraHeaders = <String, String>{};
-    if (extraHeaders != null) {
-      this.extraHeaders?.addAll(extraHeaders);
-    }
-  }
+  UploadRequest(this.uploader, this.params, this.payload, {this.progressCallback, this.options});
 
   @override
   Map<String, dynamic> buildParams() {
@@ -61,7 +57,6 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
     mapParams['cinemagraph_analysis'] = params.cinemagraphAnalysis?.toString();
     mapParams['accessibility_analysis'] = params.accessibilityAnalysis?.toString();
     mapParams['filename_override'] = params.filenameOverride;
-    mapParams['resource_type'] = params.resourceType;
     mapParams.removeWhere((key, value) => value == null);
     return mapParams;
   }

@@ -37,7 +37,7 @@ class NetworkDelegate {
 
   Map<String, String> paramsToFields(Map<String, dynamic> params) {
     Map<String, String> stringQueryParameters =
-        params.map((key, value) => MapEntry('$key[]', value.toString()));
+        params.map((key, value) => MapEntry(key, value.toString()));
     return stringQueryParameters;
   }
 

@@ -1,12 +1,14 @@
 import 'dart:math';
-import 'package:async/async.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:cloudinary_dart/src/http/extensions/list_extension.dart';
+import 'package:cloudinary_dart/src/request/params/upload_options.dart';
 import 'package:cloudinary_dart/uploader/abstract_uploader_request.dart';
 import 'package:cloudinary_dart/uploader/uploader_response.dart';
 import 'package:cloudinary_dart_url_gen/cloudinary.dart';
 import 'package:cloudinary_dart_url_gen/config/api_config.dart';
+import 'package:convert/convert.dart';
+import 'package:crypto/crypto.dart';
 import 'package:http/http.dart';
 
 
@@ -29,13 +31,12 @@ class Uploader {
 
   // Api calls
   Future<UploaderResponse<UploadResult>?> upload(dynamic file,
-      {UploadParams? params, ProgressCallback? progressCallback, Map<
-          String,
-          String>? extraHeaders}) {
+      {UploadParams? params, UploadOptions? options, ProgressCallback? progressCallback,
+        Map<String, String>? extraHeaders}) {
     Payload<dynamic> payload = buildPayload(file);
     UploadRequest request = UploadRequest(
         this, params ?? UploadParams(), payload,
-        progressCallback: progressCallback, extraHeaders: extraHeaders);
+        progressCallback: progressCallback, options: options);
     return request.execute();
   }
 
@@ -44,21 +45,22 @@ class Uploader {
     var config = cloudinary.config.cloudConfig;
     var prefix = cloudinary.config.apiConfig.uploadPrefix;
     var cloudName = cloudinary.config.cloudConfig.cloudName;
-    var resourceType = defaultResourceType;
+    var resourceType = request.options?.resourceType ?? defaultResourceType;
 
     Map<String, dynamic> paramsMap = request.buildParams();
 
-    // if(requireSigning(action, request.params, request)) {
-    //   if (config.cloudConfig.apiKey != null) {
-    //
-    //   } else {
-    //     ArgumentError("Must supply api_secret");
-    //   }
-    //
-    //   paramsMap['timestamp'] = DateTime.now().millisecondsSinceEpoch;
-    //   paramsMap['signature'] = apiSignRequest(request.params, config.cloudConfig.apiSecret);
-    //   paramsMap['apiKey'] = config.cloudConfig.apiKey;
-    // }
+    if(requireSigning(action, request.params, request)) {
+      if (config.apiKey == null) {
+        ArgumentError("Must supply api_secret");
+      }
+      var signature = "";
+      if(request.params.signature != null) {
+        signature = request.params.signature!;
+      }
+      paramsMap['timestamp'] = (DateTime.now().millisecondsSinceEpoch / 1000).toString();
+      paramsMap['signature'] = apiSignRequest(paramsMap, config.apiSecret!);
+      paramsMap['api_key'] = config.apiKey;
+    }
 
     var url = [prefix, apiVersion, cloudName, resourceType, action]
         .noNullList()
@@ -66,8 +68,8 @@ class Uploader {
 
     return NetworkRequest(
         url,
-        request.params.filename,
-        request.extraHeaders ?? <String, String>{},
+        request.options?.filename,
+        request.options?.extraHeaders ?? <String, String>{},
         paramsMap,
         adapter,
         request.payload,
@@ -94,8 +96,8 @@ class Uploader {
       return callApi(request, 'upload', 'UploadResult');
     }
     //Upload large
-    var uniqueUploadId = createRandomUploadId(8);
-    uploadLargeParts(payload, request, uniqueUploadId)!;
+    // var uniqueUploadId = createRandomUploadId(8);
+    // uploadLargeParts(payload, request, uniqueUploadId)!;
     return callApi(request, 'upload', 'UploadResult');
   }
 
@@ -156,10 +158,10 @@ class Uploader {
       UploadRequest request, String uniqueUploadId) async {
     Future<UploaderResponse<UploadResult>> response;
     int chunkSize = cloudinary.config.apiConfig.chunkSize!;
-    Map<String, String> extraHeaders = request.extraHeaders ??
+    Map<String, String> extraHeaders = request.options?.extraHeaders ??
         <String, String>{};
 
-    request.extraHeaders?.addEntries({'X-Unique-Upload-Id': uniqueUploadId}.entries);
+    request.options?.extraHeaders?.addEntries({'X-Unique-Upload-Id': uniqueUploadId}.entries);
     int chunkCount = (payload.length / chunkSize).round();
 
     for (int index = 0; index < chunkCount; index++) {
@@ -193,4 +195,37 @@ class Uploader {
     }
     return sb.toString();
   }
+
+  bool requireSigning(String action, UploadParams params, UploadRequest request) {
+    var missingSignature = (params.signature != null) ? false : true;
+    var signedRequest = ((request.params.unsigned != null) ? !request.params.unsigned! : false);
+    var actionRequiresSigning = action != 'delete_by_token';
+    return missingSignature && signedRequest && actionRequiresSigning;
+  }
+
+  String apiSignRequest(Map<String, dynamic> paramsMap, String apiSecret) {
+    List<String> paramsArr = <String>[];
+    var sortedParams = paramsMap.keys.toList()..sort();
+    for(var key in sortedParams) {
+       var value = paramsMap[key];
+       String? paramValue;
+       if(value is List<String>) {
+         if(value.isNotEmpty) {
+            paramValue = value.join(',');
+         } else {
+           continue;
+         }
+       } else {
+         if(value != null) {
+           paramValue = value.toString();
+         }
+       }
+       if(paramValue != null) {
+         paramsArr.add('$key=$paramValue');
+       }
+    }
+    var toSign = '${paramsArr.join('&')}$apiSecret';
+    return hex.encode(sha1.convert(utf8.encode(toSign)).bytes);
+  }
+
 }
