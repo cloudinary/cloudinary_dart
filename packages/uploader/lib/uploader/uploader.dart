@@ -30,13 +30,13 @@ class Uploader {
 
 
   // Api calls
-  Future<UploaderResponse<UploadResult>?> upload(dynamic file,
+  CldMultipartRequest upload(dynamic file,
       {UploadParams? params, UploadOptions? options, ProgressCallback? progressCallback,
-        Map<String, String>? extraHeaders}) {
+        Map<String, String>? extraHeaders, CompletionCallback? completion }) {
     Payload<dynamic> payload = buildPayload(file);
     UploadRequest request = UploadRequest(
         this, params ?? UploadParams(), payload,
-        progressCallback: progressCallback, options: options);
+        progressCallback: progressCallback, options: options, completionCallback: completion);
     return request.execute();
   }
 
@@ -53,13 +53,13 @@ class Uploader {
       if (config.apiKey == null) {
         ArgumentError("Must supply api_secret");
       }
-      var signature = "";
       if(request.params.signature != null) {
-        signature = request.params.signature!;
-      }
+        paramsMap['signature'] = request.params.signature!;
+      } else {
       paramsMap['timestamp'] = (DateTime.now().millisecondsSinceEpoch / 1000).toString();
       paramsMap['signature'] = apiSignRequest(paramsMap, config.apiSecret!);
       paramsMap['api_key'] = config.apiKey;
+      }
     }
 
     var url = [prefix, apiVersion, cloudName, resourceType, action]
@@ -73,16 +73,18 @@ class Uploader {
         paramsMap,
         adapter,
         request.payload,
-        request.progressCallback);
+        request.progressCallback,
+        request.completionCallback);
   }
 
-  Future<UploaderResponse<UploadResult>> callApi(
-      AbstractUploaderRequest request, String action, String adapter) async {
-    return processResponse(await networkDelegate.callApi(
-        prepareNetworkRequest(action, (request as UploadRequest), adapter)));
+  CldMultipartRequest callApi(
+      AbstractUploaderRequest request, String action, String adapter) {
+    return networkDelegate.callApi(
+        prepareNetworkRequest(action, (request as UploadRequest), adapter));
+    // return processResponse( );
   }
 
-  Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request) {
+  CldMultipartRequest performUpload(UploadRequest request) {
     if (request.payload == null) {
       ArgumentError('An upload request must have a payload');
     }
@@ -119,41 +121,6 @@ class Uploader {
     throw ArgumentError("Current file type is not supported");
   }
 
-  Future<UploaderResponse<UploadResult>> processResponse(
-      StreamedResponse? requestResponse) {
-    return getProcessedResponse(
-        requestResponse!.statusCode,
-        requestResponse.stream,
-        requestResponse!.headers['x-cld-error']);
-  }
-
-  Future<UploaderResponse<UploadResult>> getProcessedResponse(int statusCode,
-      ByteStream? stream, String? errorHeader) async {
-    String body = await stream?.transform(utf8.decoder).join() ?? "";
-    if (statusCode >= 200 && statusCode <= 299) {
-      if (body != null) {
-        var response =
-        UploaderResponse<UploadResult>(statusCode, body, null, body);
-        return response;
-      } else {
-        var responseError = UploadError("Error");
-        return UploaderResponse(statusCode, null, responseError, body);
-      }
-    } else if (statusCode >= 400 && statusCode < 499) {
-      return UploaderResponse(
-          statusCode, null, UploadError(errorHeader ?? "Unknown Error"),
-          body);
-    } else if (statusCode >= 500 && statusCode < 500) {
-      return UploaderResponse(
-          statusCode, null, UploadError(
-          errorHeader ?? "We had an problem, please contact support"),
-          body);
-    }
-    return UploaderResponse(
-        statusCode, null, UploadError(errorHeader ?? "Unknown Error"),
-        body);
-  }
-
   Future<UploaderResponse<UploadResult>?> uploadLargeParts(Payload payload,
       UploadRequest request, String uniqueUploadId) async {
     Future<UploaderResponse<UploadResult>> response;
@@ -168,9 +135,9 @@ class Uploader {
       final startOffset = getStartOffset(index, chunkSize);
       final endOffset = getEndOffset(index, chunkSize, payload.length);
       final stream = getStream(startOffset, endOffset, payload);
-      return processResponse(await networkDelegate.uploadLarge(
-          stream, prepareNetworkRequest('upload', request, ''), startOffset,
-          endOffset, payload.length));
+      // return processResponse(await networkDelegate.uploadLarge(
+      //     stream, prepareNetworkRequest('upload', request, ''), startOffset,
+      //     endOffset, payload.length));
     }
     return null;
   }

@@ -15,7 +15,7 @@ abstract class AbstractUploaderRequest<T> {
 
   Map<String, dynamic> buildParams();
 
-  Future<UploaderResponse<T>?> execute()  {
+  CldMultipartRequest execute()  {
     // TODO: implement execute
     throw UnimplementedError();
   }

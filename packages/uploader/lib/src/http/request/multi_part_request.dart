@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:cloudinary_dart/src/response/upload_result.dart';
+import 'package:cloudinary_dart/uploader/uploader_response.dart';
 import 'package:http/http.dart' as http;
 
 typedef ProgressCallback = void Function(int bytesUploaded, int totalBytes);
+typedef CompletionCallback = void Function(UploaderResponse<UploadResult> response);
 
 class CldMultipartRequest extends http.MultipartRequest {
   final ProgressCallback? onProgress;

@@ -1,7 +1,6 @@
 import 'package:cloudinary_dart/src/request/params/upload_options.dart';
 import 'package:cloudinary_dart/uploader/abstract_uploader_request.dart';
 import 'package:cloudinary_dart/uploader/uploader.dart';
-import 'package:cloudinary_dart/uploader/uploader_response.dart';
 import '../response/upload_result.dart';
 import '../http/request/multi_part_request.dart';
 import 'params/upload_params.dart';
@@ -17,8 +16,10 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
   ProgressCallback? progressCallback;
   @override
   UploadOptions? options;
+  @override
+  CompletionCallback? completionCallback;
 
-  UploadRequest(this.uploader, this.params, this.payload, {this.progressCallback, this.options});
+  UploadRequest(this.uploader, this.params, this.payload, {this.progressCallback, this.options, this.completionCallback});
 
   @override
   Map<String, dynamic> buildParams() {
@@ -62,8 +63,8 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
   }
 
   @override
-  Future<UploaderResponse<UploadResult>?> execute() async {
-    return await uploader.performUpload(this);
+  CldMultipartRequest execute()  {
+    return uploader.performUpload(this);
   }
 
 

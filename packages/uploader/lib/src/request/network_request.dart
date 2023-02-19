@@ -9,6 +9,7 @@ class NetworkRequest<T> {
   String adapter;
   Payload<dynamic> payload;
   ProgressCallback? progressCallback;
+  CompletionCallback? completionCallback;
 
-  NetworkRequest(this.url, this.filename, this.headers, this.params, this.adapter, this.payload, this.progressCallback);
+  NetworkRequest(this.url, this.filename, this.headers, this.params, this.adapter, this.payload, this.progressCallback, this.completionCallback);
 }

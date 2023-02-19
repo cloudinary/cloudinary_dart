@@ -37,9 +37,11 @@ void main() {
       File file = File('test/assets/sample.jpeg');
       var response = await cloudinary.uploader().upload(file, params: UploadParams(unsigned: false), options: UploadOptions(resourceType: 'image'), progressCallback: (progress, total) {
         print("This is progress - $progress out of total - $total ");
+      }, completion: (response) {
+        print(response?.rawResponse);
+        assert(response?.data != null);
       });
-      print(response?.rawResponse);
-      assert(response?.data != null);
+      await Future.delayed(Duration(seconds: 10));
     });
   });
   //{\"error\":{\"message\":\"Invalid Signature f4297e0a6687ca82799eed8e08b90ae2805b67ec. String to sign - 'timestamp=1676809309.162'.\"}}
