@@ -34,8 +34,6 @@ class NetworkDelegate {
     requestResponse = await multiPartRequest.send();
     return requestResponse;
   }
-  //X-Unique-Upload-Id -> d6e77f3c09bbe72b
-  //Content-Range -> bytes 0-5242999/5880138
 
   Map<String, String> paramsToFields(Map<String, dynamic> params) {
     Map<String, String> stringQueryParameters =

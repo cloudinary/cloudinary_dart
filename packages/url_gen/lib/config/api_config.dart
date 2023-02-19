@@ -1,7 +1,7 @@
 const String apiVersion = "v1_1";
 const String defaultResourceType = "image";
 
-const int defaultChunkSize = 5 * 1024 * 1024; // bytes
+const int defaultChunkSize = 20 * 1024 * 1024; // bytes
 const int defaultReadTimeout = 0;
 const int defaultConnectionTimeout = 60; // seconds
 const String defaultUploadPrefix = "https://api.cloudinary.com";
