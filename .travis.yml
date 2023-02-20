@@ -14,10 +14,8 @@ before_script:
 script:
   - pwd
   - ls
-  - cd ./url_gen
-  - ./flutter/bin/flutter test
-  - cd ./uploader
-  - ./flutter/bin/flutter test
+  - ./flutter/bin/flutter/url_gen test
+  - ./flutter/bin/flutter/uploader test
 cache:
   directories:
     - $HOME/.pub-cache
