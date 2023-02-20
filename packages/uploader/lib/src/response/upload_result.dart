@@ -1,3 +1,6 @@
+import '../request/model/params/access_control_rule.dart';
+import '../request/model/params/responsive_breakpoint.dart';
+
 class UploadResult {
   String? publicId;
   String? version;
@@ -23,8 +26,8 @@ class UploadResult {
   String? status;
   // Map<String, Coordinates>? coordinates;
   // List<ResultModeration>? moderation;
-  // List<ResponsiveBreakpoints>? responsiveBreakpoints;
-  // List<AccessControlRule>? accessControl;
+   List<ResponsiveBreakpoint>? responsiveBreakpoints;
+   List<AccessControlRule>? accessControl;
   // ResultQualityAnalysis? qualityAnalysis;
   // ResultCinemagraphAnalysis? cinemagraphAnalysis;
   String? deleteToken;
