@@ -12,11 +12,9 @@ before_script:
   - git clone https://github.com/flutter/flutter.git -b beta
   - ./flutter/bin/flutter doctor
 script:
-  - ls
-  - cd url_gen
+  - cd ./url_gen
   - ./flutter/bin/flutter test
-  - cd ..
-  - cd uploader
+  - cd ./uploader
   - ./flutter/bin/flutter test
 cache:
   directories:
