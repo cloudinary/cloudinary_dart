@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloudinary_dart/src/request/model/params/resource_type.dart';
 import 'package:cloudinary_dart/src/request/model/upload_options.dart';
 import 'package:cloudinary_dart/src/request/model/upload_params.dart';
 import 'package:cloudinary_dart/src/response/upload_result.dart';
@@ -16,7 +17,7 @@ void main() {
       late UploaderResponse<UploadResult> result;
       cloudinary.uploader().upload(file,
           params:
-              UploadParams(uploadPreset: "ios_sample"), options: UploadOptions(resourceType: 'image'),
+              UploadParams(uploadPreset: "ios_sample"), options: UploadOptions(resourceType: ResourceType.image.name),
           progressCallback: (progress, total) {
         print("This is progress - $progress out of total - $total ");
       }, completion: (response) {
@@ -32,7 +33,7 @@ void main() {
       Cloudinary cloudinary = Cloudinary();
       File file = File('test/assets/sample.jpeg');
       late UploaderResponse<UploadResult> result;
-      cloudinary.uploader().upload(file, params: UploadParams(unsigned: false), options: UploadOptions(resourceType: 'image'), progressCallback: (progress, total) {
+      cloudinary.uploader().upload(file, params: UploadParams(unsigned: false), options: UploadOptions(resourceType: ResourceType.image.name), progressCallback: (progress, total) {
         print("This is progress - $progress out of total - $total ");
       }, completion: (response) {
         result = response;
