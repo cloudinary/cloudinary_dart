@@ -1,3 +1,8 @@
+import 'dart:html';
+
+import 'package:cloudinary_dart/src/request/model/params/access_control_rule.dart';
+import 'package:cloudinary_dart/src/request/model/params/eager_transformation.dart';
+import 'package:cloudinary_dart/src/request/model/params/responsive_breakpoint.dart';
 import 'package:cloudinary_dart_url_gen/transformation/transformation.dart';
 
 class UploadParams {
@@ -30,18 +35,18 @@ class UploadParams {
   bool? qualityAnalysis;
 
   String? accessMode;
-  // List<ResponsiveBreakpoints>? responsiveBreakpoints;
+  List<ResponsiveBreakpoint>? responsiveBreakpoints;
   Transformation? _transformation;
-  // List<EagerTransformation>? eager;
+  List<EagerTransformation>? eager;
   String? signature;
   int? timestamp;
 
   String? headers;
   List<String>? tags;
-  // Coordinates? faceCoordinates;
-  // Coordinates? customCoordinates;
+   Coordinates? faceCoordinates;
+   Coordinates? customCoordinates;
   Map<String, dynamic>? context;
-  // List<AccessControlRule>? accessControl;
+  List<AccessControlRule>? accessControl;
   String? ocr;
   String? rawConvert;
   String? categorization;
@@ -60,8 +65,9 @@ class UploadParams {
     this.overwrite, this.phash, this.returnDeleteToken,
     this.async, this.type, this.uploadPreset, this.publicId, this.callback, this.format, this.notificationUrl, this.eagerNotificationUrl,
     this.proxy, this.folder, this.allowedFormats, this.moderation, this.cinemagraphAnalysis, this.qualityAnalysis,
-    this.accessMode, Transformation? transformation, this.signature, this.timestamp, this.headers, this.tags, this.context,
-    this.ocr, this.rawConvert, this.categorization, this.detection, this.similaritySearch, this.backgroundRemoval,
+    this.accessMode, this.responsiveBreakpoints, Transformation? transformation, this.eager, this.signature, this.timestamp, this.headers, this.tags,
+    this.faceCoordinates, this.customCoordinates, this.context, this.accessControl, this.ocr, this.rawConvert, this.categorization,
+    this.detection, this.similaritySearch, this.backgroundRemoval,
     this.autoTagging, this.accessibilityAnalysis, this.filenameOverride, this.unsigned}) {
     _transformation = transformation;
   }
@@ -106,12 +112,17 @@ class UploadParams {
       'cinemagraph_analysis': cinemagraphAnalysis,
       'quality_analysis': qualityAnalysis,
       'access_mode': accessMode,
+      'responsive_breakpoints': responsiveBreakpoints,
       'transformation': _transformation,
+      'eager': eager,
       'signature': signature,
       'timestamp': timestamp,
       'headers': headers,
       'tags': tags,
+      'face_coordinates': faceCoordinates,
+      'custom_coordinates': customCoordinates,
       'context': context,
+      'access_control': accessControl,
       'ocr': ocr,
       'raw_convert': rawConvert,
       'categorization': categorization,

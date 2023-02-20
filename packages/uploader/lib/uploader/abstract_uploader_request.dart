@@ -1,5 +1,5 @@
 
-import 'package:cloudinary_dart/src/request/params/upload_options.dart';
+import 'package:cloudinary_dart/src/request/model/upload_options.dart';
 import 'package:cloudinary_dart/uploader/uploader.dart';
 import 'package:cloudinary_dart/uploader/uploader_response.dart';
 

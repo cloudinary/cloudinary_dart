@@ -1,9 +1,9 @@
-import 'package:cloudinary_dart/src/request/params/upload_options.dart';
+import 'package:cloudinary_dart/src/request/model/upload_options.dart';
 import 'package:cloudinary_dart/uploader/abstract_uploader_request.dart';
 import 'package:cloudinary_dart/uploader/uploader.dart';
 import '../response/upload_result.dart';
 import '../http/request/multi_part_request.dart';
-import 'params/upload_params.dart';
+import 'model/upload_params.dart';
 import 'payload.dart';
 
 class UploadRequest implements AbstractUploaderRequest<UploadResult> {
