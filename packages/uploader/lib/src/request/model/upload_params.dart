@@ -1,6 +1,5 @@
-import 'dart:html';
-
 import 'package:cloudinary_dart/src/request/model/params/access_control_rule.dart';
+import 'package:cloudinary_dart/src/request/model/params/coordinates.dart';
 import 'package:cloudinary_dart/src/request/model/params/eager_transformation.dart';
 import 'package:cloudinary_dart/src/request/model/params/responsive_breakpoint.dart';
 import 'package:cloudinary_dart_url_gen/transformation/transformation.dart';
@@ -43,8 +42,8 @@ class UploadParams {
 
   String? headers;
   List<String>? tags;
-   Coordinates? faceCoordinates;
-   Coordinates? customCoordinates;
+  Coordinates? faceCoordinates;
+  Coordinates? customCoordinates;
   Map<String, dynamic>? context;
   List<AccessControlRule>? accessControl;
   String? ocr;

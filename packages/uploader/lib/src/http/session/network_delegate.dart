@@ -36,13 +36,13 @@ class NetworkDelegate {
     return multiPartRequest;
   }
 
-  Future<StreamedResponse> uploadLarge(
+  CldMultipartRequest uploadLarge(
       Stream<List<int>> stream,
       NetworkRequest request,
       int startOffset,
       int endOffset,
-      int totalSize) async {
-    StreamedResponse requestResponse;
+      int totalSize) {
+    Future<StreamedResponse> requestResponse;
     request.headers.addEntries(addUserAgent());
     request.headers
         .addEntries(addContentRange(startOffset, endOffset, totalSize));
@@ -52,8 +52,16 @@ class NetworkDelegate {
     multiPartRequest.fields.addAll(paramsToFields(request.params));
     multiPartRequest.files
         .add(MultipartFile("file", stream, endOffset - startOffset));
-    requestResponse = await multiPartRequest.send();
-    return requestResponse;
+    requestResponse = multiPartRequest.send();
+    if (request.completionCallback != null) {
+      requestResponse.then(
+              (requestResponse) {
+            processResponse(requestResponse, (response) {
+              request.completionCallback!(response);
+            });
+          });
+    }
+    return multiPartRequest;
   }
 
   void processResponse(StreamedResponse? requestResponse,

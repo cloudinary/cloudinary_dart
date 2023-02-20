@@ -9,7 +9,6 @@ import 'package:cloudinary_dart_url_gen/cloudinary.dart';
 import 'package:cloudinary_dart_url_gen/config/api_config.dart';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
-import 'package:http/http.dart';
 
 
 import '../src/http/session/network_delegate.dart';
@@ -18,7 +17,6 @@ import '../src/request/network_request.dart';
 import '../src/request/model/upload_params.dart';
 import '../src/request/payload.dart';
 import '../src/request/upload_request.dart';
-import '../src/response/upload_error.dart';
 import '../src/response/upload_result.dart';
 
 class Uploader {
@@ -98,9 +96,8 @@ class Uploader {
       return callApi(request, 'upload', 'UploadResult');
     }
     //Upload large
-    // var uniqueUploadId = createRandomUploadId(8);
-    // uploadLargeParts(payload, request, uniqueUploadId)!;
-    return callApi(request, 'upload', 'UploadResult');
+    var uniqueUploadId = createRandomUploadId(8);
+    return uploadLargeParts(payload, request, uniqueUploadId)!;
   }
 
 
@@ -121,8 +118,9 @@ class Uploader {
     throw ArgumentError("Current file type is not supported");
   }
 
-  Future<UploaderResponse<UploadResult>?> uploadLargeParts(Payload payload,
-      UploadRequest request, String uniqueUploadId) async {
+  CldMultipartRequest uploadLargeParts(Payload payload,
+      UploadRequest request, String uniqueUploadId) {
+    late CldMultipartRequest multiRequest;
     Future<UploaderResponse<UploadResult>> response;
     int chunkSize = cloudinary.config.apiConfig.chunkSize!;
     Map<String, String> extraHeaders = request.options?.extraHeaders ??
@@ -135,11 +133,9 @@ class Uploader {
       final startOffset = getStartOffset(index, chunkSize);
       final endOffset = getEndOffset(index, chunkSize, payload.length);
       final stream = getStream(startOffset, endOffset, payload);
-      // return processResponse(await networkDelegate.uploadLarge(
-      //     stream, prepareNetworkRequest('upload', request, ''), startOffset,
-      //     endOffset, payload.length));
+      multiRequest = networkDelegate.uploadLarge(stream, prepareNetworkRequest('upload', request, ''), startOffset, endOffset, payload.length);
     }
-    return null;
+    return multiRequest;
   }
 
   int getStartOffset(int index, int chunkSize) {
