@@ -12,8 +12,8 @@ before_script:
   - git clone https://github.com/flutter/flutter.git -b beta
   - ./flutter/bin/flutter doctor
 script:
-  - ./flutter/bin/flutter test packages/url-gen
-  - ./flutter/bin/flutter test packages/uploader
+  - ./flutter/bin/flutter test url-gen
+  - ./flutter/bin/flutter test uploader
 cache:
   directories:
     - $HOME/.pub-cache
