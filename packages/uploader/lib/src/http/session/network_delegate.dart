@@ -74,13 +74,16 @@ class NetworkDelegate {
         if (body != null) {
           completion(
               UploaderResponse<UploadResult>(statusCode, body, null, body));
+          return;
         } else {
           var responseError = UploadError("Error");
           completion(UploaderResponse(statusCode, null, responseError, body));
+          return;
         }
       } else if (statusCode >= 400 && statusCode < 499) {
         completion(UploaderResponse(statusCode, null,
             UploadError(errorHeader ?? "Unknown Error"), body));
+        return;
       } else if (statusCode >= 500 && statusCode < 500) {
         completion(UploaderResponse(
             statusCode,
@@ -88,9 +91,11 @@ class NetworkDelegate {
             UploadError(
                 errorHeader ?? "We had an problem, please contact support"),
             body));
+        return;
       }
       completion(UploaderResponse(
           statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body));
+      return;
     });
   }
 
