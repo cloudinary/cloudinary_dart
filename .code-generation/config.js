@@ -10,7 +10,7 @@ module.exports = {
     closeTransformationChar: '',
     hideActionGroups: false,
     unsupportedTxParams: ['fl_waveform', 'e_anti_removal:', 'fl_animated', 'l_fetch', 'l_text', 'u_text', 'af_', 'if_', 'e_fade', '$overlaywidth_$mainvideowidth_div_3'],
-    unsupportedSyntaxList: ['stroke(', 'textFit(', 'Animated.edit', 'RoundCorners(', 'getVideoFrame'],
+    unsupportedSyntaxList: ['stroke(', 'textFit(', 'Animated.edit', 'getVideoFrame'],
     mainTransformationString: {
       openSyntaxString: {
         image: 'cloudinary.image(\'#publicID\').transformation(Transformation()',
