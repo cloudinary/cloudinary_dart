@@ -66,7 +66,7 @@ String url = (cloudinary.image('sample.jpg')
 ```
 
 ## Contributions
-See [contributing guidelines](/CONTRIBUTING.md).
+See [contributing guidelines](/packages/url_gen/CONTRIBUTING.mdn/CONTRIBUTING.md).
 
 ## Get Help
 If you run into an issue or have a question, you can either:

@@ -1,0 +1,25 @@
+name: cloudinary_dart_uploader
+description: Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline
+version: 0.0.10
+homepage: https://www.cloudinary.com
+repository: https://github.com/cloudinary/cloudinary_dart
+
+environment:
+  sdk: '>=2.17.5 <3.0.0'
+
+dependencies:
+  http: ^0.13.5
+  async: ^2.10.0
+  crypto: ^3.0.2
+  convert: ^3.0.2
+  cloudinary_dart_url_gen:
+    path: ../../url_gen
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.16.0
+
+flutter:
+assets:
+  - assets/sample.jpeg
+
