@@ -9,7 +9,7 @@ import '../src/response/upload_result.dart';
 abstract class AbstractUploaderRequest<T> {
   late Uploader uploader;
   late Payload<dynamic>? payload;
-  late ProgressCallback? progressCallback;
+  late ProgressCallback? progress;
   late CompletionCallback? completionCallback;
   late UploaderParams? params;
 
@@ -17,12 +17,7 @@ abstract class AbstractUploaderRequest<T> {
     return params?.buildParams() ?? <String, dynamic>{};
   }
 
-  CldMultipartRequest? execute() {
-    // TODO: implement execute
-    throw UnimplementedError();
-  }
-
-  Future<UploaderResponse<UploadResult>>? executeSync() {
+  Future<UploaderResponse<UploadResult>>? execute() {
     // TODO: implement execute
     throw UnimplementedError();
   }

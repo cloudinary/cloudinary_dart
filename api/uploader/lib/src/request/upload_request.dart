@@ -16,20 +16,15 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
   @override
   Payload<dynamic>? payload;
   @override
-  ProgressCallback? progressCallback;
+  ProgressCallback? progress;
   @override
   CompletionCallback? completionCallback;
 
   UploadRequest(this.uploader, this.params, this.payload,
-      {this.progressCallback, this.completionCallback});
+      {this.progress, this.completionCallback});
 
-  @override
-  CldMultipartRequest? execute() {
+  Future<UploaderResponse<UploadResult>>? execute() {
     return uploader.performUpload(this);
-  }
-
-  Future<UploaderResponse<UploadResult>> executeSync() {
-    return uploader.performUploadSync(this);
   }
 
   @override

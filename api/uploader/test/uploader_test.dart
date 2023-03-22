@@ -65,22 +65,22 @@ void main() {
 
   group('Uploader Tests', () {
     test('Test auto resource type', () async {
-      var response = await cloudinary.uploader().uploadSync(srcTestImage,
+      var response = await cloudinary.uploader().upload(srcTestImage,
           params: UploadParams(
               colors: true,
               tags: defaultTags,
               resourceType: ResourceType.auto.name));
-      assert(response.data != null);
-      var result = resultOrThrow(response.data);
+      assert(response?.data != null);
+      var result = resultOrThrow(response?.data);
       assert(result.resourceType == 'image');
     });
 
     test('Test UTF8 upload success', () async {
-      var response = await cloudinary.uploader().uploadSync(srcTestImage,
+      var response = await cloudinary.uploader().upload(srcTestImage,
           params:
               UploadParams(colors: true, tags: defaultTags, publicId: 'aåßéƒ'));
-      assert(response.data != null);
-      var result = resultOrThrow(response.data);
+      assert(response?.data != null);
+      var result = resultOrThrow(response?.data);
       assert(result.publicId != null);
       assert(result.width == srcTestImageW);
       assert(result.height == srcTestImageH);
@@ -89,10 +89,10 @@ void main() {
 
       validateSignature(result);
 
-      response = await cloudinary.uploader().uploadSync(srcTestImage,
+      response = await cloudinary.uploader().upload(srcTestImage,
           params:
               UploadParams(publicId: 'Plattenkreiss_ñg-é', tags: defaultTags));
-      result = resultOrThrow(response.data);
+      result = resultOrThrow(response?.data);
       assert(result.publicId == 'Plattenkreiss_ñg-é');
     });
 
@@ -119,10 +119,9 @@ void main() {
   });
 
   test('Test upload Url successfully', () async {
-    var response = await cloudinary.uploader().uploadSync(
-        remoteTestImageUrlString,
+    var response = await cloudinary.uploader().upload(remoteTestImageUrlString,
         params: UploadParams(colors: true, tags: defaultTags));
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert(result.width == srcTestImageW);
   });
 
@@ -131,35 +130,35 @@ void main() {
         'data:image/png;base64,iVBORw0KGgoAA\nAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0l\nEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6\nP9/AFGGFyjOXZtQAAAAAElFTkSuQmCC';
     var response = await cloudinary
         .uploader()
-        .uploadSync(data, params: UploadParams(tags: defaultTags));
-    var result = resultOrThrow(response.data);
+        .upload(data, params: UploadParams(tags: defaultTags));
+    var result = resultOrThrow(response?.data);
     assert(result.width == 16);
     assert(result.height == 16);
     validateSignature(result);
   });
 
   test('Test unique filename param success', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(useFilename: true, tags: defaultTags));
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert(result.publicId != null);
     assert(RegExp(r'old_logo_[a-z0-9]{6}').hasMatch(result.publicId!));
 
-    response = await cloudinary.uploader().uploadSync(srcTestImage,
+    response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(
             useFilename: true, uniqueFilename: false, tags: defaultTags));
-    result = resultOrThrow(response.data);
+    result = resultOrThrow(response?.data);
     assert(result.publicId == 'old_logo');
   });
 
   test('Test eager param success', () async {
     var transformation = Transformation().resize(Resize.scale()..width(2.0));
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(
             eager: [EagerTransformation.withFormat(transformation, Format.png)],
             tags: defaultTags));
 
-    var eager = resultOrThrow(response.data).eager?.first;
+    var eager = resultOrThrow(response?.data).eager?.first;
     assert(eager != null);
     assert(eager?.format == Format.png);
     assert(eager?.transformation == 'c_scale,w_2.0/png');
@@ -168,41 +167,41 @@ void main() {
   test('Test async parameter success', () async {
     var transformation = Transformation().resize(Resize.scale()..width(2.0));
 
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(
             transformation: transformation, async: true, tags: defaultTags));
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
 
     assert(result.status == 'pending');
   });
 
   test('Test allowed formats parameter success', () async {
     var formats = ['png'];
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(allowedFormats: formats, tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert(result.format == 'png');
   });
 
   test('Test allowed formats with illegal format', () async {
     var formats = ['jpg'];
 
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(allowedFormats: formats, tags: defaultTags));
 
-    assert(response.data == null);
-    assert(response.error != null);
+    assert(response?.data == null);
+    assert(response?.error != null);
   });
 
   test('Test allowed formats with correct format', () async {
     var formats = ['jpg'];
 
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(
             allowedFormats: formats, tags: defaultTags, format: 'jpg'));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert(result.format == 'jpg');
   });
 
@@ -212,10 +211,10 @@ void main() {
 
     var coordinates = Coordinates([rect1, rect2]);
 
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(
             faceCoordinates: coordinates, faces: true, tags: defaultTags));
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     var resultFaces = result.faces;
     assert(resultFaces?.coordinates.length == 2);
     assert(resultFaces?.coordinates[0] == rect1);
@@ -225,29 +224,29 @@ void main() {
   test('Test custom coordinates successful', () async {
     var coordinates = Coordinates.withString('121,31,300,151');
 
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params:
             UploadParams(customCoordinates: coordinates, tags: defaultTags));
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
 
     assert(Rectangle(121, 31, srcTestImageW, srcTestImageH) ==
         result.coordinates?.values.first.coordinates[0]);
   });
 
   test('Test moderation parameter successful', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(moderation: 'manual', tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert('manual' == result.moderation?.first.kind);
     assert('pending' == result.moderation?.first.status);
   });
 
   test('Test accessibility analysis resource parameter successful', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(accessibilityAnalysis: true, tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert(result.accessibilityAnalysis != null);
     assert(result.accessibilityAnalysis!.colorblindAccessibilityScore > 0);
     assert(result.accessibilityAnalysis!.colorblindAccessibilityAnalysis
@@ -259,26 +258,26 @@ void main() {
   });
 
   test('Test raw convert request success', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(rawConvert: 'illegal', tags: defaultTags));
 
-    var error = response.error;
+    var error = response?.error;
     assert(error?.message == 'Raw convert is invalid');
   });
 
   test('Test raw categorization request success', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(categorization: 'illegal', tags: defaultTags));
 
-    var error = response.error;
+    var error = response?.error;
     assert(error?.message == 'Categorization item illegal is not valid');
   });
 
   test('Test detection request success', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(detection: 'illegal', tags: defaultTags));
 
-    var error = response.error;
+    var error = response?.error;
     assert(error?.message == "Detection invalid model 'illegal'");
   });
 
@@ -296,28 +295,28 @@ void main() {
             tags: uploadTags), completion: (response) {
       result = resultOrThrow(response.data);
     });
-    await Future.delayed(Duration(seconds: 10));
+    await Future.delayed(Duration(seconds: 15));
     assert(listsAreEqual(result.tags, uploadTags));
     assert(result.resourceType == ResourceType.raw.name);
     assert(result.publicId?.startsWith('cldupload') ?? false);
   }, timeout: Timeout(Duration(minutes: 3)));
 
   test('Test unsigned upload success', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(
             unsigned: true, uploadPreset: uploadPreset, tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert(result.width == srcTestImageW);
     assert(result.height == srcTestImageH);
   });
 
   test('Test filename option parameter success', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
-        params: UploadParams(filename: 'emanelif', tags: defaultTags));
+    var response = await cloudinary.uploader().upload(srcTestImage,
+        params: UploadParams(filename: 'testFilename', tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
-    assert(result.originalFilename == 'emanelif');
+    var result = resultOrThrow(response?.data);
+    assert(result.originalFilename == 'testFilename');
   });
 
   test('Test responsive breakpoints success', () async {
@@ -327,11 +326,11 @@ void main() {
         format: "gif",
         transformation: Transformation().effect(Effect.sepia()));
 
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(
             responsiveBreakpoints: [breakpoint], tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert(result.responsiveBreakpoints != null);
 
     assert(result.responsiveBreakpoints!.first.breakpoints.first.url
@@ -345,10 +344,10 @@ void main() {
     var token = AccessControlRule.token();
     var acl = AccessControlRule.anonymous(start, null);
 
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(accessControl: [acl, token], tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
 
     assert(result.accessControl != null);
     assert(result.accessControl!.length == 2);
@@ -362,36 +361,36 @@ void main() {
   });
 
   test('Test quality analysis success', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(qualityAnalysis: true, tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert(result.qualityAnalysis != null);
   });
 
   test('Test cinema graph analysis success', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(cinemagraphAnalysis: true, tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert(result.cinemagraphAnalysis != null);
   });
 
   test('Test filename overriden param success', () async {
-    var response = await cloudinary.uploader().uploadSync(srcTestImage,
+    var response = await cloudinary.uploader().upload(srcTestImage,
         params:
             UploadParams(useFilename: true, filenameOverride: 'overridden'));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     assert(result.originalFilename == 'overridden');
   });
 
   test('Test rename api call success', () async {
     var response = await cloudinary
         .uploader()
-        .uploadSync(srcTestImage, params: UploadParams(tags: defaultTags));
+        .upload(srcTestImage, params: UploadParams(tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     var publicId = result.publicId ?? '';
     var toPublicId = 'rename_${publicId}_$suffix';
 
@@ -403,9 +402,9 @@ void main() {
   test('Test explicit api call success', () async {
     var response = await cloudinary
         .uploader()
-        .uploadSync(srcTestImage, params: UploadParams(tags: defaultTags));
+        .upload(srcTestImage, params: UploadParams(tags: defaultTags));
 
-    var result = resultOrThrow(response.data);
+    var result = resultOrThrow(response?.data);
     var publicId = result.publicId ?? '';
 
     var transformation = Transformation()..resize(Resize.scale()..width(2.0));

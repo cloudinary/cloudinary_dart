@@ -17,37 +17,28 @@ class Uploader {
   Uploader(this.cloudinary);
 
   // Api calls
-  CldMultipartRequest? upload(dynamic file,
-      {UploadParams? params,
-      ProgressCallback? progressCallback,
-      Map<String, String>? extraHeaders,
-      CompletionCallback? completion}) {
+  Future<UploaderResponse<UploadResult>>? upload(
+    dynamic file, {
+    UploadParams? params,
+    Map<String, String>? extraHeaders,
+    ProgressCallback? progressCallback,
+    CompletionCallback? completion,
+  }) {
     Payload<dynamic> payload = buildPayload(file);
     UploadRequest request = UploadRequest(
         this, params ?? UploadParams(), payload,
-        progressCallback: progressCallback, completionCallback: completion);
+        progress: progressCallback, completionCallback: completion);
     return request.execute();
-  }
-
-  Future<UploaderResponse<UploadResult>> uploadSync(dynamic file,
-      {UploadParams? params,
-      ProgressCallback? progressCallback,
-      Map<String, String>? extraHeaders}) {
-    Payload<dynamic> payload = buildPayload(file);
-    UploadRequest request = UploadRequest(
-        this, params ?? UploadParams(), payload,
-        progressCallback: progressCallback);
-    return request.executeSync();
   }
 
   Future<UploaderResponse<UploadResult>> rename(
       {required RenameParams params}) {
     UploaderRequest request = UploaderRequest('rename', this, params);
-    return request.executeSync();
+    return request.execute();
   }
 
   Future<UploaderResponse<UploadResult>> explicit(ExplicitParams params) {
     UploaderRequest request = UploaderRequest('explicit', this, params);
-    return request.executeSync();
+    return request.execute();
   }
 }

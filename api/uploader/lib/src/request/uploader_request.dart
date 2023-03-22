@@ -22,7 +22,7 @@ class UploaderRequest implements AbstractUploaderRequest<UploadResult> {
   Payload? payload;
 
   @override
-  ProgressCallback? progressCallback;
+  ProgressCallback? progress;
 
   @override
   Uploader uploader;
@@ -35,12 +35,7 @@ class UploaderRequest implements AbstractUploaderRequest<UploadResult> {
   }
 
   @override
-  CldMultipartRequest execute() {
-    return uploader.callApi(this, action);
-  }
-
-  @override
-  Future<UploaderResponse<UploadResult>> executeSync() {
-    return uploader.callApiSync(this, action, options: SharedParams());
+  Future<UploaderResponse<UploadResult>> execute() {
+    return uploader.callApi(this, action, options: SharedParams());
   }
 }

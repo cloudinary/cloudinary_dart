@@ -9,7 +9,15 @@ class NetworkRequest<T> {
   Payload<dynamic>? payload;
   ProgressCallback? progressCallback;
   CompletionCallback? completionCallback;
+  int timeout;
 
-  NetworkRequest(this.url, this.filename, this.headers, this.params,
-      this.payload, this.progressCallback, this.completionCallback);
+  NetworkRequest(
+      this.url,
+      this.filename,
+      this.headers,
+      this.params,
+      this.timeout,
+      this.payload,
+      this.progressCallback,
+      this.completionCallback);
 }

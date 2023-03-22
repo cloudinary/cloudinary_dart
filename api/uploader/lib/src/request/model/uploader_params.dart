@@ -11,6 +11,7 @@ abstract class UploaderParams {
   String? resourceType;
   String? filename;
   Map<String, String>? extraHeaders;
+  int? timeout;
 
   Map<String, dynamic> buildParams();
 }

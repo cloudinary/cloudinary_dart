@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -6,16 +7,17 @@ import 'package:cloudinary_dart_uploader/uploader/uploader.dart';
 import 'package:cloudinary_dart_uploader/uploader/uploader_response.dart';
 import 'package:cloudinary_dart_uploader/uploader/utils.dart';
 import 'package:cloudinary_dart_url_gen/config/api_config.dart';
-
-import '../src/http/request/multi_part_request.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import '../src/request/model/shared_params.dart';
 import '../src/request/network_request.dart';
 import '../src/request/payload.dart';
 import '../src/request/upload_request.dart';
+import '../src/response/upload_error.dart';
 import '../src/response/upload_result.dart';
 import 'abstract_uploader_request.dart';
 
-extension InternalUploader on Uploader {
+extension UploaderInternal on Uploader {
   NetworkRequest prepareNetworkRequest(
       String action, AbstractUploaderRequest request, SharedParams? options) {
     var config = cloudinary.config.cloudConfig;
@@ -47,26 +49,21 @@ extension InternalUploader on Uploader {
         options?.filename,
         options?.extraHeaders ?? <String, String>{},
         paramsMap,
+        (options?.timeout) ?? defaultTimeout,
         request.payload,
-        request.progressCallback,
+        request.progress,
         request.completionCallback);
   }
 
-  CldMultipartRequest callApi(AbstractUploaderRequest request, String action,
-      {SharedParams? options}) {
-    return networkDelegate.callApi(
-        prepareNetworkRequest(action, (request as UploadRequest), options));
-  }
-
-  Future<UploaderResponse<UploadResult>> callApiSync(
+  Future<UploaderResponse<UploadResult>> callApi(
       AbstractUploaderRequest request, String action,
-      {SharedParams? options}) {
-    return networkDelegate
-        .callApiSync(prepareNetworkRequest(action, request, options));
+      {SharedParams? options}) async {
+    var response = await networkDelegate
+        .callApi(prepareNetworkRequest(action, request, options));
+    return _processResponseSync(response);
   }
 
-  Future<UploaderResponse<UploadResult>> performUploadSync(
-      UploadRequest request) {
+  Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request) {
     if (request.payload == null) {
       throw ArgumentError('An upload request must have a payload');
     }
@@ -81,33 +78,12 @@ extension InternalUploader on Uploader {
     if (value is String && Utils.isRemoteUrl(value) ||
         (1 > payload.length || payload.length < chunkSize!)) {
       // need to make sure if we have length or not.
-      return callApiSync(request, 'upload', options: options);
-    }
-    throw ArgumentError('File is too large for synchronize upload');
-  }
-
-  CldMultipartRequest? performUpload(UploadRequest request) {
-    if (request.payload == null) {
-      ArgumentError('An upload request must have a payload');
-    }
-    var payload = request.payload!;
-    var value = payload.value;
-    var chunkSize = request.uploader.cloudinary.config.apiConfig.chunkSize;
-    // if it's a remote url or the total size is known and smaller than chunk size we fallback to
-    // a regular upload api (no need for chunks)
-    SharedParams options = SharedParams(
-        resourceType: request.params?.resourceType,
-        unsigned: request.params?.unsigned,
-        filename: request.params?.filename,
-        extraHeaders: request.params?.extraHeaders);
-    if (value is String && Utils.isRemoteUrl(value) ||
-        (1 > payload.length || payload.length < chunkSize!)) {
-      // need to make sure if we have length or not.
       return callApi(request, 'upload', options: options);
     }
     //Upload large
     var uniqueUploadId = Utils.createRandomUploadId(8);
     uploadLargeParts(payload, request, uniqueUploadId);
+    return null;
   }
 
   Payload buildPayload(dynamic file) {
@@ -131,13 +107,12 @@ extension InternalUploader on Uploader {
         ?.addEntries({'X-Unique-Upload-Id': uniqueUploadId}.entries);
     int chunkCount = (payload.length / chunkSize).ceil();
 
-    int index = 0;
     for (int index = 0; index < chunkCount; index++) {
       await buildStreamRequest(index, chunkSize, payload, request);
     }
   }
 
-  Future<CldMultipartRequest> buildStreamRequest(
+  Future<http.StreamedResponse>? buildStreamRequest(
       int index, int chunkSize, Payload payload, UploadRequest request) async {
     final startOffset = getStartOffset(index, chunkSize);
     final endOffset = getEndOffset(index, chunkSize, payload.length);
@@ -146,13 +121,23 @@ extension InternalUploader on Uploader {
         resourceType: request.params?.resourceType,
         unsigned: request.params?.unsigned,
         filename: request.params?.filename ?? payload.name,
+        timeout: request.params?.timeout ??
+            request.uploader.cloudinary.config.apiConfig.timeout,
         extraHeaders: request.params?.extraHeaders);
-    return await networkDelegate.uploadLarge(
+    var requestResponse = await networkDelegate.uploadLarge(
         stream,
         prepareNetworkRequest('upload', request, options),
         startOffset,
         endOffset,
         payload.length);
+    if (request.completionCallback != null) {
+      _processResponse(requestResponse, (response) {
+        if (response.data?.done == true || response.error != null) {
+          request.completionCallback!(response);
+        }
+      });
+    }
+    return requestResponse;
   }
 
   int getStartOffset(int index, int chunkSize) {
@@ -173,5 +158,84 @@ extension InternalUploader on Uploader {
         ((options?.unsigned != null) ? !options!.unsigned! : false);
     var actionRequiresSigning = action != 'delete_by_token';
     return missingSignature && signedRequest && actionRequiresSigning;
+  }
+
+  //Response handler
+  Future<UploaderResponse<UploadResult>> _processResponseSync(
+      StreamedResponse? requestResponse) {
+    return _getProcessedResponseSync(requestResponse!.statusCode,
+        requestResponse.stream, requestResponse.headers['x-cld-error']);
+  }
+
+  Future<UploaderResponse<UploadResult>> _getProcessedResponseSync(
+      int statusCode, ByteStream? stream, String? errorHeader) async {
+    var body = await stream?.transform(utf8.decoder).join();
+    if (statusCode >= 200 && statusCode <= 299) {
+      if (body != null) {
+        final parsedJson = jsonDecode(body);
+        final uploadResult = UploadResult.fromJson(parsedJson);
+        return UploaderResponse<UploadResult>(
+            statusCode, uploadResult, null, body);
+      } else {
+        var responseError = UploadError("Error");
+        return UploaderResponse(statusCode, null, responseError, body);
+      }
+    } else if (statusCode >= 400 && statusCode < 499) {
+      return UploaderResponse(
+          statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
+    } else if (statusCode >= 500 && statusCode < 599) {
+      return UploaderResponse(
+          statusCode,
+          null,
+          UploadError(
+              errorHeader ?? "We had an problem, please contact support"),
+          body);
+    }
+    return UploaderResponse(
+        statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
+  }
+
+  void _processResponse(StreamedResponse? requestResponse,
+      void Function(UploaderResponse<UploadResult> response) completion) {
+    _getProcessedResponse(requestResponse!.statusCode, requestResponse.stream,
+        requestResponse.headers['x-cld-error'], (response) {
+      completion(response);
+    });
+  }
+
+  void _getProcessedResponse(
+      int statusCode,
+      ByteStream? stream,
+      String? errorHeader,
+      void Function(UploaderResponse<UploadResult> response) completion) {
+    _parseResponse(stream, (body) {
+      if (statusCode >= 200 && statusCode <= 299) {
+        final parsedJson = jsonDecode(body);
+        final uploadResult = UploadResult.fromJson(parsedJson);
+        completion(UploaderResponse<UploadResult>(
+            statusCode, uploadResult, null, body));
+        return;
+      } else if (statusCode >= 400 && statusCode < 499) {
+        completion(UploaderResponse(statusCode, null,
+            UploadError(errorHeader ?? "Unknown Error"), body));
+        return;
+      } else if (statusCode >= 500 && statusCode < 599) {
+        completion(UploaderResponse(
+            statusCode,
+            null,
+            UploadError(
+                errorHeader ?? "We had an problem, please contact support"),
+            body));
+        return;
+      }
+      completion(UploaderResponse(
+          statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body));
+      return;
+    });
+  }
+
+  void _parseResponse(
+      http.ByteStream? stream, void Function(String result) completion) {
+    stream?.transform(utf8.decoder).join().then((value) => completion(value));
   }
 }
