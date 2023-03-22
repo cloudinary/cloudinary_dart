@@ -36,6 +36,6 @@ class UploaderRequest implements AbstractUploaderRequest<UploadResult> {
 
   @override
   Future<UploaderResponse<UploadResult>> execute() {
-    return uploader.callApi(this, action, options: SharedParams());
+    return uploader._callApi(this, action, options: SharedParams());
   }
 }

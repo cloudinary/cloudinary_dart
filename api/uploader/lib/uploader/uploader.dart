@@ -24,7 +24,7 @@ class Uploader {
     ProgressCallback? progressCallback,
     CompletionCallback? completion,
   }) {
-    Payload<dynamic> payload = buildPayload(file);
+    Payload<dynamic> payload = _buildPayload(file);
     UploadRequest request = UploadRequest(
         this, params ?? UploadParams(), payload,
         progress: progressCallback, completionCallback: completion);

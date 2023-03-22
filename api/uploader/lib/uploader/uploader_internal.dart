@@ -18,7 +18,7 @@ import '../src/response/upload_result.dart';
 import 'abstract_uploader_request.dart';
 
 extension UploaderInternal on Uploader {
-  NetworkRequest prepareNetworkRequest(
+  NetworkRequest _prepareNetworkRequest(
       String action, AbstractUploaderRequest request, SharedParams? options) {
     var config = cloudinary.config.cloudConfig;
     var prefix = cloudinary.config.apiConfig.uploadPrefix;
@@ -27,7 +27,7 @@ extension UploaderInternal on Uploader {
 
     Map<String, dynamic> paramsMap = request.buildParams();
 
-    if (requireSigning(action, options, paramsMap['signature'])) {
+    if (_requireSigning(action, options, paramsMap['signature'])) {
       if (config.apiKey == null) {
         ArgumentError("Must supply api_secret");
       }
@@ -55,15 +55,15 @@ extension UploaderInternal on Uploader {
         request.completionCallback);
   }
 
-  Future<UploaderResponse<UploadResult>> callApi(
+  Future<UploaderResponse<UploadResult>> _callApi(
       AbstractUploaderRequest request, String action,
       {SharedParams? options}) async {
     var response = await networkDelegate
-        .callApi(prepareNetworkRequest(action, request, options));
+        .callApi(_prepareNetworkRequest(action, request, options));
     return _processResponseSync(response);
   }
 
-  Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request) {
+  Future<UploaderResponse<UploadResult>>? _performUpload(UploadRequest request) {
     if (request.payload == null) {
       throw ArgumentError('An upload request must have a payload');
     }
@@ -78,15 +78,15 @@ extension UploaderInternal on Uploader {
     if (value is String && Utils.isRemoteUrl(value) ||
         (1 > payload.length || payload.length < chunkSize!)) {
       // need to make sure if we have length or not.
-      return callApi(request, 'upload', options: options);
+      return _callApi(request, 'upload', options: options);
     }
     //Upload large
     var uniqueUploadId = Utils.createRandomUploadId(8);
-    uploadLargeParts(payload, request, uniqueUploadId);
+    _uploadLargeParts(payload, request, uniqueUploadId);
     return null;
   }
 
-  Payload buildPayload(dynamic file) {
+  Payload _buildPayload(dynamic file) {
     if (file is File) {
       return FilePayload(file);
     } else if (file is String) {
@@ -98,7 +98,7 @@ extension UploaderInternal on Uploader {
     throw ArgumentError("Current file type is not supported");
   }
 
-  void uploadLargeParts(
+  void _uploadLargeParts(
       Payload payload, UploadRequest request, String uniqueUploadId) async {
     late UploaderResponse<UploadResult> response;
     int chunkSize = cloudinary.config.apiConfig.chunkSize!;
@@ -108,15 +108,15 @@ extension UploaderInternal on Uploader {
     int chunkCount = (payload.length / chunkSize).ceil();
 
     for (int index = 0; index < chunkCount; index++) {
-      await buildStreamRequest(index, chunkSize, payload, request);
+      await _buildStreamRequest(index, chunkSize, payload, request);
     }
   }
 
-  Future<http.StreamedResponse>? buildStreamRequest(
+  Future<http.StreamedResponse>? _buildStreamRequest(
       int index, int chunkSize, Payload payload, UploadRequest request) async {
-    final startOffset = getStartOffset(index, chunkSize);
-    final endOffset = getEndOffset(index, chunkSize, payload.length);
-    final stream = getStream(startOffset, endOffset, payload);
+    final startOffset = _getStartOffset(index, chunkSize);
+    final endOffset = _getEndOffset(index, chunkSize, payload.length);
+    final stream = _getStream(startOffset, endOffset, payload);
     SharedParams options = SharedParams(
         resourceType: request.params?.resourceType,
         unsigned: request.params?.unsigned,
@@ -126,7 +126,7 @@ extension UploaderInternal on Uploader {
         extraHeaders: request.params?.extraHeaders);
     var requestResponse = await networkDelegate.uploadLarge(
         stream,
-        prepareNetworkRequest('upload', request, options),
+        _prepareNetworkRequest('upload', request, options),
         startOffset,
         endOffset,
         payload.length);
@@ -140,19 +140,19 @@ extension UploaderInternal on Uploader {
     return requestResponse;
   }
 
-  int getStartOffset(int index, int chunkSize) {
+  int _getStartOffset(int index, int chunkSize) {
     return index * chunkSize;
   }
 
-  int getEndOffset(int index, int chunkSize, int fileSize) {
+  int _getEndOffset(int index, int chunkSize, int fileSize) {
     return min((index + 1) * chunkSize, fileSize);
   }
 
-  Stream<List<int>> getStream(int start, int end, Payload payload) {
+  Stream<List<int>> _getStream(int start, int end, Payload payload) {
     return (payload as FilePayload).value.openRead(start, end);
   }
 
-  bool requireSigning(String action, SharedParams? options, String? signature) {
+  bool _requireSigning(String action, SharedParams? options, String? signature) {
     var missingSignature = (signature != null) ? false : true;
     var signedRequest =
         ((options?.unsigned != null) ? !options!.unsigned! : false);
