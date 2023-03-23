@@ -2,7 +2,7 @@ import '../color.dart';
 import '../common.dart';
 import '../region.dart';
 import 'effect_actions.dart';
-import 'package:cloudinary_url_gen_dart/transformation/effect/objects/foreground_object.dart';
+import 'objects/foreground_object.dart';
 
 class Effect extends Action {
   /// Changes the color scheme of the image to sepia.

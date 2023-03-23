@@ -1,12 +1,12 @@
 import 'package:cloudinary_url_gen_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_url_gen_dart/src/util/validations.dart';
-import 'package:cloudinary_url_gen_dart/transformation/effect/objects/foreground_object.dart';
 
 import '../transformation_utils.dart';
 import '../color.dart';
 import '../common.dart';
 import '../region.dart';
 import 'effect.dart';
+import 'objects/foreground_object.dart';
 
 /// Class Sepia
 /// level The level of sepia to apply. (Range: 1 to 100, Server default: 80)
