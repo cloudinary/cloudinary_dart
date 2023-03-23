@@ -15,7 +15,7 @@ void cldAssert(String expected, dynamic actual) {
 
 File createTempFile() {
   File file = File('cldupload.test.');
-  final size = 6 * 1024 * 1024; // 100MB
+  final size = 6 * 1024 * 1024; // 6 MB
   final random = Random();
   final data = List.generate(size, (index) => random.nextInt(256));
 

@@ -430,6 +430,7 @@ void main() {
   });
 
   test('Test timeout exception', () async {
+    cloudinary.config.apiConfig.chunkSize = 5 * 1024 * 1024;
     File file = createTempFile();
     late UploaderResponse result;
     await cloudinary.uploader().upload(file,
@@ -437,9 +438,9 @@ void main() {
         completion: (response) {
       result = response;
     });
-    await Future.delayed(Duration(seconds: 15));
+    await Future.delayed(Duration(seconds: 5));
     assert(result?.responseCode == -1);
-    assert(result?.rawResponse == 'Timeout occurred');
+    assert(result?.error?.message == 'Timeout of 0:00:01.000000 occurred');
   });
 }
 
