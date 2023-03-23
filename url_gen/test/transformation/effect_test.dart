@@ -1,9 +1,10 @@
+import 'package:cloudinary_url_gen_dart/transformation/effect/objects/foreground_object.dart';
 import 'package:test/test.dart';
 
-import '../../lib/transformation/color.dart';
-import '../../lib/transformation/effect/effect.dart';
-import '../../lib/transformation/effect/effect_actions.dart';
-import '../../lib/transformation/region.dart';
+import 'package:cloudinary_url_gen_dart/transformation/color.dart';
+import 'package:cloudinary_url_gen_dart/transformation/effect/effect.dart';
+import 'package:cloudinary_url_gen_dart/transformation/effect/effect_actions.dart';
+import 'package:cloudinary_url_gen_dart/transformation/region.dart';
 import '../tests_utils.dart';
 
 void main() {
@@ -257,5 +258,15 @@ void main() {
           ..spread(12)
           ..elevation(11)
           ..azimuth(10));
+  });
+
+  test('Test successful background removal effect', () {
+    cldAssert('e_background_removal', Effect.backgroundRemoval());
+    cldAssert('e_background_removal:fineedges_y', Effect.backgroundRemoval(fineEdges: true));
+    cldAssert('e_background_removal:fineedges_n', Effect.backgroundRemoval(fineEdges: false));
+    cldAssert('e_background_removal:hints_(cat;dog)', Effect.backgroundRemoval(hints: [ForegroundObject.cat(), ForegroundObject.dog()]));
+    cldAssert('e_background_removal:hints_(cat;dog)', Effect.backgroundRemoval()..hints([ForegroundObject.cat(), ForegroundObject.dog()]));
+    cldAssert('e_background_removal:hints_(car;bus)', Effect.backgroundRemoval(hints: [ForegroundObject.car(), ForegroundObject.bus()]));
+    cldAssert('e_background_removal:fineedges_y:hints_(car;bus)', Effect.backgroundRemoval()..fineEdges(true)..hints([ForegroundObject.car(), ForegroundObject.bus()]));
   });
 }

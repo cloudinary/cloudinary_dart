@@ -6,6 +6,7 @@ import '../color.dart';
 import '../common.dart';
 import '../region.dart';
 import 'effect.dart';
+import 'objects/foreground_object.dart';
 
 /// Class Sepia
 /// level The level of sepia to apply. (Range: 1 to 100, Server default: 80)
@@ -751,6 +752,34 @@ class Theme extends Effect {
       'color_$_color',
       (_photosensitivity != null) ? 'photosensitivity_$_photosensitivity' : null
     ]);
+  }
+}
+
+/// Class BackgroundRemoval
+/// fineedges
+/// hints - objects to search for. (List can be found in [ForegroundObject])
+class BackgroundRemoval extends Effect {
+  bool? _fineEdges;
+  List<ForegroundObject>? _hints;
+
+  BackgroundRemoval({bool? fineEdges, List<ForegroundObject>? hints}) {
+    _fineEdges = fineEdges;
+    _hints = hints;
+  }
+
+  BackgroundRemoval fineEdges(bool fineEdges) {
+    _fineEdges = fineEdges;
+    return this;
+  }
+
+  BackgroundRemoval hints(List<ForegroundObject> hints) {
+    _hints = hints;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return 'e_background_removal'.joinWithValues([(_fineEdges != null) ? ((_fineEdges == true) ? 'fineedges_y' : 'fineedges_n') : null, (_hints != null) ? 'hints_(${_hints!.join(';')})' : null]);
   }
 }
 

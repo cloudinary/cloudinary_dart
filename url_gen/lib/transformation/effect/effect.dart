@@ -2,6 +2,7 @@ import '../color.dart';
 import '../common.dart';
 import '../region.dart';
 import 'effect_actions.dart';
+import 'objects/foreground_object.dart';
 
 class Effect extends Action {
   /// Changes the color scheme of the image to sepia.
@@ -276,6 +277,10 @@ class Effect extends Action {
 
   static DropShadow dropShadow({int? azimuth, int? elevation, int? spread}) {
     return DropShadow(azimuth: azimuth, elevation: elevation, spread: spread);
+  }
+
+  static BackgroundRemoval backgroundRemoval({bool? fineEdges, List<ForegroundObject>? hints}) {
+    return BackgroundRemoval(fineEdges: fineEdges, hints: hints);
   }
 
   @override
