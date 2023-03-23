@@ -1,5 +1,5 @@
-import 'package:cloudinary_dart_uploader/uploader/utils.dart';
-import 'package:cloudinary_dart_url_gen/cloudinary.dart';
+import 'package:cloudinary_api_dart/uploader/utils.dart';
+import 'package:cloudinary_url_gen_dart/cloudinary.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';

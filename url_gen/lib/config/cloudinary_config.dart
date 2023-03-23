@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart_url_gen/config/api_config.dart';
+import 'package:cloudinary_url_gen_dart/config/api_config.dart';
 
 import '../src/extensions/string_extension.dart';
 import 'cloud_config.dart';

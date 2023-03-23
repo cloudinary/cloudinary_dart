@@ -1,4 +1,4 @@
-import 'package:cloudinary_dart_url_gen/transformation/transformation.dart';
+import 'package:cloudinary_url_gen_dart/transformation/transformation.dart';
 
 class ResponsiveBreakpoint {
   bool? createDerived;

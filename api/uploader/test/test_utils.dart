@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:http/http.dart' as http;
-import 'package:cloudinary_dart_url_gen/cloudinary.dart';
+import 'package:cloudinary_url_gen_dart/cloudinary.dart';
 
 void cldAssert(String expected, dynamic actual) {
   if (expected != actual.toString()) {
@@ -14,7 +14,7 @@ void cldAssert(String expected, dynamic actual) {
 }
 
 File createTempFile() {
-  File file = File('cldupload.test.');
+  File file = File('/tmp/cldupload.test.');
   final size = 6 * 1024 * 1024; // 6 MB
   final random = Random();
   final data = List.generate(size, (index) => random.nextInt(256));

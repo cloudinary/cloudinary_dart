@@ -12,7 +12,7 @@ dependencies:
   async: ^2.10.0
   crypto: ^3.0.2
   convert: ^3.0.2
-  cloudinary_dart_url_gen:
+  cloudinary_url_gen_dart:
     path: ../../url_gen
 
 dev_dependencies:
