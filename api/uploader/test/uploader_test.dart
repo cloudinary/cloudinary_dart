@@ -9,6 +9,7 @@ import 'package:cloudinary_dart_uploader/src/request/model/params/responsive_bre
 import 'package:cloudinary_dart_uploader/src/request/model/uploader_params.dart';
 import 'package:cloudinary_dart_uploader/src/response/upload_result.dart';
 import 'package:cloudinary_dart_uploader/uploader/cloudinary_uploader.dart';
+import 'package:cloudinary_dart_uploader/uploader/uploader_response.dart';
 import 'package:cloudinary_dart_uploader/uploader/utils.dart';
 import 'package:cloudinary_dart_url_gen/cloudinary.dart';
 import 'package:cloudinary_dart_url_gen/transformation/delivery/delivery_actions.dart';
@@ -430,8 +431,13 @@ void main() {
 
   test('Test timeout exception', () async {
     File file = createTempFile();
-    var result = await cloudinary.uploader().upload(file, params: UploadParams(resourceType: ResourceType.auto.name, timeout: 1));
-    print(result);
+    late UploaderResponse result;
+    await cloudinary.uploader().upload(file,
+        params: UploadParams(resourceType: ResourceType.auto.name, timeout: 1),
+        completion: (response) {
+      result = response;
+    });
+    await Future.delayed(Duration(seconds: 15));
     assert(result?.responseCode == -1);
     assert(result?.rawResponse == 'Timeout occurred');
   });

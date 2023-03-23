@@ -164,7 +164,7 @@ class UploadParams extends UploaderParams {
       bool unsigned = false,
       String? resourceType,
       String? filename,
-        int? timeout,
+      int? timeout,
       Map<String, String>? extraHeaders}) {
     _transformation = transformation;
     super.unsigned = unsigned;

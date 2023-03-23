@@ -63,7 +63,7 @@ extension UploaderInternal on Uploader {
       var response = await networkDelegate
           .callApi(_prepareNetworkRequest(action, request, options));
       return _processResponse(response);
-    } on TimeoutException catch(error) {
+    } on TimeoutException catch (error) {
       return UploaderResponse(
           -1, null, UploadError(error.message), 'Timeout occurred');
     }
@@ -146,7 +146,7 @@ extension UploaderInternal on Uploader {
         });
       }
       return requestResponse;
-    } on TimeoutException catch(error) {
+    } on TimeoutException catch (error) {
       request.completionCallback!(UploaderResponse(
           -1, null, UploadError(error.message), 'Timeout occurred'));
     }
@@ -165,15 +165,14 @@ extension UploaderInternal on Uploader {
     return (payload as FilePayload).value.openRead(start, end);
   }
 
-  bool _requireSigning(String action, SharedParams? options, String? signature) {
+  bool _requireSigning(
+      String action, SharedParams? options, String? signature) {
     var missingSignature = (signature != null) ? false : true;
     var signedRequest =
         ((options?.unsigned != null) ? !options!.unsigned! : false);
     var actionRequiresSigning = action != 'delete_by_token';
     return missingSignature && signedRequest && actionRequiresSigning;
   }
-
-
 
   //Response handler
   Future<UploaderResponse<UploadResult>> _processResponse(
@@ -182,8 +181,8 @@ extension UploaderInternal on Uploader {
         requestResponse.stream, requestResponse.headers['x-cld-error']);
   }
 
-  void _processResponseWithCompletion(
-      StreamedResponse? requestResponse, void Function(UploaderResponse<UploadResult> response) completion) {
+  void _processResponseWithCompletion(StreamedResponse? requestResponse,
+      void Function(UploaderResponse<UploadResult> response) completion) {
     var response = _getProcessedResponse(requestResponse!.statusCode,
         requestResponse.stream, requestResponse.headers['x-cld-error']);
     response.then((unwrappedResponse) {
@@ -217,10 +216,5 @@ extension UploaderInternal on Uploader {
     }
     return UploaderResponse(
         statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
-  }
-
-  void _parseResponse(
-      http.ByteStream? stream, void Function(String result) completion) {
-    stream?.transform(utf8.decoder).join().then((value) => completion(value));
   }
 }
