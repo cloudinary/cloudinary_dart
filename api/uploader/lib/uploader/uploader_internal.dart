@@ -65,7 +65,7 @@ extension UploaderInternal on Uploader {
       return _processResponse(response);
     } on TimeoutException catch (error) {
       return UploaderResponse(
-          -1, null, UploadError(error.message), 'Timeout occurred');
+          -1, null, UploadError('Timeout of ${error.duration} occurred'), error.message);
     }
   }
 
@@ -148,7 +148,7 @@ extension UploaderInternal on Uploader {
       return requestResponse;
     } on TimeoutException catch (error) {
       request.completionCallback!(UploaderResponse(
-          -1, null, UploadError(error.message), 'Timeout occurred'));
+          -1, null, UploadError('Timeout of ${error.duration} occurred'), error.message));
     }
     return null;
   }
