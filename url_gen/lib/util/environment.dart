@@ -12,5 +12,4 @@ class Environment {
     Map<String, String> env = Platform.environment;
     return env[name];
   }
-
 }

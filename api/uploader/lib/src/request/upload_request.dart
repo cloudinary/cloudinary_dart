@@ -24,7 +24,7 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
       {this.progress, this.completionCallback});
 
   Future<UploaderResponse<UploadResult>>? execute() {
-    return uploader._performUpload(this);
+    return uploader.performUpload(this);
   }
 
   @override

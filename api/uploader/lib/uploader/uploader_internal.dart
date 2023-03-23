@@ -55,15 +55,15 @@ extension UploaderInternal on Uploader {
         request.completionCallback);
   }
 
-  Future<UploaderResponse<UploadResult>> _callApi(
+  Future<UploaderResponse<UploadResult>> callApi(
       AbstractUploaderRequest request, String action,
       {SharedParams? options}) async {
     var response = await networkDelegate
         .callApi(_prepareNetworkRequest(action, request, options));
-    return _processResponseSync(response);
+    return _processResponse(response);
   }
 
-  Future<UploaderResponse<UploadResult>>? _performUpload(UploadRequest request) {
+  Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request) {
     if (request.payload == null) {
       throw ArgumentError('An upload request must have a payload');
     }
@@ -78,7 +78,7 @@ extension UploaderInternal on Uploader {
     if (value is String && Utils.isRemoteUrl(value) ||
         (1 > payload.length || payload.length < chunkSize!)) {
       // need to make sure if we have length or not.
-      return _callApi(request, 'upload', options: options);
+      return callApi(request, 'upload', options: options);
     }
     //Upload large
     var uniqueUploadId = Utils.createRandomUploadId(8);
@@ -86,7 +86,7 @@ extension UploaderInternal on Uploader {
     return null;
   }
 
-  Payload _buildPayload(dynamic file) {
+  Payload buildPayload(dynamic file) {
     if (file is File) {
       return FilePayload(file);
     } else if (file is String) {
@@ -131,7 +131,7 @@ extension UploaderInternal on Uploader {
         endOffset,
         payload.length);
     if (request.completionCallback != null) {
-      _processResponse(requestResponse, (response) {
+      _processResponseWithCompletion(requestResponse, (response) {
         if (response.data?.done == true || response.error != null) {
           request.completionCallback!(response);
         }
@@ -160,14 +160,25 @@ extension UploaderInternal on Uploader {
     return missingSignature && signedRequest && actionRequiresSigning;
   }
 
+
+
   //Response handler
-  Future<UploaderResponse<UploadResult>> _processResponseSync(
+  Future<UploaderResponse<UploadResult>> _processResponse(
       StreamedResponse? requestResponse) {
-    return _getProcessedResponseSync(requestResponse!.statusCode,
+    return _getProcessedResponse(requestResponse!.statusCode,
         requestResponse.stream, requestResponse.headers['x-cld-error']);
   }
 
-  Future<UploaderResponse<UploadResult>> _getProcessedResponseSync(
+  void _processResponseWithCompletion(
+      StreamedResponse? requestResponse, void Function(UploaderResponse<UploadResult> response) completion) {
+    var response = _getProcessedResponse(requestResponse!.statusCode,
+        requestResponse.stream, requestResponse.headers['x-cld-error']);
+    response.then((unwrappedResponse) {
+      completion(unwrappedResponse);
+    });
+  }
+
+  Future<UploaderResponse<UploadResult>> _getProcessedResponse(
       int statusCode, ByteStream? stream, String? errorHeader) async {
     var body = await stream?.transform(utf8.decoder).join();
     if (statusCode >= 200 && statusCode <= 299) {
@@ -193,45 +204,6 @@ extension UploaderInternal on Uploader {
     }
     return UploaderResponse(
         statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
-  }
-
-  void _processResponse(StreamedResponse? requestResponse,
-      void Function(UploaderResponse<UploadResult> response) completion) {
-    _getProcessedResponse(requestResponse!.statusCode, requestResponse.stream,
-        requestResponse.headers['x-cld-error'], (response) {
-      completion(response);
-    });
-  }
-
-  void _getProcessedResponse(
-      int statusCode,
-      ByteStream? stream,
-      String? errorHeader,
-      void Function(UploaderResponse<UploadResult> response) completion) {
-    _parseResponse(stream, (body) {
-      if (statusCode >= 200 && statusCode <= 299) {
-        final parsedJson = jsonDecode(body);
-        final uploadResult = UploadResult.fromJson(parsedJson);
-        completion(UploaderResponse<UploadResult>(
-            statusCode, uploadResult, null, body));
-        return;
-      } else if (statusCode >= 400 && statusCode < 499) {
-        completion(UploaderResponse(statusCode, null,
-            UploadError(errorHeader ?? "Unknown Error"), body));
-        return;
-      } else if (statusCode >= 500 && statusCode < 599) {
-        completion(UploaderResponse(
-            statusCode,
-            null,
-            UploadError(
-                errorHeader ?? "We had an problem, please contact support"),
-            body));
-        return;
-      }
-      completion(UploaderResponse(
-          statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body));
-      return;
-    });
   }
 
   void _parseResponse(
