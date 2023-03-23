@@ -439,8 +439,8 @@ void main() {
       result = response;
     });
     await Future.delayed(Duration(seconds: 5));
-    assert(result?.responseCode == -1);
-    assert(result?.error?.message == 'Timeout of 0:00:01.000000 occurred');
+    assert(result.responseCode == -1);
+    assert(result.error?.message == 'Timeout of 0:00:01.000000 occurred');
   });
 }
 
