@@ -7,7 +7,6 @@ import '../src/request/payload.dart';
 import '../src/response/upload_result.dart';
 
 abstract class AbstractUploaderRequest<T> {
-  late Uploader uploader;
   late Payload<dynamic>? payload;
   late ProgressCallback? progress;
   late CompletionCallback? completionCallback;
@@ -15,10 +14,5 @@ abstract class AbstractUploaderRequest<T> {
 
   Map<String, dynamic> buildParams() {
     return params?.buildParams() ?? <String, dynamic>{};
-  }
-
-  Future<UploaderResponse<UploadResult>>? execute() {
-    // TODO: implement execute
-    throw UnimplementedError();
   }
 }
