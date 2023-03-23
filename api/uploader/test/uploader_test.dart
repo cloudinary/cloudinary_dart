@@ -427,6 +427,14 @@ void main() {
     var eagerUrl = explicitResult.eager!.first.secureUrl;
     assert(url.substring(0, url.indexOf('?_a')) == eagerUrl);
   });
+
+  test('Test timeout exception', () async {
+    File file = createTempFile();
+    var result = await cloudinary.uploader().upload(file, params: UploadParams(resourceType: ResourceType.auto.name, timeout: 1));
+    print(result);
+    assert(result?.responseCode == -1);
+    assert(result?.rawResponse == 'Timeout occurred');
+  });
 }
 
 validateSignature(UploadResult result) {

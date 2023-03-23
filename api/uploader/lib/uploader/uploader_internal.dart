@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -58,9 +59,14 @@ extension UploaderInternal on Uploader {
   Future<UploaderResponse<UploadResult>> callApi(
       AbstractUploaderRequest request, String action,
       {SharedParams? options}) async {
-    var response = await networkDelegate
-        .callApi(_prepareNetworkRequest(action, request, options));
-    return _processResponse(response);
+    try {
+      var response = await networkDelegate
+          .callApi(_prepareNetworkRequest(action, request, options));
+      return _processResponse(response);
+    } on TimeoutException catch(error) {
+      return UploaderResponse(
+          -1, null, UploadError(error.message), 'Timeout occurred');
+    }
   }
 
   Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request) {
@@ -74,6 +80,7 @@ extension UploaderInternal on Uploader {
         resourceType: request.params?.resourceType,
         unsigned: request.params?.unsigned,
         filename: request.params?.filename,
+        timeout: request.params?.timeout,
         extraHeaders: request.params?.extraHeaders);
     if (value is String && Utils.isRemoteUrl(value) ||
         (1 > payload.length || payload.length < chunkSize!)) {
@@ -112,7 +119,7 @@ extension UploaderInternal on Uploader {
     }
   }
 
-  Future<http.StreamedResponse>? _buildStreamRequest(
+  Future<http.StreamedResponse?>? _buildStreamRequest(
       int index, int chunkSize, Payload payload, UploadRequest request) async {
     final startOffset = _getStartOffset(index, chunkSize);
     final endOffset = _getEndOffset(index, chunkSize, payload.length);
@@ -124,20 +131,26 @@ extension UploaderInternal on Uploader {
         timeout: request.params?.timeout ??
             request.uploader.cloudinary.config.apiConfig.timeout,
         extraHeaders: request.params?.extraHeaders);
-    var requestResponse = await networkDelegate.uploadLarge(
-        stream,
-        _prepareNetworkRequest('upload', request, options),
-        startOffset,
-        endOffset,
-        payload.length);
-    if (request.completionCallback != null) {
-      _processResponseWithCompletion(requestResponse, (response) {
-        if (response.data?.done == true || response.error != null) {
-          request.completionCallback!(response);
-        }
-      });
+    try {
+      var requestResponse = await networkDelegate.uploadLarge(
+          stream,
+          _prepareNetworkRequest('upload', request, options),
+          startOffset,
+          endOffset,
+          payload.length);
+      if (request.completionCallback != null) {
+        _processResponseWithCompletion(requestResponse, (response) {
+          if (response.data?.done == true || response.error != null) {
+            request.completionCallback!(response);
+          }
+        });
+      }
+      return requestResponse;
+    } on TimeoutException catch(error) {
+      request.completionCallback!(UploaderResponse(
+          -1, null, UploadError(error.message), 'Timeout occurred'));
     }
-    return requestResponse;
+    return null;
   }
 
   int _getStartOffset(int index, int chunkSize) {

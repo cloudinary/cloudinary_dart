@@ -164,12 +164,14 @@ class UploadParams extends UploaderParams {
       bool unsigned = false,
       String? resourceType,
       String? filename,
+        int? timeout,
       Map<String, String>? extraHeaders}) {
     _transformation = transformation;
     super.unsigned = unsigned;
     super.resourceType = resourceType;
     super.filename = filename;
     super.extraHeaders = extraHeaders;
+    super.timeout = timeout;
   }
 
   UploadParams transformation(Transformation transformation) {
