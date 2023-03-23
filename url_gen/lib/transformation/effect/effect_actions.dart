@@ -1,5 +1,6 @@
 import 'package:cloudinary_url_gen_dart/src/extensions/string_extension.dart';
 import 'package:cloudinary_url_gen_dart/src/util/validations.dart';
+import 'package:cloudinary_url_gen_dart/transformation/effect/objects/foreground_object.dart';
 
 import '../transformation_utils.dart';
 import '../color.dart';
@@ -751,6 +752,34 @@ class Theme extends Effect {
       'color_$_color',
       (_photosensitivity != null) ? 'photosensitivity_$_photosensitivity' : null
     ]);
+  }
+}
+
+/// Class BackgroundRemoval
+/// fineedges
+/// hints - objects to search for. (List can be found in [ForegroundObject])
+class BackgroundRemoval extends Effect {
+  bool? _fineEdges;
+  List<ForegroundObject>? _hints;
+
+  BackgroundRemoval({bool? fineEdges, List<ForegroundObject>? hints}) {
+    _fineEdges = fineEdges;
+    _hints = hints;
+  }
+
+  BackgroundRemoval fineEdges(bool fineEdges) {
+    _fineEdges = fineEdges;
+    return this;
+  }
+
+  BackgroundRemoval hints(List<ForegroundObject> hints) {
+    _hints = hints;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return 'e_background_removal'.joinWithValues([(_fineEdges != null) ? ((_fineEdges == true) ? 'fineedges_y' : 'fineedges_n') : null, (_hints != null) ? 'hints_(${_hints!.join(';')})' : null]);
   }
 }
 
