@@ -10,10 +10,10 @@ import '../src/request/upload_request.dart';
 import '../src/response/upload_result.dart';
 
 class Uploader {
-  late final UploaderUtils uploaderUtils;
+  late final UploaderUtils _uploaderUtils;
 
   Uploader(Cloudinary cloudinary) {
-    uploaderUtils = UploaderUtils(cloudinary);
+    _uploaderUtils = UploaderUtils(cloudinary);
   }
 
   // Api calls
@@ -24,21 +24,21 @@ class Uploader {
     ProgressCallback? progressCallback,
     CompletionCallback? completion,
   }) {
-    Payload<dynamic> payload = uploaderUtils.buildPayload(file);
+    Payload<dynamic> payload = _uploaderUtils.buildPayload(file);
     UploadRequest request = UploadRequest(
         params ?? UploadParams(), payload,
         progress: progressCallback, completionCallback: completion);
-    return uploaderUtils.performUpload(request);
+    return _uploaderUtils.performUpload(request);
   }
 
   Future<UploaderResponse<UploadResult>> rename(
       {required RenameParams params}) {
     UploaderRequest request = UploaderRequest(params);
-    return uploaderUtils.callApi(request, 'rename', options: SharedParams());
+    return _uploaderUtils.callApi(request, 'rename', options: SharedParams());
   }
 
   Future<UploaderResponse<UploadResult>> explicit(ExplicitParams params) {
     UploaderRequest request = UploaderRequest(params);
-    return uploaderUtils.callApi(request, 'explicit', options: SharedParams());
+    return _uploaderUtils.callApi(request, 'explicit', options: SharedParams());
   }
 }
