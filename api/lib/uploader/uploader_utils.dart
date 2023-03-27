@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:cloudinary_api_dart/src/http/extensions/list_extension.dart';
-import 'package:cloudinary_api_dart/uploader/uploader_response.dart';
-import 'package:cloudinary_api_dart/uploader/utils.dart';
-import 'package:cloudinary_url_gen_dart/cloudinary.dart';
-import 'package:cloudinary_url_gen_dart/config/api_config.dart';
+import 'package:cloudinary_api/src/http/extensions/list_extension.dart';
+import 'package:cloudinary_api/uploader/uploader_response.dart';
+import 'package:cloudinary_api/uploader/utils.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
+import 'package:cloudinary_url_gen/config/api_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import '../src/http/session/network_delegate.dart';
