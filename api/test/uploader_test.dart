@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:cloudinary_api_dart/src/response/upload_result.dart';
 import 'package:cloudinary_api_dart/src/request/model/params/access_control_rule.dart';
 import 'package:cloudinary_api_dart/src/request/model/params/coordinates.dart';
 import 'package:cloudinary_api_dart/src/request/model/params/eager_transformation.dart';
 import 'package:cloudinary_api_dart/src/request/model/params/resource_type.dart';
 import 'package:cloudinary_api_dart/src/request/model/params/responsive_breakpoint.dart';
 import 'package:cloudinary_api_dart/src/request/model/uploader_params.dart';
+import 'package:cloudinary_api_dart/src/response/upload_result.dart';
 import 'package:cloudinary_api_dart/uploader/cloudinary_uploader.dart';
 import 'package:cloudinary_api_dart/uploader/uploader_response.dart';
 import 'package:cloudinary_api_dart/uploader/utils.dart';
