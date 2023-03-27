@@ -1,7 +1,7 @@
-import 'package:cloudinary_api_dart/src/request/uploader_request.dart';
-import 'package:cloudinary_api_dart/uploader/uploader_response.dart';
-import 'package:cloudinary_api_dart/uploader/uploader_utils.dart';
-import 'package:cloudinary_url_gen_dart/cloudinary.dart';
+import 'package:cloudinary_api/src/request/uploader_request.dart';
+import 'package:cloudinary_api/uploader/uploader_response.dart';
+import 'package:cloudinary_api/uploader/uploader_utils.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
 import '../src/http/request/multi_part_request.dart';
 import '../src/request/model/shared_params.dart';
 import '../src/request/model/uploader_params.dart';

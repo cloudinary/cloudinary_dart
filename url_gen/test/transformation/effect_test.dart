@@ -1,10 +1,11 @@
-import 'package:cloudinary_url_gen_dart/transformation/effect/objects/foreground_object.dart';
+
+import 'package:cloudinary_url_gen/transformation/color.dart';
+import 'package:cloudinary_url_gen/transformation/effect/effect.dart';
+import 'package:cloudinary_url_gen/transformation/effect/effect_actions.dart';
+import 'package:cloudinary_url_gen/transformation/effect/objects/foreground_object.dart';
+import 'package:cloudinary_url_gen/transformation/region.dart';
 import 'package:test/test.dart';
 
-import 'package:cloudinary_url_gen_dart/transformation/color.dart';
-import 'package:cloudinary_url_gen_dart/transformation/effect/effect.dart';
-import 'package:cloudinary_url_gen_dart/transformation/effect/effect_actions.dart';
-import 'package:cloudinary_url_gen_dart/transformation/region.dart';
 import '../tests_utils.dart';
 
 void main() {

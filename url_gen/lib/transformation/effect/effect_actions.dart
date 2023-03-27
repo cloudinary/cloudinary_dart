@@ -1,5 +1,5 @@
-import 'package:cloudinary_url_gen_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_url_gen_dart/src/util/validations.dart';
+import 'package:cloudinary_url_gen/src/extensions/string_extension.dart';
+import 'package:cloudinary_url_gen/src/util/validations.dart';
 
 import '../transformation_utils.dart';
 import '../color.dart';

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:http/http.dart' as http;
-import 'package:cloudinary_url_gen_dart/cloudinary.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
 
 void cldAssert(String expected, dynamic actual) {
   if (expected != actual.toString()) {

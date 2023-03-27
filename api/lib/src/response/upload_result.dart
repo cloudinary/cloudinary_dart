@@ -1,4 +1,4 @@
-import 'package:cloudinary_url_gen_dart/transformation/transformation.dart';
+import 'package:cloudinary_url_gen/transformation/transformation.dart';
 
 import '../request/model/params/access_control_rule.dart';
 import '../request/model/params/coordinates.dart';
