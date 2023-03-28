@@ -12,8 +12,7 @@ dependencies:
   async: ^2.10.0
   crypto: ^3.0.2
   convert: ^3.0.2
-  cloudinary_url_gen:
-    path: ../url_gen
+  cloudinary_url_gen: ^0.0.1
 
 dev_dependencies:
   lints: ^2.0.0
