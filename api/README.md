@@ -14,7 +14,7 @@ This Readme provides basic installation and usage information.
 - [Installation](#installation)
 - [Usage](#usage)
   - [Setup](#Setup)
-  - [Transform and Optimize Assets](#Transform-and-Optimize-Assets)
+  - [Upload](#Upload)
 
 ## Key Features
 Transform and optimize assets. Visit our documentation to learn more about [media optimization](https://cloudinary.com/documentation/media_optimization) and [transformations](https://cloudinary.com/documentation/image_transformations).
@@ -29,7 +29,8 @@ To use this SDK, add cloudinary as a [dependency in your pubspec.yaml file](http
 
 ```yaml
 dependencies:
-  cloudinary_dart: ^0.0.11
+  cloudinary_api: ^0.0.1
+  cloudinary_url_gen: ^0.0.1
 ```
 
 ## Usage
@@ -39,31 +40,18 @@ The `Cloudinary` class is the main entry point for using the library. Your `clou
 Here's an example of setting configuration parameters in your Dart application:
 
 ```dart
-import 'package:cloudinary_dart/src/cloudinary.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
 
 var cloudinary = Cloudinary.fromStringUrl('cloudinary://<your-api-key>:<your-api-secret>@<your-cloud-name>');
 ```
 
-### Transform and Optimize Assets
-
-Generate a Cloudinary URL using the `cloudinary.media` helper method and pass this to your image or video view:
-
-For example, to generate a URL for an image called `sample`:
+### Upload
+To upload a file you need to call you `cloudinary` object with `uploader()`, here's an example:
 
 ```dart
-String url = cloudinary.image('sample.jpg').toString();
+cloudinary.uploader().upload(file);
 ```
 
-To add a transformation to the URL that resizes an image:
-
-```dart
-String url = (cloudinary.image('sample.jpg')
-  ..transformation(Transformation()
-    ..resize(Resize.crop()
-      ..width(100)
-      ..height(150))))
-        .toString();
-```
 
 ## Contributions
 See [contributing guidelines](CONTRIBUTING.md).
