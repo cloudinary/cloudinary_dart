@@ -5,7 +5,7 @@ import 'util/environment.dart';
 
 import 'asset/cld_asset.dart';
 
-final sdkVersion = '0.0.1';
+String sdkVersion = '0.0.1';
 
 class Cloudinary {
   late CloudinaryConfig config;
