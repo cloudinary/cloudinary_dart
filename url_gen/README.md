@@ -29,7 +29,7 @@ To use this SDK, add cloudinary as a [dependency in your pubspec.yaml file](http
 
 ```yaml
 dependencies:
-  cloudinary_dart: ^0.0.11
+  cloudinary_url_gen: ^0.9.0
 ```
 
 ## Usage
