@@ -49,7 +49,7 @@ var cloudinary = Cloudinary.fromStringUrl('cloudinary://<your-api-key>:<your-api
 To upload a file you need to call you `cloudinary` object with `uploader()`, here's an example:
 
 ```dart
-cloudinary.uploader().upload(file);
+var response = cloudinary.uploader().upload(file);
 ```
 
 
