@@ -2,8 +2,8 @@ Cloudinary Dart SDK
 =========================
 [![Build Status](https://api.travis-ci.com/cloudinary/cloudinary_dart.svg?branch=master)](https://app.travis-ci.com/github/cloudinary/cloudinary_dart)
 ## About
-The Cloudinary Dart SDK allows you to quickly and easily integrate your application with Cloudinary.
-Effortlessly optimize and transform your cloud's assets.
+The Cloudinary API Dart SDK allows you to quickly and easily integrate your application with Cloudinary.
+Effortlessly upload your assets to your cloud.
 
 ### Note
 This Readme provides basic installation and usage information.
