@@ -12,6 +12,7 @@ dependencies:
   async: ^2.10.0
   crypto: ^3.0.2
   convert: ^3.0.2
+  http_parser: ^4.0.2
   cloudinary_url_gen: ^0.0.1
 
 dev_dependencies:
