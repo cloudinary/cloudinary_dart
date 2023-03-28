@@ -22,15 +22,18 @@ class Analytics {
 
   String generateAnalyticsString() {
     try {
-      return '$algoVersion$sdk${getVersionString(sdkVersion)}${getVersionString(techVersion)}$noFeatureChar';
+      return '$algoVersion$sdk${getVersionString(sdkVersion, shouldUsePatch: true)}${getVersionString(techVersion)}$noFeatureChar';
     } catch (e) {
       return errorSignature;
     }
   }
 
-  String getVersionString(String version) {
-    var techVersionArray = version.split(RegExp(r'[.\-]'));
-    return generateVersionString(techVersionArray);
+  String getVersionString(String version, {bool shouldUsePatch = false}) {
+    var versionArray = version.split(RegExp(r'[.\-]'));
+    if (shouldUsePatch) {
+      return generateVersionString(versionArray);
+    }
+    return generateVersionString([versionArray[0], versionArray[1]]);
   }
 
   String generateVersionString(List<String> versionArray) {

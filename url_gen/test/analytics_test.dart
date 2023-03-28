@@ -16,5 +16,12 @@ void main() {
           .generateAnalyticsString();
       cldAssert("AOAlhAM0", analytics);
     });
+    test(
+        'Test sucessfully generate analytics string with patch for tech version',
+        () {
+      var analytics = Analytics.fromParameters("1.24.0", "12.0.1")
+          .generateAnalyticsString();
+      cldAssert("AOAlhAM0", analytics);
+    });
   });
 }
