@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:universal_io/io.dart';
 
 import 'cloudinary.dart';
 import 'src/extensions/string_extension.dart';
