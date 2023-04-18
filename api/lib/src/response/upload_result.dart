@@ -202,12 +202,12 @@ class ResultColor {
 }
 
 class ResultContext {
-  Map<String, String>? custom;
+  Map<String, dynamic>? custom;
 
   ResultContext(this.custom);
 
   factory ResultContext.fromJson(Map<String, dynamic> data) {
-    final custom = data['custom'] as Map<String, String>?;
+    final custom = data['custom'] as Map<String, dynamic>?;
     return ResultContext(custom);
   }
 }

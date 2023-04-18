@@ -322,10 +322,13 @@ class UploadParams extends UploaderParams {
       return null;
     }
     return context.entries.map((map) {
-      if (map.value is List<dynamic>) {
-        _encodeList(map.value);
-      } else if (map.value is String) {
-        _cldEncodeSingleContextItem((map.value as String));
+      final key = map.key;
+      final dynamic value = map.value;
+
+      if (value is List<dynamic>) {
+        return '${key}=${_encodeList(value)}';
+      } else {
+        return '${key}=${_cldEncodeSingleContextItem(value.toString())}';
       }
     }).join('|');
   }
