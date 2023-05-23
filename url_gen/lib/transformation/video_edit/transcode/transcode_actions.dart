@@ -1,3 +1,5 @@
+import 'transcode.dart';
+
 class StreamingProfile {
   String value;
 
@@ -17,7 +19,7 @@ class StreamingProfile {
   }
 }
 
-class StreamingProfileAction {
+class StreamingProfileAction extends Transcode {
   dynamic profile;
 
   StreamingProfileAction(this.profile);

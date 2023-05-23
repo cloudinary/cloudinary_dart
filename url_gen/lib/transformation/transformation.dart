@@ -1,3 +1,5 @@
+import 'video_edit/video_edit.dart';
+import 'video_edit/transcode/transcode.dart';
 import 'adjust/adjust.dart';
 import 'border.dart';
 import 'effect/effect.dart';
@@ -64,6 +66,14 @@ class Transformation {
 
   Transformation border(Border border) {
     return add(border);
+  }
+
+  Transformation transcode(Transcode transcode) {
+    return add(transcode);
+  }
+
+  Transformation videoEdit(VideoEdit videoEdit) {
+    return add(videoEdit);
   }
 
   Transformation namedTransformation(dynamic namedTransformation) {
