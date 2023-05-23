@@ -5,13 +5,14 @@ class StreamingProfile {
 
   StreamingProfile(this.value);
 
-  static sp4K() => StreamingProfile("4k");
-  static fullHd() => StreamingProfile("full_hd");
-  static hd() => StreamingProfile("hd");
-  static sd() => StreamingProfile("sd");
-  static fullHdWifi() => StreamingProfile("full_hd_wifi");
-  static fullHdLean() => StreamingProfile("full_hd_lean");
-  static hdLean() => StreamingProfile("hdLean");
+  static auto() => StreamingProfile('auto');
+  static sp4K() => StreamingProfile('4k');
+  static fullHd() => StreamingProfile('full_hd');
+  static hd() => StreamingProfile('hd');
+  static sd() => StreamingProfile('sd');
+  static fullHdWifi() => StreamingProfile('full_hd_wifi');
+  static fullHdLean() => StreamingProfile('full_hd_lean');
+  static hdLean() => StreamingProfile('hdLean');
 
   @override
   String toString() {
