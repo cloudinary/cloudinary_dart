@@ -1,7 +1,7 @@
-import 'package:cloudinary_dart/transformation/color.dart';
-import 'package:cloudinary_dart/transformation/delivery/delivery_actions.dart';
-import 'package:cloudinary_dart/transformation/video_edit/video_edit.dart';
-import 'package:cloudinary_dart/transformation/video_edit/video_edit_actions.dart';
+import 'package:cloudinary_url_gen/transformation/color.dart';
+import 'package:cloudinary_url_gen/transformation/delivery/delivery_actions.dart';
+import 'package:cloudinary_url_gen/transformation/video_edit/video_edit.dart';
+import 'package:cloudinary_url_gen/transformation/video_edit/video_edit_actions.dart';
 import 'package:test/scaffolding.dart';
 
 import '../tests_utils.dart';
