@@ -1,5 +1,4 @@
 class StreamingProfile {
-
   String value;
 
   StreamingProfile(this.value);
@@ -19,7 +18,6 @@ class StreamingProfile {
 }
 
 class StreamingProfileAction {
-
   dynamic profile;
 
   StreamingProfileAction(this.profile);

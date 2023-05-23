@@ -4,6 +4,6 @@ import '../../common.dart';
 
 class Transcode extends Action {
   static streamingProfile(dynamic profile) {
-      return StreamingProfileAction(profile);
+    return StreamingProfileAction(profile);
   }
 }
