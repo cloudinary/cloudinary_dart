@@ -1,4 +1,4 @@
-import 'package:cloudinary_url_gen/transformation/video_edit/video_edit_actions.dart';
+import 'video_edit_actions.dart';
 import '../common.dart';
 import '../delivery/delivery_actions.dart';
 
