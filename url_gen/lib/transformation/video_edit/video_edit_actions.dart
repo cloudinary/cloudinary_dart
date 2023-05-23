@@ -1,11 +1,11 @@
-import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/transformation/delivery/delivery_actions.dart';
-import 'package:cloudinary_dart/transformation/flag.dart';
-import 'package:cloudinary_dart/transformation/video_edit/video_edit.dart';
+import 'package:cloudinary_url_gen/src/extensions/string_extension.dart';
+import 'package:cloudinary_url_gen/transformation/video_edit/video_edit.dart';
 
 import '../color.dart';
 import '../common.dart';
+import '../delivery/delivery_actions.dart';
 import '../effect/effect.dart';
+import '../flag.dart';
 import '../transformation_utils.dart';
 
 class Trim extends VideoEdit {

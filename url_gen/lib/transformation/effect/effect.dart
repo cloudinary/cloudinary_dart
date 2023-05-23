@@ -279,7 +279,8 @@ class Effect extends Action {
     return DropShadow(azimuth: azimuth, elevation: elevation, spread: spread);
   }
 
-  static BackgroundRemoval backgroundRemoval({bool? fineEdges, List<ForegroundObject>? hints}) {
+  static BackgroundRemoval backgroundRemoval(
+      {bool? fineEdges, List<ForegroundObject>? hints}) {
     return BackgroundRemoval(fineEdges: fineEdges, hints: hints);
   }
 
