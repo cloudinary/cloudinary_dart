@@ -779,7 +779,12 @@ class BackgroundRemoval extends Effect {
 
   @override
   String toString() {
-    return 'e_background_removal'.joinWithValues([(_fineEdges != null) ? ((_fineEdges == true) ? 'fineedges_y' : 'fineedges_n') : null, (_hints != null) ? 'hints_(${_hints!.join(';')})' : null]);
+    return 'e_background_removal'.joinWithValues([
+      (_fineEdges != null)
+          ? ((_fineEdges == true) ? 'fineedges_y' : 'fineedges_n')
+          : null,
+      (_hints != null) ? 'hints_(${_hints!.join(';')})' : null
+    ]);
   }
 }
 
