@@ -40,8 +40,12 @@ abstract class GeneralAsset {
     return this;
   }
 
-  GeneralAsset version(String version) {
-    _version = version;
+  GeneralAsset version(dynamic version) {
+    if (version is int) {
+      _version = '$version';
+    } else {
+      _version = version;
+    }
     return this;
   }
 

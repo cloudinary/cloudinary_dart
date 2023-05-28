@@ -421,8 +421,7 @@ void main() {
       var result = cloudinaryForceVersionFalse.image('folder/test');
       cldAssert('${defaultUploadPath}folder/test', result);
 
-      result = cloudinaryForceVersionFalse.image('folder/test')
-        ..version('1234');
+      result = cloudinaryForceVersionFalse.image('folder/test')..version(1234);
       cldAssert('${defaultUploadPath}v1234/folder/test', result);
 
       // should add version if no value specified for forceVersion:
