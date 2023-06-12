@@ -1,3 +1,8 @@
+## 0.10.0
+- Fix version to accept int and String
+- Add VideoEdit actions
+- Fix analytics token
+
 ## 0.9.0
 - Change to url_gen package
 
