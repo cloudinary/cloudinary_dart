@@ -35,6 +35,9 @@ void main() {
   test('Test successful generic transformation formatting', () {
     cldAssert('a_0', Transformation()..generic('a_0'));
   });
+  test('Test successful add transformations formatting', () {
+    cldAssert('a_0', Transformation()..addTransformation('a_0'));
+  });
   test('Test successful named transformation formatting', () {
     cldAssert("t_named", Transformation().namedTransformation('named'));
     cldAssert(

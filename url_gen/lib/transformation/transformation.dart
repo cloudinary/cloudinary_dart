@@ -41,6 +41,10 @@ class Transformation {
     return add(GenericAction(transformation));
   }
 
+  Transformation addTransformation(String transformation) {
+    return add(GenericAction(transformation));
+  }
+
   Transformation resize(Resize resize) {
     return add(resize);
   }
