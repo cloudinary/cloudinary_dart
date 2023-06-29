@@ -4,7 +4,8 @@ Cloudinary Dart SDK
 ## About
 The Cloudinary Dart SDK allows you to quickly and easily integrate your application with Cloudinary.
 Effortlessly optimize and transform your cloud's assets.
-As Flutter is build on the Dart language, the Dart SDK reference is an essential resource for understanding and utilizing the capabilities of the Flutter SDK, as well. For more information about the Flutter SDK, see the [Cloudinary Flutter documentation](https://cloudinary.com/documentation/flutter_integration).
+
+As Flutter is build on the Dart language, understanding the Dart SDK is essential for utilizing the capabilities of the Flutter SDK, as well. For more information about the Flutter SDK, see the [Cloudinary Flutter documentation](https://cloudinary.com/documentation/flutter_integration).
 
 ### Note
 This Readme provides basic installation and usage information.
