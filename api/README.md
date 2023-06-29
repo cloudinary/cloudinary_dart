@@ -29,8 +29,8 @@ To use this SDK, add cloudinary as a [dependency in your pubspec.yaml file](http
 
 ```yaml
 dependencies:
-  cloudinary_api: ^0.9.0
-  cloudinary_url_gen: ^0.10.0
+  cloudinary_api: ^1.0.0
+  cloudinary_url_gen: ^1.0.0
 ```
 
 ## Usage

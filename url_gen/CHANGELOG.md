@@ -1,3 +1,6 @@
+## 1.0.0
+- General Access
+
 ## 0.10.0
 - Fix version to accept int and String
 - Add VideoEdit actions
