@@ -1,0 +1,22 @@
+dartdoc:
+  categories:
+    "Asset":
+      markdown: doc/doc_assets/empty.html
+      name: Asset
+    "Configuration":
+      markdown: doc/doc_assets/empty.html
+      name: Configuration
+    "Transformation":
+      markdown: doc/doc_assets/empty.html
+      name: Transformation
+  categoryOrder: ["Api", "Asset", "Configuration", "Exception"]
+  exclude: ['README.md']
+#  exclude: ['adjust', 'api_config','auth_token','background','blurred_background','border','border_background','border_gradient_background','cld_asset','cld_image','cld_video','cloud_config','cloudinary','cloudinary_config','color','color_background','crop','delivery','delivery_actions','effect','effect_actions','environment','extract','fill','fit','focus_on','foreground_object','general_asset_builder','gravity','named_transformation','pad','predominant_background','region','resize','rotate','round_corners','scale','transformation','transformation_utils','url_config']
+  nodoc: [lib/analytics.dart, util/environment.dart, transformations/transformation_utils.dart, lib/transformation/common.dart, lib/transformation/resize/common.dart, lib/transformation/adjust/adjust_actions.dart]
+  showUndocumentedCategories: false
+  header: [doc/doc_assets/header.html]
+  footer: [doc/doc_assets/footer.html]
+  ignore:
+    - ambiguous-doc-reference
+  errors:
+    - unresolved-doc-reference
