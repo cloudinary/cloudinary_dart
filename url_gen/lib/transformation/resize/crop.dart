@@ -12,7 +12,7 @@ abstract class BaseCrop extends Resize {
   /// Crop constructor
   /// Receives [Dimensions],
   /// [relative],
-  /// [relativeRegion],
+  /// [regionRelative],
   /// [gravity],
   /// [zoom],
   /// [x],

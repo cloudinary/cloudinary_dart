@@ -226,7 +226,7 @@ class Effect extends Action {
 
   /// Colorizes the image.
   ///
-  /// Receives [dyanmic], [Color] returns [Effect].
+  /// Receives [dynamic], [Color] returns [Effect].
   static Colorize colorize({dynamic level, Color? color}) {
     return Colorize(level: level, color: color);
   }
