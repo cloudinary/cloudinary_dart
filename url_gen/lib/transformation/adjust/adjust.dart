@@ -15,8 +15,8 @@ class Adjust extends Action {
   ///
   /// Optional - equalize colors before tinting, specify gradient blend positioning per color.
   ///
-  /// Receives qualifiers Syntax: [equalize]:[amount]:[color1]:[color1_position]:[color2]:[color2_position]:...
-  /// [color10]:[color10_position] returns [Tint]
+  /// Receives qualifiers Syntax: options
+  /// [String] options returns [Tint]
   static Tint tint([String? options]) {
     return Tint(options);
   }

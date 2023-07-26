@@ -33,7 +33,7 @@ class Quality implements DeliveryAction {
   ///
   /// Receives [dynamic] quantization level.
   ///
-  /// Returns [QualityBuilder] object.
+  /// Returns [Quality] object.
   Quality quantization(dynamic quantization) {
     _quantization = quantization;
     return this;
@@ -47,7 +47,7 @@ class Quality implements DeliveryAction {
   ///
   /// Receives [String] chromaSubSampling Chroma sub-sampling value.
   ///
-  /// Returns [QualityBuilder] object.
+  /// Returns [Quality] object.
   Quality chromaSubSampling(ChromaSubSampling chromaSubSampling) {
     _chromaSubSampling = chromaSubSampling;
     return this;
