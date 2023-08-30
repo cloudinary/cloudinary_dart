@@ -113,7 +113,6 @@ class UploaderUtils {
 
   void _uploadLargeParts(
       Payload payload, UploadRequest request, String uniqueUploadId) async {
-    late UploaderResponse<UploadResult> response;
     int chunkSize = cloudinary.config.apiConfig.chunkSize!;
     request.params?.extraHeaders = <String, String>{};
     request.params?.extraHeaders

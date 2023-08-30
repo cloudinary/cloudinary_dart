@@ -1,8 +1,5 @@
-import 'package:cloudinary_url_gen/transformation/transformation.dart';
-
 import '../request/model/params/access_control_rule.dart';
 import '../request/model/params/coordinates.dart';
-import '../request/model/params/responsive_breakpoint.dart';
 
 class UploadResult {
   String? publicId;
