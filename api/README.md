@@ -25,7 +25,7 @@ Transform and optimize assets. Visit our documentation to learn more about [medi
 ## Version Support
 | SDK Version | Dart Version |
 |-------------|--------------|
-| 0.0.11      | > 1.0        | 
+| 1.x         | > 1.0        | 
 
 ## Installation
 To use this SDK, add cloudinary as a [dependency in your pubspec.yaml file](https://flutter.dev/platform-plugins/).
