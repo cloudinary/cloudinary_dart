@@ -14,7 +14,7 @@ class Analytics {
   final errorSignature = "E";
   final noFeatureChar = '0';
   String techVersion = "";
-  String osType = '/';
+  String osType = 'Z'; // Z stand for 'other'
   String osVersion = 'AA'; // AA stands for not found.
 
   Analytics() {
