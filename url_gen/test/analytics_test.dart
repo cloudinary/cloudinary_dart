@@ -9,19 +9,19 @@ void main() {
     test('Should successfully generate analytics string', () {
       var analytics =
           Analytics.fromParameters("1.24.0", "12.0").generateAnalyticsString();
-      cldAssert("AOAlhAM0", analytics);
+      cldAssert("CAOAlhAMZGd0", analytics);
     });
     test('Should successfully generate analytics string', () {
       var analytics = Analytics.fromParameters("1.24.0-beta.6", "12.0")
           .generateAnalyticsString();
-      cldAssert("AOAlhAM0", analytics);
+      cldAssert("CAOAlhAMZGd0", analytics);
     });
     test(
         'Test sucessfully generate analytics string with patch for tech version',
         () {
       var analytics = Analytics.fromParameters("1.24.0", "12.0.1")
           .generateAnalyticsString();
-      cldAssert("AOAlhAM0", analytics);
+      cldAssert("CAOAlhAMZGd0", analytics);
     });
   });
 }
