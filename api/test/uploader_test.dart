@@ -36,8 +36,7 @@ const srcTestImageW = 241;
 const srcTestImageH = 51;
 const uploadPreset = 'sdk-test-upload-preset';
 
-var cloudinary = Cloudinary.fromStringUrl(
-    'cloudinary://117682269726797:e49pQnmbp_wu-j5XGIvv8u5Teio@adimizrahi2');
+var cloudinary = Cloudinary();
 
 File srcTestImage = File('test/assets/old_logo.png');
 

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:universal_io/io.dart';
 
 import 'cloudinary.dart';
@@ -6,34 +8,53 @@ import 'src/extensions/string_extension.dart';
 class Analytics {
   final sdkTokenQueryKey = "_a";
   final sdkQueryDelimiter = "=";
-  final algoVersion = 'A';
+  final algoVersion = 'C';
+  final product = 'A';
   final sdk = 'O';
   final errorSignature = "E";
   final noFeatureChar = '0';
   String techVersion = "";
+  String osType = 'Z'; // Z stand for 'other'
+  String osVersion = 'AA'; // AA stands for not found.
 
   Analytics() {
     techVersion = Platform.version.split(" ")[0];
   }
 
-  Analytics.fromParameters(version, this.techVersion) {
+  Analytics.fromParameters(version, this.techVersion, this.osVersion) {
     sdkVersion = version;
   }
 
   String generateAnalyticsString() {
+    getOSPlatform();
     try {
-      return '$algoVersion$sdk${getVersionString(sdkVersion, shouldUsePatch: true)}${getVersionString(techVersion)}$noFeatureChar';
+      return '$algoVersion$product$sdk${getVersionString(sdkVersion, shouldUsePatch: true)}${getVersionString(techVersion)}$osType${getVersionString(osVersion)}$noFeatureChar';
     } catch (e) {
       return errorSignature;
     }
   }
 
   String getVersionString(String version, {bool shouldUsePatch = false}) {
-    var versionArray = version.split(RegExp(r'[.\-]'));
+    var versionArray = getVersionArray(version);//version.split(RegExp(r'[.\-]'));
     if (shouldUsePatch) {
       return generateVersionString(versionArray);
     }
     return generateVersionString([versionArray[0], versionArray[1]]);
+  }
+
+  List<String> getVersionArray(String versionString) {
+    RegExp versionRegex = RegExp(r'(?:Version )?(\d+(?:\.\d+){0,2})');
+    Match? match = versionRegex.firstMatch(versionString);
+
+    List<String> versionArray = [];
+
+    if (match != null) {
+      String versionNumber = match.group(1)!;
+      versionArray = versionNumber.split('.').toList();
+    } else {
+      print("Version number not found in the input string");
+    }
+    return versionArray;
   }
 
   String generateVersionString(List<String> versionArray) {
@@ -57,5 +78,15 @@ class Analytics {
     var majorStr = version.substring(12, 18).toAnalyticsString();
 
     return '$patchStr$minorStr$majorStr';
+  }
+
+  void getOSPlatform() {
+    if (Platform.isIOS) {
+      osType = 'B'; // 'B' stands for iOS
+    } else if (Platform.isAndroid) {
+      osType = 'A'; // 'A' stands for Android
+    } else {
+      osType = 'Z'; // Z stands for other
+    }
   }
 }

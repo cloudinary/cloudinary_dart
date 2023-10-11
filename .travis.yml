@@ -4,6 +4,8 @@ sudo: false
 language: dart
 dart:
   - stable
+
+before_script: export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
 script:
   - cd url_gen
   - dart test
