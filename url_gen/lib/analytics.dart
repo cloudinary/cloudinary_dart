@@ -88,6 +88,5 @@ class Analytics {
     } else {
       osType = 'Z'; // Z stands for other
     }
-    osVersion = Platform.operatingSystemVersion;
   }
 }
