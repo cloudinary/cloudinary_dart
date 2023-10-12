@@ -1,3 +1,4 @@
+import 'analytics.dart';
 import 'asset/cld_image.dart';
 import 'asset/cld_video.dart';
 import 'config/cloudinary_config.dart';
@@ -11,6 +12,8 @@ class Cloudinary {
   late CloudinaryConfig config;
 
   static var userAgent = 'CloudinaryDart/$sdkVersion';
+
+  Analytics analytics = Analytics();
 
   Cloudinary.fromStringUrl(String cloudinaryUrl) {
     config = CloudinaryConfig.fromUri(cloudinaryUrl);
@@ -36,6 +39,7 @@ class Cloudinary {
     CldAsset asset = CldAsset(publicId);
     asset.cloudConfig(config.cloudConfig);
     asset.urlConfig(config.urlConfig);
+    asset.analytics(analytics);
     return asset;
   }
 
@@ -47,6 +51,7 @@ class Cloudinary {
     CldImage image = CldImage(publicId);
     image.cloudConfig(config.cloudConfig);
     image.urlConfig(config.urlConfig);
+    image.analytics(analytics);
     return image;
   }
 
@@ -58,6 +63,11 @@ class Cloudinary {
     CldVideo video = CldVideo(publicId);
     video.cloudConfig(config.cloudConfig);
     video.urlConfig(config.urlConfig);
+    video.analytics(analytics);
     return video;
+  }
+
+  setAnalytics(Analytics analytics) {
+    this.analytics = analytics;
   }
 }
