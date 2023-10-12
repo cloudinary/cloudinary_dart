@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:universal_io/io.dart';
 
 import 'cloudinary.dart';
@@ -10,12 +8,12 @@ class Analytics {
   final sdkQueryDelimiter = "=";
   final algoVersion = 'C';
   final product = 'A';
-  final sdk = 'O';
+  String sdk = 'R';
   final errorSignature = "E";
   final noFeatureChar = '0';
   String techVersion = "";
   String osType = 'Z'; // Z stand for 'other'
-  String osVersion = 'AA'; // AA stands for not found.
+  String osVersion = '';
 
   Analytics() {
     techVersion = Platform.version.split(" ")[0];
@@ -28,14 +26,15 @@ class Analytics {
   String generateAnalyticsString() {
     getOSPlatform();
     try {
-      return '$algoVersion$product$sdk${getVersionString(sdkVersion, shouldUsePatch: true)}${getVersionString(techVersion)}$osType${getVersionString(osVersion)}$noFeatureChar';
+      return '$algoVersion$product$sdk${getVersionString(sdkVersion, shouldUsePatch: true)}${getVersionString(techVersion)}$osType${getOsVersion()}$noFeatureChar';
     } catch (e) {
       return errorSignature;
     }
   }
 
   String getVersionString(String version, {bool shouldUsePatch = false}) {
-    var versionArray = getVersionArray(version);//version.split(RegExp(r'[.\-]'));
+    var versionArray =
+        getVersionArray(version); //version.split(RegExp(r'[.\-]'));
     if (shouldUsePatch) {
       return generateVersionString(versionArray);
     }
@@ -51,8 +50,6 @@ class Analytics {
     if (match != null) {
       String versionNumber = match.group(1)!;
       versionArray = versionNumber.split('.').toList();
-    } else {
-      print("Version number not found in the input string");
     }
     return versionArray;
   }
@@ -80,11 +77,21 @@ class Analytics {
     return '$patchStr$minorStr$majorStr';
   }
 
+  String getOsVersion() {
+    try {
+      return getVersionString(osVersion);
+    } catch (e) {
+      return 'AA'; // AA stands for not found.
+    }
+  }
+
   void getOSPlatform() {
     if (Platform.isIOS) {
       osType = 'B'; // 'B' stands for iOS
+      osVersion = getVersionString(Platform.operatingSystemVersion);
     } else if (Platform.isAndroid) {
       osType = 'A'; // 'A' stands for Android
+      osVersion = getVersionString(Platform.operatingSystemVersion);
     } else {
       osType = 'Z'; // Z stands for other
     }

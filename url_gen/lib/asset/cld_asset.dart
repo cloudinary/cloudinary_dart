@@ -69,6 +69,7 @@ abstract class BaseAsset {
   String? deliveryType;
   String? signature;
   TransformationObject? transformation;
+  Analytics? analytics;
 
   BaseAsset.fromConfig(this.cloudConfig, this.urlConfig);
 
@@ -81,7 +82,8 @@ abstract class BaseAsset {
       this.urlSuffix,
       this.assetType,
       this.deliveryType,
-      this.signature);
+      this.signature,
+      this.analytics);
 
   BaseAsset.fromBuilder(GeneralAsset builder)
       : cloudConfig = builder.getCloudConfig()!,
@@ -93,7 +95,8 @@ abstract class BaseAsset {
         assetType = builder.getAssetType() ?? defaultAssetType,
         deliveryType = builder.getDeliveryType(),
         signature = builder.getSignature(),
-        transformation = builder.getTransformation();
+        transformation = builder.getTransformation(),
+        analytics = builder.getAnalytics();
 
   String getTransformationString();
   TransformationObject? getTransformation();
@@ -323,8 +326,11 @@ abstract class BaseAsset {
     if ((urlConfig.analytics != null && urlConfig.analytics == true) &&
         cloudConfig.authToken == null &&
         urlObject.query.isEmpty) {
-      var analytics = '_a=${Analytics().generateAnalyticsString()}';
-      return '$url?$analytics';
+      if (analytics != null) {
+        var analytics = '_a=${this.analytics!.generateAnalyticsString()}';
+        return '$url?$analytics';
+      }
+      return '';
     }
     return url;
   }

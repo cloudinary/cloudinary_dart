@@ -1,3 +1,4 @@
+import '../../analytics.dart';
 import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
 import '../../transformation/transformation.dart';
@@ -17,6 +18,7 @@ abstract class GeneralAsset {
   String? _deliveryType;
   String? _signature;
   TransformationObject? _transformation;
+  Analytics? _analytics;
 
   GeneralAsset(
       [this._cloudConfig,
@@ -28,7 +30,8 @@ abstract class GeneralAsset {
       this._assetType,
       this._deliveryType,
       this._signature,
-      this._transformation]);
+      this._transformation,
+      this._analytics]);
 
   GeneralAsset cloudConfig(CloudConfig cloudConfig) {
     _cloudConfig = cloudConfig;
@@ -84,6 +87,11 @@ abstract class GeneralAsset {
     return this;
   }
 
+  GeneralAsset analytics(Analytics analytics) {
+    _analytics = analytics;
+    return this;
+  }
+
   CloudConfig? getCloudConfig() {
     return _cloudConfig;
   }
@@ -118,6 +126,10 @@ abstract class GeneralAsset {
 
   String? getSignature() {
     return _signature;
+  }
+
+  Analytics? getAnalytics() {
+    return _analytics;
   }
 
   TransformationObject? getTransformation() {
