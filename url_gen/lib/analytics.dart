@@ -8,7 +8,7 @@ class Analytics {
   final sdkQueryDelimiter = "=";
   final algoVersion = 'C';
   final product = 'A';
-  String sdk = 'O';
+  String sdk = 'R';
   final errorSignature = "E";
   final noFeatureChar = '0';
   String techVersion = "";
