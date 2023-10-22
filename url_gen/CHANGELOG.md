@@ -1,3 +1,6 @@
+## 1.2.0
+- Update analytics token
+
 ## 1.1.0
 - Update analytics token
 
