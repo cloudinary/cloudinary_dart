@@ -12,8 +12,9 @@ void main() {
       cldAssert('CARAlhAMZAR0', analytics);
     });
     test('Should successfully generate analytics string', () {
-      var analytics = Analytics.fromParameters('R', '1.24.0-beta.6', '12.0', '17.0')
-          .generateAnalyticsString();
+      var analytics =
+          Analytics.fromParameters('R', '1.24.0-beta.6', '12.0', '17.0')
+              .generateAnalyticsString();
       cldAssert('CARAlhAMZAR0', analytics);
     });
     test(

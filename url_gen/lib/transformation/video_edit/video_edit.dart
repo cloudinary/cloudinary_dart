@@ -1,3 +1,4 @@
+import '../color.dart';
 import 'video_edit_actions.dart';
 import '../common.dart';
 import '../delivery/delivery_actions.dart';
@@ -20,5 +21,9 @@ class VideoEdit extends Action {
 
   static Waveform waveform(Format format) {
     return Waveform(format);
+  }
+
+  static progressBar({ProgressBarType? type, Color? color, int? width}) {
+    return ProgressBar(type: type, color: color, width: width);
   }
 }
