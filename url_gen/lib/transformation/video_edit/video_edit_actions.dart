@@ -142,3 +142,43 @@ class Waveform extends Effect {
     return this;
   }
 }
+
+class ProgressBar extends Effect {
+  ProgressBarType? _type;
+  Color? _color;
+  int? _width;
+
+  ProgressBar({ProgressBarType? type, Color? color, int? width}) {
+    _type = type;
+    _color = color;
+    _width = width;
+  }
+
+  ProgressBar type(ProgressBarType type) {
+    _type = type;
+    return this;
+  }
+
+  ProgressBar color(Color color) {
+    _color = color;
+    return this;
+  }
+
+  ProgressBar width(int width) {
+    _width = width;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return 'e_progressbar'.joinWithValues([
+      ((_type != null) ? 'type_${_type!.name}' : null),
+      ((_color != null) ? 'color_$_color' : null),
+      ((_width != null) ? 'width_$_width' : null),
+    ]);
+  }
+}
+
+enum ProgressBarType {
+  bar, frame
+}
