@@ -52,9 +52,14 @@ void main() {
   });
   test('Test successful video edit progressbar formatting', () {
     cldAssert("e_progressbar", VideoEdit.progressBar());
-    cldAssert("e_progressbar:type_bar", VideoEdit.progressBar(type: ProgressBarType.bar));
-    cldAssert("e_progressbar:color_red", VideoEdit.progressBar(color: Color.red()));
+    cldAssert("e_progressbar:type_bar",
+        VideoEdit.progressBar(type: ProgressBarType.bar));
+    cldAssert(
+        "e_progressbar:color_red", VideoEdit.progressBar(color: Color.red()));
     cldAssert("e_progressbar:width_15", VideoEdit.progressBar(width: 15));
-    cldAssert("e_progressbar:type_bar:color_red:width_15", VideoEdit.progressBar(type: ProgressBarType.bar, color: Color.red(), width: 15));
+    cldAssert(
+        "e_progressbar:type_bar:color_red:width_15",
+        VideoEdit.progressBar(
+            type: ProgressBarType.bar, color: Color.red(), width: 15));
   });
 }

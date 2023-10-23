@@ -179,6 +179,4 @@ class ProgressBar extends Effect {
   }
 }
 
-enum ProgressBarType {
-  bar, frame
-}
+enum ProgressBarType { bar, frame }
