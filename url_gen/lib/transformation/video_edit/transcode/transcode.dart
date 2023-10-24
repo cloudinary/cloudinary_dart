@@ -8,6 +8,6 @@ class Transcode extends Action {
   }
 
   static videoCodec(VideoCodec codec) {
-    return VideoCodec(codec);
+    return VideoCodecAction(codec);
   }
 }
