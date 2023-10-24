@@ -10,4 +10,8 @@ void main() {
         'sp_full_hd', Transcode.streamingProfile(StreamingProfile.fullHd()));
     cldAssert('sp_full_hd', Transcode.streamingProfile('full_hd'));
   });
+
+  test('Test successful video codec', () {
+    cldAssert('vc_vp8', Transcode.videoCodec(VideoCodec.vp8()));
+  });
 }

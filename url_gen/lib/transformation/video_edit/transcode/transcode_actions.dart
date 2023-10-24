@@ -1,3 +1,5 @@
+import 'package:cloudinary_url_gen/src/extensions/string_extension.dart';
+
 import 'transcode.dart';
 
 class StreamingProfile {
@@ -28,5 +30,63 @@ class StreamingProfileAction extends Transcode {
   @override
   String toString() {
     return 'sp_$profile';
+  }
+}
+
+class VideoCodec {
+
+  dynamic codec;
+
+  VideoCodec(this.codec);
+
+  static vp8() => VideoCodec('vp8');
+  static vp9() => VideoCodec('vp9');
+  static prores() => VideoCodec('prores');
+
+  VideoCodec h264({VideoCodecProfile? profile, dynamic level}) {
+    return H264Codec(profile: profile, level: level);
+  }
+}
+
+class H264Codec extends VideoCodec {
+
+  VideoCodecProfile? _profile;
+  dynamic _level;
+
+  H264Codec({VideoCodecProfile? profile, dynamic level}): super('h264') {
+    _profile = profile;
+    _level = level;
+  }
+
+  H264Codec profile(VideoCodecProfile profile) {
+    _profile = profile;
+    return this;
+  }
+
+  H264Codec level(dynamic level) {
+    _level = level;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return (codec as String).joinWithValues([_profile.toString(), _level.toString()]);
+  }
+}
+
+class VideoCodecProfile extends Transcode {
+
+  String value;
+
+  VideoCodecProfile(this.value);
+
+  static main() => VideoCodecProfile('main');
+  static baseline() => VideoCodecProfile('baseline');
+  static high() => VideoCodecProfile('high');
+  static auto() => VideoCodecProfile('auto');
+
+  @override
+  String toString() {
+    return value;
   }
 }
