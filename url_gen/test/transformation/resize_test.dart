@@ -282,6 +282,12 @@ void main() {
           ..height(100)
           ..aspectRatio(1.5)
           ..gravity(Gravity.north()));
+    cldAssert(
+        'ar_1.5,c_mpad,g_north_west,h_100',
+        Resize.minimumPad()
+          ..height(100)
+          ..aspectRatio(1.5)
+          ..gravity(Gravity.northWest()));
   });
 
   test("Test successful fill formatting", () {

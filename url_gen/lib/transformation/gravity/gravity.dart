@@ -83,12 +83,12 @@ class Compass {
   Compass(this.value);
 
   static north() => Compass('north');
-  static northEast() => Compass('northEast');
-  static northWest() => Compass('northWest');
+  static northEast() => Compass('north_east');
+  static northWest() => Compass('north_west');
   static east() => Compass('east');
-  static southEast() => Compass('southEast');
+  static southEast() => Compass('south_east');
   static south() => Compass('south');
-  static southWest() => Compass('southWest');
+  static southWest() => Compass('south_west');
   static west() => Compass('west');
   static center() => Compass('center');
 
