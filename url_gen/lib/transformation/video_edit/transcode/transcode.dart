@@ -6,4 +6,8 @@ class Transcode extends Action {
   static streamingProfile(dynamic profile) {
     return StreamingProfileAction(profile);
   }
+
+  static videoCodec(VideoCodec codec) {
+    return VideoCodecAction(codec);
+  }
 }
