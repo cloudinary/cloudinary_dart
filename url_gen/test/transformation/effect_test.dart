@@ -2,6 +2,7 @@ import 'package:cloudinary_url_gen/transformation/color.dart';
 import 'package:cloudinary_url_gen/transformation/effect/effect.dart';
 import 'package:cloudinary_url_gen/transformation/effect/effect_actions.dart';
 import 'package:cloudinary_url_gen/transformation/effect/objects/foreground_object.dart';
+import 'package:cloudinary_url_gen/transformation/gravity/gravity.dart';
 import 'package:cloudinary_url_gen/transformation/region.dart';
 import 'package:test/test.dart';
 
@@ -283,5 +284,13 @@ void main() {
         Effect.backgroundRemoval()
           ..fineEdges(true)
           ..hints([ForegroundObject.car(), ForegroundObject.bus()]));
+  });
+
+  test('Test successful zoompan effect', () {
+      cldAssert('e_zoompan', Effect.zoomPan());
+      cldAssert('e_zoompan:mode_ztc', Effect.zoomPan(mode: ZoomPanMode.zoomInToCenter()));
+      cldAssert('e_zoompan:maxzoom_3', Effect.zoomPan(maxZoom: 3));
+      cldAssert('e_zoompan:du_3', Effect.zoomPan(duration: 3));
+      cldAssert('e_zoompan:mode_ztc:from(g_auto:x_13)', Effect.zoomPan(mode: ZoomPanMode.zoomInToCenter()).from(ZoomPanArea(gravity: Gravity.autoGravity(), x: 13)));
   });
 }

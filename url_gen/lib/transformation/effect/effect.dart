@@ -284,6 +284,15 @@ class Effect extends Action {
     return BackgroundRemoval(fineEdges: fineEdges, hints: hints);
   }
 
+  static ZoomPan zoomPan(
+      {ZoomPanMode? mode,
+      int? maxZoom,
+      int? duration
+      }) {
+    return ZoomPan(
+        mode: mode, maxZoom: maxZoom, duration: duration);
+  }
+
   @override
   String toString() {
     return 'e';
