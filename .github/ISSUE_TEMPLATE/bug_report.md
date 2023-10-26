@@ -37,7 +37,7 @@ Before proceeding, please update to latest version and test if the issue persist
 [ ] Yes (specify device model + iOS/Android version)
 
 ## Versions and Libraries (fill in the version numbers)
-Flutter Cloudinary SDK version - 0.0.0
+Dart Cloudinary SDK version - 0.0.0
 OS (on the dev environment) - 0.0.0 
 XCode/Android Studio - 0.0.0
 Swift/Java/Kotlin - 0.0.0
