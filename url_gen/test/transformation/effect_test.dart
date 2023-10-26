@@ -291,6 +291,6 @@ void main() {
       cldAssert('e_zoompan:mode_ztc', Effect.zoomPan(mode: ZoomPanMode.zoomInToCenter()));
       cldAssert('e_zoompan:maxzoom_3', Effect.zoomPan(maxZoom: 3));
       cldAssert('e_zoompan:du_3', Effect.zoomPan(duration: 3));
-      cldAssert('e_zoompan:mode_ztc:from(g_auto:x_13)', Effect.zoomPan(mode: ZoomPanMode.zoomInToCenter()).from(ZoomPanArea(gravity: Gravity.autoGravity(), x: 13)));
+      cldAssert('e_zoompan:mode_ztc;from(g_auto;x_13)', Effect.zoomPan(mode: ZoomPanMode.zoomInToCenter()).from(ZoomPanArea(gravity: Gravity.autoGravity(), x: 13)));
   });
 }

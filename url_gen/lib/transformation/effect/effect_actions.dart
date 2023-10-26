@@ -930,7 +930,7 @@ class ZoomPan extends Effect {
       (_duration != null ? 'du_$_duration' : null),
       (_from != null ? '$_from' : null),
       (_to != null ? 'to_$_to' : null)
-    ]);
+    ], separator: ';');
   }
 }
 
@@ -1184,6 +1184,6 @@ class ZoomPanArea {
       (_zoom != null ? 'zoom_$_zoom' : null),
       (_x != null ? 'x_$_x' : null),
       (_y != null ? 'y_$_y' : null),
-      ], actionSeparator: '')})';
+      ], actionSeparator: '', separator: ';')})';
   }
 }
