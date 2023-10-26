@@ -1,6 +1,7 @@
 import 'package:cloudinary_url_gen/src/extensions/string_extension.dart';
 import 'package:cloudinary_url_gen/src/util/validations.dart';
 
+import '../coordinates/coordinates.dart';
 import '../transformation_utils.dart';
 import '../color.dart';
 import '../common.dart';
@@ -895,6 +896,30 @@ class ShakeStrength {
   String toString() {
     return factor.toString();
   }
+}
+
+class GenerativeRemove extends Effect {
+  dynamic _prompt;
+  bool? _multiple;
+  dynamic _region;
+
+  GenerativeRemove(this._prompt, {bool? multiple, dynamic region}) {
+    _multiple = multiple;
+    _region = region;
+  }
+
+  GenerativeRemove multiple(bool multiple) {
+    _multiple = multiple;
+    return this;
+  }
+
+  GenerativeRemove region(dynamic region) {
+    if (region is Rectangle || region is List<Rectangle>) {
+      _region = region;
+    }
+    return this;
+  }
+
 }
 
 class DitherObject {

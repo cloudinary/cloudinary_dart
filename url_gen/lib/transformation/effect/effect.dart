@@ -284,6 +284,10 @@ class Effect extends Action {
     return BackgroundRemoval(fineEdges: fineEdges, hints: hints);
   }
 
+  static GenerativeRemove generativeRemove({dynamic prompt, bool? multiple, dynamic region}) {
+    return GenerativeRemove(prompt, mutliple: multiple, region: region);
+  }
+
   @override
   String toString() {
     return 'e';
