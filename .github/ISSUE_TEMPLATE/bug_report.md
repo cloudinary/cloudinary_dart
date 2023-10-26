@@ -27,9 +27,7 @@ Before proceeding, please update to latest version and test if the issue persist
 …
 
 ## Build/Dependency management
-[ ] Cocoa-Pods
-[ ] Carthage
-[ ] Manual import
+[ ] Pubspec.yaml
 [ ] Other (Specify)
 
 ## Is the issue reproducible only on a specific device?
@@ -39,9 +37,7 @@ Before proceeding, please update to latest version and test if the issue persist
 ## Versions and Libraries (fill in the version numbers)
 Dart Cloudinary SDK version - 0.0.0
 OS (on the dev environment) - 0.0.0 
-XCode/Android Studio - 0.0.0
-Swift/Java/Kotlin - 0.0.0
-Target iOS/Android - 0.0.0
+IDE/Android Studio - 0.0.0
 
 Repository
 If possible, please provide a link to a reproducible repository that showcases the problem
