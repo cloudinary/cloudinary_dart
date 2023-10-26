@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:cloudinary_url_gen/src/extensions/string_extension.dart';
 import 'package:cloudinary_url_gen/src/util/validations.dart';
 
@@ -934,6 +936,49 @@ class ZoomPan extends Effect {
   }
 }
 
+class GenerativeRecolor extends Effect {
+  dynamic _prompt;
+  Color? _toColor;
+  bool? _multiple;
+
+  GenerativeRecolor(dynamic prompt, {Color? toColor, bool? multiple}) {
+    _prompt = prompt;
+    _toColor = toColor;
+    _multiple = multiple;
+  }
+
+  GenerativeRecolor prompt(dynamic prompt) {
+    _prompt = prompt;
+    return this;
+  }
+
+  GenerativeRecolor toColor(dynamic toColor) {
+    if (toColor is String) {
+      _toColor = Color.parseString(toColor);
+    } else {
+      _toColor = toColor;
+    }
+    return this;
+  }
+
+  GenerativeRecolor multiple(bool multiple) {
+    _multiple = multiple;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['gen_recolor'],
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
+      (_prompt is List
+          ? 'prompt_(${(_prompt as List<String>).join(';')})'
+          : 'prompt_($_prompt)'),
+      (_multiple != null ? 'multiple_$_multiple' : null),
+      (_toColor != null ? 'to-color_$_toColor' : null)
+    ], separator: newParamSeparator);
+  }
+}
+
 class ShakeStrength {
   int factor;
 
@@ -1180,10 +1225,10 @@ class ZoomPanArea {
   @override
   String toString() {
     return '${'$type('.joinWithValues([
-      (_gravity != null ? 'g_$_gravity' : null),
-      (_zoom != null ? 'zoom_$_zoom' : null),
-      (_x != null ? 'x_$_x' : null),
-      (_y != null ? 'y_$_y' : null),
-      ], actionSeparator: '', separator: ';')})';
+          (_gravity != null ? 'g_$_gravity' : null),
+          (_zoom != null ? 'zoom_$_zoom' : null),
+          (_x != null ? 'x_$_x' : null),
+          (_y != null ? 'y_$_y' : null),
+        ], actionSeparator: '', separator: ';')})';
   }
 }

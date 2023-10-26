@@ -284,13 +284,13 @@ class Effect extends Action {
     return BackgroundRemoval(fineEdges: fineEdges, hints: hints);
   }
 
-  static ZoomPan zoomPan(
-      {ZoomPanMode? mode,
-      int? maxZoom,
-      int? duration
-      }) {
-    return ZoomPan(
-        mode: mode, maxZoom: maxZoom, duration: duration);
+  static ZoomPan zoomPan({ZoomPanMode? mode, int? maxZoom, int? duration}) {
+    return ZoomPan(mode: mode, maxZoom: maxZoom, duration: duration);
+  }
+
+  static GenerativeRecolor generativeRecolor(dynamic prompt,
+      {Color? toColor, bool? multiple}) {
+    return GenerativeRecolor(prompt, toColor: toColor, multiple: multiple);
   }
 
   @override

@@ -287,10 +287,31 @@ void main() {
   });
 
   test('Test successful zoompan effect', () {
-      cldAssert('e_zoompan', Effect.zoomPan());
-      cldAssert('e_zoompan:mode_ztc', Effect.zoomPan(mode: ZoomPanMode.zoomInToCenter()));
-      cldAssert('e_zoompan:maxzoom_3', Effect.zoomPan(maxZoom: 3));
-      cldAssert('e_zoompan:du_3', Effect.zoomPan(duration: 3));
-      cldAssert('e_zoompan:mode_ztc;from(g_auto;x_13)', Effect.zoomPan(mode: ZoomPanMode.zoomInToCenter()).from(ZoomPanArea(gravity: Gravity.autoGravity(), x: 13)));
+    cldAssert('e_zoompan', Effect.zoomPan());
+    cldAssert('e_zoompan:mode_ztc',
+        Effect.zoomPan(mode: ZoomPanMode.zoomInToCenter()));
+    cldAssert('e_zoompan:maxzoom_3', Effect.zoomPan(maxZoom: 3));
+    cldAssert('e_zoompan:du_3', Effect.zoomPan(duration: 3));
+    cldAssert(
+        'e_zoompan:mode_ztc;from(g_auto;x_13)',
+        Effect.zoomPan(mode: ZoomPanMode.zoomInToCenter())
+            .from(ZoomPanArea(gravity: Gravity.autoGravity(), x: 13)));
+  });
+
+  test('Test successful generative recolor effect', () {
+    cldAssert('e_gen_recolor:prompt_(sweater;dog;earring)',
+        Effect.generativeRecolor(['sweater', 'dog', 'earring']));
+    cldAssert(
+        'e_gen_recolor:prompt_(sweater;dog;earring);to-color_5632a8',
+        Effect.generativeRecolor(['sweater', 'dog', 'earring'])
+            .toColor('5632a8'));
+    cldAssert(
+        'e_gen_recolor:prompt_(sweater;dog;earring);to-color_red',
+        Effect.generativeRecolor(['sweater', 'dog', 'earring'],
+            toColor: Color.red()));
+    cldAssert(
+        'e_gen_recolor:prompt_(sweater;dog;earring);multiple_true;to-color_red',
+        Effect.generativeRecolor(['sweater', 'dog', 'earring'],
+            multiple: true, toColor: Color.red()));
   });
 }
