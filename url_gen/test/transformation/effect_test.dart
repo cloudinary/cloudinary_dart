@@ -284,4 +284,17 @@ void main() {
           ..fineEdges(true)
           ..hints([ForegroundObject.car(), ForegroundObject.bus()]));
   });
+
+  test('Test successful generative recolor effect', () {
+    cldAssert('e_gen_recolor:prompt_(sweater;dog;earring)',
+        Effect.generativeRecolor(['sweater', 'dog', 'earring']));
+    cldAssert(
+        'e_gen_recolor:prompt_(sweater;dog;earring);to-color_red',
+        Effect.generativeRecolor(['sweater', 'dog', 'earring'],
+            toColor: Color.red()));
+    cldAssert(
+        'e_gen_recolor:prompt_(sweater;dog;earring);multiple_true;to-color_red',
+        Effect.generativeRecolor(['sweater', 'dog', 'earring'],
+            multiple: true, toColor: Color.red()));
+  });
 }

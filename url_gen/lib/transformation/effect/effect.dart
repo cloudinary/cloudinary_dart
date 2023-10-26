@@ -284,6 +284,11 @@ class Effect extends Action {
     return BackgroundRemoval(fineEdges: fineEdges, hints: hints);
   }
 
+  static GenerativeRecolor generativeRecolor(dynamic prompt,
+      {Color? toColor, bool? multiple}) {
+    return GenerativeRecolor(prompt, toColor: toColor, multiple: multiple);
+  }
+
   @override
   String toString() {
     return 'e';

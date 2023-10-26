@@ -1,7 +1,8 @@
-const defaultValuesSeparator = ":";
-const defaultComponentSeparator = "/";
-const paramSeparator = ",";
-const paramKeyValueSeparator = "_";
+const defaultValuesSeparator = ':';
+const defaultComponentSeparator = '/';
+const paramSeparator = ',';
+const paramKeyValueSeparator = '_';
+const newParamSeparator = ';';
 
 class Param {
   String key;

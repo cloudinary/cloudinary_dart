@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:cloudinary_url_gen/src/extensions/string_extension.dart';
 import 'package:cloudinary_url_gen/src/util/validations.dart';
 
@@ -875,6 +877,45 @@ class DropShadow extends Effect {
       (_elevation != null) ? 'elevation_$_elevation' : null,
       (_spread != null) ? 'spread_$_spread' : null
     ], separator: ';', actionSeparator: ':');
+  }
+}
+
+class GenerativeRecolor extends Effect {
+  dynamic _prompt;
+  Color? _toColor;
+  bool? _multiple;
+
+  GenerativeRecolor(dynamic prompt, {Color? toColor, bool? multiple}) {
+    _prompt = prompt;
+    _toColor = toColor;
+    _multiple = multiple;
+  }
+
+  GenerativeRecolor prompt(dynamic prompt) {
+    _prompt = prompt;
+    return this;
+  }
+
+  GenerativeRecolor toColor(dynamic toColor) {
+    _toColor = toColor;
+    return this;
+  }
+
+  GenerativeRecolor multiple(bool multiple) {
+    _multiple = multiple;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['gen_recolor'],
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
+      (_prompt is List
+          ? 'prompt_(${(_prompt as List<String>).join(';')})'
+          : 'prompt_($_prompt)'),
+      (_multiple != null ? 'multiple_$_multiple' : null),
+      (_toColor != null ? 'to-color_$_toColor' : null)
+    ], separator: newParamSeparator);
   }
 }
 
