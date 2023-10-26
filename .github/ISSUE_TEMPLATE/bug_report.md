@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-## Bug report for Cloudinary Flutter SDK
+## Bug report for Cloudinary Dart SDK
 Before proceeding, please update to latest version and test if the issue persists
 
 ## Describe the bug in a sentence or two.
