@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-## Feature request for Cloudinary Flutter SDK
+## Feature request for Cloudinary Dart SDK
 …(If your feature is for other SDKs, please request them there)
 
 ## Explain your use case
