@@ -953,7 +953,7 @@ class GenerativeRecolor extends Effect {
   }
 
   GenerativeRecolor toColor(dynamic toColor) {
-    if(toColor is String) {
+    if (toColor is String) {
       _toColor = Color.parseString(toColor);
     } else {
       _toColor = toColor;
@@ -1225,10 +1225,10 @@ class ZoomPanArea {
   @override
   String toString() {
     return '${'$type('.joinWithValues([
-      (_gravity != null ? 'g_$_gravity' : null),
-      (_zoom != null ? 'zoom_$_zoom' : null),
-      (_x != null ? 'x_$_x' : null),
-      (_y != null ? 'y_$_y' : null),
-      ], actionSeparator: '', separator: ';')})';
+          (_gravity != null ? 'g_$_gravity' : null),
+          (_zoom != null ? 'zoom_$_zoom' : null),
+          (_x != null ? 'x_$_x' : null),
+          (_y != null ? 'y_$_y' : null),
+        ], actionSeparator: '', separator: ';')})';
   }
 }
