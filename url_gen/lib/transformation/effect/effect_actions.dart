@@ -1,7 +1,10 @@
+import 'dart:core';
+
 import 'package:cloudinary_url_gen/src/extensions/string_extension.dart';
 import 'package:cloudinary_url_gen/src/util/validations.dart';
 
 import '../coordinates/coordinates.dart';
+import '../gravity/gravity.dart';
 import '../transformation_utils.dart';
 import '../color.dart';
 import '../common.dart';
@@ -879,6 +882,104 @@ class DropShadow extends Effect {
   }
 }
 
+class ZoomPan extends Effect {
+  ZoomPanMode? _mode;
+  int? _maxZoom;
+  int? _duration;
+  ZoomPanArea? _from;
+  ZoomPanArea? _to;
+
+  ZoomPan({
+    ZoomPanMode? mode,
+    int? maxZoom,
+    int? duration,
+  }) {
+    _mode = mode;
+    _maxZoom = maxZoom;
+    _duration = duration;
+  }
+
+  ZoomPan mode(ZoomPanMode mode) {
+    _mode = mode;
+    return this;
+  }
+
+  ZoomPan maxZoom(int maxZoom) {
+    _maxZoom = maxZoom;
+    return this;
+  }
+
+  ZoomPan duration(int duration) {
+    _duration = duration;
+    return this;
+  }
+
+  ZoomPan from(ZoomPanArea from) {
+    _from = ZoomPanAreaFrom(from);
+    return this;
+  }
+
+  ZoomPan to(ZoomPanArea to) {
+    _to = ZoomPanAreaTo(to);
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['zoompan'],
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
+      (_mode != null ? 'mode_$_mode' : null),
+      (_maxZoom != null ? 'maxzoom_$_maxZoom' : null),
+      (_duration != null ? 'du_$_duration' : null),
+      (_from != null ? '$_from' : null),
+      (_to != null ? 'to_$_to' : null)
+    ], separator: ';');
+  }
+}
+
+class GenerativeRecolor extends Effect {
+  dynamic _prompt;
+  Color? _toColor;
+  bool? _multiple;
+
+  GenerativeRecolor(dynamic prompt, {Color? toColor, bool? multiple}) {
+    _prompt = prompt;
+    _toColor = toColor;
+    _multiple = multiple;
+  }
+
+  GenerativeRecolor prompt(dynamic prompt) {
+    _prompt = prompt;
+    return this;
+  }
+
+  GenerativeRecolor toColor(dynamic toColor) {
+    if (toColor is String) {
+      _toColor = Color.parseString(toColor);
+    } else {
+      _toColor = toColor;
+    }
+    return this;
+  }
+
+  GenerativeRecolor multiple(bool multiple) {
+    _multiple = multiple;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['gen_recolor'],
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
+      (_prompt is List
+          ? 'prompt_(${(_prompt as List<String>).join(';')})'
+          : 'prompt_($_prompt)'),
+      (_multiple != null ? 'multiple_$_multiple' : null),
+      (_toColor != null ? 'to-color_$_toColor' : null)
+    ], separator: newParamSeparator);
+  }
+}
+
 class ShakeStrength {
   int factor;
 
@@ -1071,3 +1172,88 @@ class ArtisticFilter {
 }
 
 enum AssistColorBlindType { stripes, xray }
+
+class ZoomPanMode {
+  String value;
+
+  ZoomPanMode(this.value);
+
+  static zoomInToCenter() => ZoomPanMode('ztc');
+  static zoomInToLeft() => ZoomPanMode('ztl');
+  static zoomInToRight() => ZoomPanMode('ztr');
+  static zoomOutFromCenter() => ZoomPanMode('ofc');
+  static zoomOutFromLeft() => ZoomPanMode('ofl');
+  static zoomOutFromRight() => ZoomPanMode('ofr');
+  static panLeftToRight() => ZoomPanMode('plr');
+  static panRightToLeft() => ZoomPanMode('prl');
+
+  @override
+  String toString() {
+    return value;
+  }
+}
+
+class ZoomPanAreaFrom extends ZoomPanArea {
+  ZoomPanAreaFrom(ZoomPanArea area) {
+    super.type = 'from';
+    super._gravity = area._gravity;
+    super._zoom = area._zoom;
+    super._x = area._x;
+    super._y = area._y;
+  }
+}
+
+class ZoomPanAreaTo extends ZoomPanArea {
+  ZoomPanAreaTo(ZoomPanArea area) {
+    super.type = 'to';
+    super._gravity = area._gravity;
+    super._zoom = area._zoom;
+    super._x = area._x;
+    super._y = area._y;
+  }
+}
+
+class ZoomPanArea {
+  late String type;
+  Gravity? _gravity;
+  int? _zoom;
+  int? _x;
+  int? _y;
+
+  ZoomPanArea({Gravity? gravity, int? zoom, int? x, int? y}) {
+    _gravity = gravity;
+    _zoom = zoom;
+    _x = x;
+    _y = y;
+  }
+
+  ZoomPanArea gravity(Gravity gravity) {
+    _gravity = gravity;
+    return this;
+  }
+
+  ZoomPanArea zoom(int zoom) {
+    _zoom = zoom;
+    return this;
+  }
+
+  ZoomPanArea x(int x) {
+    _x = x;
+    return this;
+  }
+
+  ZoomPanArea y(int y) {
+    _y = y;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return '${'$type('.joinWithValues([
+          (_gravity != null ? 'g_$_gravity' : null),
+          (_zoom != null ? 'zoom_$_zoom' : null),
+          (_x != null ? 'x_$_x' : null),
+          (_y != null ? 'y_$_y' : null),
+        ], actionSeparator: '', separator: ';')})';
+  }
+}
