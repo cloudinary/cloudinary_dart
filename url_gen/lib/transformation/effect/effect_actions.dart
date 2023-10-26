@@ -1020,7 +1020,6 @@ class GenerativeRemove extends Effect {
     }
     return this;
   }
-
 }
 
 class DitherObject {
