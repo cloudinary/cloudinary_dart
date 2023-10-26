@@ -288,6 +288,8 @@ void main() {
   test('Test successful generative recolor effect', () {
     cldAssert('e_gen_recolor:prompt_(sweater;dog;earring)',
         Effect.generativeRecolor(['sweater', 'dog', 'earring']));
+    cldAssert('e_gen_recolor:prompt_(sweater;dog;earring);to-color_5632a8',
+        Effect.generativeRecolor(['sweater', 'dog', 'earring']).toColor('5632a8'));
     cldAssert(
         'e_gen_recolor:prompt_(sweater;dog;earring);to-color_red',
         Effect.generativeRecolor(['sweater', 'dog', 'earring'],

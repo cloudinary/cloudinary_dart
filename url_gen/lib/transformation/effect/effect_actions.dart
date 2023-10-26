@@ -897,7 +897,11 @@ class GenerativeRecolor extends Effect {
   }
 
   GenerativeRecolor toColor(dynamic toColor) {
-    _toColor = toColor;
+    if(toColor is String) {
+      _toColor = Color.parseString(toColor);
+    } else {
+      _toColor = toColor;
+    }
     return this;
   }
 
