@@ -293,6 +293,11 @@ class Effect extends Action {
     return GenerativeRecolor(prompt, toColor: toColor, multiple: multiple);
   }
 
+  static GenerativeRemove generativeRemove(dynamic prompt,
+      {bool? multiple, dynamic region}) {
+    return GenerativeRemove(prompt, multiple: multiple, region: region);
+  }
+
   @override
   String toString() {
     return 'e';
