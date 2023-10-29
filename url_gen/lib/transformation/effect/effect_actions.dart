@@ -1004,25 +1004,6 @@ class GenerativeReplace extends Effect {
   }
 }
 
-class ShakeStrength {
-  int factor;
-
-  ShakeStrength(this.factor);
-
-  static ShakeStrength pixels16() => ShakeStrength(16);
-
-  static ShakeStrength pixels32() => ShakeStrength(32);
-
-  static ShakeStrength pixels48() => ShakeStrength(48);
-
-  static ShakeStrength pixels64() => ShakeStrength(64);
-
-  @override
-  String toString() {
-    return factor.toString();
-  }
-}
-
 class GenerativeRemove extends Effect {
   dynamic _prompt;
   bool? _multiple;
@@ -1055,10 +1036,36 @@ class GenerativeRemove extends Effect {
       (_multiple != null ? 'multiple_$_multiple' : null),
       (_region != null
           ? (_region is List
-              ? 'region_(${(_region as List<Rectangle>).join(');(')})'
-              : 'region_($_region)')
+          ? 'region_(${(_region as List<Rectangle>).join(');(')})'
+          : 'region_($_region)')
           : null),
     ], separator: newParamSeparator);
+  }
+}
+
+class GenerativeRestore extends Effect {
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['gen_restore'], actionSeparator: paramKeyValueSeparator);
+  }
+}
+
+class ShakeStrength {
+  int factor;
+
+  ShakeStrength(this.factor);
+
+  static ShakeStrength pixels16() => ShakeStrength(16);
+
+  static ShakeStrength pixels32() => ShakeStrength(32);
+
+  static ShakeStrength pixels48() => ShakeStrength(48);
+
+  static ShakeStrength pixels64() => ShakeStrength(64);
+
+  @override
+  String toString() {
+    return factor.toString();
   }
 }
 

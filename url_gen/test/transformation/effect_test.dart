@@ -337,4 +337,8 @@ void main() {
     cldAssert('e_gen_replace:from_baloon;to_airplane;preserve-geometry_true',
         Effect.generativeReplace(from: 'baloon', to: 'airplane', preserveGeometry: true));
   });
+
+  test('Test successful generative restore effect', () {
+    cldAssert('e_gen_restore', Effect.generativeRestore());
+  });
 }

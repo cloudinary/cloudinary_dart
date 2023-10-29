@@ -302,6 +302,10 @@ class Effect extends Action {
     return GenerativeReplace(from,to, preserveGeometry: preserveGeometry);
   }
 
+  static GenerativeRestore generativeRestore() {
+    return GenerativeRestore();
+  }
+
   @override
   String toString() {
     return 'e';
