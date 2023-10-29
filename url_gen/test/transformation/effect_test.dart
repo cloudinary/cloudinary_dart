@@ -329,4 +329,12 @@ void main() {
         Effect.generativeRemove('dog',
             region: [Rectangle(10, 10, 10, 10), Rectangle(20, 20, 20, 20)]));
   });
+  test('Test successful generative replace effect', () {
+    cldAssert('e_gen_replace:from_baloon;to_airplane',
+        Effect.generativeReplace(from: 'baloon', to: 'airplane'));
+    cldAssert('e_gen_replace:from_baloon;to_airplane;preserve-geometry_false',
+        Effect.generativeReplace(from: 'baloon', to: 'airplane', preserveGeometry: false));
+    cldAssert('e_gen_replace:from_baloon;to_airplane;preserve-geometry_true',
+        Effect.generativeReplace(from: 'baloon', to: 'airplane', preserveGeometry: true));
+  });
 }
