@@ -1,3 +1,6 @@
+import 'package:cloudinary_url_gen/src/extensions/string_extension.dart';
+import 'package:cloudinary_url_gen/transformation/common.dart';
+
 class Coordinates {
   late List<Rectangle> coordinates;
 
@@ -43,6 +46,12 @@ class Rectangle {
   int height;
 
   Rectangle(this.x, this.y, this.width, this.height);
+
+  @override
+  String toString() {
+    return ''.joinWithValues(['x_$x', 'y_$y', 'w_$width', 'h_$height'],
+        actionSeparator: '', separator: newParamSeparator);
+  }
 
   @override
   bool operator ==(Object other) {

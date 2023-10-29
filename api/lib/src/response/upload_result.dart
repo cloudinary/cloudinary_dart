@@ -1,5 +1,5 @@
 import '../request/model/params/access_control_rule.dart';
-import '../../../../url_gen/lib/transformation/coordinates/coordinates.dart';
+import '../request/model/params/coordinates.dart';
 
 class UploadResult {
   String? publicId;

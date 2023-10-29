@@ -878,7 +878,7 @@ class DropShadow extends Effect {
       (_azimuth != null) ? 'azimuth_$_azimuth' : null,
       (_elevation != null) ? 'elevation_$_elevation' : null,
       (_spread != null) ? 'spread_$_spread' : null
-    ], separator: ';', actionSeparator: ':');
+    ], separator: newParamSeparator, actionSeparator: ':');
   }
 }
 
@@ -1019,6 +1019,22 @@ class GenerativeRemove extends Effect {
       _region = region;
     }
     return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['gen_remove'],
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
+      (_prompt is List
+          ? 'prompt_(${(_prompt as List<String>).join(';')})'
+          : 'prompt_($_prompt)'),
+      (_multiple != null ? 'multiple_$_multiple' : null),
+      (_region != null
+          ? (_region is List
+              ? 'region_(${(_region as List<Rectangle>).join(');(')})'
+              : 'region_($_region)')
+          : null),
+    ], separator: newParamSeparator);
   }
 }
 
@@ -1253,6 +1269,6 @@ class ZoomPanArea {
           (_zoom != null ? 'zoom_$_zoom' : null),
           (_x != null ? 'x_$_x' : null),
           (_y != null ? 'y_$_y' : null),
-        ], actionSeparator: '', separator: ';')})';
+        ], actionSeparator: '', separator: newParamSeparator)})';
   }
 }

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:cloudinary_api/src/request/model/params/access_control_rule.dart';
-import '../../url_gen/lib/transformation/coordinates/coordinates.dart';
+import 'package:cloudinary_api/src/request/model/params/coordinates.dart';
 import 'package:cloudinary_api/src/request/model/params/eager_transformation.dart';
 import 'package:cloudinary_api/src/request/model/params/resource_type.dart';
 import 'package:cloudinary_api/src/request/model/params/responsive_breakpoint.dart';
