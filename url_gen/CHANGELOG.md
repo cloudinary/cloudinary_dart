@@ -1,3 +1,13 @@
+## 1.3.0
+- Add progress bar effect
+- Add video codec action
+- Add zoom pan action
+- Add generative recolor effect
+- Add generative remove effect
+- Add generative replace effect
+- Add generative restore effect
+- Fix gravity values
+
 ## 1.2.0
 - Update analytics token
 

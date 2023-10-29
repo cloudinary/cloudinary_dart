@@ -33,7 +33,7 @@ To use this SDK, add cloudinary as a [dependency in your pubspec.yaml file](http
 ```yaml
 dependencies:
   cloudinary_api: ^1.0.0
-  cloudinary_url_gen: ^1.2.0
+  cloudinary_url_gen: ^1.3.0
 ```
 
 ## Usage
