@@ -1,4 +1,5 @@
 import 'package:cloudinary_url_gen/transformation/color.dart';
+import 'package:cloudinary_url_gen/transformation/coordinates/coordinates.dart';
 import 'package:cloudinary_url_gen/transformation/effect/effect.dart';
 import 'package:cloudinary_url_gen/transformation/effect/effect_actions.dart';
 import 'package:cloudinary_url_gen/transformation/effect/objects/foreground_object.dart';
@@ -313,6 +314,28 @@ void main() {
         'e_gen_recolor:prompt_(sweater;dog;earring);multiple_true;to-color_red',
         Effect.generativeRecolor(['sweater', 'dog', 'earring'],
             multiple: true, toColor: Color.red()));
+  });
+
+  test('Test successful generative remove effect', () {
+    cldAssert('e_gen_remove:prompt_(dog)', Effect.generativeRemove('dog'));
+    cldAssert('e_gen_remove:prompt_(dog;cat;horse)',
+        Effect.generativeRemove(['dog', 'cat', 'horse']));
+    cldAssert('e_gen_remove:prompt_(dog);multiple_true',
+        Effect.generativeRemove('dog', multiple: true));
+    cldAssert('e_gen_remove:prompt_(dog);region_(x_10;y_10;w_10;h_10)',
+        Effect.generativeRemove('dog', region: Rectangle(10, 10, 10, 10)));
+    cldAssert(
+        'e_gen_remove:prompt_(dog);region_(x_10;y_10;w_10;h_10);(x_20;y_20;w_20;h_20)',
+        Effect.generativeRemove('dog',
+            region: [Rectangle(10, 10, 10, 10), Rectangle(20, 20, 20, 20)]));
+  });
+  test('Test successful generative replace effect', () {
+    cldAssert('e_gen_replace:from_baloon;to_airplane',
+        Effect.generativeReplace(from: 'baloon', to: 'airplane'));
+    cldAssert('e_gen_replace:from_baloon;to_airplane;preserve-geometry_false',
+        Effect.generativeReplace(from: 'baloon', to: 'airplane', preserveGeometry: false));
+    cldAssert('e_gen_replace:from_baloon;to_airplane;preserve-geometry_true',
+        Effect.generativeReplace(from: 'baloon', to: 'airplane', preserveGeometry: true));
   });
 
   test('Test successful generative restore effect', () {
