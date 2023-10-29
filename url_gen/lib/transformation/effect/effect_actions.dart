@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:cloudinary_url_gen/src/extensions/string_extension.dart';
 import 'package:cloudinary_url_gen/src/util/validations.dart';
 
+import '../coordinates/coordinates.dart';
 import '../gravity/gravity.dart';
 import '../transformation_utils.dart';
 import '../color.dart';
@@ -877,7 +878,7 @@ class DropShadow extends Effect {
       (_azimuth != null) ? 'azimuth_$_azimuth' : null,
       (_elevation != null) ? 'elevation_$_elevation' : null,
       (_spread != null) ? 'spread_$_spread' : null
-    ], separator: ';', actionSeparator: ':');
+    ], separator: newParamSeparator, actionSeparator: ':');
   }
 }
 
@@ -1019,6 +1020,45 @@ class ShakeStrength {
   @override
   String toString() {
     return factor.toString();
+  }
+}
+
+class GenerativeRemove extends Effect {
+  dynamic _prompt;
+  bool? _multiple;
+  dynamic _region;
+
+  GenerativeRemove(this._prompt, {bool? multiple, dynamic region}) {
+    _multiple = multiple;
+    _region = region;
+  }
+
+  GenerativeRemove multiple(bool multiple) {
+    _multiple = multiple;
+    return this;
+  }
+
+  GenerativeRemove region(dynamic region) {
+    if (region is Rectangle || region is List<Rectangle>) {
+      _region = region;
+    }
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['gen_remove'],
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
+      (_prompt is List
+          ? 'prompt_(${(_prompt as List<String>).join(';')})'
+          : 'prompt_($_prompt)'),
+      (_multiple != null ? 'multiple_$_multiple' : null),
+      (_region != null
+          ? (_region is List
+              ? 'region_(${(_region as List<Rectangle>).join(');(')})'
+              : 'region_($_region)')
+          : null),
+    ], separator: newParamSeparator);
   }
 }
 
@@ -1253,6 +1293,6 @@ class ZoomPanArea {
           (_zoom != null ? 'zoom_$_zoom' : null),
           (_x != null ? 'x_$_x' : null),
           (_y != null ? 'y_$_y' : null),
-        ], actionSeparator: '', separator: ';')})';
+        ], actionSeparator: '', separator: newParamSeparator)})';
   }
 }
