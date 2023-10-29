@@ -979,6 +979,30 @@ class GenerativeRecolor extends Effect {
   }
 }
 
+class GenerativeReplace extends Effect {
+  String from;
+  String to;
+  bool? _preserveGeometry;
+
+  GenerativeReplace(this.from, this.to, {bool? preserveGeometry}) {
+    _preserveGeometry = preserveGeometry;
+  }
+
+  GenerativeReplace preserveGeometry(bool? preserveGeometry) {
+    _preserveGeometry = preserveGeometry;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['gen_replace'], actionSeparator: paramKeyValueSeparator).joinWithValues([
+      'from_$from',
+      'to_$to',
+      (_preserveGeometry != null ? 'preserve-geometry_$_preserveGeometry' : null)
+    ], separator: newParamSeparator);
+  }
+}
+
 class ShakeStrength {
   int factor;
 

@@ -314,4 +314,12 @@ void main() {
         Effect.generativeRecolor(['sweater', 'dog', 'earring'],
             multiple: true, toColor: Color.red()));
   });
+  test('Test successful generative replace effect', () {
+    cldAssert('e_gen_replace:from_baloon;to_airplane',
+        Effect.generativeReplace(from: 'baloon', to: 'airplane'));
+    cldAssert('e_gen_replace:from_baloon;to_airplane;preserve-geometry_false',
+        Effect.generativeReplace(from: 'baloon', to: 'airplane', preserveGeometry: false));
+    cldAssert('e_gen_replace:from_baloon;to_airplane;preserve-geometry_true',
+        Effect.generativeReplace(from: 'baloon', to: 'airplane', preserveGeometry: true));
+  });
 }

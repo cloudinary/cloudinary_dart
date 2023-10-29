@@ -293,6 +293,10 @@ class Effect extends Action {
     return GenerativeRecolor(prompt, toColor: toColor, multiple: multiple);
   }
 
+  static GenerativeReplace generativeReplace({required String from, required String to, bool? preserveGeometry}) {
+    return GenerativeReplace(from,to, preserveGeometry: preserveGeometry);
+  }
+
   @override
   String toString() {
     return 'e';
