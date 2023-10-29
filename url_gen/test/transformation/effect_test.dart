@@ -314,4 +314,8 @@ void main() {
         Effect.generativeRecolor(['sweater', 'dog', 'earring'],
             multiple: true, toColor: Color.red()));
   });
+
+  test('Test successful generative restore effect', () {
+    cldAssert('e_gen_restore', Effect.generativeRestore());
+  });
 }

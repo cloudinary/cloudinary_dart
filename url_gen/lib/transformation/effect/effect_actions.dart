@@ -979,6 +979,13 @@ class GenerativeRecolor extends Effect {
   }
 }
 
+class GenerativeRestore extends Effect {
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['gen_restore'], actionSeparator: paramKeyValueSeparator);
+  }
+}
+
 class ShakeStrength {
   int factor;
 
