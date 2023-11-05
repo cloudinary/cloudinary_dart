@@ -984,13 +984,20 @@ class GenerativeReplace extends Effect {
   String from;
   String to;
   bool? _preserveGeometry;
+  bool? _multiple;
 
-  GenerativeReplace(this.from, this.to, {bool? preserveGeometry}) {
+  GenerativeReplace(this.from, this.to, {bool? preserveGeometry, bool? multiple}) {
     _preserveGeometry = preserveGeometry;
+    _multiple = multiple;
   }
 
   GenerativeReplace preserveGeometry(bool? preserveGeometry) {
     _preserveGeometry = preserveGeometry;
+    return this;
+  }
+
+  GenerativeReplace multiple(bool multiple) {
+    _multiple = multiple;
     return this;
   }
 
@@ -999,7 +1006,8 @@ class GenerativeReplace extends Effect {
     return super.toString().joinWithValues(['gen_replace'], actionSeparator: paramKeyValueSeparator).joinWithValues([
       'from_$from',
       'to_$to',
-      (_preserveGeometry != null ? 'preserve-geometry_$_preserveGeometry' : null)
+      (_preserveGeometry != null ? 'preserve-geometry_$_preserveGeometry' : null),
+      (_multiple != null ? 'multiple_$_multiple' : null)
     ], separator: newParamSeparator);
   }
 }
