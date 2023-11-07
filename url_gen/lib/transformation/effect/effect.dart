@@ -298,8 +298,8 @@ class Effect extends Action {
     return GenerativeRemove(prompt, multiple: multiple, region: region, removeShadow: removeShadow);
   }
 
-  static GenerativeReplace generativeReplace({required String from, required String to, bool? preserveGeometry}) {
-    return GenerativeReplace(from,to, preserveGeometry: preserveGeometry);
+  static GenerativeReplace generativeReplace({required String from, required String to, bool? preserveGeometry, bool? multiple}) {
+    return GenerativeReplace(from,to, preserveGeometry: preserveGeometry, multiple: multiple);
   }
 
   static GenerativeRestore generativeRestore() {
