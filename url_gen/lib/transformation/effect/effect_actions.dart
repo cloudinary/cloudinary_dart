@@ -1016,10 +1016,12 @@ class GenerativeRemove extends Effect {
   dynamic _prompt;
   bool? _multiple;
   dynamic _region;
+  bool? _removeShadow;
 
-  GenerativeRemove(this._prompt, {bool? multiple, dynamic region}) {
+  GenerativeRemove(this._prompt, {bool? multiple, dynamic region, bool? removeShadow}) {
     _multiple = multiple;
     _region = region;
+    _removeShadow = removeShadow;
   }
 
   GenerativeRemove multiple(bool multiple) {
@@ -1034,6 +1036,11 @@ class GenerativeRemove extends Effect {
     return this;
   }
 
+  GenerativeRemove removeShadow(bool removeShadow) {
+    _removeShadow = removeShadow;
+    return this;
+  }
+
   @override
   String toString() {
     return super.toString().joinWithValues(['gen_remove'],
@@ -1042,6 +1049,7 @@ class GenerativeRemove extends Effect {
           ? 'prompt_(${(_prompt as List<String>).join(';')})'
           : 'prompt_($_prompt)'),
       (_multiple != null ? 'multiple_$_multiple' : null),
+      (_removeShadow != null ? 'remove-shadow_$_removeShadow' : null),
       (_region != null
           ? (_region is List
           ? 'region_(${(_region as List<Rectangle>).join(');(')})'

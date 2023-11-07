@@ -328,6 +328,7 @@ void main() {
         'e_gen_remove:prompt_(dog);region_(x_10;y_10;w_10;h_10);(x_20;y_20;w_20;h_20)',
         Effect.generativeRemove('dog',
             region: [Rectangle(10, 10, 10, 10), Rectangle(20, 20, 20, 20)]));
+    cldAssert('e_gen_remove:prompt_(dog);remove-shadow_true', Effect.generativeRemove('dog', removeShadow: true));
   });
   test('Test successful generative replace effect', () {
     cldAssert('e_gen_replace:from_baloon;to_airplane',

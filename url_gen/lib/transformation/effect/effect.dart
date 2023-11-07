@@ -294,8 +294,8 @@ class Effect extends Action {
   }
 
   static GenerativeRemove generativeRemove(dynamic prompt,
-      {bool? multiple, dynamic region}) {
-    return GenerativeRemove(prompt, multiple: multiple, region: region);
+      {bool? multiple, dynamic region, bool? removeShadow}) {
+    return GenerativeRemove(prompt, multiple: multiple, region: region, removeShadow: removeShadow);
   }
 
   static GenerativeReplace generativeReplace({required String from, required String to, bool? preserveGeometry, bool? multiple}) {
