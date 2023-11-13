@@ -35,11 +35,14 @@ class Analytics {
 
   String getVersionString(String version, {bool shouldUsePatch = false}) {
     var versionArray =
-        getVersionArray(version); //version.split(RegExp(r'[.\-]'));
+    getVersionArray(version); //version.split(RegExp(r'[.\-]'));
     if (shouldUsePatch) {
       return generateVersionString(versionArray);
     }
-    return generateVersionString([versionArray[0], versionArray[1]]);
+    if(versionArray.length >= 2) {
+      return generateVersionString([versionArray[0], versionArray[1]]);
+    }
+    return 'AA';
   }
 
   List<String> getVersionArray(String versionString) {

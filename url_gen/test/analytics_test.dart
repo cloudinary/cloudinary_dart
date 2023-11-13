@@ -24,5 +24,10 @@ void main() {
           .generateAnalyticsString();
       cldAssert('CARAlhAMZAR0', analytics);
     });
+    test('Test successfully generate analytics token with misbehaved version string', () {
+            var analytics = Analytics.fromParameters('R', '1.24.0', '12.0.1', 'sdk_gphone64_arm64-userdebug 13 TE1A.220922.031 10278734 dev-keys')
+                .generateAnalyticsString();
+            cldAssert('CARAlhAMZAA0', analytics);
+    });
   });
 }
