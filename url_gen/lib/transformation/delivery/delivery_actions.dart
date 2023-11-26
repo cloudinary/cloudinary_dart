@@ -267,6 +267,17 @@ class ColorSpaceFromICC extends DeliveryAction {
   }
 }
 
+class DefaultImage extends DeliveryAction {
+  String publicIdWithExtension;
+
+  DefaultImage(this.publicIdWithExtension);
+
+  @override
+  String toString() {
+    return 'd_$publicIdWithExtension';
+  }
+}
+
 class ColorSpace extends DeliveryAction {
   dynamic colorSpace;
   ColorSpace([this.colorSpace]);
