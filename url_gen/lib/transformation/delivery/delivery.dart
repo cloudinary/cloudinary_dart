@@ -34,4 +34,8 @@ abstract class Delivery {
   static ColorSpaceFromICC colorSpaceFromICC(String publicId) {
     return ColorSpaceFromICC(publicId);
   }
+
+  static Density density(dynamic density) {
+    return Density(density);
+  }
 }
