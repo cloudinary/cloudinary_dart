@@ -38,4 +38,8 @@ abstract class Delivery {
   static Density density(dynamic density) {
     return Density(density);
   }
+
+  static DefaultImage defaultImage(String publicIdWithExtension) {
+    return DefaultImage(publicIdWithExtension);
+  }
 }
