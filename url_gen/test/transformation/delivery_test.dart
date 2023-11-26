@@ -70,6 +70,14 @@ void main() {
     cldAssert('dpr_2', Delivery.dpr(2));
   });
 
+  test('Test density syntax', () {
+    cldAssert('dn_150', Delivery.density(150));
+  });
+
+  test('Test delivery color space from icc syntax', () {
+    cldAssert('cs_icc:test_public_id', Delivery.colorSpaceFromICC('test_public_id'));
+  });
+
   test('Test default image syntax', () {
     cldAssert('d_publicId.jpg', Delivery.defaultImage('publicId.jpg'));
   });

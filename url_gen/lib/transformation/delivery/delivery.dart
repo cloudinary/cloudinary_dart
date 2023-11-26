@@ -31,6 +31,14 @@ abstract class Delivery {
     return Dpr(dpr);
   }
 
+  static ColorSpaceFromICC colorSpaceFromICC(String publicId) {
+    return ColorSpaceFromICC(publicId);
+  }
+
+  static Density density(dynamic density) {
+    return Density(density);
+  }
+
   static DefaultImage defaultImage(String publicIdWithExtension) {
     return DefaultImage(publicIdWithExtension);
   }

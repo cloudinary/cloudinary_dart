@@ -245,6 +245,28 @@ class Dpr extends DeliveryAction {
   }
 }
 
+class Density extends DeliveryAction {
+  dynamic density;
+
+  Density(this.density);
+
+  @override
+  String toString() {
+    return 'dn_$density';
+  }
+}
+
+class ColorSpaceFromICC extends DeliveryAction {
+  String publicId;
+
+  ColorSpaceFromICC(this.publicId);
+
+  @override
+  String toString() {
+    return 'cs_icc:$publicId';
+  }
+}
+
 class DefaultImage extends DeliveryAction {
   String publicIdWithExtension;
 
