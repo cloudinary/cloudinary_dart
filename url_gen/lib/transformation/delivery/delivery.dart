@@ -30,4 +30,8 @@ abstract class Delivery {
   static Dpr dpr([dynamic dpr]) {
     return Dpr(dpr);
   }
+
+  static Density density(dynamic density) {
+    return Density(density);
+  }
 }
