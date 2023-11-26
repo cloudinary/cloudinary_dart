@@ -256,6 +256,17 @@ class Density extends DeliveryAction {
   }
 }
 
+class ColorSpaceFromICC extends DeliveryAction {
+  String publicId;
+
+  ColorSpaceFromICC(this.publicId);
+
+  @override
+  String toString() {
+    return 'cs_icc:$publicId';
+  }
+}
+
 class DprValue {
   dynamic value;
 
