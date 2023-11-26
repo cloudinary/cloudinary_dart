@@ -69,4 +69,8 @@ void main() {
     cldAssert("dpr_1.5", Delivery.dpr(1.5));
     cldAssert('dpr_2', Delivery.dpr(2));
   });
+
+  test('Test delivery color space from icc syntax', () {
+    cldAssert('cs_icc:test_public_id', Delivery.colorSpaceFromICC('test_public_id'));
+  });
 }

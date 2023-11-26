@@ -30,4 +30,8 @@ abstract class Delivery {
   static Dpr dpr([dynamic dpr]) {
     return Dpr(dpr);
   }
+
+  static ColorSpaceFromICC colorSpaceFromICC(String publicId) {
+    return ColorSpaceFromICC(publicId);
+  }
 }
