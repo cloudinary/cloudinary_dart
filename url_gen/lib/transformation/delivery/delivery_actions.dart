@@ -309,7 +309,6 @@ class ColorSpaceType {
   static cmyk() => ColorSpaceType('cmyk');
   static noCmyk() => ColorSpaceType('no_cmyk');
   static keepCmyk() => ColorSpaceType('keep_cmyk');
-  static icc() => ColorSpaceType('icc');
 
   @override
   String toString() {
