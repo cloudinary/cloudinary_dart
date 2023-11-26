@@ -30,4 +30,8 @@ abstract class Delivery {
   static Dpr dpr([dynamic dpr]) {
     return Dpr(dpr);
   }
+
+  static DefaultImage defaultImage(String publicIdWithExtension) {
+    return DefaultImage(publicIdWithExtension);
+  }
 }

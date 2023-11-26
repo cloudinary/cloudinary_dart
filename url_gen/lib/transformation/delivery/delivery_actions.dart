@@ -245,6 +245,17 @@ class Dpr extends DeliveryAction {
   }
 }
 
+class DefaultImage extends DeliveryAction {
+  String publicIdWithExtension;
+
+  DefaultImage(this.publicIdWithExtension);
+
+  @override
+  String toString() {
+    return 'd_$publicIdWithExtension';
+  }
+}
+
 class DprValue {
   dynamic value;
 
