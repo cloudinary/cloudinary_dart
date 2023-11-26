@@ -42,4 +42,8 @@ abstract class Delivery {
   static DefaultImage defaultImage(String publicIdWithExtension) {
     return DefaultImage(publicIdWithExtension);
   }
+
+  static ColorSpace colorSpace(dynamic colorSpace) {
+    return ColorSpace(colorSpace);
+  }
 }

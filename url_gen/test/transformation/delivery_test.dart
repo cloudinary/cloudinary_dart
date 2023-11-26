@@ -81,4 +81,8 @@ void main() {
   test('Test default image syntax', () {
     cldAssert('d_publicId.jpg', Delivery.defaultImage('publicId.jpg'));
   });
+
+  test('Test color space syntax,', () {
+    cldAssert('cs_srgb', Delivery.colorSpace(ColorSpaceType.srgb()));
+  });
 }
