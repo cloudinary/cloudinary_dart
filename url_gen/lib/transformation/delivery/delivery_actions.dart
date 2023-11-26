@@ -245,6 +245,16 @@ class Dpr extends DeliveryAction {
   }
 }
 
+class ColorSpace extends DeliveryAction {
+  dynamic colorSpace;
+  ColorSpace([this.colorSpace]);
+
+  @override
+  String toString() {
+    return 'cs_$colorSpace';
+  }
+}
+
 class DprValue {
   dynamic value;
 
@@ -253,6 +263,24 @@ class DprValue {
   @override
   String toString() {
     return value;
+  }
+}
+
+class ColorSpaceType {
+  final String value;
+
+  ColorSpaceType(this.value);
+
+  static srgb() => ColorSpaceType('srgb');
+  static tinySrgb() => ColorSpaceType('tinysrgb');
+  static cmyk() => ColorSpaceType('cmyk');
+  static noCmyk() => ColorSpaceType('no_cmyk');
+  static keepCmyk() => ColorSpaceType('keep_cmyk');
+  static icc() => ColorSpaceType('icc');
+
+  @override
+  String toString() {
+    return value.toString();
   }
 }
 

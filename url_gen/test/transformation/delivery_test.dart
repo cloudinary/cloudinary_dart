@@ -69,4 +69,8 @@ void main() {
     cldAssert("dpr_1.5", Delivery.dpr(1.5));
     cldAssert('dpr_2', Delivery.dpr(2));
   });
+
+  test('Test color space syntax,', () {
+    cldAssert('cs_srgb', Delivery.colorSpace(ColorSpaceType.srgb()));
+  });
 }
