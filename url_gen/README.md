@@ -7,6 +7,7 @@ Effortlessly optimize and transform your cloud's assets.
 
 As Flutter is build on the Dart language, understanding the Dart SDK is essential for utilizing the capabilities of the Flutter SDK, as well. For more information about the Flutter SDK, see the [Cloudinary Flutter documentation](https://cloudinary.com/documentation/flutter_integration).
 
+
 ### Note
 This Readme provides basic installation and usage information.
 
@@ -24,14 +25,14 @@ Transform and optimize assets. Visit our documentation to learn more about [medi
 ## Version Support
 | SDK Version | Dart Version |
 |-------------|--------------|
-| 1.0.0       | > 1.0        | 
+| 1.3.0       | > 1.0        | 
 
 ## Installation
 To use this SDK, add cloudinary as a [dependency in your pubspec.yaml file](https://flutter.dev/platform-plugins/).
 
 ```yaml
 dependencies:
-  cloudinary_url_gen: ^1.0.0
+  cloudinary_url_gen: ^1.3.0
 ```
 
 ## Usage

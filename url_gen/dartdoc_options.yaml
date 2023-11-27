@@ -1,0 +1,21 @@
+dartdoc:
+  categories:
+    "Asset":
+      markdown: doc/doc_assets/empty.html
+      name: Asset
+    "Configuration":
+      markdown: doc/doc_assets/empty.html
+      name: Configuration
+    "Transformation":
+      markdown: doc/doc_assets/empty.html
+      name: Transformation
+  categoryOrder: ["Api", "Asset", "Configuration", "Exception"]
+  exclude: ['README.md']
+  nodoc: [lib/analytics.dart, util/environment.dart, transformations/transformation_utils.dart, lib/transformation/common.dart, lib/transformation/resize/common.dart, lib/transformation/adjust/adjust_actions.dart]
+  showUndocumentedCategories: false
+  header: [doc/doc_assets/header.html]
+  footer: [doc/doc_assets/footer.html]
+  ignore:
+    - ambiguous-doc-reference
+  errors:
+    - unresolved-doc-reference

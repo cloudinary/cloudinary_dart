@@ -1,18 +1,17 @@
 os:
   - linux
 sudo: false
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - libstdc++6
-      - fonts-droid-fallback
-before_script:
-  - git clone https://github.com/flutter/flutter.git -b beta
-  - ./flutter/bin/flutter doctor
+language: dart
+dart:
+  - stable
+
+before_script: export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
 script:
-  - ./flutter/bin/flutter test
+  - cd url_gen
+  - dart test
+  - cd ..
+  - cd api
+  - dart test
 cache:
   directories:
     - $HOME/.pub-cache
