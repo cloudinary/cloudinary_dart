@@ -282,6 +282,12 @@ class ColorSpace extends DeliveryAction {
   dynamic colorSpace;
   ColorSpace([this.colorSpace]);
 
+  static srgb() => 'srgb';
+  static tinySrgb() => 'tinysrgb';
+  static cmyk() => 'cmyk';
+  static noCmyk() => 'no_cmyk';
+  static keepCmyk() => 'keep_cmyk';
+
   @override
   String toString() {
     return 'cs_$colorSpace';
@@ -296,23 +302,6 @@ class DprValue {
   @override
   String toString() {
     return value;
-  }
-}
-
-class ColorSpaceType {
-  final String value;
-
-  ColorSpaceType(this.value);
-
-  static srgb() => ColorSpaceType('srgb');
-  static tinySrgb() => ColorSpaceType('tinysrgb');
-  static cmyk() => ColorSpaceType('cmyk');
-  static noCmyk() => ColorSpaceType('no_cmyk');
-  static keepCmyk() => ColorSpaceType('keep_cmyk');
-
-  @override
-  String toString() {
-    return value.toString();
   }
 }
 
