@@ -1,5 +1,5 @@
-import 'package:cloudinary_dart/src/extensions/string_extension.dart';
-import 'package:cloudinary_dart/transformation/reshape/reshape_actions.dart';
+import 'package:cloudinary_url_gen/transformation/reshape/reshape_actions.dart';
+import 'package:cloudinary_url_gen/transformation/source/source.dart';
 
 import '../common.dart';
 
@@ -20,7 +20,11 @@ class Reshape extends Action {
     return Trim(colorSimilarity, colorOverride);
   }
 
-  //TODO: cutbyImage , missing Source , ImageSource, TextSource, FetchSource
+  static CutByImage cutByImage(Source source) {
+    return CutByImage(source);
+  }
+
+  //TODO: missing Source , ImageSource, TextSource, FetchSource
 
   @override
   String toString() {
