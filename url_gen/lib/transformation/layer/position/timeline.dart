@@ -1,7 +1,13 @@
+import 'dart:developer';
+
 class Timeline {
   dynamic _startOffset;
   dynamic _duration;
   dynamic _endOffset;
+
+  static Timeline position() {
+    return Timeline();
+  }
 
   Timeline startOffset(dynamic startOffset) {
     _startOffset = startOffset;
