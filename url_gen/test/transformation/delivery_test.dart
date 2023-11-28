@@ -83,6 +83,6 @@ void main() {
   });
 
   test('Test color space syntax,', () {
-    cldAssert('cs_srgb', Delivery.colorSpace(ColorSpaceType.srgb()));
+    cldAssert('cs_srgb', Delivery.colorSpace(ColorSpace.srgb()));
   });
 }
