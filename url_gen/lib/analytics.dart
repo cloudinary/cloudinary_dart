@@ -17,9 +17,13 @@ class Analytics {
 
   Analytics();
 
-  Analytics.fromParameters(
-      this.sdk, version, this.techVersion, this.osType, this.osVersion) {
-    sdkVersion = version;
+  Analytics.fromParameters({
+    String? sdk, String? version, String? techVersion, String? osType, String? osVersion}) {
+    this.sdk = sdk ?? this.sdk;
+    sdkVersion = version ?? sdkVersion;
+    this.techVersion = techVersion ?? this.techVersion;
+    this.osType = osType ?? this.osType;
+    this.osVersion = osVersion ?? this.osVersion;
   }
 
   String generateAnalyticsString() {
