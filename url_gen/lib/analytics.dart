@@ -15,17 +15,14 @@ class Analytics {
   String osType = 'Z'; // Z stand for 'other'
   String osVersion = '';
 
-  Analytics() {
-    techVersion = Platform.version.split(" ")[0];
-  }
+  Analytics();
 
   Analytics.fromParameters(
-      this.sdk, version, this.techVersion, this.osVersion) {
+      this.sdk, version, this.techVersion, this.osType, this.osVersion) {
     sdkVersion = version;
   }
 
   String generateAnalyticsString() {
-    getOSPlatform();
     try {
       return '$algoVersion$product$sdk${getVersionString(sdkVersion, shouldUsePatch: true)}${getVersionString(techVersion)}$osType${getOsVersion()}$noFeatureChar';
     } catch (e) {
@@ -86,18 +83,6 @@ class Analytics {
       return getVersionString(osVersion);
     } catch (e) {
       return 'AA'; // AA stands for not found.
-    }
-  }
-
-  void getOSPlatform() {
-    if (Platform.isIOS) {
-      osType = 'B'; // 'B' stands for iOS
-      osVersion = getVersionString(Platform.operatingSystemVersion);
-    } else if (Platform.isAndroid) {
-      osType = 'A'; // 'A' stands for Android
-      osVersion = getVersionString(Platform.operatingSystemVersion);
-    } else {
-      osType = 'Z'; // Z stands for other
     }
   }
 }
