@@ -1,9 +1,11 @@
+import 'package:cloudinary_url_gen/analytics/analytics_helper.dart';
 import 'package:universal_io/io.dart';
 
 import '../cloudinary.dart';
 import '../src/extensions/string_extension.dart';
 
 class Analytics {
+
   final sdkTokenQueryKey = "_a";
   final sdkQueryDelimiter = "=";
   final algoVersion = 'C';
@@ -84,7 +86,7 @@ class Analytics {
 
   String getOsVersion() {
     if(osVersion.isEmpty) {
-      osVersion = getVersionString(Platform.operatingSystemVersion);
+      osVersion = getVersionString(PlatformWrapper.getOperatingSystemVersion());
     }
     try {
       return getVersionString(osVersion);
@@ -94,13 +96,13 @@ class Analytics {
   }
 
   String getTechVersion() {
-    return Platform.version.split(" ")[0];
+    return PlatformWrapper.getVersion();
   }
 
   String getOsType() {
-    if (Platform.isIOS) {
+    if (PlatformWrapper.isiOS()) {
       return 'B';
-    } else if (Platform.isAndroid) {
+    } else if (PlatformWrapper.isAndroid()) {
       return  'A'; // 'A' stands for Android
     } else {
       return 'Z';
