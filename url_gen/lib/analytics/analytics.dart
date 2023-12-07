@@ -1,7 +1,7 @@
 import 'package:universal_io/io.dart';
 
-import 'cloudinary.dart';
-import 'src/extensions/string_extension.dart';
+import '../cloudinary.dart';
+import '../src/extensions/string_extension.dart';
 
 class Analytics {
   final sdkTokenQueryKey = "_a";
@@ -21,9 +21,9 @@ class Analytics {
     String? sdk, String? version, String? techVersion, String? osType, String? osVersion}) {
     this.sdk = sdk ?? this.sdk;
     sdkVersion = version ?? sdkVersion;
-    this.techVersion = techVersion ?? this.techVersion;
-    this.osType = osType ?? this.osType;
-    this.osVersion = osVersion ?? this.osVersion;
+    this.techVersion = techVersion ?? getTechVersion();
+    this.osType = osType ?? getOsType();
+    this.osVersion = osVersion ?? '';
   }
 
   String generateAnalyticsString() {
@@ -83,10 +83,27 @@ class Analytics {
   }
 
   String getOsVersion() {
+    if(osVersion.isEmpty) {
+      osVersion = getVersionString(Platform.operatingSystemVersion);
+    }
     try {
       return getVersionString(osVersion);
     } catch (e) {
       return 'AA'; // AA stands for not found.
+    }
+  }
+
+  String getTechVersion() {
+    return Platform.version.split(" ")[0];
+  }
+
+  String getOsType() {
+    if (Platform.isIOS) {
+      return 'B';
+    } else if (Platform.isAndroid) {
+      return  'A'; // 'A' stands for Android
+    } else {
+      return 'Z';
     }
   }
 }

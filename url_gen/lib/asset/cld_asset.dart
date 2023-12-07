@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
-import '../analytics.dart';
+import '../analytics/analytics.dart';
 import '../auth_token.dart';
 import '../config/cloud_config.dart';
 import '../config/url_config.dart';

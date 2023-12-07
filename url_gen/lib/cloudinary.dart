@@ -1,4 +1,4 @@
-import 'analytics.dart';
+import 'analytics/analytics.dart';
 import 'asset/cld_image.dart';
 import 'asset/cld_video.dart';
 import 'config/cloudinary_config.dart';

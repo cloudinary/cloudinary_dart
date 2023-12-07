@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import 'package:cloudinary_url_gen/analytics.dart';
+import 'package:cloudinary_url_gen/analytics/analytics.dart';
 
 import 'tests_utils.dart';
 
@@ -28,6 +28,17 @@ void main() {
             var analytics = Analytics.fromParameters(sdk: 'R', version: '1.24.0', techVersion: '12.0.1', osType: 'Z', osVersion: 'sdk_gphone64_arm64-userdebug 13 TE1A.220922.031 10278734 dev-keys')
                 .generateAnalyticsString();
             cldAssert('CARAlhAMZAA0', analytics);
+    });
+    test('Test successfully generate analytics token no os version', () {
+      var analytics = Analytics.fromParameters(sdk: 'R', version: '1.24.0', techVersion: '12.0.1', osType: 'Z')
+          .generateAnalyticsString();
+      cldAssert('CARAlhAMZAA0', analytics);
+    });
+
+    test('Test successfully generate analytics token no os version and type', () {
+      var analytics = Analytics.fromParameters(sdk: 'R', version: '1.24.0', techVersion: '12.0.1')
+          .generateAnalyticsString();
+      cldAssert('CARAlhAMZAA0', analytics);
     });
   });
 }
