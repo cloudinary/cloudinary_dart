@@ -47,6 +47,12 @@ class UploaderUtils {
       }
     }
 
+    if (paramsMap['api_key'] == null && (config.apiKey?.isNotEmpty ?? false)) {
+      // Handles the scenario where the signature is specified explicitly.
+      if (paramsMap['signature'] != null) paramsMap['api_key'] = config.apiKey;
+    }
+
+
     var url = [prefix, apiVersion, cloudName, resourceType, action]
         .noNullList()
         .join("/");
