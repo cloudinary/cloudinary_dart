@@ -85,12 +85,8 @@ class Analytics {
 
   String getOsVersion() {
     if(osVersion.isEmpty) {
-      try {
         osVersion = PlatformWrapper.getOperatingSystemVersion();
         return getVersionString(osVersion);
-      } catch (e) {
-        return 'AA'; // AA stands for not found.
-      }
     }
     return getVersionString(osVersion);
   }
@@ -100,12 +96,12 @@ class Analytics {
   }
 
   String getOsType() {
-    if (PlatformWrapper.isiOS()) {
-      return 'B';
-    } else if (PlatformWrapper.isAndroid()) {
-      return  'A'; // 'A' stands for Android
-    } else {
-      return 'Z';
-    }
+      if (PlatformWrapper.isiOS()) {
+        return 'B';
+      } else if (PlatformWrapper.isAndroid()) {
+        return 'A'; // 'A' stands for Android
+      } else {
+        return 'Z';
+      }
   }
 }
