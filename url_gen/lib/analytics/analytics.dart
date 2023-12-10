@@ -86,6 +86,7 @@ class Analytics {
   String getOsVersion() {
     if(osVersion.isEmpty) {
       try {
+        osVersion = PlatformWrapper.getOperatingSystemVersion();
         return getVersionString(osVersion);
       } catch (e) {
         return 'AA'; // AA stands for not found.
