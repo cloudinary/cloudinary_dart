@@ -96,15 +96,23 @@ class Analytics {
   }
 
   String getTechVersion() {
-    return PlatformWrapper.getVersion();
+    try {
+      return PlatformWrapper.getVersion();
+    } catch(e) {
+      return 'AA';
+    }
   }
 
   String getOsType() {
-    if (PlatformWrapper.isiOS()) {
-      return 'B';
-    } else if (PlatformWrapper.isAndroid()) {
-      return  'A'; // 'A' stands for Android
-    } else {
+    try {
+      if (PlatformWrapper.isiOS()) {
+        return 'B';
+      } else if (PlatformWrapper.isAndroid()) {
+        return 'A'; // 'A' stands for Android
+      } else {
+        return 'Z';
+      }
+    } catch (e) {
       return 'Z';
     }
   }
