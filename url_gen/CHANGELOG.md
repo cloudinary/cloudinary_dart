@@ -1,3 +1,7 @@
+## 1.4.1
+- Fix algo version
+- Remove not needed imports
+
 ## 1.4.0
 - Fix signature api key
 - Fix analytics token OS
