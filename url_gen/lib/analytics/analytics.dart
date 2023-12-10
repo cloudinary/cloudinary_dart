@@ -1,9 +1,11 @@
+import 'package:cloudinary_url_gen/analytics/analytics_helper.dart';
 import 'package:universal_io/io.dart';
 
-import 'cloudinary.dart';
-import 'src/extensions/string_extension.dart';
+import '../cloudinary.dart';
+import '../src/extensions/string_extension.dart';
 
 class Analytics {
+
   final sdkTokenQueryKey = "_a";
   final sdkQueryDelimiter = "=";
   final algoVersion = 'C';
@@ -15,17 +17,18 @@ class Analytics {
   String osType = 'Z'; // Z stand for 'other'
   String osVersion = '';
 
-  Analytics() {
-    techVersion = Platform.version.split(" ")[0];
-  }
+  Analytics();
 
-  Analytics.fromParameters(
-      this.sdk, version, this.techVersion, this.osVersion) {
-    sdkVersion = version;
+  Analytics.fromParameters({
+    String? sdk, String? version, String? techVersion, String? osType, String? osVersion}) {
+    this.sdk = sdk ?? this.sdk;
+    sdkVersion = version ?? sdkVersion;
+    this.techVersion = techVersion ?? getTechVersion();
+    this.osType = osType ?? getOsType();
+    this.osVersion = osVersion ?? '';
   }
 
   String generateAnalyticsString() {
-    getOSPlatform();
     try {
       return '$algoVersion$product$sdk${getVersionString(sdkVersion, shouldUsePatch: true)}${getVersionString(techVersion)}$osType${getOsVersion()}$noFeatureChar';
     } catch (e) {
@@ -82,6 +85,9 @@ class Analytics {
   }
 
   String getOsVersion() {
+    if(osVersion.isEmpty) {
+      osVersion = getVersionString(PlatformWrapper.getOperatingSystemVersion());
+    }
     try {
       return getVersionString(osVersion);
     } catch (e) {
@@ -89,15 +95,17 @@ class Analytics {
     }
   }
 
-  void getOSPlatform() {
-    if (Platform.isIOS) {
-      osType = 'B'; // 'B' stands for iOS
-      osVersion = getVersionString(Platform.operatingSystemVersion);
-    } else if (Platform.isAndroid) {
-      osType = 'A'; // 'A' stands for Android
-      osVersion = getVersionString(Platform.operatingSystemVersion);
+  String getTechVersion() {
+    return PlatformWrapper.getVersion();
+  }
+
+  String getOsType() {
+    if (PlatformWrapper.isiOS()) {
+      return 'B';
+    } else if (PlatformWrapper.isAndroid()) {
+      return  'A'; // 'A' stands for Android
     } else {
-      osType = 'Z'; // Z stands for other
+      return 'Z';
     }
   }
 }
