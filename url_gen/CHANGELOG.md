@@ -1,3 +1,6 @@
+## 1.4.3
+- Fix analytics token os version function
+
 ## 1.4.2
 - Fix analytics os version
 
