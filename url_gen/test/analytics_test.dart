@@ -32,13 +32,13 @@ void main() {
     test('Test successfully generate analytics token no os version', () {
       var analytics = Analytics.fromParameters(sdk: 'R', version: '1.24.0', techVersion: '12.0.1', osType: 'Z')
           .generateAnalyticsString();
-      cldAssert('DARAlhAMZAA0', analytics);
+      cldAssert('CARAlhAMZAA0', analytics);
     });
 
     test('Test successfully generate analytics token no os version and type', () {
       var analytics = Analytics.fromParameters(sdk: 'R', version: '1.24.0', techVersion: '12.0.1')
           .generateAnalyticsString();
-      cldAssert('DARAlhAMZAA0', analytics);
+      cldAssert('CARAlhAMZAA0', analytics);
     });
   });
 }

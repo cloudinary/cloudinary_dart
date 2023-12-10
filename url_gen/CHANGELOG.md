@@ -1,3 +1,26 @@
+## 1.4.4
+- Secure `Platform` usage
+
+## 1.4.3
+- Fix analytics token os version function
+
+## 1.4.2
+- Fix analytics os version
+
+## 1.4.1
+- Fix algo version
+- Remove not needed imports
+
+## 1.4.0
+- Fix signature api key
+- Fix analytics token OS
+- Add Reshape action
+- Add Colorspace
+- Add default image action
+- Add density action
+- Update generative replace
+- Update generative Recolor
+
 ## 1.3.0
 - Add progress bar effect
 - Add video codec action

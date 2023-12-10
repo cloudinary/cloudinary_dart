@@ -1,5 +1,4 @@
 import 'package:cloudinary_url_gen/analytics/analytics_helper.dart';
-import 'package:universal_io/io.dart';
 
 import '../cloudinary.dart';
 import '../src/extensions/string_extension.dart';
@@ -105,13 +104,10 @@ class Analytics {
 
   String getOsVersion() {
     if(osVersion.isEmpty) {
-      osVersion = getVersionString(PlatformWrapper.getOperatingSystemVersion());
+      osVersion = PlatformWrapper.getOperatingSystemVersion();
+      return getVersionString(osVersion);
     }
-    try {
-      return getOSVersionString(osVersion);
-    } catch (e) {
-      return 'AA'; // AA stands for not found.
-    }
+    return getVersionString(osVersion);
   }
 
   String getTechVersion() {
@@ -119,12 +115,12 @@ class Analytics {
   }
 
   String getOsType() {
-    if (PlatformWrapper.isiOS()) {
-      return 'B';
-    } else if (PlatformWrapper.isAndroid()) {
-      return  'A'; // 'A' stands for Android
-    } else {
-      return 'Z';
-    }
+      if (PlatformWrapper.isiOS()) {
+        return 'B';
+      } else if (PlatformWrapper.isAndroid()) {
+        return 'A'; // 'A' stands for Android
+      } else {
+        return 'Z';
+      }
   }
 }
