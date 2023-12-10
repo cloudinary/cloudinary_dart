@@ -1,3 +1,13 @@
+## 1.4.0
+- Fix signature api key
+- Fix analytics token OS
+- Add Reshape action
+- Add Colorspace
+- Add default image action
+- Add density action
+- Update generative replace
+- Update generative Recolor
+
 ## 1.3.0
 - Add progress bar effect
 - Add video codec action
