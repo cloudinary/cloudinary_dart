@@ -1,3 +1,6 @@
+## 1.4.2
+- Fix analytics os version
+
 ## 1.4.1
 - Fix algo version
 - Remove not needed imports

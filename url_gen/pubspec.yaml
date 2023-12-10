@@ -1,6 +1,6 @@
 name: cloudinary_url_gen
 description: Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline
-version: 1.4.1
+version: 1.4.2
 homepage: https://www.cloudinary.com
 repository: https://github.com/cloudinary/cloudinary_dart
 
