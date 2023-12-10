@@ -1,5 +1,4 @@
 import 'package:cloudinary_url_gen/analytics/analytics_helper.dart';
-import 'package:universal_io/io.dart';
 
 import '../cloudinary.dart';
 import '../src/extensions/string_extension.dart';
@@ -8,7 +7,7 @@ class Analytics {
 
   final sdkTokenQueryKey = "_a";
   final sdkQueryDelimiter = "=";
-  final algoVersion = 'C';
+  final algoVersion = 'D';
   final product = 'A';
   String sdk = 'R';
   final errorSignature = "E";
