@@ -1,7 +1,6 @@
 import 'package:cloudinary_url_gen/transformation/color.dart';
 import 'package:cloudinary_url_gen/transformation/layer/position/position.dart';
 import 'package:cloudinary_url_gen/transformation/reshape/reshape.dart';
-import 'package:cloudinary_url_gen/transformation/resize/crop.dart';
 import 'package:cloudinary_url_gen/transformation/resize/resize.dart';
 import 'package:cloudinary_url_gen/transformation/source/source.dart';
 import 'package:cloudinary_url_gen/transformation/transformation.dart';
