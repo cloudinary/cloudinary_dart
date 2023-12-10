@@ -1,4 +1,4 @@
-import '../../analytics.dart';
+import '../../analytics/analytics.dart';
 import '../../config/cloud_config.dart';
 import '../../config/url_config.dart';
 import '../../transformation/transformation.dart';

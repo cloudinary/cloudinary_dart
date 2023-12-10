@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import '../lib/analytics.dart';
+import '../lib/analytics/analytics.dart';
 import '../lib/asset/cld_asset.dart';
 import '../lib/auth_token.dart';
 import '../lib/cloudinary.dart';
