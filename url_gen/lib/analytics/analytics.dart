@@ -105,9 +105,9 @@ class Analytics {
   String getOsVersion() {
     if(osVersion.isEmpty) {
       osVersion = PlatformWrapper.getOperatingSystemVersion();
-      return getVersionString(osVersion);
+      return getOSVersionString(osVersion);
     }
-    return getVersionString(osVersion);
+    return getOSVersionString(osVersion);
   }
 
   String getTechVersion() {
