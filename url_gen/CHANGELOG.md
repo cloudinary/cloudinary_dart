@@ -1,3 +1,6 @@
+## 1.4.4
+- Secure `Platform` usage
+
 ## 1.4.3
 - Fix analytics token os version function
 

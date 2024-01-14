@@ -36,13 +36,20 @@ class Analytics {
   }
 
   String getVersionString(String version, {bool shouldUsePatch = false}) {
-    var versionArray =
-    getVersionArray(version); //version.split(RegExp(r'[.\-]'));
+    var versionArray = getVersionArray(version);
     if (shouldUsePatch) {
       return generateVersionString(versionArray);
     }
-    if(versionArray.length >= 2) {
+    if (versionArray.length >= 2) {
       return generateVersionString([versionArray[0], versionArray[1]]);
+    }
+    return 'AA';
+  }
+
+  String getOSVersionString(String version) {
+    var versionArray = getVersionArray(version);
+    if (versionArray.length >= 2) {
+      return generateOSVersionString([versionArray[0], versionArray[1]]);
     }
     return 'AA';
   }
@@ -60,6 +67,18 @@ class Analytics {
     return versionArray;
   }
 
+  String generateOSVersionString(List<String> versionArray) {
+    var major = versionArray[0];
+    var minor = versionArray[1];
+    var majorVersion = int.parse(major).toRadixString(2);
+    var minorVersion = int.parse(minor).toRadixString(2);
+
+    var majorString = majorVersion.toAnalyticsString();
+    var minorString = minorVersion.toAnalyticsString();
+
+    return '$majorString$minorString';
+  }
+
   String generateVersionString(List<String> versionArray) {
     var major = versionArray[0];
     var minor = versionArray[1];
@@ -70,8 +89,8 @@ class Analytics {
       patch = "";
     }
     var versionString =
-        patch.padLeft(2, "0") + minor.padLeft(2, "0") + major.padLeft(2, "0");
-    var version = int.parse(versionString).toRadixString(2).padLeft(18, "0");
+        patch.padLeft(2, '0') + minor.padLeft(2, '0') + major.padLeft(2, '0');
+    var version = int.parse(versionString).toRadixString(2).padLeft(18, '0');
 
     var patchStr = "";
     if (patch.isNotEmpty) {
@@ -85,10 +104,10 @@ class Analytics {
 
   String getOsVersion() {
     if(osVersion.isEmpty) {
-        osVersion = PlatformWrapper.getOperatingSystemVersion();
-        return getVersionString(osVersion);
+      osVersion = PlatformWrapper.getOperatingSystemVersion();
+      return getOSVersionString(osVersion);
     }
-    return getVersionString(osVersion);
+    return getOSVersionString(osVersion);
   }
 
   String getTechVersion() {
