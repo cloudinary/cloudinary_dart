@@ -1,3 +1,6 @@
+## 1.5.0
+- Update analytics token
+
 ## 1.4.4
 - Secure `Platform` usage
 
