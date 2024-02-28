@@ -55,7 +55,7 @@ void main() {
 
     cloudinary.uploader().upload(srcTestImage,
         params:
-            UploadParams(resourceType: ResourceType.raw.name, tags: setupTags, unsigned: false, signature: ""));
+            UploadParams(resourceType: ResourceType.raw.name, tags: setupTags));
 
     cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(
