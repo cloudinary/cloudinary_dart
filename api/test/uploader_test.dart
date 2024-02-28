@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
 
@@ -55,7 +56,7 @@ void main() {
 
     cloudinary.uploader().upload(srcTestImage,
         params:
-            UploadParams(resourceType: ResourceType.raw.name, tags: setupTags));
+            UploadParams(resourceType: ResourceType.raw.name, tags: setupTags, unsigned: false, signature: ""));
 
     cloudinary.uploader().upload(srcTestImage,
         params: UploadParams(
@@ -279,6 +280,14 @@ void main() {
 
     var error = response?.error;
     assert(error?.message == "Detection invalid model 'illegal'");
+  });
+
+  test('Test Cloudinary upload with media metadata', () async {
+    var response = await cloudinary.uploader().upload(srcTestImage,
+        params: UploadParams(mediaMetadata: true));
+
+    var result = resultOrThrow(response?.data);
+    assert(result.imageMetadata != null);
   });
 
   test('Test Cloudinary upload large', () async {

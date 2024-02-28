@@ -36,6 +36,7 @@ class UploadResult {
   ResultContext? context;
   bool? done;
   ResultAccessibilityAnalysis? accessibilityAnalysis;
+  Map<String, dynamic>? imageMetadata;
 
   UploadResult(
       {this.publicId,
@@ -71,7 +72,8 @@ class UploadResult {
       this.deleteToken,
       this.context,
       this.done,
-      this.accessibilityAnalysis});
+      this.accessibilityAnalysis,
+      this.imageMetadata});
 
   factory UploadResult.fromJson(Map<String, dynamic> data) {
     final publicId = data['public_id'] as String?;
@@ -135,6 +137,7 @@ class UploadResult {
     final accessibilityAnalysis = (data['accessibility_analysis'] != null)
         ? ResultAccessibilityAnalysis.fromJson(data['accessibility_analysis'])
         : null;
+    final imageMetadata = data['image_metadata'];
 
     return UploadResult(
         publicId: publicId,
@@ -170,7 +173,8 @@ class UploadResult {
         deleteToken: deleteToken,
         context: context,
         done: done,
-        accessibilityAnalysis: accessibilityAnalysis);
+        accessibilityAnalysis: accessibilityAnalysis,
+        imageMetadata: imageMetadata);
   }
 }
 
