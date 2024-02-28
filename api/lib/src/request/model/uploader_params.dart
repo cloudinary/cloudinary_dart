@@ -64,6 +64,7 @@ class UploadParams extends UploaderParams {
   bool? exif;
   bool? faces;
   bool? colors;
+  @Deprecated('Use the mediaMetadata instead.')
   bool? imageMetadata;
   bool? mediaMetadata;
   bool? useFilename;
@@ -117,6 +118,7 @@ class UploadParams extends UploaderParams {
       this.exif,
       this.faces,
       this.colors,
+      @Deprecated('Use the mediaMetadata instead.')
       this.imageMetadata,
       this.mediaMetadata,
       this.useFilename,
