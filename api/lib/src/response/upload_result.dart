@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import '../request/model/params/access_control_rule.dart';
 import '../request/model/params/coordinates.dart';
 
@@ -37,6 +39,7 @@ class UploadResult {
   bool? done;
   ResultAccessibilityAnalysis? accessibilityAnalysis;
   Map<String, dynamic>? imageMetadata;
+  VideoResultObject? video;
 
   UploadResult(
       {this.publicId,
@@ -73,7 +76,8 @@ class UploadResult {
       this.context,
       this.done,
       this.accessibilityAnalysis,
-      this.imageMetadata});
+      this.imageMetadata,
+      this.video});
 
   factory UploadResult.fromJson(Map<String, dynamic> data) {
     final publicId = data['public_id'] as String?;
@@ -138,6 +142,7 @@ class UploadResult {
         ? ResultAccessibilityAnalysis.fromJson(data['accessibility_analysis'])
         : null;
     final imageMetadata = data['image_metadata'];
+    final video = (data['video'] != null) ? VideoResultObject.fromJson(data['video']) : null;
 
     return UploadResult(
         publicId: publicId,
@@ -174,7 +179,8 @@ class UploadResult {
         context: context,
         done: done,
         accessibilityAnalysis: accessibilityAnalysis,
-        imageMetadata: imageMetadata);
+        imageMetadata: imageMetadata,
+        video: video);
   }
 }
 
@@ -290,6 +296,33 @@ class ResultAccessibilityAnalysis {
     return ResultAccessibilityAnalysis(
         colorblindAccessibilityAnalysis, colorblindAccessibilityScore);
   }
+}
+
+class VideoResultObject {
+  String? pixFormat;
+  String? codec;
+  int? level;
+  String? profile;
+  String? bitRate;
+  String? dar;
+  String? timeBase;
+  Map<String, dynamic>? metadata;
+
+  VideoResultObject({this.pixFormat, this.codec, this.level, this.profile, this.bitRate, this.dar, this.timeBase, this.metadata});
+
+  factory VideoResultObject.fromJson(Map<String, dynamic> data) {
+    final pixFormat = data['pix_format'] as String?;
+    final codec = data['codec'] as String?;
+    final level = data['level'] as int?;
+    final profile = data['profile'] as String?;
+    final bitRate = data['bit_rate'] as String?;
+    final dar = data['dar'] as String?;
+    final timeBase = data['time_base'] as String?;
+    final metadata = data['metadata'] as Map<String, dynamic>?;
+
+    return VideoResultObject(pixFormat: pixFormat, codec: codec, level: level, profile: profile, bitRate: bitRate, dar: dar, timeBase: timeBase, metadata: metadata);
+  }
+
 }
 
 class ResultColorblindAccessibilityScore {
