@@ -40,6 +40,7 @@ class UploadResult {
   ResultAccessibilityAnalysis? accessibilityAnalysis;
   Map<String, dynamic>? imageMetadata;
   VideoResultObject? video;
+  AudioResultObject? audio;
 
   UploadResult(
       {this.publicId,
@@ -77,7 +78,8 @@ class UploadResult {
       this.done,
       this.accessibilityAnalysis,
       this.imageMetadata,
-      this.video});
+      this.video,
+      this.audio});
 
   factory UploadResult.fromJson(Map<String, dynamic> data) {
     final publicId = data['public_id'] as String?;
@@ -143,6 +145,7 @@ class UploadResult {
         : null;
     final imageMetadata = data['image_metadata'];
     final video = (data['video'] != null) ? VideoResultObject.fromJson(data['video']) : null;
+    final audio = (data['audio'] != null) ? AudioResultObject.fromJson(data['audio']) : null;
 
     return UploadResult(
         publicId: publicId,
@@ -180,7 +183,8 @@ class UploadResult {
         done: done,
         accessibilityAnalysis: accessibilityAnalysis,
         imageMetadata: imageMetadata,
-        video: video);
+        video: video,
+        audio: audio);
   }
 }
 
@@ -295,6 +299,26 @@ class ResultAccessibilityAnalysis {
         data['colorblind_accessibility_score'] as double;
     return ResultAccessibilityAnalysis(
         colorblindAccessibilityAnalysis, colorblindAccessibilityScore);
+  }
+}
+
+class AudioResultObject {
+  String? codec;
+  String? bitRate;
+  int? frequency;
+  int? channels;
+  String? channelLayout;
+
+  AudioResultObject({this.codec, this.bitRate, this.frequency, this.channels, this.channelLayout});
+
+  factory AudioResultObject.fromJson(Map<String, dynamic> data) {
+    final codec = data['codec'] as String?;
+    final bitRate = data['bit_rate'] as String?;
+    final frequency = data['frequency'] as int?;
+    final channels = data['channels'] as int?;
+    final channelLayout = data['channel_layout'] as String?;
+
+    return AudioResultObject(codec: codec, bitRate: bitRate, frequency: frequency, channels: channels, channelLayout: channelLayout);
   }
 }
 
