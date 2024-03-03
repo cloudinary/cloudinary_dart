@@ -64,7 +64,9 @@ class UploadParams extends UploaderParams {
   bool? exif;
   bool? faces;
   bool? colors;
+  @Deprecated('Use the mediaMetadata instead.')
   bool? imageMetadata;
+  bool? mediaMetadata;
   bool? useFilename;
   bool? uniqueFilename;
   bool? eagerAsync;
@@ -116,7 +118,9 @@ class UploadParams extends UploaderParams {
       this.exif,
       this.faces,
       this.colors,
+      @Deprecated('Use the mediaMetadata instead.')
       this.imageMetadata,
+      this.mediaMetadata,
       this.useFilename,
       this.uniqueFilename,
       this.eagerAsync,
@@ -190,6 +194,7 @@ class UploadParams extends UploaderParams {
       'faces': faces,
       'colors': colors,
       'image_metadata': imageMetadata,
+      'media_metadata': mediaMetadata,
       'use_filename': useFilename,
       'unique_filename': uniqueFilename,
       'eager_async': eagerAsync,
@@ -243,6 +248,7 @@ class UploadParams extends UploaderParams {
     mapParams['faces'] = faces?.toString();
     mapParams['colors'] = colors?.toString();
     mapParams['image_metadata'] = imageMetadata?.toString();
+    mapParams['media_metadata'] = mediaMetadata?.toString();
     mapParams['use_filename'] = useFilename?.toString();
     mapParams['unique_filename'] = uniqueFilename?.toString();
     mapParams['eager_async'] = eagerAsync?.toString();

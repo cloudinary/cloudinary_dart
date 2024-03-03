@@ -281,6 +281,14 @@ void main() {
     assert(error?.message == "Detection invalid model 'illegal'");
   });
 
+  test('Test Cloudinary upload with media metadata', () async {
+    var response = await cloudinary.uploader().upload(srcTestImage,
+        params: UploadParams(mediaMetadata: true));
+
+    var result = resultOrThrow(response?.data);
+    assert(result.imageMetadata != null);
+  });
+
   test('Test Cloudinary upload large', () async {
     File file = createTempFile();
     assert(6291456 == file.lengthSync());

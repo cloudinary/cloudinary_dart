@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import '../request/model/params/access_control_rule.dart';
 import '../request/model/params/coordinates.dart';
 
@@ -36,6 +38,9 @@ class UploadResult {
   ResultContext? context;
   bool? done;
   ResultAccessibilityAnalysis? accessibilityAnalysis;
+  Map<String, dynamic>? imageMetadata;
+  VideoResultObject? video;
+  AudioResultObject? audio;
 
   UploadResult(
       {this.publicId,
@@ -71,7 +76,10 @@ class UploadResult {
       this.deleteToken,
       this.context,
       this.done,
-      this.accessibilityAnalysis});
+      this.accessibilityAnalysis,
+      this.imageMetadata,
+      this.video,
+      this.audio});
 
   factory UploadResult.fromJson(Map<String, dynamic> data) {
     final publicId = data['public_id'] as String?;
@@ -135,6 +143,9 @@ class UploadResult {
     final accessibilityAnalysis = (data['accessibility_analysis'] != null)
         ? ResultAccessibilityAnalysis.fromJson(data['accessibility_analysis'])
         : null;
+    final imageMetadata = data['image_metadata'];
+    final video = (data['video'] != null) ? VideoResultObject.fromJson(data['video']) : null;
+    final audio = (data['audio'] != null) ? AudioResultObject.fromJson(data['audio']) : null;
 
     return UploadResult(
         publicId: publicId,
@@ -170,7 +181,10 @@ class UploadResult {
         deleteToken: deleteToken,
         context: context,
         done: done,
-        accessibilityAnalysis: accessibilityAnalysis);
+        accessibilityAnalysis: accessibilityAnalysis,
+        imageMetadata: imageMetadata,
+        video: video,
+        audio: audio);
   }
 }
 
@@ -286,6 +300,53 @@ class ResultAccessibilityAnalysis {
     return ResultAccessibilityAnalysis(
         colorblindAccessibilityAnalysis, colorblindAccessibilityScore);
   }
+}
+
+class AudioResultObject {
+  String? codec;
+  String? bitRate;
+  int? frequency;
+  int? channels;
+  String? channelLayout;
+
+  AudioResultObject({this.codec, this.bitRate, this.frequency, this.channels, this.channelLayout});
+
+  factory AudioResultObject.fromJson(Map<String, dynamic> data) {
+    final codec = data['codec'] as String?;
+    final bitRate = data['bit_rate'] as String?;
+    final frequency = data['frequency'] as int?;
+    final channels = data['channels'] as int?;
+    final channelLayout = data['channel_layout'] as String?;
+
+    return AudioResultObject(codec: codec, bitRate: bitRate, frequency: frequency, channels: channels, channelLayout: channelLayout);
+  }
+}
+
+class VideoResultObject {
+  String? pixFormat;
+  String? codec;
+  int? level;
+  String? profile;
+  String? bitRate;
+  String? dar;
+  String? timeBase;
+  Map<String, dynamic>? metadata;
+
+  VideoResultObject({this.pixFormat, this.codec, this.level, this.profile, this.bitRate, this.dar, this.timeBase, this.metadata});
+
+  factory VideoResultObject.fromJson(Map<String, dynamic> data) {
+    final pixFormat = data['pix_format'] as String?;
+    final codec = data['codec'] as String?;
+    final level = data['level'] as int?;
+    final profile = data['profile'] as String?;
+    final bitRate = data['bit_rate'] as String?;
+    final dar = data['dar'] as String?;
+    final timeBase = data['time_base'] as String?;
+    final metadata = data['metadata'] as Map<String, dynamic>?;
+
+    return VideoResultObject(pixFormat: pixFormat, codec: codec, level: level, profile: profile, bitRate: bitRate, dar: dar, timeBase: timeBase, metadata: metadata);
+  }
+
 }
 
 class ResultColorblindAccessibilityScore {
