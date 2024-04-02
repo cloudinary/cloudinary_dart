@@ -306,6 +306,14 @@ class Effect extends Action {
     return GenerativeRestore();
   }
 
+  static BlurFaces blurFaces({dynamic strength}) {
+    return BlurFaces(strength: strength);
+  }
+
+  static BlurRegion blurRegion({dynamic strength, dynamic width, dynamic height, dynamic x, dynamic y}) {
+    return BlurRegion(strength: strength, width: width, height: height, x: x, y: y);
+  }
+
   @override
   String toString() {
     return 'e';
