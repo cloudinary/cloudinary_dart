@@ -1073,6 +1073,13 @@ class GenerativeRestore extends Effect {
   }
 }
 
+class Upscale extends Effect {
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['upscale'], actionSeparator: paramKeyValueSeparator);
+  }
+}
+
 class ShakeStrength {
   int factor;
 

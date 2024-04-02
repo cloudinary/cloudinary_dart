@@ -345,6 +345,10 @@ void main() {
     cldAssert('e_gen_restore', Effect.generativeRestore());
   });
 
+  test('Test successful upscale effect', () {
+    cldAssert('e_upscale', Effect.upscale());
+  });
+
   test('Test successful enhance effect', () {
     cldAssert('e_enhance', Effect.enhance());
   });

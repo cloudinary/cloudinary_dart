@@ -306,6 +306,10 @@ class Effect extends Action {
     return GenerativeRestore();
   }
 
+  static Upscale upscale() {
+    return Upscale();
+  }
+
   static Enhance enhance() {
     return Enhance();
   }
