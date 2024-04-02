@@ -306,6 +306,10 @@ class Effect extends Action {
     return GenerativeRestore();
   }
 
+  static Upscale upscale() {
+    return Upscale();
+  }
+
   @override
   String toString() {
     return 'e';
