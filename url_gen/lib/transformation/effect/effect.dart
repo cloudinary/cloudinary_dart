@@ -314,6 +314,14 @@ class Effect extends Action {
     return BlurRegion(strength: strength, width: width, height: height, x: x, y: y);
   }
 
+  static Upscale upscale() {
+    return Upscale();
+  }
+
+  static Enhance enhance() {
+    return Enhance();
+  }
+
   @override
   String toString() {
     return 'e';

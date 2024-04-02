@@ -344,7 +344,15 @@ void main() {
   test('Test successful generative restore effect', () {
     cldAssert('e_gen_restore', Effect.generativeRestore());
   });
-  
+
+  test('Test successful upscale effect', () {
+    cldAssert('e_upscale', Effect.upscale());
+  });
+
+  test('Test successful enhance effect', () {
+    cldAssert('e_enhance', Effect.enhance());
+  });
+
   test('Test successful blur faces effect', () {
     cldAssert('e_blur_faces', Effect.blurFaces());
     cldAssert('e_blur_faces:600', Effect.blurFaces().strength(600));

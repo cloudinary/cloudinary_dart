@@ -1059,6 +1059,13 @@ class GenerativeRemove extends Effect {
   }
 }
 
+class Enhance extends Effect {
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['enhance'], actionSeparator: paramKeyValueSeparator);
+  }
+}
+
 class GenerativeRestore extends Effect {
   @override
   String toString() {
@@ -1135,6 +1142,13 @@ class BlurFaces extends Effect {
   @override
   String toString() {
     return super.toString().joinWithValues(['blur_faces'], actionSeparator: paramKeyValueSeparator).joinWithValues([(_strength != null ? '$_strength' : null)]);
+  }
+}
+
+class Upscale extends Effect {
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['upscale'], actionSeparator: paramKeyValueSeparator);
   }
 }
 
