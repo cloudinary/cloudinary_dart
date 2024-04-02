@@ -310,6 +310,10 @@ class Effect extends Action {
     return Upscale();
   }
 
+  static Enhance enhance() {
+    return Enhance();
+  }
+
   @override
   String toString() {
     return 'e';

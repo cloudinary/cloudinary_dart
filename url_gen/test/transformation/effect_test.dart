@@ -348,4 +348,8 @@ void main() {
   test('Test successful upscale effect', () {
     cldAssert('e_upscale', Effect.upscale());
   });
+
+  test('Test successful enhance effect', () {
+    cldAssert('e_enhance', Effect.enhance());
+  });
 }
