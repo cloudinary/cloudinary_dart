@@ -1073,6 +1073,78 @@ class GenerativeRestore extends Effect {
   }
 }
 
+class BlurRegion extends Effect {
+
+  dynamic _strength;
+  dynamic _width;
+  dynamic _height;
+  dynamic _x;
+  dynamic _y;
+
+  BlurRegion({dynamic strength, dynamic width, dynamic height, dynamic x, dynamic y}) {
+    _strength = strength;
+    _width = width;
+    _height = height;
+    _x = x;
+    _y = y;
+  }
+
+  BlurRegion strength(dynamic strength) {
+    _strength = strength;
+    return this;
+  }
+
+  BlurRegion width(dynamic width) {
+    _width = width;
+    return this;
+  }
+
+  BlurRegion height(dynamic height) {
+    _height = height;
+    return this;
+  }
+
+  BlurRegion x(dynamic x) {
+    _x = x;
+    return this;
+  }
+
+  BlurRegion y(dynamic y) {
+    _y = y;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['blur_region'], actionSeparator: paramKeyValueSeparator)
+        .joinWithValues([(_strength != null ? '$_strength' : null)]).joinWithValues([
+      (_width != null ? 'w_$_width' : null),
+      (_height != null ? 'h_$_height' : null),
+      (_x != null ? 'x_$_x' : null),
+      (_y != null ? 'y_$_y' : null),
+    ], separator: paramSeparator, actionSeparator: paramSeparator);
+  }
+}
+
+class BlurFaces extends Effect {
+
+  dynamic _strength;
+
+  BlurFaces({strength: dynamic}) {
+    _strength = strength;
+  }
+
+  BlurFaces strength(dynamic strength) {
+    _strength = strength;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['blur_faces'], actionSeparator: paramKeyValueSeparator).joinWithValues([(_strength != null ? '$_strength' : null)]);
+  }
+}
+
 class Upscale extends Effect {
   @override
   String toString() {
