@@ -80,3 +80,15 @@ class MinimumPad extends BasePad {
   @override
   String actionType = 'mpad';
 }
+
+class AutoPad extends BasePad {
+  @override
+  String actionType = 'auto_pad';
+
+  Gravity? _gravity;
+
+  BasePad gravity(Gravity gravity) {
+    _gravity = gravity;
+    return this;
+  }
+}
