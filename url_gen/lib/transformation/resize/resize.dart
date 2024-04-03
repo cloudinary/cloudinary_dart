@@ -200,4 +200,8 @@ abstract class Resize extends Action {
   static LimitFill limitFill() {
     return LimitFill();
   }
+
+  static CropAuto auto() {
+    return CropAuto();
+  }
 }

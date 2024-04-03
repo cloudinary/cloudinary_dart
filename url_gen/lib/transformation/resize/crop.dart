@@ -84,7 +84,14 @@ class Crop extends BaseCrop {
   String actionType = "crop";
 }
 
+/// Class Thumbnail
 class Thumbnail extends BaseCrop {
   @override
   String actionType = "thumb";
+}
+
+/// Class CropAuto
+class CropAuto extends BaseCrop {
+  @override
+  String actionType = "auto";
 }
