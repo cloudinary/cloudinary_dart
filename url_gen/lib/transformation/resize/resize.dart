@@ -204,4 +204,8 @@ abstract class Resize extends Action {
   static CropAuto auto() {
     return CropAuto();
   }
+
+  static AutoPad autoPad() {
+    return AutoPad();
+  }
 }

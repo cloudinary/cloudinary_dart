@@ -363,6 +363,13 @@ void main() {
           ..x(100)
           ..y(100));
   });
+
+  test("Test successful auto pad formatting", () {
+    cldAssert('c_auto_pad', Resize.autoPad());
+    cldAssert('c_auto_pad,h_10,w_10', Resize.autoPad().width(10).height(10));
+    cldAssert('c_auto_pad,g_auto', Resize.autoPad().gravity(Gravity.autoGravity()));
+  });
+
   test("Test successful resize auto formatting", () {
     cldAssert("c_auto", Resize.auto());
     cldAssert("c_auto,h_100,w_100", Resize.auto()..width(100)..height(100));
