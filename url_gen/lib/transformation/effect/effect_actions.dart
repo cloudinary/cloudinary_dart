@@ -1073,6 +1073,22 @@ class GenerativeRestore extends Effect {
   }
 }
 
+class GenerativeBackgroundReplace extends Effect {
+  String? _prompt;
+
+  GenerativeBackgroundReplace(this._prompt);
+
+  GenerativeBackgroundReplace prompt(String prompt) {
+    _prompt = prompt;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return super.toString().joinWithValues(['gen_background_replace'], actionSeparator: paramKeyValueSeparator).joinWithValues([_prompt != null ? 'prompt_$_prompt' : null]);
+  }
+}
+
 class BlurRegion extends Effect {
 
   dynamic _strength;

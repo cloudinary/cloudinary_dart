@@ -345,6 +345,11 @@ void main() {
     cldAssert('e_gen_restore', Effect.generativeRestore());
   });
 
+  test('Test successful generative background replace effect', () {
+    cldAssert('e_gen_background_replace', Effect.generativeBackgroundReplace());
+    cldAssert('e_gen_background_replace:prompt_dog', Effect.generativeBackgroundReplace(prompt: 'dog'));
+  });
+
   test('Test successful upscale effect', () {
     cldAssert('e_upscale', Effect.upscale());
   });
