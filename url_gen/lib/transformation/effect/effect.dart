@@ -306,6 +306,10 @@ class Effect extends Action {
     return GenerativeRestore();
   }
 
+  static GenerativeBackgroundReplace generativeBackgroundReplace({String? prompt}) {
+    return GenerativeBackgroundReplace(prompt);
+  }
+
   static BlurFaces blurFaces({dynamic strength}) {
     return BlurFaces(strength: strength);
   }
