@@ -1,3 +1,12 @@
+## 1.6.0
+- Add generative backgrond replace 
+- Add auto pad 
+- Add crop auto 
+- Add blur faces and blur region 
+- Add upscale 
+- Add enahnce 
+- Add `media_metadata` support
+
 ## 1.5.0
 - Update analytics token
 
