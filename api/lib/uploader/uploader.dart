@@ -41,4 +41,9 @@ class Uploader {
     UploaderRequest request = UploaderRequest(params);
     return _uploaderUtils.callApi(request, 'explicit', options: SharedParams());
   }
+
+  Future<UploaderResponse<UploadResult>> downloadBackup(DownloadBackupParams params) {
+    UploaderRequest request = UploaderRequest(params);
+    return _uploaderUtils.callApi(request, 'download_backup', options: SharedParams(), apiVersion: 'v2');
+  }
 }

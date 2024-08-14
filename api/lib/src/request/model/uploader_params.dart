@@ -59,6 +59,21 @@ class RenameParams extends UploaderParams {
   }
 }
 
+class DownloadBackupParams extends UploaderParams {
+  String assetId;
+  String versionId;
+
+  DownloadBackupParams(this.assetId, this.versionId);
+
+  @override
+  Map<String, dynamic> buildParams() {
+    return {
+      'asset_id': assetId,
+      'version_id': versionId
+    };
+  }
+}
+
 class UploadParams extends UploaderParams {
   bool? backup;
   bool? exif;

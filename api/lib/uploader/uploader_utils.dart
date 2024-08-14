@@ -26,10 +26,11 @@ class UploaderUtils {
   UploaderUtils(this.cloudinary);
 
   NetworkRequest _prepareNetworkRequest(
-      String action, AbstractUploaderRequest request, SharedParams? options) {
+      String action, AbstractUploaderRequest request, SharedParams? options, {String? suggestedApiVersion}) {
     var config = cloudinary.config.cloudConfig;
     var prefix = cloudinary.config.apiConfig.uploadPrefix;
     var cloudName = cloudinary.config.cloudConfig.cloudName;
+    var version = suggestedApiVersion ?? apiVersion;
     var resourceType = options?.resourceType ?? defaultResourceType;
 
     Map<String, dynamic> paramsMap = request.buildParams();
@@ -53,7 +54,7 @@ class UploaderUtils {
     }
 
 
-    var url = [prefix, apiVersion, cloudName, resourceType, action]
+    var url = [prefix, version, cloudName, resourceType, action]
         .noNullList()
         .join("/");
 
@@ -70,10 +71,10 @@ class UploaderUtils {
 
   Future<UploaderResponse<UploadResult>> callApi(
       AbstractUploaderRequest request, String action,
-      {SharedParams? options}) async {
+      {SharedParams? options, String? apiVersion}) async {
     try {
       var response = await networkDelegate
-          .callApi(_prepareNetworkRequest(action, request, options));
+          .callApi(_prepareNetworkRequest(action, request, options, suggestedApiVersion: apiVersion));
       return _processResponse(response);
     } on TimeoutException catch (error) {
       return UploaderResponse(-1, null,
