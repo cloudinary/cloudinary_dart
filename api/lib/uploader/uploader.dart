@@ -41,4 +41,9 @@ class Uploader {
     UploaderRequest request = UploaderRequest(params);
     return _uploaderUtils.callApi(request, 'explicit', options: SharedParams());
   }
+
+  Future<UploaderResponse<UploadResult>> destroy(DestroyParams params) {
+    UploaderRequest request = UploaderRequest(params);
+    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
+  }
 }

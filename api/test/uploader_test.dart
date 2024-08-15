@@ -436,6 +436,18 @@ void main() {
     assert(url.substring(0, url.indexOf('?_a')) == eagerUrl);
   });
 
+  test('Test destroy successful', () async {
+    var response = await cloudinary
+        .uploader()
+        .upload(srcTestImage, params: UploadParams(tags: defaultTags));
+
+    var result = resultOrThrow(response?.data);
+    var publicId = result.publicId ?? '';
+
+    var destroyResponse = await cloudinary.uploader().destroy(DestroyParams(publicId: publicId, notificationUrl: 'www.test.com'));
+    assert(200 == destroyResponse.responseCode);
+  });
+
   test('Test timeout exception', () async {
     cloudinary.config.apiConfig.chunkSize = 5 * 1024 * 1024;
     File file = createTempFile();
