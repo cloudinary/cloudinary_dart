@@ -466,7 +466,7 @@ void main() {
     // final assetId = response?.data?.assetId;
     // final versionId = response?.data?.versionId;
 
-    // response = cloudinary.uploader().downloadBackup(DownloadBackupParams(assetId, versionId));
+    // response = cloudinary.uploader().downloadBackedupAsset(DownloadBackupParams(assetId, versionId));
 
     assert(response != null);
   }, skip: 'Skipping till restore is implemented as part of the admin API');
