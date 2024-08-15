@@ -403,7 +403,7 @@ void main() {
     var toPublicId = 'rename_${publicId}_$suffix';
 
     var renameResponse = await cloudinary.uploader().rename(
-        params: RenameParams(fromPublicId: publicId, toPublicId: toPublicId));
+        params: RenameParams(fromPublicId: publicId, toPublicId: toPublicId, notificationUrl: 'www.test.com'));
     assert(toPublicId == renameResponse.data?.publicId);
   });
 
