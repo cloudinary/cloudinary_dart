@@ -30,6 +30,7 @@ class UploaderUtils {
     var config = cloudinary.config.cloudConfig;
     var prefix = cloudinary.config.apiConfig.uploadPrefix;
     var cloudName = cloudinary.config.cloudConfig.cloudName;
+    var version = apiVersion;
     var resourceType = options?.resourceType ?? defaultResourceType;
 
     Map<String, dynamic> paramsMap = request.buildParams();
@@ -53,7 +54,7 @@ class UploaderUtils {
     }
 
 
-    var url = [prefix, apiVersion, cloudName, resourceType, action]
+    var url = [prefix, version, cloudName, resourceType, action]
         .noNullList()
         .join("/");
 

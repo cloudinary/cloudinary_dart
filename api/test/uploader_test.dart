@@ -461,6 +461,27 @@ void main() {
     assert(result.responseCode == -1);
     assert(result.error?.message == 'Timeout of 0:00:01.000000 occurred');
   });
+
+  test('Test download backup successful', () async {
+    var response = await cloudinary
+        .uploader()
+        .upload(srcTestImage, params: UploadParams(tags: defaultTags));
+    final publicId = response?.data?.publicId;
+    assert(publicId != null);
+
+    // response = await cloudinary
+    //     .uploader()
+    //     .destroy(publicid);
+    //
+    // response cloudinary.api().restore(publicId);
+
+    // final assetId = response?.data?.assetId;
+    // final versionId = response?.data?.versionId;
+
+    // response = cloudinary.uploader().downloadBackedupAsset(DownloadBackupParams(assetId, versionId));
+
+    assert(response != null);
+  }, skip: 'Skipping till restore is implemented as part of the admin API');
 }
 
 validateSignature(UploadResult result) {

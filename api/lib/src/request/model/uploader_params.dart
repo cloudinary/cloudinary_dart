@@ -83,6 +83,21 @@ class DestroyParams extends UploaderParams {
   }
 }
 
+class DownloadBackupAssetParams extends UploaderParams {
+  String assetId;
+  String versionId;
+
+  DownloadBackupAssetParams(this.assetId, this.versionId);
+
+  @override
+  Map<String, dynamic> buildParams() {
+    return {
+      'asset_id': assetId,
+      'version_id': versionId
+    };
+  }
+}
+
 class UploadParams extends UploaderParams {
   bool? backup;
   bool? exif;
