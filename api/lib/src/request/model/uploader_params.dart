@@ -37,6 +37,7 @@ class RenameParams extends UploaderParams {
   String? toType;
   bool? overwrite;
   bool? invalidate;
+  String? notificationUrl;
 
   RenameParams(
       {required this.fromPublicId,
@@ -44,7 +45,8 @@ class RenameParams extends UploaderParams {
       this.type,
       this.toType,
       this.overwrite,
-      this.invalidate});
+      this.invalidate,
+      this.notificationUrl});
 
   @override
   Map<String, dynamic> buildParams() {
@@ -54,6 +56,28 @@ class RenameParams extends UploaderParams {
       'type': type,
       'to_type': toType,
       'overwrite': overwrite,
+      'invalidate': invalidate,
+      'notification_url': notificationUrl
+    };
+  }
+}
+
+class DestroyParams extends UploaderParams {
+  String publicId;
+  String? resourceType;
+  String? type;
+  String? notificationUrl;
+  bool? invalidate;
+
+  DestroyParams({required this.publicId, this.resourceType, this.type, this.notificationUrl, this.invalidate});
+
+  @override
+  Map<String, dynamic> buildParams() {
+    return {
+      'public_id': publicId,
+      'resource_type': resourceType,
+      'type': type,
+      'notification_url': notificationUrl,
       'invalidate': invalidate
     };
   }
