@@ -59,11 +59,11 @@ class RenameParams extends UploaderParams {
   }
 }
 
-class DownloadBackupParams extends UploaderParams {
+class DownloadBackupAssetParams extends UploaderParams {
   String assetId;
   String versionId;
 
-  DownloadBackupParams(this.assetId, this.versionId);
+  DownloadBackupAssetParams(this.assetId, this.versionId);
 
   @override
   Map<String, dynamic> buildParams() {
