@@ -1,6 +1,7 @@
 import 'package:cloudinary_api/src/request/uploader_request.dart';
 import 'package:cloudinary_api/uploader/uploader_response.dart';
 import 'package:cloudinary_api/uploader/uploader_utils.dart';
+import 'package:cloudinary_api/uploader/utils.dart';
 import 'package:cloudinary_url_gen/cloudinary.dart';
 import '../src/http/request/multi_part_request.dart';
 import '../src/request/model/shared_params.dart';
@@ -48,6 +49,45 @@ class Uploader {
   }
 
   Future<UploaderResponse<UploadResult>> destroy(DestroyParams params) {
+    UploaderRequest request = UploaderRequest(params);
+    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
+  }
+
+  //Metadata management
+
+  Future<UploaderResponse<UploadResult>> addContext(ContextParams params) {
+    params.command = ContextCommand.add.name;
+    UploaderRequest request = UploaderRequest(params);
+    return _uploaderUtils.callApi(request, 'context', options: SharedParams());
+  }
+
+  Future<UploaderResponse<UploadResult>> removeAllContext(RemoveAllContextParams params) {
+    params.command = ContextCommand.remove_all.name;
+    UploaderRequest request = UploaderRequest(params);
+    return _uploaderUtils.callApi(request, 'context', options: SharedParams());
+  }
+
+  Future<UploaderResponse<UploadResult>> updateMetadata(DestroyParams params) {
+    UploaderRequest request = UploaderRequest(params);
+    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
+  }
+
+  Future<UploaderResponse<UploadResult>> addTag(DestroyParams params) {
+    UploaderRequest request = UploaderRequest(params);
+    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
+  }
+
+  Future<UploaderResponse<UploadResult>> removeTag(DestroyParams params) {
+    UploaderRequest request = UploaderRequest(params);
+    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
+  }
+
+  Future<UploaderResponse<UploadResult>> removeAllTags(DestroyParams params) {
+    UploaderRequest request = UploaderRequest(params);
+    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
+  }
+
+  Future<UploaderResponse<UploadResult>> replaceTag(DestroyParams params) {
     UploaderRequest request = UploaderRequest(params);
     return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
   }

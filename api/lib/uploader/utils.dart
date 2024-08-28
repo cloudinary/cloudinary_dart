@@ -56,3 +56,4 @@ class Utils {
       String.fromCharCodes(Iterable.generate(
           length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 }
+enum ContextCommand{add, remove_all}

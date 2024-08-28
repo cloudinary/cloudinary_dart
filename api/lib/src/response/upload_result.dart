@@ -41,6 +41,7 @@ class UploadResult {
   Map<String, dynamic>? imageMetadata;
   VideoResultObject? video;
   AudioResultObject? audio;
+  List<String>? publicIds;
 
   UploadResult(
       {this.publicId,
@@ -79,7 +80,8 @@ class UploadResult {
       this.accessibilityAnalysis,
       this.imageMetadata,
       this.video,
-      this.audio});
+      this.audio,
+      this.publicIds});
 
   factory UploadResult.fromJson(Map<String, dynamic> data) {
     final publicId = data['public_id'] as String?;
@@ -146,6 +148,7 @@ class UploadResult {
     final imageMetadata = data['image_metadata'];
     final video = (data['video'] != null) ? VideoResultObject.fromJson(data['video']) : null;
     final audio = (data['audio'] != null) ? AudioResultObject.fromJson(data['audio']) : null;
+    final publicIds = (data['public_ids'] as List<dynamic>?)?.map((e) => e.toString()).toList();
 
     return UploadResult(
         publicId: publicId,
@@ -184,7 +187,8 @@ class UploadResult {
         accessibilityAnalysis: accessibilityAnalysis,
         imageMetadata: imageMetadata,
         video: video,
-        audio: audio);
+        audio: audio,
+        publicIds: publicIds);
   }
 }
 
@@ -213,12 +217,12 @@ class ResultColor {
 }
 
 class ResultContext {
-  Map<String, String>? custom;
+  Map<String, dynamic>? custom;
 
   ResultContext(this.custom);
 
   factory ResultContext.fromJson(Map<String, dynamic> data) {
-    final custom = data['custom'] as Map<String, String>?;
+    final custom = data['custom'] as Map<String, dynamic>?;
     return ResultContext(custom);
   }
 }

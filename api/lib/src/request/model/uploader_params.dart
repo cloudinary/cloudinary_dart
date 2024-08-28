@@ -83,6 +83,45 @@ class DestroyParams extends UploaderParams {
   }
 }
 
+class ContextParams extends UploaderParams {
+
+  Map<String, String> context;
+  List<String> publicIds;
+  String? command;
+  String? signature;
+  String? resourceType;
+  String? type;
+
+  ContextParams({required this.context, required this.publicIds, this.resourceType, this.type, this.signature, this.command});
+
+  @override
+  Map<String, dynamic> buildParams() {
+    return {
+      'context': context,
+      'public_ids': publicIds.join(','),
+      'command': command,
+      'signature': signature,
+      'resource_type': resourceType,
+      'type': type
+    };
+  }
+}
+
+class RemoveAllContextParams extends UploaderParams {
+  List<String> publicIds;
+  String? command;
+
+  RemoveAllContextParams({required this.publicIds, this.command});
+
+  @override
+  Map<String, dynamic> buildParams() {
+    return {
+      'public_ids': publicIds.join(','),
+      'command': command,
+    };
+  }
+}
+
 class DownloadBackupAssetParams extends UploaderParams {
   String assetId;
   String versionId;
@@ -366,14 +405,30 @@ class UploadParams extends UploaderParams {
     if (context == null) {
       return null;
     }
-    return context.entries.map((map) {
-      if (map.value is List<dynamic>) {
-        _encodeList(map.value);
-      } else if (map.value is String) {
-        _cldEncodeSingleContextItem((map.value as String));
+    return context.entries.map((entry) {
+      String contextValue;
+
+      final value = entry.value;
+      if (value is List) {
+        contextValue = encodeList(value);
+      } else if (value is List<dynamic>) {
+        contextValue = encodeList(value);
+      } else {
+        contextValue = cldEncodeSingleContextItem(value.toString());
       }
+
+      return '${cldEncodeSingleContextItem(entry.key)}=$contextValue';
     }).join('|');
   }
+
+  String cldEncodeSingleContextItem(String context) {
+    return context.replaceAll(RegExp(r'([=|])'), r'\\$1');
+  }
+
+  String encodeList(List<dynamic> list) {
+    return list.map((item) => cldEncodeSingleContextItem(item.toString())).join(',');
+  }
+
 
   String _encodeList(List<dynamic> list) {
     var buffer = StringBuffer();

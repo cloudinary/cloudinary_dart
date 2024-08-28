@@ -482,6 +482,36 @@ void main() {
 
     assert(response != null);
   }, skip: 'Skipping till restore is implemented as part of the admin API');
+
+  test('Test add context successful', () async {
+    String publicId = 'add_context_id' + suffix;
+    var response = await cloudinary
+        .uploader()
+        .upload(srcTestImage, params: UploadParams(publicId: publicId, context: {'caption': 'some caption', 'alt': 'alternative'}));
+    var result = resultOrThrow(response?.data);
+    assert(result.publicId == publicId);
+
+    ResultContext? context = result.context;
+    assert(context != null);
+
+    var addContextResponse = await cloudinary.uploader().addContext(ContextParams(context: {'caption': 'new caption'}, publicIds: [publicId]));
+    var addContextResult = resultOrThrow(addContextResponse.data);
+    assert(addContextResult.publicIds != null);
+    assert(addContextResult.publicIds!.contains(publicId));
+  });
+
+  test('Test remove all context successful', () async {
+    String publicId = 'add_context_id' + suffix;
+    await cloudinary
+        .uploader()
+        .upload(srcTestImage, params: UploadParams(publicId: publicId, context: {'caption': 'some caption', 'alt': 'alternative'}));
+
+    var response = await cloudinary.uploader().removeAllContext(RemoveAllContextParams(publicIds: [publicId]));
+    var result = resultOrThrow(response.data);
+
+    assert(result.publicIds != null);
+    assert(result.publicIds!.contains(publicId));
+  });
 }
 
 validateSignature(UploadResult result) {
