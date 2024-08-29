@@ -488,7 +488,7 @@ void main() {
     var response = await cloudinary
         .uploader()
         .upload(srcTestImage, params: UploadParams(publicId: publicId, context: {'caption': 'some caption', 'alt': 'alternative'}));
-    var result = resultOrThrow(response?.data);
+    UploadResult result = resultOrThrow<UploadResult>(response?.data);
     assert(result.publicId == publicId);
 
     ResultContext? context = result.context;
@@ -524,7 +524,7 @@ validateSignature(UploadResult result) {
   assert(result.signature == expectedSignature);
 }
 
-UploadResult resultOrThrow(UploadResult? result) {
+T resultOrThrow<T extends BaseUploadResult>(T? result) {
   if (result == null) {
     throw ArgumentError('Result is null, something went wrong');
   }

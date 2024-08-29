@@ -70,25 +70,25 @@ class UploaderUtils {
         request.completionCallback);
   }
 
-  Future<UploaderResponse<UploadResult>> callApi(
+  Future<UploaderResponse<T>> callApi<T extends BaseUploadResult>(
       AbstractUploaderRequest request, String action,
-      {SharedParams? options}) async {
+      {SharedParams? options, required T Function(Map<String, dynamic>) fromJson}) async {
     try {
       var response = await networkDelegate
           .callApi(_prepareNetworkRequest(action, request, options));
-      return _processResponse(response);
+      return _processResponse<T>(response, fromJson);
     } on TimeoutException catch (error) {
-      return UploaderResponse(-1, null,
-          UploadError('Timeout of ${error.duration} occurred'), error.message);
+      return UploaderResponse<T>(
+          -1, null, UploadError('Timeout of ${error.duration} occurred'), error.message);
     }
   }
+
 
   Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request) {
     if (request.payload == null) {
       throw ArgumentError('An upload request must have a payload');
     }
     var payload = request.payload!;
-    var value = payload.value;
     var chunkSize = cloudinary.config.apiConfig.chunkSize;
     final uploadParams = request.params as UploadParams?;
 
@@ -99,16 +99,24 @@ class UploaderUtils {
       extraHeaders: request.params?.extraHeaders,
       filename: getFilenameIfUploadParams(request.params),
     );
-    if (value is String && Utils.isRemoteUrl(value) ||
+
+    if (payload.value is String && Utils.isRemoteUrl(payload.value) ||
         (1 > payload.length || payload.length < chunkSize!)) {
-      // need to make sure if we have length or not.
-      return callApi(request, 'upload', options: options);
+      // Ensure correct type for `fromJson` when calling `callApi`
+      return callApi(
+        request,
+        'upload',
+        options: options,
+        fromJson: UploadResult.fromJson,
+      );
     }
-    //Upload large
+
     var uniqueUploadId = Utils.createRandomUploadId(8);
     _uploadLargeParts(payload, request, uniqueUploadId);
     return null;
   }
+
+
 
   Payload buildPayload(dynamic file) {
     if (file is File) {
@@ -146,6 +154,7 @@ class UploaderUtils {
         filename: getFilenameIfUploadParams(request.params) ?? payload.name,
         timeout: request.params?.timeout ?? cloudinary.config.apiConfig.timeout,
         extraHeaders: request.params?.extraHeaders);
+
     try {
       var requestResponse = await networkDelegate.uploadLarge(
           stream,
@@ -153,19 +162,32 @@ class UploaderUtils {
           startOffset,
           endOffset,
           payload.length);
+
       if (request.completionCallback != null) {
-        _processResponseWithCompletion(requestResponse, (response) {
-          if (response.data?.done == true || response.error != null) {
-            request.completionCallback!(response);
-          }
-        });
+        _processResponseWithCompletion<UploadResult>(
+          requestResponse,
+          UploadResult.fromJson,
+              (response) {
+            if (response.data?.done == true || response.error != null) {
+              request.completionCallback!(response);
+            }
+          },
+        );
       }
       return requestResponse;
     } on TimeoutException catch (error) {
-      request.completionCallback!(UploaderResponse(-1, null,
-          UploadError('Timeout of ${error.duration} occurred'), error.message));
+      if (request.completionCallback != null) {
+        request.completionCallback!(
+            UploaderResponse<UploadResult>(
+                -1,
+                null,
+                UploadError('Timeout of ${error.duration} occurred'),
+                error.message
+            )
+        );
+      }
+      return null;
     }
-    return null;
   }
 
   int _getStartOffset(int index, int chunkSize) {
@@ -190,48 +212,56 @@ class UploaderUtils {
   }
 
   //Response handler
-  Future<UploaderResponse<UploadResult>> _processResponse(
-      StreamedResponse? requestResponse) {
-    return _getProcessedResponse(requestResponse!.statusCode,
-        requestResponse.stream, requestResponse.headers['x-cld-error']);
+  Future<UploaderResponse<T>> _processResponse<T extends BaseUploadResult>(
+      http.StreamedResponse requestResponse, T Function(Map<String, dynamic>) fromJson) async {
+    return _getProcessedResponse(requestResponse.statusCode,
+        requestResponse.stream, requestResponse.headers['x-cld-error'], fromJson);
   }
 
-  void _processResponseWithCompletion(StreamedResponse? requestResponse,
-      void Function(UploaderResponse<UploadResult> response) completion) {
-    var response = _getProcessedResponse(requestResponse!.statusCode,
-        requestResponse.stream, requestResponse.headers['x-cld-error']);
+  void _processResponseWithCompletion<T extends BaseUploadResult>(
+      StreamedResponse? requestResponse,
+      T Function(Map<String, dynamic>) fromJson,
+      void Function(UploaderResponse<T> response) completion) {
+    var response = _getProcessedResponse<T>(
+        requestResponse!.statusCode,
+        requestResponse.stream,
+        requestResponse.headers['x-cld-error'],
+        fromJson
+    );
     response.then((unwrappedResponse) {
       completion(unwrappedResponse);
     });
   }
 
-  Future<UploaderResponse<UploadResult>> _getProcessedResponse(
-      int statusCode, ByteStream? stream, String? errorHeader) async {
+  Future<UploaderResponse<T>> _getProcessedResponse<T extends BaseUploadResult>(
+      int statusCode, ByteStream? stream, String? errorHeader,
+      T Function(Map<String, dynamic>) fromJson) async {
     var body = await stream?.transform(utf8.decoder).join();
     if (statusCode >= 200 && statusCode <= 299) {
       if (body != null) {
         final parsedJson = jsonDecode(body);
-        final uploadResult = UploadResult.fromJson(parsedJson);
-        return UploaderResponse<UploadResult>(
+        final uploadResult = fromJson(parsedJson);
+        return UploaderResponse<T>(
             statusCode, uploadResult, null, body);
       } else {
         var responseError = UploadError("Error");
-        return UploaderResponse(statusCode, null, responseError, body);
+        return UploaderResponse<T>(statusCode, null, responseError, body);
       }
     } else if (statusCode >= 400 && statusCode < 499) {
-      return UploaderResponse(
+      return UploaderResponse<T>(
           statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
     } else if (statusCode >= 500 && statusCode < 599) {
-      return UploaderResponse(
+      return UploaderResponse<T>(
           statusCode,
           null,
           UploadError(
-              errorHeader ?? "We had an problem, please contact support"),
+              errorHeader ?? "We had a problem, please contact support"),
           body);
     }
-    return UploaderResponse(
+    return UploaderResponse<T>(
         statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
   }
+
 
   String? getFilenameIfUploadParams(dynamic params) {
     if (params is UploadParams) {

@@ -3,7 +3,22 @@ import 'dart:ffi';
 import '../request/model/params/access_control_rule.dart';
 import '../request/model/params/coordinates.dart';
 
-class UploadResult {
+abstract class BaseUploadResult {
+
+}
+
+class ContextResult extends BaseUploadResult {
+  List<String>? publicIds;
+
+  ContextResult({this.publicIds});
+
+  factory ContextResult.fromJson(Map<String, dynamic> data) {
+    final publicIds = (data['public_ids'] as List<dynamic>?)?.map((e) => e.toString()).toList();
+    return ContextResult(publicIds: publicIds);
+  }
+}
+
+class UploadResult extends BaseUploadResult {
   String? publicId;
   int? version;
   String? signature;
@@ -41,7 +56,7 @@ class UploadResult {
   Map<String, dynamic>? imageMetadata;
   VideoResultObject? video;
   AudioResultObject? audio;
-  List<String>? publicIds;
+
 
   UploadResult(
       {this.publicId,
@@ -80,8 +95,7 @@ class UploadResult {
       this.accessibilityAnalysis,
       this.imageMetadata,
       this.video,
-      this.audio,
-      this.publicIds});
+      this.audio});
 
   factory UploadResult.fromJson(Map<String, dynamic> data) {
     final publicId = data['public_id'] as String?;
@@ -148,7 +162,6 @@ class UploadResult {
     final imageMetadata = data['image_metadata'];
     final video = (data['video'] != null) ? VideoResultObject.fromJson(data['video']) : null;
     final audio = (data['audio'] != null) ? AudioResultObject.fromJson(data['audio']) : null;
-    final publicIds = (data['public_ids'] as List<dynamic>?)?.map((e) => e.toString()).toList();
 
     return UploadResult(
         publicId: publicId,
@@ -187,8 +200,7 @@ class UploadResult {
         accessibilityAnalysis: accessibilityAnalysis,
         imageMetadata: imageMetadata,
         video: video,
-        audio: audio,
-        publicIds: publicIds);
+        audio: audio);
   }
 }
 
