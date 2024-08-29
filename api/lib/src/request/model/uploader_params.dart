@@ -4,20 +4,27 @@ import 'package:cloudinary_api/src/request/model/params/access_control_rule.dart
 import 'package:cloudinary_api/src/request/model/params/coordinates.dart';
 import 'package:cloudinary_api/src/request/model/params/eager_transformation.dart';
 import 'package:cloudinary_api/src/request/model/params/responsive_breakpoint.dart';
+import 'package:cloudinary_api/uploader/encode_utils.dart';
 import 'package:cloudinary_url_gen/transformation/transformation.dart';
 
+import '../../../uploader/utils.dart';
 
-abstract class UploadApiParams {
+
+abstract class UploaderParams {
   bool? unsigned;
-  String? resourceType;
-  String? filename;
+  String? signature;
   Map<String, String>? extraHeaders;
   int? timeout;
 
   Map<String, dynamic> buildParams();
 }
 
-class ExplicitParams extends UploadApiParams {
+abstract class UploadAssetParams extends UploaderParams {
+  String? resourceType;
+  String? type;
+}
+
+class ExplicitParams extends UploaderParams {
   String publicId;
   UploadParams? params;
 
@@ -31,10 +38,9 @@ class ExplicitParams extends UploadApiParams {
   }
 }
 
-class RenameParams extends UploadApiParams {
+class RenameParams extends UploadAssetParams {
   String fromPublicId;
   String toPublicId;
-  String? type;
   String? toType;
   bool? overwrite;
   bool? invalidate;
@@ -42,12 +48,14 @@ class RenameParams extends UploadApiParams {
 
   RenameParams(
       {required this.fromPublicId,
-      required this.toPublicId,
-      this.type,
-      this.toType,
-      this.overwrite,
-      this.invalidate,
-      this.notificationUrl});
+        required this.toPublicId,
+        String? type,
+        this.toType,
+        this.overwrite,
+        this.invalidate,
+        this.notificationUrl}) {
+    this.type = type;
+  }
 
   @override
   Map<String, dynamic> buildParams() {
@@ -63,7 +71,7 @@ class RenameParams extends UploadApiParams {
   }
 }
 
-class DestroyParams extends UploadApiParams {
+class DestroyParams extends UploaderParams {
   String publicId;
   String? resourceType;
   String? type;
@@ -84,7 +92,7 @@ class DestroyParams extends UploadApiParams {
   }
 }
 
-class ContextParams extends UploadApiParams {
+class ContextParams extends UploaderParams {
   List<String> publicIds;
   String? command;
 
@@ -101,12 +109,19 @@ class ContextParams extends UploadApiParams {
 class AddContextParams extends ContextParams {
 
   Map<String, String> context;
-
-  String? signature;
   String? resourceType;
   String? type;
 
-  AddContextParams({required this.context, required super.publicIds, this.resourceType, this.type, this.signature, super.command});
+  AddContextParams({
+    required this.context,
+    required super.publicIds,
+    this.resourceType,
+    this.type,
+    String? signature,
+    super.command,
+  }) {
+    this.signature = signature;
+  }
 
   @override
   Map<String, dynamic> buildParams() {
@@ -130,7 +145,7 @@ class RemoveAllContextParams extends ContextParams {
   }
 }
 
-class DownloadBackupAssetParams extends UploadApiParams {
+class DownloadBackupAssetParams extends UploaderParams {
   String assetId;
   String versionId;
 
@@ -145,10 +160,11 @@ class DownloadBackupAssetParams extends UploadApiParams {
   }
 }
 
-class UploadParams extends UploadApiParams {
+class UploadParams extends UploadAssetParams {
   bool? backup;
   bool? exif;
   bool? faces;
+  String? filename;
   bool? colors;
   @Deprecated('Use the mediaMetadata instead.')
   bool? imageMetadata;
@@ -203,6 +219,7 @@ class UploadParams extends UploadApiParams {
       {this.backup,
       this.exif,
       this.faces,
+      this.filename,
       this.colors,
       @Deprecated('Use the mediaMetadata instead.')
       this.imageMetadata,
@@ -253,13 +270,11 @@ class UploadParams extends UploadApiParams {
       //Internal use only params
       bool unsigned = false,
       String? resourceType,
-      String? filename,
       int? timeout,
       Map<String, String>? extraHeaders}) {
     _transformation = transformation;
     super.unsigned = unsigned;
     super.resourceType = resourceType;
-    super.filename = filename;
     super.extraHeaders = extraHeaders;
     super.timeout = timeout;
   }
@@ -359,17 +374,17 @@ class UploadParams extends UploadApiParams {
     mapParams['quality_analysis'] = qualityAnalysis?.toString();
     mapParams['access_mode'] = accessMode;
     mapParams['responsive_breakpoints'] =
-        _asResponsiveBreakpointsParam(responsiveBreakpoints);
+        EncodeUtils().asResponsiveBreakpointsParam(responsiveBreakpoints);
     mapParams['transformation'] = getTransformation()?.toString();
-    mapParams['eager'] = _asEagerParam(eager);
+    mapParams['eager'] = EncodeUtils().asEagerParam(eager);
     mapParams['signature'] = signature;
     mapParams['timestamp'] = timestamp?.toString();
     mapParams['headers'] = headers;
     mapParams['tags'] = tags?.join(',');
-    mapParams['face_coordinates'] = _asCoordinatesParam(faceCoordinates);
-    mapParams['custom_coordinates'] = _asCoordinatesParam(customCoordinates);
-    mapParams['context'] = _asContextParam(context);
-    mapParams['access_control'] = _toAccessControlJson(accessControl);
+    mapParams['face_coordinates'] = EncodeUtils().asCoordinatesParam(faceCoordinates);
+    mapParams['custom_coordinates'] = EncodeUtils().asCoordinatesParam(customCoordinates);
+    mapParams['context'] = EncodeUtils().asContextParam(context);
+    mapParams['access_control'] = EncodeUtils().toAccessControlJson(accessControl);
     mapParams['ocr'] = ocr;
     mapParams['raw_convert'] = rawConvert;
     mapParams['categorization'] = categorization;
@@ -381,82 +396,5 @@ class UploadParams extends UploadApiParams {
     mapParams['filename_override'] = filenameOverride;
     mapParams.removeWhere((key, value) => value == null);
     return mapParams;
-  }
-
-  String? _asEagerParam(List<EagerTransformation>? transformations) {
-    if (transformations == null) {
-      return null;
-    }
-    return transformations.map((value) {
-      if (value.extension != null) {
-        return '${value.transformation.toString()}/${value.extension}';
-      } else {
-        return value.transformation.toString();
-      }
-    }).join('|');
-  }
-
-  String? _asCoordinatesParam(Coordinates? coordinates) {
-    if (coordinates == null) {
-      return null;
-    }
-    var rects = <String>[];
-    for (int i = 0; i < coordinates.coordinates.length; i++) {
-      var rect = coordinates.coordinates[i];
-      rects.add(
-          '${rect.x.toString()},${rect.y.toString()},${rect.width.toString()},${rect.height.toString()}');
-    }
-    return rects.join('|');
-  }
-
-  String? _asContextParam(Map<String, dynamic>? context) {
-    if (context == null) {
-      return null;
-    }
-    return context.entries.map((entry) {
-      String contextValue;
-
-      final value = entry.value;
-      if (value is List) {
-        contextValue = _encodeList(value);
-      } else if (value is List<dynamic>) {
-        contextValue = _encodeList(value);
-      } else {
-        contextValue = _cldEncodeSingleContextItem(value.toString());
-      }
-
-      return '${_cldEncodeSingleContextItem(entry.key)}=$contextValue';
-    }).join('|');
-  }
-
-  String _cldEncodeSingleContextItem(String context) {
-    return context.replaceAll(RegExp(r'([=|])'), r'\\$1');
-  }
-
-  String _encodeList(List<dynamic> list) {
-    return list.map((item) => _cldEncodeSingleContextItem(item.toString())).join(',');
-  }
-
-  List<String>? _toAccessControlJson(List<AccessControlRule>? accessControl) {
-    List<String> result = [];
-    if (accessControl == null) {
-      return null;
-    }
-    for (AccessControlRule rule in accessControl) {
-      result.add(jsonEncode(rule));
-    }
-    return result;
-  }
-
-  List<String>? _asResponsiveBreakpointsParam(
-      List<ResponsiveBreakpoint>? responsiveBreakpoints) {
-    List<String> result = [];
-    if (responsiveBreakpoints == null) {
-      return null;
-    }
-    for (ResponsiveBreakpoint breakpoint in responsiveBreakpoints) {
-      result.add(jsonEncode(breakpoint));
-    }
-    return result;
   }
 }

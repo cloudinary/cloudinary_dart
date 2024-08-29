@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import '../src/http/session/network_delegate.dart';
 import '../src/request/model/shared_params.dart';
+import '../src/request/model/uploader_params.dart';
 import '../src/request/network_request.dart';
 import '../src/request/payload.dart';
 import '../src/request/upload_request.dart';
@@ -89,12 +90,15 @@ class UploaderUtils {
     var payload = request.payload!;
     var value = payload.value;
     var chunkSize = cloudinary.config.apiConfig.chunkSize;
+    final uploadParams = request.params as UploadParams?;
+
     SharedParams options = SharedParams(
-        resourceType: request.params?.resourceType,
-        unsigned: request.params?.unsigned,
-        filename: request.params?.filename,
-        timeout: request.params?.timeout,
-        extraHeaders: request.params?.extraHeaders);
+      resourceType: getResourceTypeIfUploadAssetParams(request.params),
+      unsigned: request.params?.unsigned,
+      timeout: request.params?.timeout,
+      extraHeaders: request.params?.extraHeaders,
+      filename: getFilenameIfUploadParams(request.params),
+    );
     if (value is String && Utils.isRemoteUrl(value) ||
         (1 > payload.length || payload.length < chunkSize!)) {
       // need to make sure if we have length or not.
@@ -137,9 +141,9 @@ class UploaderUtils {
     final endOffset = _getEndOffset(index, chunkSize, payload.length);
     final stream = _getStream(startOffset, endOffset, payload);
     SharedParams options = SharedParams(
-        resourceType: request.params?.resourceType,
+        resourceType: getResourceTypeIfUploadAssetParams(request.params),
         unsigned: request.params?.unsigned,
-        filename: request.params?.filename ?? payload.name,
+        filename: getFilenameIfUploadParams(request.params) ?? payload.name,
         timeout: request.params?.timeout ?? cloudinary.config.apiConfig.timeout,
         extraHeaders: request.params?.extraHeaders);
     try {
@@ -228,4 +232,19 @@ class UploaderUtils {
     return UploaderResponse(
         statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
   }
+
+  String? getFilenameIfUploadParams(dynamic params) {
+    if (params is UploadParams) {
+      return params.filename;
+    }
+    return null;
+  }
+
+  String? getResourceTypeIfUploadAssetParams(dynamic params) {
+    if (params is UploadAssetParams) {
+      return params.resourceType;
+    }
+    return null;
+  }
+
 }

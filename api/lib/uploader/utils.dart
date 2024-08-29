@@ -1,8 +1,13 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:cloudinary_url_gen/transformation/coordinates/coordinates.dart';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
+
+import '../src/request/model/params/access_control_rule.dart';
+import '../src/request/model/params/eager_transformation.dart';
+import '../src/request/model/params/responsive_breakpoint.dart';
 
 class Utils {
   static String apiSignRequest(
@@ -55,5 +60,7 @@ class Utils {
   static String getRandomString(int length) =>
       String.fromCharCodes(Iterable.generate(
           length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
+
 }
 enum ContextCommand{add, remove_all}
