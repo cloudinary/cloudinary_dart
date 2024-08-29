@@ -494,7 +494,7 @@ void main() {
     ResultContext? context = result.context;
     assert(context != null);
 
-    var addContextResponse = await cloudinary.uploader().addContext(ContextParams(context: {'caption': 'new caption'}, publicIds: [publicId]));
+    var addContextResponse = await cloudinary.uploader().addContext(AddContextParams(context: {'caption': 'new caption'}, publicIds: [publicId]));
     var addContextResult = resultOrThrow(addContextResponse.data);
     assert(addContextResult.publicIds != null);
     assert(addContextResult.publicIds!.contains(publicId));

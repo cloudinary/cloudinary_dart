@@ -6,7 +6,7 @@ import 'payload.dart';
 
 class UploadRequest implements AbstractUploaderRequest<UploadResult> {
   @override
-  UploaderParams? params;
+  UploadApiParams? params;
   @override
   Payload<dynamic>? payload;
   @override

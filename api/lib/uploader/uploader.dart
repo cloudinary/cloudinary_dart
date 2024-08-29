@@ -55,7 +55,7 @@ class Uploader {
 
   //Metadata management
 
-  Future<UploaderResponse<UploadResult>> addContext(ContextParams params) {
+  Future<UploaderResponse<UploadResult>> addContext(AddContextParams params) {
     params.command = ContextCommand.add.name;
     UploaderRequest request = UploaderRequest(params);
     return _uploaderUtils.callApi(request, 'context', options: SharedParams());
@@ -65,30 +65,5 @@ class Uploader {
     params.command = ContextCommand.remove_all.name;
     UploaderRequest request = UploaderRequest(params);
     return _uploaderUtils.callApi(request, 'context', options: SharedParams());
-  }
-
-  Future<UploaderResponse<UploadResult>> updateMetadata(DestroyParams params) {
-    UploaderRequest request = UploaderRequest(params);
-    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
-  }
-
-  Future<UploaderResponse<UploadResult>> addTag(DestroyParams params) {
-    UploaderRequest request = UploaderRequest(params);
-    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
-  }
-
-  Future<UploaderResponse<UploadResult>> removeTag(DestroyParams params) {
-    UploaderRequest request = UploaderRequest(params);
-    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
-  }
-
-  Future<UploaderResponse<UploadResult>> removeAllTags(DestroyParams params) {
-    UploaderRequest request = UploaderRequest(params);
-    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
-  }
-
-  Future<UploaderResponse<UploadResult>> replaceTag(DestroyParams params) {
-    UploaderRequest request = UploaderRequest(params);
-    return _uploaderUtils.callApi(request, 'destroy', options: SharedParams());
   }
 }

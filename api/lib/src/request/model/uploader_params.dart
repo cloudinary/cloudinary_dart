@@ -6,7 +6,8 @@ import 'package:cloudinary_api/src/request/model/params/eager_transformation.dar
 import 'package:cloudinary_api/src/request/model/params/responsive_breakpoint.dart';
 import 'package:cloudinary_url_gen/transformation/transformation.dart';
 
-abstract class UploaderParams {
+
+abstract class UploadApiParams {
   bool? unsigned;
   String? resourceType;
   String? filename;
@@ -16,7 +17,7 @@ abstract class UploaderParams {
   Map<String, dynamic> buildParams();
 }
 
-class ExplicitParams extends UploaderParams {
+class ExplicitParams extends UploadApiParams {
   String publicId;
   UploadParams? params;
 
@@ -30,7 +31,7 @@ class ExplicitParams extends UploaderParams {
   }
 }
 
-class RenameParams extends UploaderParams {
+class RenameParams extends UploadApiParams {
   String fromPublicId;
   String toPublicId;
   String? type;
@@ -62,7 +63,7 @@ class RenameParams extends UploaderParams {
   }
 }
 
-class DestroyParams extends UploaderParams {
+class DestroyParams extends UploadApiParams {
   String publicId;
   String? resourceType;
   String? type;
@@ -83,23 +84,35 @@ class DestroyParams extends UploaderParams {
   }
 }
 
-class ContextParams extends UploaderParams {
-
-  Map<String, String> context;
+class ContextParams extends UploadApiParams {
   List<String> publicIds;
   String? command;
-  String? signature;
-  String? resourceType;
-  String? type;
 
-  ContextParams({required this.context, required this.publicIds, this.resourceType, this.type, this.signature, this.command});
+  ContextParams({required this.publicIds, this.command});
 
   @override
   Map<String, dynamic> buildParams() {
     return {
-      'context': context,
       'public_ids': publicIds.join(','),
-      'command': command,
+      'command': command
+    };
+  }}
+
+class AddContextParams extends ContextParams {
+
+  Map<String, String> context;
+
+  String? signature;
+  String? resourceType;
+  String? type;
+
+  AddContextParams({required this.context, required super.publicIds, this.resourceType, this.type, this.signature, super.command});
+
+  @override
+  Map<String, dynamic> buildParams() {
+    return {
+      ...super.buildParams(),
+      'context': context,
       'signature': signature,
       'resource_type': resourceType,
       'type': type
@@ -107,22 +120,17 @@ class ContextParams extends UploaderParams {
   }
 }
 
-class RemoveAllContextParams extends UploaderParams {
-  List<String> publicIds;
-  String? command;
+class RemoveAllContextParams extends ContextParams {
 
-  RemoveAllContextParams({required this.publicIds, this.command});
+  RemoveAllContextParams({required super.publicIds, super.command});
 
   @override
   Map<String, dynamic> buildParams() {
-    return {
-      'public_ids': publicIds.join(','),
-      'command': command,
-    };
+    return super.buildParams();
   }
 }
 
-class DownloadBackupAssetParams extends UploaderParams {
+class DownloadBackupAssetParams extends UploadApiParams {
   String assetId;
   String versionId;
 
@@ -137,7 +145,7 @@ class DownloadBackupAssetParams extends UploaderParams {
   }
 }
 
-class UploadParams extends UploaderParams {
+class UploadParams extends UploadApiParams {
   bool? backup;
   bool? exif;
   bool? faces;
@@ -410,43 +418,23 @@ class UploadParams extends UploaderParams {
 
       final value = entry.value;
       if (value is List) {
-        contextValue = encodeList(value);
+        contextValue = _encodeList(value);
       } else if (value is List<dynamic>) {
-        contextValue = encodeList(value);
+        contextValue = _encodeList(value);
       } else {
-        contextValue = cldEncodeSingleContextItem(value.toString());
+        contextValue = _cldEncodeSingleContextItem(value.toString());
       }
 
-      return '${cldEncodeSingleContextItem(entry.key)}=$contextValue';
+      return '${_cldEncodeSingleContextItem(entry.key)}=$contextValue';
     }).join('|');
   }
 
-  String cldEncodeSingleContextItem(String context) {
+  String _cldEncodeSingleContextItem(String context) {
     return context.replaceAll(RegExp(r'([=|])'), r'\\$1');
   }
 
-  String encodeList(List<dynamic> list) {
-    return list.map((item) => cldEncodeSingleContextItem(item.toString())).join(',');
-  }
-
-
   String _encodeList(List<dynamic> list) {
-    var buffer = StringBuffer();
-    buffer.write('[');
-    var first = true;
-    for (var s in list) {
-      if (!first) {
-        buffer.write(',');
-      }
-      buffer.write('"${_cldEncodeSingleContextItem(s.toString())}"');
-      first = false;
-    }
-    buffer.write(']');
-    return buffer.toString();
-  }
-
-  String _cldEncodeSingleContextItem(String context) {
-    return context.replaceAll(RegExp('([=|])'), '\$1');
+    return list.map((item) => _cldEncodeSingleContextItem(item.toString())).join(',');
   }
 
   List<String>? _toAccessControlJson(List<AccessControlRule>? accessControl) {

@@ -9,7 +9,7 @@ class UploaderRequest implements AbstractUploaderRequest<UploadResult> {
   CompletionCallback? completionCallback;
 
   @override
-  UploaderParams? params;
+  UploadApiParams? params;
 
   @override
   Payload? payload;
