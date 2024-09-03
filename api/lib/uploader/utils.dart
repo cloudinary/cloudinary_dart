@@ -1,26 +1,25 @@
 import 'dart:convert';
 import 'dart:math';
-
-import 'package:cloudinary_url_gen/transformation/coordinates/coordinates.dart';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 
-import '../src/request/model/params/access_control_rule.dart';
-import '../src/request/model/params/eager_transformation.dart';
-import '../src/request/model/params/responsive_breakpoint.dart';
 
 class Utils {
+
+  static List<String> _excludeKeys = const ['resource_type', 'unsigned'];
+
   static String apiSignRequest(
       Map<String, dynamic> paramsMap, String apiSecret) {
     List<String> paramsArr = <String>[];
-    paramsMap.removeWhere((key, value) => value == null);
+    paramsMap.removeWhere((key, value) => value == null || _excludeKeys.contains(key));
+
     var sortedParams = paramsMap.keys.whereType<String>().toList()..sort();
     for (var key in sortedParams) {
       var value = paramsMap[key];
       String? paramValue;
       if (value is List<String>) {
         if (value.isNotEmpty) {
-          paramValue = value.toString(); //.join(',');
+          paramValue = value.join(',');
         } else {
           continue;
         }

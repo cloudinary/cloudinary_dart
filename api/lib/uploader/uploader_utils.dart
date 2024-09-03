@@ -46,6 +46,9 @@ class UploaderUtils {
         paramsMap['signature'] =
             Utils.apiSignRequest(paramsMap, config.apiSecret!);
         paramsMap['api_key'] = config.apiKey;
+        if(paramsMap['unsigned'] != null) {
+          paramsMap.remove('unsigned');
+        }
       }
     }
 

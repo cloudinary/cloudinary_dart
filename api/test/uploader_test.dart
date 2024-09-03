@@ -417,7 +417,7 @@ void main() {
 
     var transformation = Transformation()..resize(Resize.scale()..width(2.0));
 
-    var explicitResponse = await cloudinary.uploader().explicit(ExplicitParams(
+    var explicitResponse = await cloudinary.uploader().explicit(ExplicitParams  (
         publicId,
         params: UploadParams(
             eager: [EagerTransformation(transformation)],
