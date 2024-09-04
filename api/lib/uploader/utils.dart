@@ -11,15 +11,15 @@ class Utils {
   static String apiSignRequest(
       Map<String, dynamic> paramsMap, String apiSecret) {
     List<String> paramsArr = <String>[];
+    paramsMap.removeWhere((key, value) => value == null);
     paramsMap.removeWhere((key, value) => value == null || _excludeKeys.contains(key));
-
     var sortedParams = paramsMap.keys.whereType<String>().toList()..sort();
     for (var key in sortedParams) {
       var value = paramsMap[key];
       String? paramValue;
       if (value is List<String>) {
         if (value.isNotEmpty) {
-          paramValue = value.join(',');
+          paramValue = value.toString(); //.join(',');
         } else {
           continue;
         }

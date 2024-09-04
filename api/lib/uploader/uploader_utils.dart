@@ -11,7 +11,6 @@ import 'package:cloudinary_url_gen/config/api_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import '../src/http/session/network_delegate.dart';
-import '../src/request/model/shared_params.dart';
 import '../src/request/model/uploader_params.dart';
 import '../src/request/network_request.dart';
 import '../src/request/payload.dart';
@@ -27,12 +26,15 @@ class UploaderUtils {
   UploaderUtils(this.cloudinary);
 
   NetworkRequest _prepareNetworkRequest(
-      String action, AbstractUploaderRequest request, SharedParams? options) {
+      String action, AbstractUploaderRequest request, UploaderParams? options) {
     var config = cloudinary.config.cloudConfig;
     var prefix = cloudinary.config.apiConfig.uploadPrefix;
     var cloudName = cloudinary.config.cloudConfig.cloudName;
     var version = apiVersion;
-    var resourceType = options?.resourceType ?? defaultResourceType;
+    var resourceType = defaultResourceType;
+    if (options is UploadAssetParams) {
+      resourceType = options.resourceType;
+    }
 
     Map<String, dynamic> paramsMap = request.buildParams();
 
@@ -64,7 +66,7 @@ class UploaderUtils {
 
     return NetworkRequest(
         url,
-        options?.filename,
+        options is UploadParams ? options.filename : null,
         options?.extraHeaders ?? <String, String>{},
         paramsMap,
         (options?.timeout) ?? defaultTimeout,
@@ -75,7 +77,7 @@ class UploaderUtils {
 
   Future<UploaderResponse<T>> callApi<T extends BaseUploadResult>(
       AbstractUploaderRequest request, String action,
-      {SharedParams? options, required T Function(Map<String, dynamic>) fromJson}) async {
+      {UploaderParams? options, required T Function(Map<String, dynamic>) fromJson}) async {
     try {
       var response = await networkDelegate
           .callApi(_prepareNetworkRequest(action, request, options));
@@ -95,21 +97,13 @@ class UploaderUtils {
     var chunkSize = cloudinary.config.apiConfig.chunkSize;
     final uploadParams = request.params as UploadParams?;
 
-    SharedParams options = SharedParams(
-      resourceType: getResourceTypeIfUploadAssetParams(request.params),
-      unsigned: request.params?.unsigned,
-      timeout: request.params?.timeout,
-      extraHeaders: request.params?.extraHeaders,
-      filename: getFilenameIfUploadParams(request.params),
-    );
-
     if (payload.value is String && Utils.isRemoteUrl(payload.value) ||
         (1 > payload.length || payload.length < chunkSize!)) {
       // Ensure correct type for `fromJson` when calling `callApi`
       return callApi(
         request,
         'upload',
-        options: options,
+        options: uploadParams,
         fromJson: UploadResult.fromJson,
       );
     }
@@ -151,17 +145,10 @@ class UploaderUtils {
     final startOffset = _getStartOffset(index, chunkSize);
     final endOffset = _getEndOffset(index, chunkSize, payload.length);
     final stream = _getStream(startOffset, endOffset, payload);
-    SharedParams options = SharedParams(
-        resourceType: getResourceTypeIfUploadAssetParams(request.params),
-        unsigned: request.params?.unsigned,
-        filename: getFilenameIfUploadParams(request.params) ?? payload.name,
-        timeout: request.params?.timeout ?? cloudinary.config.apiConfig.timeout,
-        extraHeaders: request.params?.extraHeaders);
-
     try {
       var requestResponse = await networkDelegate.uploadLarge(
           stream,
-          _prepareNetworkRequest('upload', request, options),
+          _prepareNetworkRequest('upload', request, request.params),
           startOffset,
           endOffset,
           payload.length);
@@ -206,10 +193,10 @@ class UploaderUtils {
   }
 
   bool _requireSigning(
-      String action, SharedParams? options, String? signature) {
+      String action, UploaderParams? options, String? signature) {
     var missingSignature = (signature != null) ? false : true;
     var signedRequest =
-        ((options?.unsigned != null) ? !options!.unsigned! : false);
+        options?.unsigned == null || ((options?.unsigned != null) ? !options!.unsigned! : false);
     var actionRequiresSigning = action != 'delete_by_token';
     return missingSignature && signedRequest && actionRequiresSigning;
   }

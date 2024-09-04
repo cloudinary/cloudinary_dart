@@ -4,7 +4,6 @@ import 'package:cloudinary_api/uploader/uploader_utils.dart';
 import 'package:cloudinary_api/uploader/utils.dart';
 import 'package:cloudinary_url_gen/cloudinary.dart';
 import '../src/http/request/multi_part_request.dart';
-import '../src/request/model/shared_params.dart';
 import '../src/request/model/uploader_params.dart';
 import '../src/request/payload.dart';
 import '../src/request/upload_request.dart';
@@ -37,7 +36,7 @@ class Uploader {
     return _uploaderUtils.callApi<UploadResult>(
         request,
         'rename',
-        options: SharedParams(),
+        options: params,
         fromJson: UploadResult.fromJson
     );
   }
@@ -47,7 +46,7 @@ class Uploader {
     return _uploaderUtils.callApi<UploadResult>(
         request,
         'explicit',
-        options: SharedParams(),
+        options: params,
         fromJson: UploadResult.fromJson
     );
   }
@@ -57,7 +56,7 @@ class Uploader {
     return _uploaderUtils.callApi<UploadResult>(
         request,
         'download_backup',
-        options: SharedParams(),
+        options: params,
         fromJson: UploadResult.fromJson
     );
   }
@@ -67,7 +66,7 @@ class Uploader {
     return _uploaderUtils.callApi<UploadResult>(
         request,
         'destroy',
-        options: SharedParams(),
+        options: params,
         fromJson: UploadResult.fromJson
     );
   }
@@ -80,7 +79,7 @@ class Uploader {
     return _uploaderUtils.callApi<ContextResult>(
         request,
         'context',
-        options: SharedParams(),
+        options: params,
         fromJson: ContextResult.fromJson
     );
   }
@@ -91,7 +90,7 @@ class Uploader {
     return _uploaderUtils.callApi<ContextResult>(
         request,
         'context',
-        options: SharedParams(),
+        options: params,
         fromJson: ContextResult.fromJson
     );
   }
