@@ -36,8 +36,7 @@ class Uploader {
     return _uploaderUtils.callApi<UploadResult>(
         request,
         'rename',
-        options: params,
-        fromJson: UploadResult.fromJson
+        options: params
     );
   }
 
@@ -46,8 +45,7 @@ class Uploader {
     return _uploaderUtils.callApi<UploadResult>(
         request,
         'explicit',
-        options: params,
-        fromJson: UploadResult.fromJson
+        options: params
     );
   }
 
@@ -56,8 +54,7 @@ class Uploader {
     return _uploaderUtils.callApi<UploadResult>(
         request,
         'download_backup',
-        options: params,
-        fromJson: UploadResult.fromJson
+        options: params
     );
   }
 
@@ -66,8 +63,7 @@ class Uploader {
     return _uploaderUtils.callApi<UploadResult>(
         request,
         'destroy',
-        options: params,
-        fromJson: UploadResult.fromJson
+        options: params
     );
   }
 
@@ -79,8 +75,7 @@ class Uploader {
     return _uploaderUtils.callApi<ContextResult>(
         request,
         'context',
-        options: params,
-        fromJson: ContextResult.fromJson
+        options: params
     );
   }
 
@@ -90,8 +85,7 @@ class Uploader {
     return _uploaderUtils.callApi<ContextResult>(
         request,
         'context',
-        options: params,
-        fromJson: ContextResult.fromJson
+        options: params
     );
   }
 }

@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:cloudinary_api/src/http/extensions/list_extension.dart';
 import 'package:cloudinary_api/uploader/uploader_response.dart';
+import 'package:cloudinary_api/uploader/uploader_response.dart';
 import 'package:cloudinary_api/uploader/utils.dart';
 import 'package:cloudinary_url_gen/cloudinary.dart';
 import 'package:cloudinary_url_gen/config/api_config.dart';
@@ -35,6 +36,10 @@ class UploaderUtils {
     if (options is UploadAssetParams) {
       resourceType = options.resourceType;
     }
+    if (request.params is UploadParams && (request.params as UploadParams).filename != null && request.payload != null) {
+      request.payload?.name = (request.params as UploadParams).filename!;
+    }
+
 
     Map<String, dynamic> paramsMap = request.buildParams();
 
@@ -65,23 +70,23 @@ class UploaderUtils {
         .join("/");
 
     return NetworkRequest(
-        url,
-        options is UploadParams ? options.filename : null,
-        options?.extraHeaders ?? <String, String>{},
-        paramsMap,
-        (options?.timeout) ?? defaultTimeout,
-        request.payload,
-        request.progress,
-        request.completionCallback);
+      url,
+      options?.extraHeaders ?? <String, String>{},
+      paramsMap,
+      options?.timeout ?? defaultTimeout,
+      request.payload,
+      request.progress,
+      request.completionCallback
+    );
   }
 
   Future<UploaderResponse<T>> callApi<T extends BaseUploadResult>(
       AbstractUploaderRequest request, String action,
-      {UploaderParams? options, required T Function(Map<String, dynamic>) fromJson}) async {
+      {UploaderParams? options}) async {
     try {
       var response = await networkDelegate
           .callApi(_prepareNetworkRequest(action, request, options));
-      return _processResponse<T>(response, fromJson);
+      return _processResponse<T>(response);
     } on TimeoutException catch (error) {
       return UploaderResponse<T>(
           -1, null, UploadError('Timeout of ${error.duration} occurred'), error.message);
@@ -104,7 +109,6 @@ class UploaderUtils {
         request,
         'upload',
         options: uploadParams,
-        fromJson: UploadResult.fromJson,
       );
     }
 
@@ -156,7 +160,6 @@ class UploaderUtils {
       if (request.completionCallback != null) {
         _processResponseWithCompletion<UploadResult>(
           requestResponse,
-          UploadResult.fromJson,
               (response) {
             if (response.data?.done == true || response.error != null) {
               request.completionCallback!(response);
@@ -203,20 +206,18 @@ class UploaderUtils {
 
   //Response handler
   Future<UploaderResponse<T>> _processResponse<T extends BaseUploadResult>(
-      http.StreamedResponse requestResponse, T Function(Map<String, dynamic>) fromJson) async {
+      http.StreamedResponse requestResponse) async {
     return _getProcessedResponse(requestResponse.statusCode,
-        requestResponse.stream, requestResponse.headers['x-cld-error'], fromJson);
+        requestResponse.stream, requestResponse.headers['x-cld-error']);
   }
 
   void _processResponseWithCompletion<T extends BaseUploadResult>(
       StreamedResponse? requestResponse,
-      T Function(Map<String, dynamic>) fromJson,
       void Function(UploaderResponse<T> response) completion) {
     var response = _getProcessedResponse<T>(
         requestResponse!.statusCode,
         requestResponse.stream,
-        requestResponse.headers['x-cld-error'],
-        fromJson
+        requestResponse.headers['x-cld-error']
     );
     response.then((unwrappedResponse) {
       completion(unwrappedResponse);
@@ -224,15 +225,13 @@ class UploaderUtils {
   }
 
   Future<UploaderResponse<T>> _getProcessedResponse<T extends BaseUploadResult>(
-      int statusCode, ByteStream? stream, String? errorHeader,
-      T Function(Map<String, dynamic>) fromJson) async {
+      int statusCode, ByteStream? stream, String? errorHeader) async {
     var body = await stream?.transform(utf8.decoder).join();
     if (statusCode >= 200 && statusCode <= 299) {
       if (body != null) {
         final parsedJson = jsonDecode(body);
-        final uploadResult = fromJson(parsedJson);
-        return UploaderResponse<T>(
-            statusCode, uploadResult, null, body);
+        final uploadResult = BaseUploadResult.fromJson<T>(parsedJson);
+        return UploaderResponse<T>(statusCode, uploadResult, null, body);
       } else {
         var responseError = UploadError("Error");
         return UploaderResponse<T>(statusCode, null, responseError, body);
@@ -244,14 +243,12 @@ class UploaderUtils {
       return UploaderResponse<T>(
           statusCode,
           null,
-          UploadError(
-              errorHeader ?? "We had a problem, please contact support"),
+          UploadError(errorHeader ?? "We had a problem, please contact support"),
           body);
     }
     return UploaderResponse<T>(
         statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
   }
-
 
   String? getFilenameIfUploadParams(dynamic params) {
     if (params is UploadParams) {

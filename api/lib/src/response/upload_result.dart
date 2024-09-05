@@ -1,13 +1,21 @@
-import 'dart:ffi';
-
 import '../request/model/params/access_control_rule.dart';
 import '../request/model/params/coordinates.dart';
 
 abstract class BaseUploadResult {
+  BaseUploadResult();
 
+  static T fromJson<T extends BaseUploadResult>(Map<String, dynamic> json) {
+    if (T == UploadResult) {
+      return UploadResult.fromJson(json) as T;
+    } else if (T == ContextResult) {
+      return ContextResult.fromJson(json) as T;
+    } else {
+      throw UnimplementedError('Unknown result type');
+    }
+  }
 }
 
-class ContextResult extends BaseUploadResult {
+class ContextResult implements BaseUploadResult {
   List<String>? publicIds;
 
   ContextResult({this.publicIds});
@@ -18,7 +26,7 @@ class ContextResult extends BaseUploadResult {
   }
 }
 
-class UploadResult extends BaseUploadResult {
+class UploadResult implements BaseUploadResult {
   String? publicId;
   int? version;
   String? signature;

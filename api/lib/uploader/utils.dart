@@ -6,7 +6,7 @@ import 'package:crypto/crypto.dart';
 
 class Utils {
 
-  static List<String> _excludeKeys = const ['resource_type', 'unsigned'];
+  static List<String> _excludeKeys = const ['resource_type', 'unsigned', 'filename'];
 
   static String apiSignRequest(
       Map<String, dynamic> paramsMap, String apiSecret) {

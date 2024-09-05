@@ -1,3 +1,4 @@
+import 'package:cloudinary_api/src/request/model/uploader_params.dart';
 import 'package:cloudinary_api/uploader/utils.dart';
 import 'package:cloudinary_url_gen/cloudinary.dart';
 
@@ -16,7 +17,7 @@ class NetworkDelegate {
       multiPartRequest.files.add((request.payload!.path != null)
           ? await http.MultipartFile.fromPath(
               'file', request.payload?.path ?? request.payload!.value,
-              filename: request.filename)
+        filename: request.payload?.name ?? null)
           : http.MultipartFile.fromString('file', request.payload!.value));
     }
     return await multiPartRequest
@@ -39,7 +40,8 @@ class NetworkDelegate {
     multiPartRequest.fields.addAll(_paramsToFields(request.params));
     multiPartRequest.files.add(MultipartFile(
         "file", stream, endOffset - startOffset,
-        filename: request.filename ?? 'file',
+        filename: request.payload?.name ??
+            (request.params is UploadParams ? (request.params as UploadParams).filename : 'file'),
         contentType: MediaType.parse('text/plain; charset=UTF-8')));
     multiPartRequest.headers.addEntries(
         {'Content-Type': 'multipart/form-data; Stri=$boundary'}.entries);
@@ -54,10 +56,10 @@ class NetworkDelegate {
         'POST', Uri.parse(request.url), request.headers,
         onProgress: request.progressCallback);
     multiPartRequest.fields.addAll(_paramsToFields(request.params));
-    if (request.filename != null) {
+    if (request.params is UploadParams && (request.params as UploadParams).filename != null) {
       if (request.payload != null) {
         multiPartRequest.fields.addEntries({
-          request.filename!: request.payload!.path ?? request.payload!.name
+          (request.params as UploadParams).filename!: request.payload!.path ?? request.payload!.name
         }.entries);
       }
     }

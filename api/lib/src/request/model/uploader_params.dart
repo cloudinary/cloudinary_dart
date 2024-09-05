@@ -421,6 +421,7 @@ class UploadParams extends UploadAssetParams {
       'exif': exif,
       'faces': faces,
       'colors': colors,
+      'filename': filename,
       'image_metadata': imageMetadata,
       'media_metadata': mediaMetadata,
       'use_filename': useFilename,
@@ -478,6 +479,7 @@ class UploadParams extends UploadAssetParams {
     mapParams['image_metadata'] = imageMetadata?.toString();
     mapParams['media_metadata'] = mediaMetadata?.toString();
     mapParams['use_filename'] = useFilename?.toString();
+    mapParams['filename'] = filename?.toString();
     mapParams['unique_filename'] = uniqueFilename?.toString();
     mapParams['eager_async'] = eagerAsync?.toString();
     mapParams['invalidate'] = invalidate?.toString();
