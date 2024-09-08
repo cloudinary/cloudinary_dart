@@ -65,7 +65,9 @@ class EncodeUtils {
   }
 
   String _encodeList(List<dynamic> list) {
-    return list.map((item) => _cldEncodeSingleContextItem(item.toString())).join(',');
+    return list
+        .map((item) => _cldEncodeSingleContextItem(item.toString()))
+        .join(',');
   }
 
   List<String>? toAccessControlJson(List<AccessControlRule>? accessControl) {
@@ -90,5 +92,4 @@ class EncodeUtils {
     }
     return result;
   }
-
 }

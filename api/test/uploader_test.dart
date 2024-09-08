@@ -282,8 +282,9 @@ void main() {
   });
 
   test('Test Cloudinary upload with media metadata', () async {
-    var response = await cloudinary.uploader().upload(srcTestImage,
-        params: UploadParams(mediaMetadata: true));
+    var response = await cloudinary
+        .uploader()
+        .upload(srcTestImage, params: UploadParams(mediaMetadata: true));
 
     var result = resultOrThrow(response?.data);
     assert(result.imageMetadata != null);
@@ -403,7 +404,10 @@ void main() {
     var toPublicId = 'rename_${publicId}_$suffix';
 
     var renameResponse = await cloudinary.uploader().rename(
-        params: RenameParams(fromPublicId: publicId, toPublicId: toPublicId, notificationUrl: 'www.test.com'));
+        params: RenameParams(
+            fromPublicId: publicId,
+            toPublicId: toPublicId,
+            notificationUrl: 'www.test.com'));
     assert(toPublicId == renameResponse.data?.publicId);
   });
 
@@ -417,7 +421,7 @@ void main() {
 
     var transformation = Transformation()..resize(Resize.scale()..width(2.0));
 
-    var explicitResponse = await cloudinary.uploader().explicit(ExplicitParams  (
+    var explicitResponse = await cloudinary.uploader().explicit(ExplicitParams(
         publicId,
         params: UploadParams(
             eager: [EagerTransformation(transformation)],
@@ -444,7 +448,8 @@ void main() {
     var result = resultOrThrow(response?.data);
     var publicId = result.publicId ?? '';
 
-    var destroyResponse = await cloudinary.uploader().destroy(DestroyParams(publicId: publicId, notificationUrl: 'www.test.com'));
+    var destroyResponse = await cloudinary.uploader().destroy(
+        DestroyParams(publicId: publicId, notificationUrl: 'www.test.com'));
     assert(200 == destroyResponse.responseCode);
   });
 
@@ -485,16 +490,19 @@ void main() {
 
   test('Test add context successful', () async {
     String publicId = 'add_context_id' + suffix;
-    var response = await cloudinary
-        .uploader()
-        .upload(srcTestImage, params: UploadParams(publicId: publicId, context: {'caption': 'some caption', 'alt': 'alternative'}));
+    var response = await cloudinary.uploader().upload(srcTestImage,
+        params: UploadParams(
+            publicId: publicId,
+            context: {'caption': 'some caption', 'alt': 'alternative'}));
     UploadResult result = resultOrThrow<UploadResult>(response?.data);
     assert(result.publicId == publicId);
 
     ResultContext? context = result.context;
     assert(context != null);
 
-    var addContextResponse = await cloudinary.uploader().addContext(AddContextParams(context: {'caption': 'new caption'}, publicIds: [publicId]));
+    var addContextResponse = await cloudinary.uploader().addContext(
+        AddContextParams(
+            context: {'caption': 'new caption'}, publicIds: [publicId]));
     var addContextResult = resultOrThrow(addContextResponse.data);
     assert(addContextResult.publicIds != null);
     assert(addContextResult.publicIds!.contains(publicId));
@@ -502,11 +510,14 @@ void main() {
 
   test('Test remove all context successful', () async {
     String publicId = 'add_context_id' + suffix;
-    await cloudinary
-        .uploader()
-        .upload(srcTestImage, params: UploadParams(publicId: publicId, context: {'caption': 'some caption', 'alt': 'alternative'}));
+    await cloudinary.uploader().upload(srcTestImage,
+        params: UploadParams(
+            publicId: publicId,
+            context: {'caption': 'some caption', 'alt': 'alternative'}));
 
-    var response = await cloudinary.uploader().removeAllContext(RemoveAllContextParams(publicIds: [publicId]));
+    var response = await cloudinary
+        .uploader()
+        .removeAllContext(RemoveAllContextParams(publicIds: [publicId]));
     var result = resultOrThrow(response.data);
 
     assert(result.publicIds != null);

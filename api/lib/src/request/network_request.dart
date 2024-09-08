@@ -10,12 +10,6 @@ class NetworkRequest<T> {
   CompletionCallback? completionCallback;
   int timeout;
 
-  NetworkRequest(
-      this.url,
-      this.headers,
-      this.params,
-      this.timeout,
-      this.payload,
-      this.progressCallback,
-      this.completionCallback);
+  NetworkRequest(this.url, this.headers, this.params, this.timeout,
+      this.payload, this.progressCallback, this.completionCallback);
 }

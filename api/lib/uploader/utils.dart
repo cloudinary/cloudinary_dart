@@ -3,16 +3,19 @@ import 'dart:math';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 
-
 class Utils {
-
-  static List<String> _excludeKeys = const ['resource_type', 'unsigned', 'filename'];
+  static List<String> _excludeKeys = const [
+    'resource_type',
+    'unsigned',
+    'filename'
+  ];
 
   static String apiSignRequest(
       Map<String, dynamic> paramsMap, String apiSecret) {
     List<String> paramsArr = <String>[];
     paramsMap.removeWhere((key, value) => value == null);
-    paramsMap.removeWhere((key, value) => value == null || _excludeKeys.contains(key));
+    paramsMap.removeWhere(
+        (key, value) => value == null || _excludeKeys.contains(key));
     var sortedParams = paramsMap.keys.whereType<String>().toList()..sort();
     for (var key in sortedParams) {
       var value = paramsMap[key];
@@ -59,7 +62,6 @@ class Utils {
   static String getRandomString(int length) =>
       String.fromCharCodes(Iterable.generate(
           length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-
-
 }
-enum ContextCommand{add, remove_all}
+
+enum ContextCommand { add, remove_all }

@@ -12,6 +12,7 @@ void main() {
     String? result = EncodeUtils().asContextParam(context);
 
     // Adjusted expected string to match the actual result
-    expect(result, equals('caption=different \\\\\$1 caption|alt2=alt\\\\\$1alternative'));
+    expect(result,
+        equals('caption=different \\\\\$1 caption|alt2=alt\\\\\$1alternative'));
   });
 }

@@ -13,7 +13,8 @@ abstract class UploaderParams {
   Map<String, String>? extraHeaders;
   int? timeout;
 
-  UploaderParams({this.unsigned, this.signature, this.extraHeaders, this.timeout});
+  UploaderParams(
+      {this.unsigned, this.signature, this.extraHeaders, this.timeout});
 
   Map<String, dynamic> buildParams() {
     var map = {
@@ -39,11 +40,11 @@ abstract class UploadAssetParams extends UploaderParams {
     Map<String, String>? extraHeaders,
     int? timeout,
   }) : super(
-    unsigned: unsigned,
-    signature: signature,
-    extraHeaders: extraHeaders,
-    timeout: timeout,
-  );
+          unsigned: unsigned,
+          signature: signature,
+          extraHeaders: extraHeaders,
+          timeout: timeout,
+        );
 
   @override
   Map<String, dynamic> buildParams() {
@@ -61,21 +62,21 @@ class ExplicitParams extends UploadAssetParams {
   String publicId;
   UploadParams? params;
 
-  ExplicitParams(this.publicId, {
+  ExplicitParams(
+    this.publicId, {
     this.params,
     bool? unsigned,
     String? signature,
     Map<String, String>? extraHeaders,
     int? timeout,
   }) : super(
-    resourceType: 'image',
-    type: 'upload',
-    unsigned: unsigned,
-    signature: signature,
-    extraHeaders: extraHeaders,
-    timeout: timeout,
-  );
-
+          resourceType: 'image',
+          type: 'upload',
+          unsigned: unsigned,
+          signature: signature,
+          extraHeaders: extraHeaders,
+          timeout: timeout,
+        );
 
   @override
   Map<String, dynamic> buildParams() {
@@ -85,7 +86,6 @@ class ExplicitParams extends UploadAssetParams {
     return map;
   }
 }
-
 
 class RenameParams extends UploadAssetParams {
   String fromPublicId;
@@ -109,13 +109,13 @@ class RenameParams extends UploadAssetParams {
     Map<String, String>? extraHeaders,
     int? timeout,
   }) : super(
-    resourceType: resourceType ?? 'image',
-    type: type ?? 'upload',
-    unsigned: unsigned,
-    signature: signature,
-    extraHeaders: extraHeaders,
-    timeout: timeout,
-  );
+          resourceType: resourceType ?? 'image',
+          type: type ?? 'upload',
+          unsigned: unsigned,
+          signature: signature,
+          extraHeaders: extraHeaders,
+          timeout: timeout,
+        );
 
   @override
   Map<String, dynamic> buildParams() {
@@ -152,11 +152,11 @@ class DestroyParams extends UploaderParams {
     Map<String, String>? extraHeaders,
     int? timeout,
   }) : super(
-    unsigned: unsigned,
-    signature: signature,
-    extraHeaders: extraHeaders,
-    timeout: timeout,
-  );
+          unsigned: unsigned,
+          signature: signature,
+          extraHeaders: extraHeaders,
+          timeout: timeout,
+        );
 
   @override
   Map<String, dynamic> buildParams() {
@@ -183,11 +183,11 @@ class ContextParams extends UploaderParams {
     Map<String, String>? extraHeaders,
     int? timeout,
   }) : super(
-    unsigned: unsigned,
-    signature: signature,
-    extraHeaders: extraHeaders,
-    timeout: timeout,
-  );
+          unsigned: unsigned,
+          signature: signature,
+          extraHeaders: extraHeaders,
+          timeout: timeout,
+        );
 
   @override
   Map<String, dynamic> buildParams() {
@@ -215,11 +215,11 @@ class AddContextParams extends ContextParams {
     Map<String, String>? extraHeaders,
     int? timeout,
   }) : super(
-    unsigned: unsigned,
-    signature: signature,
-    extraHeaders: extraHeaders,
-    timeout: timeout,
-  );
+          unsigned: unsigned,
+          signature: signature,
+          extraHeaders: extraHeaders,
+          timeout: timeout,
+        );
 
   @override
   Map<String, dynamic> buildParams() {
@@ -232,7 +232,6 @@ class AddContextParams extends ContextParams {
   }
 }
 
-
 class RemoveAllContextParams extends ContextParams {
   RemoveAllContextParams({
     required super.publicIds,
@@ -242,11 +241,11 @@ class RemoveAllContextParams extends ContextParams {
     Map<String, String>? extraHeaders,
     int? timeout,
   }) : super(
-    unsigned: unsigned,
-    signature: signature,
-    extraHeaders: extraHeaders,
-    timeout: timeout,
-  );
+          unsigned: unsigned,
+          signature: signature,
+          extraHeaders: extraHeaders,
+          timeout: timeout,
+        );
 
   @override
   Map<String, dynamic> buildParams() {
@@ -254,24 +253,23 @@ class RemoveAllContextParams extends ContextParams {
   }
 }
 
-
 class DownloadBackupAssetParams extends UploaderParams {
   String assetId;
   String versionId;
 
   DownloadBackupAssetParams(
-      this.assetId,
-      this.versionId, {
-        bool? unsigned,
-        String? signature,
-        Map<String, String>? extraHeaders,
-        int? timeout,
-      }) : super(
-    unsigned: unsigned,
-    signature: signature,
-    extraHeaders: extraHeaders,
-    timeout: timeout,
-  );
+    this.assetId,
+    this.versionId, {
+    bool? unsigned,
+    String? signature,
+    Map<String, String>? extraHeaders,
+    int? timeout,
+  }) : super(
+          unsigned: unsigned,
+          signature: signature,
+          extraHeaders: extraHeaders,
+          timeout: timeout,
+        );
 
   @override
   Map<String, dynamic> buildParams() {
@@ -282,7 +280,6 @@ class DownloadBackupAssetParams extends UploaderParams {
     };
   }
 }
-
 
 class UploadParams extends UploadAssetParams {
   bool? backup;
@@ -340,61 +337,61 @@ class UploadParams extends UploadAssetParams {
 
   UploadParams(
       {this.backup,
-        this.exif,
-        this.faces,
-        this.filename,
-        this.colors,
-        @Deprecated('Use the mediaMetadata instead.')
-        this.imageMetadata,
-        this.mediaMetadata,
-        this.useFilename,
-        this.uniqueFilename,
-        this.eagerAsync,
-        this.invalidate,
-        this.discardOriginalFilename,
-        this.overwrite,
-        this.phash,
-        this.returnDeleteToken,
-        this.async,
-        this.uploadPreset,
-        this.publicId,
-        this.callback,
-        this.format,
-        this.notificationUrl,
-        this.eagerNotificationUrl,
-        this.proxy,
-        this.folder,
-        this.allowedFormats,
-        this.moderation,
-        this.cinemagraphAnalysis,
-        this.qualityAnalysis,
-        this.accessMode,
-        this.responsiveBreakpoints,
-        Transformation? transformation,
-        this.eager,
-        this.signature,
-        this.timestamp,
-        this.headers,
-        this.tags,
-        this.faceCoordinates,
-        this.customCoordinates,
-        this.context,
-        this.accessControl,
-        this.ocr,
-        this.rawConvert,
-        this.categorization,
-        this.detection,
-        this.similaritySearch,
-        this.backgroundRemoval,
-        this.autoTagging,
-        this.accessibilityAnalysis,
-        this.filenameOverride,
-        //Internal use only params
-        bool unsigned = false,
-        String? resourceType,
-        String? type,
-        int? timeout,
-        Map<String, String>? extraHeaders}) : super(resourceType: 'image', type: 'upload') {
+      this.exif,
+      this.faces,
+      this.filename,
+      this.colors,
+      @Deprecated('Use the mediaMetadata instead.') this.imageMetadata,
+      this.mediaMetadata,
+      this.useFilename,
+      this.uniqueFilename,
+      this.eagerAsync,
+      this.invalidate,
+      this.discardOriginalFilename,
+      this.overwrite,
+      this.phash,
+      this.returnDeleteToken,
+      this.async,
+      this.uploadPreset,
+      this.publicId,
+      this.callback,
+      this.format,
+      this.notificationUrl,
+      this.eagerNotificationUrl,
+      this.proxy,
+      this.folder,
+      this.allowedFormats,
+      this.moderation,
+      this.cinemagraphAnalysis,
+      this.qualityAnalysis,
+      this.accessMode,
+      this.responsiveBreakpoints,
+      Transformation? transformation,
+      this.eager,
+      this.signature,
+      this.timestamp,
+      this.headers,
+      this.tags,
+      this.faceCoordinates,
+      this.customCoordinates,
+      this.context,
+      this.accessControl,
+      this.ocr,
+      this.rawConvert,
+      this.categorization,
+      this.detection,
+      this.similaritySearch,
+      this.backgroundRemoval,
+      this.autoTagging,
+      this.accessibilityAnalysis,
+      this.filenameOverride,
+      //Internal use only params
+      bool unsigned = false,
+      String? resourceType,
+      String? type,
+      int? timeout,
+      Map<String, String>? extraHeaders})
+      : super(resourceType: 'image', type: 'upload') {
     _transformation = transformation;
     super.unsigned = unsigned;
     super.resourceType = resourceType ?? 'image';
@@ -504,10 +501,13 @@ class UploadParams extends UploadAssetParams {
     mapParams['eager'] = EncodeUtils().asEagerParam(eager);
     mapParams['headers'] = headers;
     mapParams['tags'] = tags?.join(',');
-    mapParams['face_coordinates'] = EncodeUtils().asCoordinatesParam(faceCoordinates);
-    mapParams['custom_coordinates'] = EncodeUtils().asCoordinatesParam(customCoordinates);
+    mapParams['face_coordinates'] =
+        EncodeUtils().asCoordinatesParam(faceCoordinates);
+    mapParams['custom_coordinates'] =
+        EncodeUtils().asCoordinatesParam(customCoordinates);
     mapParams['context'] = EncodeUtils().asContextParam(context);
-    mapParams['access_control'] = EncodeUtils().toAccessControlJson(accessControl);
+    mapParams['access_control'] =
+        EncodeUtils().toAccessControlJson(accessControl);
     mapParams['ocr'] = ocr;
     mapParams['raw_convert'] = rawConvert;
     mapParams['categorization'] = categorization;
@@ -521,4 +521,3 @@ class UploadParams extends UploadAssetParams {
     return mapParams;
   }
 }
-
