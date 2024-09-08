@@ -5,7 +5,6 @@ import 'dart:math';
 
 import 'package:cloudinary_api/src/http/extensions/list_extension.dart';
 import 'package:cloudinary_api/uploader/uploader_response.dart';
-import 'package:cloudinary_api/uploader/uploader_response.dart';
 import 'package:cloudinary_api/uploader/utils.dart';
 import 'package:cloudinary_url_gen/cloudinary.dart';
 import 'package:cloudinary_url_gen/config/api_config.dart';
@@ -82,11 +81,11 @@ class UploaderUtils {
 
   Future<UploaderResponse<T>> callApi<T extends BaseUploadResult>(
       AbstractUploaderRequest request, String action,
-      {UploaderParams? options}) async {
+      {UploaderParams? options, required T Function(Map<String, dynamic> data) fromJson}) async {
     try {
       var response = await networkDelegate
           .callApi(_prepareNetworkRequest(action, request, options));
-      return _processResponse<T>(response);
+      return _processResponse<T>(response, fromJson: fromJson);
     } on TimeoutException catch (error) {
       return UploaderResponse<T>(
           -1, null, UploadError('Timeout of ${error.duration} occurred'), error.message);
@@ -94,9 +93,9 @@ class UploaderUtils {
   }
 
 
-  Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request) {
+  Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request, {required UploadResult Function(Map<String, dynamic> data) fromJson}) {
     if (request.payload == null) {
-      throw ArgumentError('An upload request must have a payload');
+      throw ArgumentError('An upload request mus  t have a payload');
     }
     var payload = request.payload!;
     var chunkSize = cloudinary.config.apiConfig.chunkSize;
@@ -109,11 +108,12 @@ class UploaderUtils {
         request,
         'upload',
         options: uploadParams,
+        fromJson: fromJson,
       );
     }
 
     var uniqueUploadId = Utils.createRandomUploadId(8);
-    _uploadLargeParts(payload, request, uniqueUploadId);
+    _uploadLargeParts(payload, request, uniqueUploadId, fromJson: fromJson);
     return null;
   }
 
@@ -132,7 +132,7 @@ class UploaderUtils {
   }
 
   void _uploadLargeParts(
-      Payload payload, UploadRequest request, String uniqueUploadId) async {
+      Payload payload, UploadRequest request, String uniqueUploadId, {required UploadResult Function(Map<String, dynamic> data) fromJson}) async {
     int chunkSize = cloudinary.config.apiConfig.chunkSize!;
     request.params?.extraHeaders = <String, String>{};
     request.params?.extraHeaders
@@ -140,12 +140,12 @@ class UploaderUtils {
     int chunkCount = (payload.length / chunkSize).ceil();
 
     for (int index = 0; index < chunkCount; index++) {
-      await _buildStreamRequest(index, chunkSize, payload, request);
+      await _buildStreamRequest(index, chunkSize, payload, request, fromJson: fromJson);
     }
   }
 
   Future<http.StreamedResponse?>? _buildStreamRequest(
-      int index, int chunkSize, Payload payload, UploadRequest request) async {
+      int index, int chunkSize, Payload payload, UploadRequest request, {required UploadResult Function(Map<String, dynamic> data) fromJson}) async {
     final startOffset = _getStartOffset(index, chunkSize);
     final endOffset = _getEndOffset(index, chunkSize, payload.length);
     final stream = _getStream(startOffset, endOffset, payload);
@@ -165,7 +165,7 @@ class UploaderUtils {
               request.completionCallback!(response);
             }
           },
-        );
+        fromJson: fromJson);
       }
       return requestResponse;
     } on TimeoutException catch (error) {
@@ -206,18 +206,20 @@ class UploaderUtils {
 
   //Response handler
   Future<UploaderResponse<T>> _processResponse<T extends BaseUploadResult>(
-      http.StreamedResponse requestResponse) async {
+      http.StreamedResponse requestResponse, {required Function(Map<String, dynamic> data) fromJson}) async {
     return _getProcessedResponse(requestResponse.statusCode,
-        requestResponse.stream, requestResponse.headers['x-cld-error']);
+        requestResponse.stream, requestResponse.headers['x-cld-error'], fromJson: fromJson);
   }
 
   void _processResponseWithCompletion<T extends BaseUploadResult>(
       StreamedResponse? requestResponse,
-      void Function(UploaderResponse<T> response) completion) {
+      void Function(UploaderResponse<T> response) completion,
+   {required Function(Map<String, dynamic> data) fromJson}) {
     var response = _getProcessedResponse<T>(
         requestResponse!.statusCode,
         requestResponse.stream,
-        requestResponse.headers['x-cld-error']
+        requestResponse.headers['x-cld-error'],
+      fromJson: fromJson
     );
     response.then((unwrappedResponse) {
       completion(unwrappedResponse);
@@ -225,12 +227,12 @@ class UploaderUtils {
   }
 
   Future<UploaderResponse<T>> _getProcessedResponse<T extends BaseUploadResult>(
-      int statusCode, ByteStream? stream, String? errorHeader) async {
+      int statusCode, ByteStream? stream, String? errorHeader, {required Function(Map<String, dynamic> data) fromJson}) async {
     var body = await stream?.transform(utf8.decoder).join();
     if (statusCode >= 200 && statusCode <= 299) {
       if (body != null) {
         final parsedJson = jsonDecode(body);
-        final uploadResult = BaseUploadResult.fromJson<T>(parsedJson);
+        final uploadResult = fromJson(parsedJson);
         return UploaderResponse<T>(statusCode, uploadResult, null, body);
       } else {
         var responseError = UploadError("Error");

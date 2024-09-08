@@ -2,17 +2,6 @@ import '../request/model/params/access_control_rule.dart';
 import '../request/model/params/coordinates.dart';
 
 abstract class BaseUploadResult {
-  BaseUploadResult();
-
-  static T fromJson<T extends BaseUploadResult>(Map<String, dynamic> json) {
-    if (T == UploadResult) {
-      return UploadResult.fromJson(json) as T;
-    } else if (T == ContextResult) {
-      return ContextResult.fromJson(json) as T;
-    } else {
-      throw UnimplementedError('Unknown result type');
-    }
-  }
 }
 
 class ContextResult implements BaseUploadResult {

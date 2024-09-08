@@ -7,9 +7,6 @@ import 'package:cloudinary_api/src/request/model/params/responsive_breakpoint.da
 import 'package:cloudinary_api/uploader/encode_utils.dart';
 import 'package:cloudinary_url_gen/transformation/transformation.dart';
 
-import '../../../uploader/utils.dart';
-
-
 abstract class UploaderParams {
   bool? unsigned;
   String? signature;
