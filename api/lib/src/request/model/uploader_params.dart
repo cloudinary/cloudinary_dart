@@ -13,6 +13,7 @@ abstract class UploaderParams {
   Map<String, String>? extraHeaders;
   int? timeout;
 
+  //FIXME: remove the constructor
   UploaderParams(
       {this.unsigned, this.signature, this.extraHeaders, this.timeout});
 
