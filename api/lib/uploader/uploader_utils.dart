@@ -32,6 +32,14 @@ class UploaderUtils {
     var cloudName = cloudinary.config.cloudConfig.cloudName;
     var version = apiVersion;
     var resourceType = defaultResourceType;
+    var filename = (request.params is UploadParams &&
+            (request.params as UploadParams).filename != null)
+        ? (request.params as UploadParams).filename
+        : (request.payload?.path != null)
+            ? request.payload?.path
+            : (request.payload?.name != null)
+                ? request.payload?.name
+                : 'file';
     if (options is UploadAssetParams) {
       resourceType = options.resourceType;
     }
@@ -69,13 +77,15 @@ class UploaderUtils {
         .join("/");
 
     return NetworkRequest(
-        url,
-        options?.extraHeaders ?? <String, String>{},
-        paramsMap,
-        options?.timeout ?? defaultTimeout,
-        request.payload,
-        request.progress,
-        request.completionCallback);
+      url,
+      options?.extraHeaders ?? <String, String>{},
+      paramsMap,
+      options?.timeout ?? defaultTimeout,
+      filename,
+      request.payload,
+      request.progress,
+      request.completionCallback,
+    );
   }
 
   Future<UploaderResponse<T>> callApi<T extends BaseUploadResult>(

@@ -34,6 +34,7 @@ class DataPayload extends Payload<String> {
     value = newValue;
     length = -1;
     path = null;
+    name = "file";
   }
 
   @override

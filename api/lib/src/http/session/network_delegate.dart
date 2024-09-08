@@ -17,7 +17,7 @@ class NetworkDelegate {
       multiPartRequest.files.add((request.payload!.path != null)
           ? await http.MultipartFile.fromPath(
               'file', request.payload?.path ?? request.payload!.value,
-              filename: request.payload?.name ?? null)
+              filename: request.filename)
           : http.MultipartFile.fromString('file', request.payload!.value));
     }
     return await multiPartRequest
@@ -40,10 +40,7 @@ class NetworkDelegate {
     multiPartRequest.fields.addAll(_paramsToFields(request.params));
     multiPartRequest.files.add(MultipartFile(
         "file", stream, endOffset - startOffset,
-        filename: request.payload?.name ??
-            (request.params is UploadParams
-                ? (request.params as UploadParams).filename
-                : 'file'),
+        filename: request.filename,
         contentType: MediaType.parse('text/plain; charset=UTF-8')));
     multiPartRequest.headers.addEntries(
         {'Content-Type': 'multipart/form-data; Stri=$boundary'}.entries);
@@ -58,14 +55,10 @@ class NetworkDelegate {
         'POST', Uri.parse(request.url), request.headers,
         onProgress: request.progressCallback);
     multiPartRequest.fields.addAll(_paramsToFields(request.params));
-    if (request.params is UploadParams &&
-        (request.params as UploadParams).filename != null) {
-      if (request.payload != null) {
-        multiPartRequest.fields.addEntries({
-          (request.params as UploadParams).filename!:
-              request.payload!.path ?? request.payload!.name
-        }.entries);
-      }
+    if (request.payload != null) {
+      multiPartRequest.fields.addEntries({
+        request.filename!: request.payload!.path ?? request.payload!.name
+      }.entries);
     }
     return multiPartRequest;
   }

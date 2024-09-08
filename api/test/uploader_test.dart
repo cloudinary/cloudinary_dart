@@ -308,6 +308,19 @@ void main() {
     assert(listsAreEqual(result.tags, uploadTags));
     assert(result.resourceType == ResourceType.raw.name);
     assert(result.publicId?.startsWith('cldupload') ?? false);
+
+    cloudinary.uploader().upload(file,
+        params: UploadParams(
+            filename: 'testFilename',
+            resourceType: 'raw',
+            useFilename: true,
+            tags: uploadTags), completion: (response) {
+      result = resultOrThrow(response.data);
+    });
+    await Future.delayed(Duration(seconds: 15));
+
+    assert(result.originalFilename == 'testFilename');
+    assert(result.publicId?.startsWith('testFilename') ?? false);
   }, timeout: Timeout(Duration(minutes: 3)));
 
   test('Test unsigned upload success', () async {
