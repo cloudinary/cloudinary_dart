@@ -32,14 +32,12 @@ class UploaderUtils {
     var cloudName = cloudinary.config.cloudConfig.cloudName;
     var version = apiVersion;
     var resourceType = defaultResourceType;
-    var filename = (request.params is UploadParams &&
-            (request.params as UploadParams).filename != null)
+    String filename = (request.params is UploadParams
         ? (request.params as UploadParams).filename
-        : (request.payload?.path != null)
-            ? request.payload?.path
-            : (request.payload?.name != null)
-                ? request.payload?.name
-                : 'file';
+        : null) ??
+        request.payload?.path ??
+        request.payload?.name ??
+        'file';
     if (options is UploadAssetParams) {
       resourceType = options.resourceType;
     }
@@ -105,7 +103,7 @@ class UploaderUtils {
   Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request,
       {required UploadResult Function(Map<String, dynamic> data) fromJson}) {
     if (request.payload == null) {
-      throw ArgumentError('An upload request mus  t have a payload');
+      throw ArgumentError('An upload request must have a payload');
     }
     var payload = request.payload!;
     var chunkSize = cloudinary.config.apiConfig.chunkSize;

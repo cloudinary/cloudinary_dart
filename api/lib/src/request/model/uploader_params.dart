@@ -24,7 +24,6 @@ abstract class UploaderParams {
       'extra_headers': extraHeaders,
       'timeout': timeout
     };
-    map.removeWhere((key, value) => value == null);
     return map;
   }
 }
@@ -54,7 +53,6 @@ abstract class UploadAssetParams extends UploaderParams {
       'resource_type': resourceType,
       'type': type
     };
-    map.removeWhere((key, value) => value == null);
     return map;
   }
 }
@@ -130,7 +128,6 @@ class RenameParams extends UploadAssetParams {
       'invalidate': invalidate,
       'notification_url': notificationUrl
     });
-    map.removeWhere((key, value) => value == null);
     return map;
   }
 }
@@ -158,6 +155,7 @@ class DestroyParams extends UploaderParams {
           extraHeaders: extraHeaders,
           timeout: timeout,
         );
+
 
   @override
   Map<String, dynamic> buildParams() {
@@ -518,7 +516,6 @@ class UploadParams extends UploadAssetParams {
     mapParams['auto_tagging'] = autoTagging;
     mapParams['accessibility_analysis'] = accessibilityAnalysis?.toString();
     mapParams['filename_override'] = filenameOverride;
-    mapParams.removeWhere((key, value) => value == null);
     return mapParams;
   }
 }

@@ -43,7 +43,7 @@ class NetworkDelegate {
         filename: request.filename,
         contentType: MediaType.parse('text/plain; charset=UTF-8')));
     multiPartRequest.headers.addEntries(
-        {'Content-Type': 'multipart/form-data; Stri=$boundary'}.entries);
+        {'Content-Type': 'multipart/form-data; String=$boundary'}.entries);
     return await multiPartRequest
         .send()
         .timeout(Duration(seconds: request.timeout));

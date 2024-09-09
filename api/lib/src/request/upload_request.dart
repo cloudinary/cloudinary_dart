@@ -19,6 +19,8 @@ class UploadRequest implements AbstractUploaderRequest<UploadResult> {
 
   @override
   Map<String, dynamic> buildParams() {
-    return params?.buildParams() ?? <String, dynamic>{};
+    var options =  params?.buildParams() ?? <String, dynamic>{};
+    options.removeWhere((key, value) => value == null);
+    return options;
   }
 }

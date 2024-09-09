@@ -7,7 +7,7 @@ class Utils {
   static List<String> _excludeKeys = const [
     'resource_type',
     'unsigned',
-    'filename'
+    'filename',
   ];
 
   static String apiSignRequest(
