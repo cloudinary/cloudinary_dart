@@ -1,3 +1,4 @@
+import 'package:cloudinary_api/src/request/model/uploader_params.dart';
 import 'package:cloudinary_api/uploader/utils.dart';
 import 'package:cloudinary_url_gen/cloudinary.dart';
 
@@ -39,10 +40,10 @@ class NetworkDelegate {
     multiPartRequest.fields.addAll(_paramsToFields(request.params));
     multiPartRequest.files.add(MultipartFile(
         "file", stream, endOffset - startOffset,
-        filename: request.filename ?? 'file',
+        filename: request.filename,
         contentType: MediaType.parse('text/plain; charset=UTF-8')));
     multiPartRequest.headers.addEntries(
-        {'Content-Type': 'multipart/form-data; Stri=$boundary'}.entries);
+        {'Content-Type': 'multipart/form-data; String=$boundary'}.entries);
     return await multiPartRequest
         .send()
         .timeout(Duration(seconds: request.timeout));
@@ -54,12 +55,10 @@ class NetworkDelegate {
         'POST', Uri.parse(request.url), request.headers,
         onProgress: request.progressCallback);
     multiPartRequest.fields.addAll(_paramsToFields(request.params));
-    if (request.filename != null) {
-      if (request.payload != null) {
-        multiPartRequest.fields.addEntries({
-          request.filename!: request.payload!.path ?? request.payload!.name
-        }.entries);
-      }
+    if (request.payload != null) {
+      multiPartRequest.fields.addEntries({
+        request.filename!: request.payload!.path ?? request.payload!.name
+      }.entries);
     }
     return multiPartRequest;
   }

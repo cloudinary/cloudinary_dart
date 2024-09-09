@@ -11,7 +11,7 @@ import 'package:cloudinary_url_gen/config/api_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import '../src/http/session/network_delegate.dart';
-import '../src/request/model/shared_params.dart';
+import '../src/request/model/uploader_params.dart';
 import '../src/request/network_request.dart';
 import '../src/request/payload.dart';
 import '../src/request/upload_request.dart';
@@ -26,12 +26,26 @@ class UploaderUtils {
   UploaderUtils(this.cloudinary);
 
   NetworkRequest _prepareNetworkRequest(
-      String action, AbstractUploaderRequest request, SharedParams? options) {
+      String action, AbstractUploaderRequest request, UploaderParams? options) {
     var config = cloudinary.config.cloudConfig;
     var prefix = cloudinary.config.apiConfig.uploadPrefix;
     var cloudName = cloudinary.config.cloudConfig.cloudName;
     var version = apiVersion;
-    var resourceType = options?.resourceType ?? defaultResourceType;
+    var resourceType = defaultResourceType;
+    String filename = (request.params is UploadParams
+        ? (request.params as UploadParams).filename
+        : null) ??
+        request.payload?.path ??
+        request.payload?.name ??
+        'file';
+    if (options is UploadAssetParams) {
+      resourceType = options.resourceType;
+    }
+    if (request.params is UploadParams &&
+        (request.params as UploadParams).filename != null &&
+        request.payload != null) {
+      request.payload?.name = (request.params as UploadParams).filename!;
+    }
 
     Map<String, dynamic> paramsMap = request.buildParams();
 
@@ -45,6 +59,9 @@ class UploaderUtils {
         paramsMap['signature'] =
             Utils.apiSignRequest(paramsMap, config.apiSecret!);
         paramsMap['api_key'] = config.apiKey;
+        if (paramsMap['unsigned'] != null) {
+          paramsMap.remove('unsigned');
+        }
       }
     }
 
@@ -53,56 +70,58 @@ class UploaderUtils {
       if (paramsMap['signature'] != null) paramsMap['api_key'] = config.apiKey;
     }
 
-
     var url = [prefix, version, cloudName, resourceType, action]
         .noNullList()
         .join("/");
 
     return NetworkRequest(
-        url,
-        options?.filename,
-        options?.extraHeaders ?? <String, String>{},
-        paramsMap,
-        (options?.timeout) ?? defaultTimeout,
-        request.payload,
-        request.progress,
-        request.completionCallback);
+      url,
+      options?.extraHeaders ?? <String, String>{},
+      paramsMap,
+      options?.timeout ?? defaultTimeout,
+      filename,
+      request.payload,
+      request.progress,
+      request.completionCallback,
+    );
   }
 
-  Future<UploaderResponse<UploadResult>> callApi(
+  Future<UploaderResponse<T>> callApi<T extends BaseUploadResult>(
       AbstractUploaderRequest request, String action,
-      {SharedParams? options}) async {
+      {UploaderParams? options,
+      required T Function(Map<String, dynamic> data) fromJson}) async {
     try {
       var response = await networkDelegate
           .callApi(_prepareNetworkRequest(action, request, options));
-      return _processResponse(response);
+      return _processResponse<T>(response, fromJson: fromJson);
     } on TimeoutException catch (error) {
-      return UploaderResponse(-1, null,
+      return UploaderResponse<T>(-1, null,
           UploadError('Timeout of ${error.duration} occurred'), error.message);
     }
   }
 
-  Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request) {
+  Future<UploaderResponse<UploadResult>>? performUpload(UploadRequest request,
+      {required UploadResult Function(Map<String, dynamic> data) fromJson}) {
     if (request.payload == null) {
       throw ArgumentError('An upload request must have a payload');
     }
     var payload = request.payload!;
-    var value = payload.value;
     var chunkSize = cloudinary.config.apiConfig.chunkSize;
-    SharedParams options = SharedParams(
-        resourceType: request.params?.resourceType,
-        unsigned: request.params?.unsigned,
-        filename: request.params?.filename,
-        timeout: request.params?.timeout,
-        extraHeaders: request.params?.extraHeaders);
-    if (value is String && Utils.isRemoteUrl(value) ||
+    final uploadParams = request.params as UploadParams?;
+
+    if (payload.value is String && Utils.isRemoteUrl(payload.value) ||
         (1 > payload.length || payload.length < chunkSize!)) {
-      // need to make sure if we have length or not.
-      return callApi(request, 'upload', options: options);
+      // Ensure correct type for `fromJson` when calling `callApi`
+      return callApi(
+        request,
+        'upload',
+        options: uploadParams,
+        fromJson: fromJson,
+      );
     }
-    //Upload large
+
     var uniqueUploadId = Utils.createRandomUploadId(8);
-    _uploadLargeParts(payload, request, uniqueUploadId);
+    _uploadLargeParts(payload, request, uniqueUploadId, fromJson: fromJson);
     return null;
   }
 
@@ -119,7 +138,9 @@ class UploaderUtils {
   }
 
   void _uploadLargeParts(
-      Payload payload, UploadRequest request, String uniqueUploadId) async {
+      Payload payload, UploadRequest request, String uniqueUploadId,
+      {required UploadResult Function(Map<String, dynamic> data)
+          fromJson}) async {
     int chunkSize = cloudinary.config.apiConfig.chunkSize!;
     request.params?.extraHeaders = <String, String>{};
     request.params?.extraHeaders
@@ -127,41 +148,45 @@ class UploaderUtils {
     int chunkCount = (payload.length / chunkSize).ceil();
 
     for (int index = 0; index < chunkCount; index++) {
-      await _buildStreamRequest(index, chunkSize, payload, request);
+      await _buildStreamRequest(index, chunkSize, payload, request,
+          fromJson: fromJson);
     }
   }
 
   Future<http.StreamedResponse?>? _buildStreamRequest(
-      int index, int chunkSize, Payload payload, UploadRequest request) async {
+      int index, int chunkSize, Payload payload, UploadRequest request,
+      {required UploadResult Function(Map<String, dynamic> data)
+          fromJson}) async {
     final startOffset = _getStartOffset(index, chunkSize);
     final endOffset = _getEndOffset(index, chunkSize, payload.length);
     final stream = _getStream(startOffset, endOffset, payload);
-    SharedParams options = SharedParams(
-        resourceType: request.params?.resourceType,
-        unsigned: request.params?.unsigned,
-        filename: request.params?.filename ?? payload.name,
-        timeout: request.params?.timeout ?? cloudinary.config.apiConfig.timeout,
-        extraHeaders: request.params?.extraHeaders);
     try {
       var requestResponse = await networkDelegate.uploadLarge(
           stream,
-          _prepareNetworkRequest('upload', request, options),
+          _prepareNetworkRequest('upload', request, request.params),
           startOffset,
           endOffset,
           payload.length);
+
       if (request.completionCallback != null) {
-        _processResponseWithCompletion(requestResponse, (response) {
+        _processResponseWithCompletion<UploadResult>(requestResponse,
+            (response) {
           if (response.data?.done == true || response.error != null) {
             request.completionCallback!(response);
           }
-        });
+        }, fromJson: fromJson);
       }
       return requestResponse;
     } on TimeoutException catch (error) {
-      request.completionCallback!(UploaderResponse(-1, null,
-          UploadError('Timeout of ${error.duration} occurred'), error.message));
+      if (request.completionCallback != null) {
+        request.completionCallback!(UploaderResponse<UploadResult>(
+            -1,
+            null,
+            UploadError('Timeout of ${error.duration} occurred'),
+            error.message));
+      }
+      return null;
     }
-    return null;
   }
 
   int _getStartOffset(int index, int chunkSize) {
@@ -177,55 +202,74 @@ class UploaderUtils {
   }
 
   bool _requireSigning(
-      String action, SharedParams? options, String? signature) {
+      String action, UploaderParams? options, String? signature) {
     var missingSignature = (signature != null) ? false : true;
-    var signedRequest =
+    var signedRequest = options?.unsigned == null ||
         ((options?.unsigned != null) ? !options!.unsigned! : false);
     var actionRequiresSigning = action != 'delete_by_token';
     return missingSignature && signedRequest && actionRequiresSigning;
   }
 
   //Response handler
-  Future<UploaderResponse<UploadResult>> _processResponse(
-      StreamedResponse? requestResponse) {
-    return _getProcessedResponse(requestResponse!.statusCode,
-        requestResponse.stream, requestResponse.headers['x-cld-error']);
+  Future<UploaderResponse<T>> _processResponse<T extends BaseUploadResult>(
+      http.StreamedResponse requestResponse,
+      {required Function(Map<String, dynamic> data) fromJson}) async {
+    return _getProcessedResponse(requestResponse.statusCode,
+        requestResponse.stream, requestResponse.headers['x-cld-error'],
+        fromJson: fromJson);
   }
 
-  void _processResponseWithCompletion(StreamedResponse? requestResponse,
-      void Function(UploaderResponse<UploadResult> response) completion) {
-    var response = _getProcessedResponse(requestResponse!.statusCode,
-        requestResponse.stream, requestResponse.headers['x-cld-error']);
+  void _processResponseWithCompletion<T extends BaseUploadResult>(
+      StreamedResponse? requestResponse,
+      void Function(UploaderResponse<T> response) completion,
+      {required Function(Map<String, dynamic> data) fromJson}) {
+    var response = _getProcessedResponse<T>(requestResponse!.statusCode,
+        requestResponse.stream, requestResponse.headers['x-cld-error'],
+        fromJson: fromJson);
     response.then((unwrappedResponse) {
       completion(unwrappedResponse);
     });
   }
 
-  Future<UploaderResponse<UploadResult>> _getProcessedResponse(
-      int statusCode, ByteStream? stream, String? errorHeader) async {
+  Future<UploaderResponse<T>> _getProcessedResponse<T extends BaseUploadResult>(
+      int statusCode, ByteStream? stream, String? errorHeader,
+      {required Function(Map<String, dynamic> data) fromJson}) async {
     var body = await stream?.transform(utf8.decoder).join();
     if (statusCode >= 200 && statusCode <= 299) {
       if (body != null) {
         final parsedJson = jsonDecode(body);
-        final uploadResult = UploadResult.fromJson(parsedJson);
-        return UploaderResponse<UploadResult>(
-            statusCode, uploadResult, null, body);
+        final uploadResult = fromJson(parsedJson);
+        return UploaderResponse<T>(statusCode, uploadResult, null, body);
       } else {
         var responseError = UploadError("Error");
-        return UploaderResponse(statusCode, null, responseError, body);
+        return UploaderResponse<T>(statusCode, null, responseError, body);
       }
     } else if (statusCode >= 400 && statusCode < 499) {
-      return UploaderResponse(
+      return UploaderResponse<T>(
           statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
     } else if (statusCode >= 500 && statusCode < 599) {
-      return UploaderResponse(
+      return UploaderResponse<T>(
           statusCode,
           null,
           UploadError(
-              errorHeader ?? "We had an problem, please contact support"),
+              errorHeader ?? "We had a problem, please contact support"),
           body);
     }
-    return UploaderResponse(
+    return UploaderResponse<T>(
         statusCode, null, UploadError(errorHeader ?? "Unknown Error"), body);
+  }
+
+  String? getFilenameIfUploadParams(dynamic params) {
+    if (params is UploadParams) {
+      return params.filename;
+    }
+    return null;
+  }
+
+  String? getResourceTypeIfUploadAssetParams(dynamic params) {
+    if (params is UploadAssetParams) {
+      return params.resourceType;
+    }
+    return null;
   }
 }

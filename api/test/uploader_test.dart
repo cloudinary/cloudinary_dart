@@ -282,8 +282,9 @@ void main() {
   });
 
   test('Test Cloudinary upload with media metadata', () async {
-    var response = await cloudinary.uploader().upload(srcTestImage,
-        params: UploadParams(mediaMetadata: true));
+    var response = await cloudinary
+        .uploader()
+        .upload(srcTestImage, params: UploadParams(mediaMetadata: true));
 
     var result = resultOrThrow(response?.data);
     assert(result.imageMetadata != null);
@@ -307,6 +308,19 @@ void main() {
     assert(listsAreEqual(result.tags, uploadTags));
     assert(result.resourceType == ResourceType.raw.name);
     assert(result.publicId?.startsWith('cldupload') ?? false);
+
+    cloudinary.uploader().upload(file,
+        params: UploadParams(
+            filename: 'testFilename',
+            resourceType: 'raw',
+            useFilename: true,
+            tags: uploadTags), completion: (response) {
+      result = resultOrThrow(response.data);
+    });
+    await Future.delayed(Duration(seconds: 15));
+
+    assert(result.originalFilename == 'testFilename');
+    assert(result.publicId?.startsWith('testFilename') ?? false);
   }, timeout: Timeout(Duration(minutes: 3)));
 
   test('Test unsigned upload success', () async {
@@ -403,7 +417,10 @@ void main() {
     var toPublicId = 'rename_${publicId}_$suffix';
 
     var renameResponse = await cloudinary.uploader().rename(
-        params: RenameParams(fromPublicId: publicId, toPublicId: toPublicId, notificationUrl: 'www.test.com'));
+        params: RenameParams(
+            fromPublicId: publicId,
+            toPublicId: toPublicId,
+            notificationUrl: 'www.test.com'));
     assert(toPublicId == renameResponse.data?.publicId);
   });
 
@@ -444,7 +461,8 @@ void main() {
     var result = resultOrThrow(response?.data);
     var publicId = result.publicId ?? '';
 
-    var destroyResponse = await cloudinary.uploader().destroy(DestroyParams(publicId: publicId, notificationUrl: 'www.test.com'));
+    var destroyResponse = await cloudinary.uploader().destroy(
+        DestroyParams(publicId: publicId, notificationUrl: 'www.test.com'));
     assert(200 == destroyResponse.responseCode);
   });
 
@@ -482,6 +500,42 @@ void main() {
 
     assert(response != null);
   }, skip: 'Skipping till restore is implemented as part of the admin API');
+
+  test('Test add context successful', () async {
+    String publicId = 'add_context_id' + suffix;
+    var response = await cloudinary.uploader().upload(srcTestImage,
+        params: UploadParams(
+            publicId: publicId,
+            context: {'caption': 'some caption', 'alt': 'alternative'}));
+    UploadResult result = resultOrThrow<UploadResult>(response?.data);
+    assert(result.publicId == publicId);
+
+    ResultContext? context = result.context;
+    assert(context != null);
+
+    var addContextResponse = await cloudinary.uploader().addContext(
+        AddContextParams(
+            context: {'caption': 'new caption'}, publicIds: [publicId]));
+    var addContextResult = resultOrThrow(addContextResponse.data);
+    assert(addContextResult.publicIds != null);
+    assert(addContextResult.publicIds!.contains(publicId));
+  });
+
+  test('Test remove all context successful', () async {
+    String publicId = 'add_context_id' + suffix;
+    await cloudinary.uploader().upload(srcTestImage,
+        params: UploadParams(
+            publicId: publicId,
+            context: {'caption': 'some caption', 'alt': 'alternative'}));
+
+    var response = await cloudinary
+        .uploader()
+        .removeAllContext(RemoveAllContextParams(publicIds: [publicId]));
+    var result = resultOrThrow(response.data);
+
+    assert(result.publicIds != null);
+    assert(result.publicIds!.contains(publicId));
+  });
 }
 
 validateSignature(UploadResult result) {
@@ -494,7 +548,7 @@ validateSignature(UploadResult result) {
   assert(result.signature == expectedSignature);
 }
 
-UploadResult resultOrThrow(UploadResult? result) {
+T resultOrThrow<T extends BaseUploadResult>(T? result) {
   if (result == null) {
     throw ArgumentError('Result is null, something went wrong');
   }
