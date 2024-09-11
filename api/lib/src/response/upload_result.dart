@@ -54,45 +54,47 @@ class UploadResult implements BaseUploadResult {
   Map<String, dynamic>? imageMetadata;
   VideoResultObject? video;
   AudioResultObject? audio;
+  String? playbackUrl;
 
   UploadResult(
       {this.publicId,
-      this.version,
-      this.signature,
-      this.width,
-      this.height,
-      this.format,
-      this.resourceType,
-      this.createdAt,
-      this.tags,
-      this.pages,
-      this.bytes,
-      this.type,
-      this.etag,
-      this.placeholder,
-      this.url,
-      this.secureUrl,
-      this.folder,
-      this.accessMode,
-      this.originalFilename,
-      this.colors,
-      this.predominant,
-      this.eager,
-      this.status,
-      this.faces,
-      this.coordinates,
-      this.moderation,
-      this.responsiveBreakpoints,
-      this.accessControl,
-      this.qualityAnalysis,
-      this.cinemagraphAnalysis,
-      this.deleteToken,
-      this.context,
-      this.done,
-      this.accessibilityAnalysis,
-      this.imageMetadata,
-      this.video,
-      this.audio});
+        this.version,
+        this.signature,
+        this.width,
+        this.height,
+        this.format,
+        this.resourceType,
+        this.createdAt,
+        this.tags,
+        this.pages,
+        this.bytes,
+        this.type,
+        this.etag,
+        this.placeholder,
+        this.url,
+        this.secureUrl,
+        this.folder,
+        this.accessMode,
+        this.originalFilename,
+        this.colors,
+        this.predominant,
+        this.eager,
+        this.status,
+        this.faces,
+        this.coordinates,
+        this.moderation,
+        this.responsiveBreakpoints,
+        this.accessControl,
+        this.qualityAnalysis,
+        this.cinemagraphAnalysis,
+        this.deleteToken,
+        this.context,
+        this.done,
+        this.accessibilityAnalysis,
+        this.imageMetadata,
+        this.video,
+        this.audio,
+        this.playbackUrl});
 
   factory UploadResult.fromJson(Map<String, dynamic> data) {
     final publicId = data['public_id'] as String?;
@@ -104,7 +106,7 @@ class UploadResult implements BaseUploadResult {
     final resourceType = data['resource_type'] as String?;
     final createdAt = data['created_at'] as String?;
     final tags =
-        (data['tags'] as List<dynamic>?)?.map((e) => e.toString()).toList();
+    (data['tags'] as List<dynamic>?)?.map((e) => e.toString()).toList();
     final pages = data['version'] as int?;
     final bytes = data['version'] as int?;
     final type = data['type'] as String?;
@@ -119,7 +121,7 @@ class UploadResult implements BaseUploadResult {
         ?.map((value) => ResultColor.fromJson(value))
         .toList();
     final predominant = (data['predominant'] as Map<String, dynamic>?)?.map(
-        (key, value) => MapEntry(
+            (key, value) => MapEntry(
             key,
             (value as List<dynamic>)
                 .map((e) => ResultColor.fromJson(e))
@@ -129,16 +131,16 @@ class UploadResult implements BaseUploadResult {
         .toList();
     final status = data['status'] as String?;
     final faces =
-        (data['faces'] != null) ? Coordinates.fromJson(data['faces']) : null;
+    (data['faces'] != null) ? Coordinates.fromJson(data['faces']) : null;
     final coordinates = (data['coordinates'] as Map<String, dynamic>?)
         ?.map((key, value) => MapEntry(key, Coordinates.fromJson(value)));
     final moderation = (data['moderation'] as List<dynamic>?)
         ?.map((value) => ResultModeration.fromJson(value))
         .toList();
     final responsiveBreakpoints =
-        (data['responsive_breakpoints'] as List<dynamic>?)
-            ?.map((value) => ResultResponsiveBreakpoint.fromJson(value))
-            .toList();
+    (data['responsive_breakpoints'] as List<dynamic>?)
+        ?.map((value) => ResultResponsiveBreakpoint.fromJson(value))
+        .toList();
     final accessControl = (data['access_control'] as List<dynamic>?)
         ?.map((value) => AccessControlRule.fromJson(value))
         .toList();
@@ -163,6 +165,7 @@ class UploadResult implements BaseUploadResult {
     final audio = (data['audio'] != null)
         ? AudioResultObject.fromJson(data['audio'])
         : null;
+    final playbackUrl = (data['playback_url']);
 
     return UploadResult(
         publicId: publicId,
@@ -201,7 +204,8 @@ class UploadResult implements BaseUploadResult {
         accessibilityAnalysis: accessibilityAnalysis,
         imageMetadata: imageMetadata,
         video: video,
-        audio: audio);
+        audio: audio,
+        playbackUrl: playbackUrl);
   }
 }
 
@@ -251,12 +255,12 @@ class ResultEager {
 
   ResultEager(
       {this.transformation,
-      this.width,
-      this.height,
-      this.bytes,
-      this.format,
-      this.url,
-      this.secureUrl});
+        this.width,
+        this.height,
+        this.bytes,
+        this.format,
+        this.url,
+        this.secureUrl});
 
   factory ResultEager.fromJson(Map<String, dynamic> data) {
     final transformation = data['transformation'] as String?;
@@ -310,10 +314,10 @@ class ResultAccessibilityAnalysis {
 
   factory ResultAccessibilityAnalysis.fromJson(Map<String, dynamic> data) {
     final colorblindAccessibilityAnalysis =
-        ResultColorblindAccessibilityScore.fromJson(
-            data['colorblind_accessibility_analysis']);
+    ResultColorblindAccessibilityScore.fromJson(
+        data['colorblind_accessibility_analysis']);
     final colorblindAccessibilityScore =
-        data['colorblind_accessibility_score'] as double;
+    data['colorblind_accessibility_score'] as double;
     return ResultAccessibilityAnalysis(
         colorblindAccessibilityAnalysis, colorblindAccessibilityScore);
   }
@@ -328,10 +332,10 @@ class AudioResultObject {
 
   AudioResultObject(
       {this.codec,
-      this.bitRate,
-      this.frequency,
-      this.channels,
-      this.channelLayout});
+        this.bitRate,
+        this.frequency,
+        this.channels,
+        this.channelLayout});
 
   factory AudioResultObject.fromJson(Map<String, dynamic> data) {
     final codec = data['codec'] as String?;
@@ -361,13 +365,13 @@ class VideoResultObject {
 
   VideoResultObject(
       {this.pixFormat,
-      this.codec,
-      this.level,
-      this.profile,
-      this.bitRate,
-      this.dar,
-      this.timeBase,
-      this.metadata});
+        this.codec,
+        this.level,
+        this.profile,
+        this.bitRate,
+        this.dar,
+        this.timeBase,
+        this.metadata});
 
   factory VideoResultObject.fromJson(Map<String, dynamic> data) {
     final pixFormat = data['pix_format'] as String?;

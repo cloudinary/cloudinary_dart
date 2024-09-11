@@ -39,6 +39,7 @@ const uploadPreset = 'sdk-test-upload-preset';
 var cloudinary = Cloudinary();
 
 File srcTestImage = File('test/assets/old_logo.png');
+var srcTestVideo = 'https://res.cloudinary.com/demo/video/upload/dog.mp4';
 
 void main() {
   setUpAll(() {
@@ -535,6 +536,18 @@ void main() {
 
     assert(result.publicIds != null);
     assert(result.publicIds!.contains(publicId));
+  });
+
+  test('Test auto chaptering successful', () async {
+    var response = await cloudinary.uploader().upload(srcTestVideo, params: UploadParams(resourceType: ResourceType.video.name, autoChaptering: true));
+    var result = resultOrThrow(response?.data);
+    assert(result.playbackUrl != null);
+  });
+
+  test('Test auto transcription successful', () async {
+    var response = await cloudinary.uploader().upload(srcTestVideo, params: UploadParams(resourceType: ResourceType.video.name, autoTranscription: true));
+    var result = resultOrThrow(response?.data);
+    assert(result.playbackUrl != null);
   });
 }
 
