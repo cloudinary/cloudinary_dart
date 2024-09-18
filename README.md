@@ -41,7 +41,7 @@ The `Cloudinary` class is the main entry point for using the library. Your `clou
 Here's an example of setting configuration parameters in your Dart application:
 
 ```dart
-import 'package:cloudinary_dart/src/cloudinary.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
 
 var cloudinary = Cloudinary.fromStringUrl('cloudinary://<your-api-key>:<your-api-secret>@<your-cloud-name>');
 ```
