@@ -1,3 +1,10 @@
+## 1.1.0
+- Add `notification_url` to rename params
+- Add `destroy` api
+- Add `download_backup` api
+- Add metadata management context
+- Add `auto_chaptering` and `auto_transcription`
+
 ## 1.0.2
 - Update url_gen package
 

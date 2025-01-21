@@ -1,3 +1,6 @@
+## 1.7.0
+- Format fixing
+
 ## 1.6.0
 - Add generative backgrond replace 
 - Add auto pad 
