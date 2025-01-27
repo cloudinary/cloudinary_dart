@@ -1,0 +1,47 @@
+name: Cloudinary Dart CI
+
+on:
+  push:
+    branches:
+      - master # Runs on pushes to the main branch
+  pull_request:
+    branches:
+      - '**' # Runs on all pull requests
+
+jobs:
+  dart-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Dart
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          channel: stable # Use the stable Dart SDK version
+
+      # Step 3: Export Cloudinary URL (Before Script)
+      - name: Export Cloudinary URL
+        run: export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh)
+
+      # Step 4: Run Tests for url_gen
+      - name: Run Tests for url_gen
+        working-directory: url_gen
+        run: dart test
+
+      # Step 5: Run Tests for api
+      - name: Run Tests for api
+        working-directory: api
+        run: dart test
+
+      # Cache Dart Dependencies
+      - name: Cache Pub Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-cache-
