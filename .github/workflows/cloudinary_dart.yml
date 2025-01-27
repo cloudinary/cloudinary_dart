@@ -3,10 +3,10 @@ name: Cloudinary Dart CI
 on:
   push:
     branches:
-      - master # Runs on pushes to the main branch
+      - main
   pull_request:
     branches:
-      - '**' # Runs on all pull requests
+      - '**'
 
 jobs:
   dart-test:
@@ -21,20 +21,24 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
         with:
-          channel: stable # Use the stable Dart SDK version
+          channel: stable
 
       # Step 3: Export Cloudinary URL (Before Script)
       - name: Export Cloudinary URL
-        run: export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh)
+        run: echo "CLOUDINARY_URL=$(bash tools/get_test_cloud.sh)" >> $GITHUB_ENV
 
       # Step 4: Run Tests for url_gen
       - name: Run Tests for url_gen
         working-directory: url_gen
+        env:
+          CLOUDINARY_URL: ${{ env.CLOUDINARY_URL }}
         run: dart test
 
       # Step 5: Run Tests for api
       - name: Run Tests for api
         working-directory: api
+        env:
+          CLOUDINARY_URL: ${{ env.CLOUDINARY_URL }}
         run: dart test
 
       # Cache Dart Dependencies
