@@ -108,7 +108,7 @@ class UploadResult implements BaseUploadResult {
     final tags =
     (data['tags'] as List<dynamic>?)?.map((e) => e.toString()).toList();
     final pages = data['version'] as int?;
-    final bytes = data['version'] as int?;
+    final bytes = data['bytes'] as int?;
     final type = data['type'] as String?;
     final etag = data['etag'] as String?;
     final placeholder = data['placeholder'] as bool?;
