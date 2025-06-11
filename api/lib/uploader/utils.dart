@@ -11,39 +11,37 @@ class Utils {
   ];
 
   static String apiSignRequest(Map<String, dynamic> paramsMap, String apiSecret) {
-    List<String> paramsArr = <String>[];
+    final escapePattern = RegExp(r'[&=%+#]');
+    final paramsArr = <String>[];
 
-    paramsMap.removeWhere((key, value) => value == null);
-    paramsMap.removeWhere((key, value) => _excludeKeys.contains(key));
+    paramsMap.removeWhere((key, value) => value == null || _excludeKeys.contains(key));
 
-    var sortedParams = paramsMap.keys.whereType<String>().toList()..sort();
-
-    for (var key in sortedParams) {
-      var value = paramsMap[key];
-      String? paramValue;
-
-      if (value is List<String>) {
-        if (value.isNotEmpty) {
-          paramValue = value.toString(); // original behavior
-        } else {
-          continue;
-        }
-      } else {
-        if (value != null) {
-          paramValue = value.toString();
-        }
-      }
-
-      if (paramValue != null) {
-        if (paramValue.contains('&')) {
-          return '';
-        }
-
-        paramsArr.add('$key=${paramValue.replaceAll(r'\', '')}');
+    if (paramsMap.containsKey('public_id')) {
+      final publicId = paramsMap['public_id'].toString();
+      if (escapePattern.hasMatch(publicId)) {
+        return '';
       }
     }
 
-    var toSign = '${paramsArr.join('&')}$apiSecret';
+    final sortedKeys = paramsMap.keys.whereType<String>().toList()..sort();
+
+    for (final key in sortedKeys) {
+      final value = paramsMap[key];
+      String? paramValue;
+
+      if (value is List) {
+        if (value.isEmpty) continue;
+        paramValue = value.join(',');
+      } else {
+        paramValue = value?.toString();
+      }
+
+      if (paramValue != null) {
+        paramsArr.add('$key=$paramValue');
+      }
+    }
+
+    final toSign = '${paramsArr.join('&')}$apiSecret';
     return hex.encode(sha1.convert(utf8.encode(toSign)).bytes);
   }
 
