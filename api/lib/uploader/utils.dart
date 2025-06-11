@@ -10,19 +10,21 @@ class Utils {
     'filename',
   ];
 
-  static String apiSignRequest(
-      Map<String, dynamic> paramsMap, String apiSecret) {
+  static String apiSignRequest(Map<String, dynamic> paramsMap, String apiSecret) {
     List<String> paramsArr = <String>[];
+
     paramsMap.removeWhere((key, value) => value == null);
-    paramsMap.removeWhere(
-        (key, value) => value == null || _excludeKeys.contains(key));
+    paramsMap.removeWhere((key, value) => _excludeKeys.contains(key));
+
     var sortedParams = paramsMap.keys.whereType<String>().toList()..sort();
+
     for (var key in sortedParams) {
       var value = paramsMap[key];
       String? paramValue;
+
       if (value is List<String>) {
         if (value.isNotEmpty) {
-          paramValue = value.toString(); //.join(',');
+          paramValue = value.toString(); // original behavior
         } else {
           continue;
         }
@@ -31,10 +33,16 @@ class Utils {
           paramValue = value.toString();
         }
       }
+
       if (paramValue != null) {
+        if (paramValue.contains('&')) {
+          return '';
+        }
+
         paramsArr.add('$key=${paramValue.replaceAll(r'\', '')}');
       }
     }
+
     var toSign = '${paramsArr.join('&')}$apiSecret';
     return hex.encode(sha1.convert(utf8.encode(toSign)).bytes);
   }
