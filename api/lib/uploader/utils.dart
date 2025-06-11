@@ -14,8 +14,10 @@ class Utils {
     final escapePattern = RegExp(r'[&=%+#]');
     final paramsArr = <String>[];
 
-    paramsMap.removeWhere((key, value) => value == null || _excludeKeys.contains(key));
+    paramsMap.removeWhere((key, value) => value == null);
+    paramsMap.removeWhere((key, value) => _excludeKeys.contains(key));
 
+    // Escape check for public_id only (extended)
     if (paramsMap.containsKey('public_id')) {
       final publicId = paramsMap['public_id'].toString();
       if (escapePattern.hasMatch(publicId)) {
@@ -25,19 +27,25 @@ class Utils {
 
     final sortedKeys = paramsMap.keys.whereType<String>().toList()..sort();
 
-    for (final key in sortedKeys) {
-      final value = paramsMap[key];
+    for (var key in sortedKeys) {
+      var value = paramsMap[key];
       String? paramValue;
 
-      if (value is List) {
-        if (value.isEmpty) continue;
-        paramValue = value.join(',');
+      if (value is List<String>) {
+        if (value.isNotEmpty) {
+          paramValue = value.toString(); // KEEP original behavior (e.g. [a, b])
+        } else {
+          continue;
+        }
       } else {
-        paramValue = value?.toString();
+        if (value != null) {
+          paramValue = value.toString();
+        }
       }
 
       if (paramValue != null) {
-        paramsArr.add('$key=$paramValue');
+        // KEEP original backslash-stripping behavior
+        paramsArr.add('$key=${paramValue.replaceAll(r'\', '')}');
       }
     }
 
