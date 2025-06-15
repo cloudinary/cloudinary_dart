@@ -549,6 +549,18 @@ void main() {
     var result = resultOrThrow(response?.data);
     assert(result.playbackUrl != null);
   });
+
+  test('Test signature with escaping characters', () {
+    final signatureWithEscapingCharacters = 'c9e94ac9a6787698de868e387e26dc0f3422b2b2';
+    final toSign = {
+      'public_id': 'publicid&tags=blabla',
+    };
+
+    final apiSecret = 'your_api_secret'; // Replace with actual secret or mock
+    final signature = Utils.apiSignRequest(toSign, apiSecret);
+
+    expect(signature, isNot(equals(signatureWithEscapingCharacters)));
+  });
 }
 
 validateSignature(UploadResult result) {
