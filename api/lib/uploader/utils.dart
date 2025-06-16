@@ -10,41 +10,16 @@ class Utils {
     'filename',
   ];
 
-  static String apiSignRequest(
-      Map<String, dynamic> paramsMap, String apiSecret) {
-    List<String> paramsArr = <String>[];
-
+  static String apiSignRequest(Map<String, dynamic> paramsMap, String apiSecret) {
     paramsMap.removeWhere((key, value) => value == null);
-    paramsMap.removeWhere(
-            (key, value) => value == null || _excludeKeys.contains(key));
+    paramsMap.removeWhere((key, value) => value == null || _excludeKeys.contains(key));
 
-    var sortedParams = paramsMap.keys.whereType<String>().toList()..sort();
+    String queryString = (paramsMap.keys.whereType<String>().toList()..sort())
+        .where((key) => paramsMap[key] is List<String> ? (paramsMap[key] as List<String>).isNotEmpty : paramsMap[key] != null)
+        .map((key) => '$key=${paramsMap[key].toString().replaceAll(r'\', '').replaceAll('&', '%26')}')
+        .join('&');
 
-    for (var key in sortedParams) {
-      var value = paramsMap[key];
-      String? paramValue;
-
-      if (value is List<String>) {
-        if (value.isNotEmpty) {
-          paramValue = value.toString(); // Keep same structure
-        } else {
-          continue;
-        }
-      } else {
-        if (value != null) {
-          paramValue = value.toString();
-        }
-      }
-
-      if (paramValue != null) {
-        // Strip backslashes, then replace & with %26
-        paramValue = paramValue.replaceAll(r'\', '').replaceAll('&', '%26');
-        paramsArr.add('$key=$paramValue');
-      }
-    }
-
-    var toSign = '${paramsArr.join('&')}$apiSecret';
-    return hex.encode(sha1.convert(utf8.encode(toSign)).bytes);
+    return hex.encode(sha1.convert(utf8.encode(queryString + apiSecret)).bytes);
   }
 
   static bool isRemoteUrl(String value) {

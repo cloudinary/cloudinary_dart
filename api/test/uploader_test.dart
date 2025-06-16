@@ -551,15 +551,36 @@ void main() {
   });
 
   test('Test signature with escaping characters', () {
-    final signatureWithEscapingCharacters = 'c9e94ac9a6787698de868e387e26dc0f3422b2b2';
-    final toSign = {
-      'public_id': 'publicid&tags=blabla',
+    const cloudName = 'dn6ot3ged';
+    const secret = 'hdcixPpR2iKERPwqvH6sHdK9cyac';
+
+    final paramsWithAmpersand = {
+      'cloud_name': cloudName,
+      'timestamp': 1568810420,
+      'notification_url': 'https://fake.com/callback?a=1&tags=hello,world'
     };
 
-    final apiSecret = 'your_api_secret'; // Replace with actual secret or mock
-    final signature = Utils.apiSignRequest(toSign, apiSecret);
+    final signatureWithAmpersand = Utils.apiSignRequest(paramsWithAmpersand, secret);
 
-    expect(signature, isNot(equals(signatureWithEscapingCharacters)));
+    final paramsSmuggled = {
+      'cloud_name': cloudName,
+      'timestamp': 1568810420,
+      'notification_url': 'https://fake.com/callback?a=1',
+      'tags': 'hello,world'
+    };
+
+    final signatureSmuggled = Utils.apiSignRequest(paramsSmuggled, secret);
+
+    // Ensure different signatures to prevent smuggling
+    expect(signatureWithAmpersand, isNot(equals(signatureSmuggled)),
+        reason: 'Signatures should be different to prevent parameter smuggling');
+
+    // Expected known outputs (from Java reference)
+    const expectedSignature = '4fdf465dd89451cc1ed8ec5b3e314e8a51695704';
+    expect(signatureWithAmpersand, equals(expectedSignature));
+
+    const expectedSmuggledSignature = '7b4e3a539ff1fa6e6700c41b3a2ee77586a025f9';
+    expect(signatureSmuggled, equals(expectedSmuggledSignature));
   });
 }
 
