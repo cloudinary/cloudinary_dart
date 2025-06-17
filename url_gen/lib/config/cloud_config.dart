@@ -5,8 +5,10 @@ const String apiKeyKey = "api_key";
 const String apiSecretKey = "api_secret";
 const String authTokenKey = "auth_token";
 const String signatureAlgorithmKey = "signature_algorithm";
+const String signatureVersionKey = "signature_version";
 
 const String defaultSignatureAlgorithm = "SHA-1";
+const int defaultSignatureVersion = 2;
 
 mixin ICloudConfig {
   String? cloudName;
@@ -14,6 +16,7 @@ mixin ICloudConfig {
   String? apiSecret;
   String? oauthToken;
   String signatureAlgorithm = defaultSignatureAlgorithm;
+  int signatureVersion = defaultSignatureVersion;
   AuthToken? authToken;
 }
 
@@ -32,6 +35,7 @@ class CloudConfig with ICloudConfig {
     apiSecret = params[apiSecretKey]?.toString();
     signatureAlgorithm =
         params[signatureAlgorithmKey]?.toString() ?? defaultSignatureAlgorithm;
+    signatureVersion = params[signatureVersionKey] ?? defaultSignatureVersion;
     if (params[authTokenKey] != null) {
       authToken = AuthToken.fromMap(params[authTokenKey]);
     }
