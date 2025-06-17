@@ -35,9 +35,9 @@ class CloudConfig with ICloudConfig {
     apiSecret = params[apiSecretKey]?.toString();
     signatureAlgorithm =
         params[signatureAlgorithmKey]?.toString() ?? defaultSignatureAlgorithm;
+    signatureVersion = params[signatureVersionKey] ?? defaultSignatureVersion;
     if (params[authTokenKey] != null) {
       authToken = AuthToken.fromMap(params[authTokenKey]);
     }
-    signatureVersion = params[signatureVersionKey] ?? defaultSignatureVersion;
   }
 }
