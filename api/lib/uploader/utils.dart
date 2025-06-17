@@ -10,15 +10,18 @@ class Utils {
     'filename',
   ];
 
-  static String apiSignRequest(Map<String, dynamic> paramsMap, String apiSecret) {
-    paramsMap.removeWhere((key, value) => value == null);
+  static String apiSignRequest(Map<String, dynamic> paramsMap, String apiSecret, int signatureVersion) {
     paramsMap.removeWhere((key, value) => value == null || _excludeKeys.contains(key));
 
     String queryString = (paramsMap.keys.whereType<String>().toList()..sort())
         .where((key) => paramsMap[key] is List<String> ? (paramsMap[key] as List<String>).isNotEmpty : paramsMap[key] != null)
-        .map((key) => '$key=${paramsMap[key].toString().replaceAll(r'\', '').replaceAll('&', '%26')}')
-        .join('&');
-
+        .map((key) {
+      var value = paramsMap[key].toString().replaceAll(r'\', '');
+      if (signatureVersion == 2) {
+        value = value.replaceAll('&', '%26');
+      }
+      return '$key=$value';
+    }).join('&');
     return hex.encode(sha1.convert(utf8.encode(queryString + apiSecret)).bytes);
   }
 

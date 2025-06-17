@@ -57,7 +57,7 @@ class UploaderUtils {
         paramsMap['timestamp'] =
             (DateTime.now().millisecondsSinceEpoch / 1000).toString();
         paramsMap['signature'] =
-            Utils.apiSignRequest(paramsMap, config.apiSecret!);
+            Utils.apiSignRequest(paramsMap, config.apiSecret!, cloudinary.config.cloudConfig.signatureVersion);
         paramsMap['api_key'] = config.apiKey;
         if (paramsMap['unsigned'] != null) {
           paramsMap.remove('unsigned');
