@@ -16,7 +16,7 @@ mixin ICloudConfig {
   String? apiSecret;
   String? oauthToken;
   String signatureAlgorithm = defaultSignatureAlgorithm;
-  int signatureVersion = 2;
+  int signatureVersion = defaultSignatureVersion;
   AuthToken? authToken;
 }
 
