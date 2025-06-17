@@ -1,3 +1,7 @@
+## 1.8.0
+- Add signature version
+- Fix parsing field "bytes" in UploadResult
+
 ## 1.7.0
 - Format fixing
 
