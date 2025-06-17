@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:cloudinary_url_gen/config/cloud_config.dart';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 
@@ -10,7 +11,7 @@ class Utils {
     'filename',
   ];
 
-  static String apiSignRequest(Map<String, dynamic> paramsMap, String apiSecret, int signatureVersion) {
+  static String apiSignRequest(Map<String, dynamic> paramsMap, String apiSecret, {int? signatureVersion = defaultSignatureVersion}) {
     paramsMap.removeWhere((key, value) => value == null || _excludeKeys.contains(key));
 
     String queryString = (paramsMap.keys.whereType<String>().toList()..sort())

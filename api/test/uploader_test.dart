@@ -560,7 +560,7 @@ void main() {
       'notification_url': 'https://fake.com/callback?a=1&tags=hello,world'
     };
 
-    final signatureWithAmpersand = Utils.apiSignRequest(paramsWithAmpersand, secret, cloudinary.config.cloudConfig.signatureVersion);
+    final signatureWithAmpersand = Utils.apiSignRequest(paramsWithAmpersand, secret);
 
     final paramsSmuggled = {
       'cloud_name': cloudName,
@@ -569,7 +569,7 @@ void main() {
       'tags': 'hello,world'
     };
 
-    final signatureSmuggled = Utils.apiSignRequest(paramsSmuggled, secret, cloudinary.config.cloudConfig.signatureVersion);
+    final signatureSmuggled = Utils.apiSignRequest(paramsSmuggled, secret);
 
     expect(signatureWithAmpersand, isNot(equals(signatureSmuggled)),
         reason: 'Signatures should be different to prevent parameter smuggling');
@@ -580,7 +580,7 @@ void main() {
     const expectedSmuggledSignature = '7b4e3a539ff1fa6e6700c41b3a2ee77586a025f9';
     expect(signatureSmuggled, equals(expectedSmuggledSignature));
 
-    final versionOneSignature = Utils.apiSignRequest(paramsSmuggled, secret, 1);
+    final versionOneSignature = Utils.apiSignRequest(paramsSmuggled, secret, signatureVersion: 1);
     expect(versionOneSignature, equals(signatureSmuggled));
   });
 }
@@ -591,7 +591,7 @@ validateSignature(UploadResult result) {
   toSign['version'] = result.version.toString();
 
   var expectedSignature =
-      Utils.apiSignRequest(toSign, cloudinary.config.cloudConfig.apiSecret!, cloudinary.config.cloudConfig.signatureVersion);
+      Utils.apiSignRequest(toSign, cloudinary.config.cloudConfig.apiSecret!);
   assert(result.signature == expectedSignature);
 }
 
