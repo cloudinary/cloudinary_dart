@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:cloudinary_url_gen/config/cloud_config.dart';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 
@@ -10,33 +11,19 @@ class Utils {
     'filename',
   ];
 
-  static String apiSignRequest(
-      Map<String, dynamic> paramsMap, String apiSecret) {
-    List<String> paramsArr = <String>[];
-    paramsMap.removeWhere((key, value) => value == null);
-    paramsMap.removeWhere(
-        (key, value) => value == null || _excludeKeys.contains(key));
-    var sortedParams = paramsMap.keys.whereType<String>().toList()..sort();
-    for (var key in sortedParams) {
-      var value = paramsMap[key];
-      String? paramValue;
-      if (value is List<String>) {
-        if (value.isNotEmpty) {
-          paramValue = value.toString(); //.join(',');
-        } else {
-          continue;
-        }
-      } else {
-        if (value != null) {
-          paramValue = value.toString();
-        }
+  static String apiSignRequest(Map<String, dynamic> paramsMap, String apiSecret, {int? signatureVersion = defaultSignatureVersion}) {
+    paramsMap.removeWhere((key, value) => value == null || _excludeKeys.contains(key));
+
+    String queryString = (paramsMap.keys.whereType<String>().toList()..sort())
+        .where((key) => paramsMap[key] is List<String> ? (paramsMap[key] as List<String>).isNotEmpty : paramsMap[key] != null)
+        .map((key) {
+      var value = paramsMap[key].toString().replaceAll(r'\', '');
+      if (signatureVersion == 2) {
+        value = value.replaceAll('&', '%26');
       }
-      if (paramValue != null) {
-        paramsArr.add('$key=${paramValue.replaceAll(r'\', '')}');
-      }
-    }
-    var toSign = '${paramsArr.join('&')}$apiSecret';
-    return hex.encode(sha1.convert(utf8.encode(toSign)).bytes);
+      return '$key=$value';
+    }).join('&');
+    return hex.encode(sha1.convert(utf8.encode(queryString + apiSecret)).bytes);
   }
 
   static bool isRemoteUrl(String value) {

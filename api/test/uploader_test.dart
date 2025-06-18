@@ -549,6 +549,40 @@ void main() {
     var result = resultOrThrow(response?.data);
     assert(result.playbackUrl != null);
   });
+
+  test('Test signature with escaping characters', () {
+    const cloudName = 'dn6ot3ged';
+    const secret = 'hdcixPpR2iKERPwqvH6sHdK9cyac';
+
+    final paramsWithAmpersand = {
+      'cloud_name': cloudName,
+      'timestamp': 1568810420,
+      'notification_url': 'https://fake.com/callback?a=1&tags=hello,world'
+    };
+
+    final signatureWithAmpersand = Utils.apiSignRequest(paramsWithAmpersand, secret);
+
+    final paramsSmuggled = {
+      'cloud_name': cloudName,
+      'timestamp': 1568810420,
+      'notification_url': 'https://fake.com/callback?a=1',
+      'tags': 'hello,world'
+    };
+
+    final signatureSmuggled = Utils.apiSignRequest(paramsSmuggled, secret);
+
+    expect(signatureWithAmpersand, isNot(equals(signatureSmuggled)),
+        reason: 'Signatures should be different to prevent parameter smuggling');
+
+    const expectedSignature = '4fdf465dd89451cc1ed8ec5b3e314e8a51695704';
+    expect(signatureWithAmpersand, equals(expectedSignature));
+
+    const expectedSmuggledSignature = '7b4e3a539ff1fa6e6700c41b3a2ee77586a025f9';
+    expect(signatureSmuggled, equals(expectedSmuggledSignature));
+
+    final versionOneSignature = Utils.apiSignRequest(paramsSmuggled, secret, signatureVersion: 1);
+    expect(versionOneSignature, equals(signatureSmuggled));
+  });
 }
 
 validateSignature(UploadResult result) {
