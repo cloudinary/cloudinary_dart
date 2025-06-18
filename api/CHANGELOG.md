@@ -1,3 +1,6 @@
+## 1.1.1
+- Fix API parameters signature
+
 ## 1.1.0
 - Add `notification_url` to rename params
 - Add `destroy` api
