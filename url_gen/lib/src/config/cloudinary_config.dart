@@ -1,8 +1,5 @@
-import 'package:cloudinary_url_g../config/api_config.dart';
-
+import '../../cloudinary.dart';
 import '../extensions/string_extension.dart';
-import 'cloud_config.dart';
-import 'url_config.dart';
 
 class CloudinaryConfig {
   CloudConfig cloudConfig;
