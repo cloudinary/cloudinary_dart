@@ -4,7 +4,6 @@
 library cloudinary_api;
 
 // Uploader
-export 'src/uploader/cloudinary_uploader.dart';
 export 'src/uploader/uploader.dart';
 export 'src/uploader/uploader_response.dart';
 
