@@ -13,17 +13,14 @@ dependencies:
   crypto: ^3.0.3
   convert: ^3.1.1
   http_parser: ^4.0.2
-  cloudinary_url_gen: ^1.8.0
-
-dev_dependencies:
-  lints: ^3.0.0
-  test: ^1.25.0
-
-dependency_overrides: 
   cloudinary_url_gen:
     git:
       url: https://github.com/mr7ssam/cloudinary_dart.git
       path: url_gen
+
+dev_dependencies:
+  lints: ^3.0.0
+  test: ^1.25.0
 
 
 assets:
