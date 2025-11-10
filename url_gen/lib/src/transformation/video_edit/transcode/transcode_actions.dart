@@ -45,7 +45,6 @@ class VideoCodecAction extends Transcode {
 }
 
 class VideoCodec {
-
   dynamic codec;
 
   VideoCodec(this.codec);
@@ -73,7 +72,8 @@ class H265Codec extends VideoCodec {
   dynamic _level;
   bool? _bFrames;
 
-  H265Codec({VideoCodecProfile? profile, dynamic level, bool? bFrames}): super('h265') {
+  H265Codec({VideoCodecProfile? profile, dynamic level, bool? bFrames})
+      : super('h265') {
     _profile = profile;
     _level = level;
     _bFrames = bFrames;
@@ -96,16 +96,19 @@ class H265Codec extends VideoCodec {
 
   @override
   String toString() {
-    return (codec as String).joinWithValues([(_profile != null) ? _profile.toString() : null, (_level != null) ? _level.toString() : null, (_bFrames != null && !_bFrames!) ? 'bframes_no' : null]);
+    return (codec as String).joinWithValues([
+      (_profile != null) ? _profile.toString() : null,
+      (_level != null) ? _level.toString() : null,
+      (_bFrames != null && !_bFrames!) ? 'bframes_no' : null
+    ]);
   }
 }
 
 class H264Codec extends VideoCodec {
-
   VideoCodecProfile? _profile;
   dynamic _level;
 
-  H264Codec({VideoCodecProfile? profile, dynamic level}): super('h264') {
+  H264Codec({VideoCodecProfile? profile, dynamic level}) : super('h264') {
     _profile = profile;
     _level = level;
   }
@@ -122,12 +125,14 @@ class H264Codec extends VideoCodec {
 
   @override
   String toString() {
-    return (codec as String).joinWithValues([(_profile != null) ? _profile.toString() : null, (_level != null) ? _level.toString() : null]);
+    return (codec as String).joinWithValues([
+      (_profile != null) ? _profile.toString() : null,
+      (_level != null) ? _level.toString() : null
+    ]);
   }
 }
 
 class VideoCodecProfile extends Transcode {
-
   String value;
 
   VideoCodecProfile(this.value);
@@ -144,7 +149,6 @@ class VideoCodecProfile extends Transcode {
 }
 
 class VideoCodecLevel {
-
   String value;
 
   VideoCodecLevel(this.value);
