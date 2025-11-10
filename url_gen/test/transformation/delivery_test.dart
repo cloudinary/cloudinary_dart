@@ -1,6 +1,6 @@
+import 'package:cloudinary_url_gen/cloudinary.dart' show Delivery;
+import 'package:cloudinary_url_gen/src/transformation/delivery/delivery_actions.dart';
 import 'package:test/test.dart';
-import '../../lib/transformation/delivery/delivery.dart';
-import '../../lib/transformation/delivery/delivery_actions.dart';
 import '../tests_utils.dart';
 
 void main() {
@@ -75,7 +75,8 @@ void main() {
   });
 
   test('Test delivery color space from icc syntax', () {
-    cldAssert('cs_icc:test_public_id', Delivery.colorSpaceFromICC('test_public_id'));
+    cldAssert(
+        'cs_icc:test_public_id', Delivery.colorSpaceFromICC('test_public_id'));
   });
 
   test('Test default image syntax', () {

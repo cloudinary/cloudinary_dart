@@ -1,10 +1,9 @@
-import 'package:cloudinary_url_g../extensions/string_extension.dart';
-import 'package:cloudinary_url_g../transformation/layer/position/base_layer_position.dart';
-import 'package:cloudinary_url_g../transformation/layer/position/blend_mode.dart';
-import 'package:cloudinary_url_g../transformation/layer/position/timeline.dart';
-import 'package:cloudinary_url_g../transformation/source/source.dart';
-import 'package:cloudinary_url_g../transformation/transformation_utils.dart';
-
+import '../../extensions/string_extension.dart';
+import 'position/base_layer_position.dart';
+import 'position/blend_mode.dart';
+import 'position/timeline.dart';
+import '../source/source.dart';
+import '../transformation_utils.dart';
 import '../common.dart';
 
 String buildLayerComponent(String sourceParamKey, Source source,

@@ -1,5 +1,5 @@
-import 'package:cloudinary_url_g../extensions/string_extension.dart';
-import 'package:cloudinary_url_g../transformation/common.dart';
+import '../../extensions/string_extension.dart';
+import '../common.dart';
 
 class Coordinates {
   late List<Rectangle> coordinates;

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
-import 'package:cloudinary_url_gen/config/cloud_config.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart'
+    show defaultSignatureVersion;
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 

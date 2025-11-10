@@ -1,5 +1,5 @@
-import 'package:cloudinary_url_g../extensions/string_extension.dart';
-import 'package:cloudinary_url_g../transformation/video_edit/video_edit.dart';
+import '../../extensions/string_extension.dart';
+import '../video_edit/video_edit.dart';
 
 import '../color.dart';
 import '../common.dart';

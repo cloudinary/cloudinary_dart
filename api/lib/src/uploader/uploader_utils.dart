@@ -7,7 +7,6 @@ import 'package:cloudinary_api/src/http/extensions/list_extension.dart';
 import 'package:cloudinary_api/src/uploader/uploader_response.dart';
 import 'package:cloudinary_api/src/uploader/utils.dart';
 import 'package:cloudinary_url_gen/cloudinary.dart';
-import 'package:cloudinary_url_gen/config/api_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import '../http/session/network_delegate.dart';

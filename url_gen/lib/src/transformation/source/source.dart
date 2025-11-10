@@ -1,4 +1,4 @@
-import 'package:cloudinary_url_g../transformation/source/image_source.dart';
+import '../source/image_source.dart';
 
 import '../common.dart';
 import '../transformation.dart';

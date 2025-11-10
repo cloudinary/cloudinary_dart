@@ -11,11 +11,10 @@ import 'package:cloudinary_api/src/models/upload_result.dart';
 import 'package:cloudinary_api/src/uploader/cloudinary_uploader.dart';
 import 'package:cloudinary_api/src/uploader/uploader_response.dart';
 import 'package:cloudinary_api/src/uploader/utils.dart';
-import 'package:cloudinary_url_gen/cloudinary.dart';
-import 'package:cloudinary_url_gen/transformation/delivery/delivery_actions.dart';
-import 'package:cloudinary_url_gen/transformation/effect/effect.dart';
-import 'package:cloudinary_url_gen/transformation/resize/resize.dart';
-import 'package:cloudinary_url_gen/transformation/transformation.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart'
+    show Cloudinary, Transformation, Resize, Effect;
+import 'package:cloudinary_url_gen/src/transformation/delivery/delivery_actions.dart'
+    show Format;
 import 'package:cloudinary_url_gen/util/environment.dart';
 import 'package:test/test.dart';
 
@@ -26,7 +25,6 @@ const remoteTestImageUrlString = 'http://cloudinary.com/images/old_logo.png';
 String suffix = Environment.getEnvVariable('TRAVIS_JOB_ID') ??
     Random().nextInt(99999).toString();
 
-String _contextTag = "context_tag_$suffix";
 String _sdkTestTag = "cloudinary_dart_test_$suffix";
 String _archiveTag = "${_sdkTestTag}_archive";
 String _uploaderTag = "${_sdkTestTag}_uploader";

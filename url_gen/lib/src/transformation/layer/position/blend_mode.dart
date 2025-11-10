@@ -1,4 +1,4 @@
-import 'package:cloudinary_url_g../extensions/string_extension.dart';
+import '../../../extensions/string_extension.dart';
 
 class BlendMode {
   String value;

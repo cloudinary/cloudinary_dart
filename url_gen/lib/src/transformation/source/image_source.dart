@@ -1,7 +1,7 @@
-import 'package:cloudinary_url_g../extensions/string_extension.dart';
-import 'package:cloudinary_url_g../transformation/common.dart';
-import 'package:cloudinary_url_g../transformation/source/source.dart';
-import 'package:cloudinary_url_g../transformation/transformation.dart';
+import '../../extensions/string_extension.dart';
+import '../common.dart';
+import '../source/source.dart';
+import '../transformation.dart';
 
 class ImageSource extends Source {
   late String _publicId;

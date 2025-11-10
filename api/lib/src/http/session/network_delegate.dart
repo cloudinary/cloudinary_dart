@@ -1,4 +1,3 @@
-import 'package:cloudinary_api/src/models/uploader_params.dart';
 import 'package:cloudinary_api/src/uploader/utils.dart';
 import 'package:cloudinary_url_gen/cloudinary.dart';
 

@@ -1,5 +1,5 @@
-import 'package:cloudinary_url_g../transformation/reshape/reshape_actions.dart';
-import 'package:cloudinary_url_g../transformation/source/source.dart';
+import '../reshape/reshape_actions.dart';
+import '../source/source.dart';
 
 import '../common.dart';
 

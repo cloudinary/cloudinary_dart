@@ -1,7 +1,7 @@
 import 'dart:core';
 
-import 'package:cloudinary_url_g../extensions/string_extension.dart';
-import 'package:cloudinary_url_g../util/validations.dart';
+import '../../extensions/string_extension.dart';
+import '../../util/validations.dart';
 
 import '../coordinates/coordinates.dart';
 import '../gravity/gravity.dart';

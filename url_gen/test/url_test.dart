@@ -1,15 +1,8 @@
 import 'package:test/test.dart';
 
-import '../lib/analytics/analytics.dart';
-import '../lib/asset/cld_asset.dart';
-import '../lib/auth_token.dart';
-import '../lib/cloudinary.dart';
-import '../lib/config/cloudinary_config.dart';
-import '../lib/config/url_config.dart';
-import '../lib/transformation/delivery/delivery.dart';
-import '../lib/transformation/delivery/delivery_actions.dart';
-import '../lib/transformation/resize/resize.dart';
-import '../lib/transformation/transformation.dart';
+import 'package:cloudinary_url_gen/auth_token.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
+import 'package:cloudinary_url_gen/src/transformation/delivery/delivery_actions.dart';
 import 'tests_utils.dart';
 
 const defaultRootPath = 'https://res.cloudinary.com/test123/';

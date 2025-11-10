@@ -1,8 +1,8 @@
 import 'package:test/scaffolding.dart';
 
-import '../../lib/transformation/adjust/adjust.dart';
-import '../../lib/transformation/adjust/adjust_actions.dart';
-import '../../lib/transformation/color.dart';
+import 'package:cloudinary_url_gen/src/transformation/adjust/adjust.dart';
+import 'package:cloudinary_url_gen/src/transformation/adjust/adjust_actions.dart';
+import 'package:cloudinary_url_gen/src/transformation/color.dart';
 import '../tests_utils.dart';
 
 void main() {

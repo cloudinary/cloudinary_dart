@@ -1,13 +1,14 @@
+import 'package:cloudinary_url_gen/cloudinary.dart'
+    show RotationMode, Effect, Resize, Adjust, NamedTransformation;
+import 'package:cloudinary_url_gen/src/transformation/delivery/delivery.dart'
+    show Delivery;
+import 'package:cloudinary_url_gen/src/transformation/delivery/delivery_actions.dart'
+    show Quality;
+import 'package:cloudinary_url_gen/src/transformation/rotate.dart' show Rotate;
+import 'package:cloudinary_url_gen/src/transformation/transformation.dart'
+    show Transformation;
 import 'package:test/scaffolding.dart';
 
-import '../../lib/transformation/adjust/adjust.dart';
-import '../../lib/transformation/delivery/delivery.dart';
-import '../../lib/transformation/delivery/delivery_actions.dart';
-import '../../lib/transformation/effect/effect.dart';
-import '../../lib/transformation/named_transformation.dart';
-import '../../lib/transformation/resize/resize.dart';
-import '../../lib/transformation/rotate.dart';
-import '../../lib/transformation/transformation.dart';
 import '../tests_utils.dart';
 
 void main() {

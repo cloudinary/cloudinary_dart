@@ -25,6 +25,7 @@ dependency_overrides:
       url: https://github.com/mr7ssam/cloudinary_dart.git
       path: url_gen
 
+
 assets:
   - assets/sample.jpeg
 

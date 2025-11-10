@@ -1,7 +1,7 @@
-import 'package:cloudinary_url_g../extensions/string_extension.dart';
-import 'package:cloudinary_url_g../transformation/layer/common.dart';
-import 'package:cloudinary_url_g../transformation/layer/position/position.dart';
-import 'package:cloudinary_url_g../transformation/reshape/reshape.dart';
+import '../../extensions/string_extension.dart';
+import '../layer/common.dart';
+import '../layer/position/position.dart';
+import '../reshape/reshape.dart';
 
 import '../common.dart';
 import '../source/source.dart';

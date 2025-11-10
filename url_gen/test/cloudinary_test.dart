@@ -1,7 +1,6 @@
 import 'package:test/test.dart';
 
-import '../lib/cloudinary.dart';
-import '../lib/config/cloudinary_config.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
 
 void main() {
   group('Cloud Config Tests', () {

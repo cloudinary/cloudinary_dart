@@ -3,7 +3,7 @@ import 'package:cloudinary_api/src/models/params/coordinates.dart';
 import 'package:cloudinary_api/src/models/params/eager_transformation.dart';
 import 'package:cloudinary_api/src/models/params/responsive_breakpoint.dart';
 import 'package:cloudinary_api/src/uploader/encode_utils.dart';
-import 'package:cloudinary_url_gen/transformation/transformation.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart' hide Coordinates;
 
 abstract class UploaderParams {
   bool? unsigned;

@@ -1,4 +1,4 @@
-import 'package:cloudinary_url_gen/transformation/transformation.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
 
 class EagerTransformation {
   Transformation transformation;
