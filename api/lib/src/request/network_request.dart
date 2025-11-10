@@ -1,5 +1,5 @@
 import '../http/request/multi_part_request.dart';
-import 'payload.dart';
+import '../models/payload.dart';
 
 class NetworkRequest<T> {
   String url;

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 
-import '../../../uploader/uploader_response.dart';
-import '../../response/upload_result.dart';
+import '../../uploader/uploader_response.dart';
+import '../../models/upload_result.dart';
 
 typedef ProgressCallback = void Function(int bytesUploaded, int totalBytes);
 typedef CompletionCallback = void Function(

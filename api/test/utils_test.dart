@@ -1,4 +1,4 @@
-import 'package:cloudinary_api/uploader/encode_utils.dart';
+import 'package:cloudinary_api/src/uploader/encode_utils.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 

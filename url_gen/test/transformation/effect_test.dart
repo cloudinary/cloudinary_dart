@@ -1,10 +1,10 @@
-import 'package:cloudinary_url_gen/transformation/color.dart';
-import 'package:cloudinary_url_gen/transformation/coordinates/coordinates.dart';
-import 'package:cloudinary_url_gen/transformation/effect/effect.dart';
-import 'package:cloudinary_url_gen/transformation/effect/effect_actions.dart';
-import 'package:cloudinary_url_gen/transformation/effect/objects/foreground_object.dart';
-import 'package:cloudinary_url_gen/transformation/gravity/gravity.dart';
-import 'package:cloudinary_url_gen/transformation/region.dart';
+import 'package:cloudinary_url_gen/src/transformation/color.dart';
+import 'package:cloudinary_url_gen/src/transformation/coordinates/coordinates.dart';
+import 'package:cloudinary_url_gen/src/transformation/effect/effect.dart';
+import 'package:cloudinary_url_gen/src/transformation/effect/effect_actions.dart';
+import 'package:cloudinary_url_gen/src/transformation/effect/objects/foreground_object.dart';
+import 'package:cloudinary_url_gen/src/transformation/gravity/gravity.dart';
+import 'package:cloudinary_url_gen/src/transformation/region.dart';
 import 'package:test/test.dart';
 
 import '../tests_utils.dart';

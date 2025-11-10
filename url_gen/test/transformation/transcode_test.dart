@@ -1,5 +1,5 @@
-import 'package:cloudinary_url_gen/transformation/video_edit/transcode/transcode.dart';
-import 'package:cloudinary_url_gen/transformation/video_edit/transcode/transcode_actions.dart';
+import 'package:cloudinary_url_gen/src/transformation/video_edit/transcode/transcode.dart';
+import 'package:cloudinary_url_gen/src/transformation/video_edit/transcode/transcode_actions.dart';
 import 'package:test/scaffolding.dart';
 
 import '../tests_utils.dart';

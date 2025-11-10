@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import 'package:cloudinary_url_gen/analytics/analytics.dart';
+import 'package:cloudinary_url_gen/src/analytics/analytics.dart';
 
 import 'tests_utils.dart';
 

@@ -1,12 +1,57 @@
-import 'analytics/analytics.dart';
-import 'asset/cld_image.dart';
-import 'asset/cld_video.dart';
-import 'config/cloudinary_config.dart';
+/// Cloudinary URL Generation Library
+///
+/// A Dart SDK for generating Cloudinary URLs with transformations.
+library cloudinary;
+
+// Core
+export 'src/analytics/analytics.dart';
+export 'src/asset/cld_image.dart';
+export 'src/asset/cld_video.dart';
+export 'src/asset/cld_asset.dart';
+export 'src/config/cloudinary_config.dart';
+export 'src/config/cloud_config.dart';
+export 'src/config/url_config.dart';
+export 'src/config/api_config.dart';
+export 'util/environment.dart';
+
+// Transformation
+export 'src/transformation/transformation.dart';
+export 'src/transformation/border.dart';
+export 'src/transformation/color.dart';
+export 'src/transformation/common.dart';
+export 'src/transformation/flag.dart';
+export 'src/transformation/named_transformation.dart';
+export 'src/transformation/region.dart';
+export 'src/transformation/rotate.dart';
+export 'src/transformation/round_corners.dart';
+export 'src/transformation/transformation_utils.dart';
+
+// Transformation sub-packages
+export 'src/transformation/adjust/adjust.dart';
+export 'src/transformation/background/background.dart';
+export 'src/transformation/coordinates/coordinates.dart';
+export 'src/transformation/delivery/delivery.dart';
+export 'src/transformation/effect/effect.dart';
+export 'src/transformation/extract/extract.dart';
+export 'src/transformation/gravity/gravity.dart';
+export 'src/transformation/layer/common.dart';
+export 'src/transformation/reshape/reshape.dart';
+export 'src/transformation/resize/resize.dart';
+export 'src/transformation/source/source.dart';
+export 'src/transformation/video_edit/video_edit.dart';
+
+// Asset Builders
+export 'src/asset/builders/general_asset_builder.dart';
+
+import 'src/analytics/analytics.dart';
+import 'src/asset/cld_image.dart';
+import 'src/asset/cld_video.dart';
+import 'src/config/cloudinary_config.dart';
 import 'util/environment.dart';
 
-import 'asset/cld_asset.dart';
+import 'src/asset/cld_asset.dart';
 
-String sdkVersion = '1.8.0';
+String sdkVersion = '2.0.0';
 
 class Cloudinary {
   late CloudinaryConfig config;
