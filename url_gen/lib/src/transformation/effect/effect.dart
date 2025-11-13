@@ -295,18 +295,26 @@ class Effect extends Action {
 
   static GenerativeRemove generativeRemove(dynamic prompt,
       {bool? multiple, dynamic region, bool? removeShadow}) {
-    return GenerativeRemove(prompt, multiple: multiple, region: region, removeShadow: removeShadow);
+    return GenerativeRemove(prompt,
+        multiple: multiple, region: region, removeShadow: removeShadow);
   }
 
-  static GenerativeReplace generativeReplace({required String from, required String to, bool? preserveGeometry, bool? multiple}) {
-    return GenerativeReplace(from,to, preserveGeometry: preserveGeometry, multiple: multiple);
+  static GenerativeReplace generativeReplace({
+    required String from,
+    required String to,
+    bool? preserveGeometry,
+    bool? multiple,
+  }) {
+    return GenerativeReplace(from, to,
+        preserveGeometry: preserveGeometry, multiple: multiple);
   }
 
   static GenerativeRestore generativeRestore() {
     return GenerativeRestore();
   }
 
-  static GenerativeBackgroundReplace generativeBackgroundReplace({String? prompt}) {
+  static GenerativeBackgroundReplace generativeBackgroundReplace(
+      {String? prompt}) {
     return GenerativeBackgroundReplace(prompt);
   }
 
@@ -314,8 +322,10 @@ class Effect extends Action {
     return BlurFaces(strength: strength);
   }
 
-  static BlurRegion blurRegion({dynamic strength, dynamic width, dynamic height, dynamic x, dynamic y}) {
-    return BlurRegion(strength: strength, width: width, height: height, x: x, y: y);
+  static BlurRegion blurRegion(
+      {dynamic strength, dynamic width, dynamic height, dynamic x, dynamic y}) {
+    return BlurRegion(
+        strength: strength, width: width, height: height, x: x, y: y);
   }
 
   static Upscale upscale() {

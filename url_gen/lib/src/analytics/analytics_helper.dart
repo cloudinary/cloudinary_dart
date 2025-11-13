@@ -1,23 +1,22 @@
 import 'dart:io';
 
 class PlatformWrapper {
-
   static bool? kIsWeb;
 
   static bool isWeb() {
     if (kIsWeb != null) {
       return kIsWeb!;
     }
-      try {
-        kIsWeb = bool.fromEnvironment('dart.library.js_util');
-      } catch (e) {
-        kIsWeb = false;
-      }
+    try {
+      kIsWeb = bool.fromEnvironment('dart.library.js_util');
+    } catch (e) {
+      kIsWeb = false;
+    }
     return kIsWeb!;
   }
 
   static String getOperatingSystemVersion() {
-    if(!isWeb()) {
+    if (!isWeb()) {
       try {
         return Platform.operatingSystemVersion;
       } catch (e) {
@@ -28,10 +27,10 @@ class PlatformWrapper {
   }
 
   static String getVersion() {
-    if(!isWeb()) {
+    if (!isWeb()) {
       try {
         return Platform.version.split(" ")[0];
-      } catch(e) {
+      } catch (e) {
         return '0';
       }
     }
@@ -39,10 +38,10 @@ class PlatformWrapper {
   }
 
   static bool isiOS() {
-    if(!isWeb()) {
+    if (!isWeb()) {
       try {
         return Platform.isIOS;
-      } catch(e) {
+      } catch (e) {
         return false;
       }
     }
@@ -50,7 +49,7 @@ class PlatformWrapper {
   }
 
   static bool isAndroid() {
-    if(!isWeb()) {
+    if (!isWeb()) {
       try {
         return Platform.isAndroid;
       } catch (e) {

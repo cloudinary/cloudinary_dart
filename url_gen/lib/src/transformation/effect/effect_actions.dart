@@ -986,7 +986,8 @@ class GenerativeReplace extends Effect {
   bool? _preserveGeometry;
   bool? _multiple;
 
-  GenerativeReplace(this.from, this.to, {bool? preserveGeometry, bool? multiple}) {
+  GenerativeReplace(this.from, this.to,
+      {bool? preserveGeometry, bool? multiple}) {
     _preserveGeometry = preserveGeometry;
     _multiple = multiple;
   }
@@ -1003,10 +1004,13 @@ class GenerativeReplace extends Effect {
 
   @override
   String toString() {
-    return super.toString().joinWithValues(['gen_replace'], actionSeparator: paramKeyValueSeparator).joinWithValues([
+    return super.toString().joinWithValues(['gen_replace'],
+        actionSeparator: paramKeyValueSeparator).joinWithValues([
       'from_$from',
       'to_$to',
-      (_preserveGeometry != null ? 'preserve-geometry_$_preserveGeometry' : null),
+      (_preserveGeometry != null
+          ? 'preserve-geometry_$_preserveGeometry'
+          : null),
       (_multiple != null ? 'multiple_$_multiple' : null)
     ], separator: newParamSeparator);
   }
@@ -1018,7 +1022,8 @@ class GenerativeRemove extends Effect {
   dynamic _region;
   bool? _removeShadow;
 
-  GenerativeRemove(this._prompt, {bool? multiple, dynamic region, bool? removeShadow}) {
+  GenerativeRemove(this._prompt,
+      {bool? multiple, dynamic region, bool? removeShadow}) {
     _multiple = multiple;
     _region = region;
     _removeShadow = removeShadow;
@@ -1052,8 +1057,8 @@ class GenerativeRemove extends Effect {
       (_removeShadow != null ? 'remove-shadow_$_removeShadow' : null),
       (_region != null
           ? (_region is List
-          ? 'region_(${(_region as List<Rectangle>).join(');(')})'
-          : 'region_($_region)')
+              ? 'region_(${(_region as List<Rectangle>).join(');(')})'
+              : 'region_($_region)')
           : null),
     ], separator: newParamSeparator);
   }
@@ -1062,14 +1067,17 @@ class GenerativeRemove extends Effect {
 class Enhance extends Effect {
   @override
   String toString() {
-    return super.toString().joinWithValues(['enhance'], actionSeparator: paramKeyValueSeparator);
+    return super
+        .toString()
+        .joinWithValues(['enhance'], actionSeparator: paramKeyValueSeparator);
   }
 }
 
 class GenerativeRestore extends Effect {
   @override
   String toString() {
-    return super.toString().joinWithValues(['gen_restore'], actionSeparator: paramKeyValueSeparator);
+    return super.toString().joinWithValues(['gen_restore'],
+        actionSeparator: paramKeyValueSeparator);
   }
 }
 
@@ -1085,19 +1093,22 @@ class GenerativeBackgroundReplace extends Effect {
 
   @override
   String toString() {
-    return super.toString().joinWithValues(['gen_background_replace'], actionSeparator: paramKeyValueSeparator).joinWithValues([_prompt != null ? 'prompt_$_prompt' : null]);
+    return super.toString().joinWithValues(['gen_background_replace'],
+        actionSeparator:
+            paramKeyValueSeparator).joinWithValues(
+        [_prompt != null ? 'prompt_$_prompt' : null]);
   }
 }
 
 class BlurRegion extends Effect {
-
   dynamic _strength;
   dynamic _width;
   dynamic _height;
   dynamic _x;
   dynamic _y;
 
-  BlurRegion({dynamic strength, dynamic width, dynamic height, dynamic x, dynamic y}) {
+  BlurRegion(
+      {dynamic strength, dynamic width, dynamic height, dynamic x, dynamic y}) {
     _strength = strength;
     _width = width;
     _height = height;
@@ -1132,8 +1143,10 @@ class BlurRegion extends Effect {
 
   @override
   String toString() {
-    return super.toString().joinWithValues(['blur_region'], actionSeparator: paramKeyValueSeparator)
-        .joinWithValues([(_strength != null ? '$_strength' : null)]).joinWithValues([
+    return super.toString().joinWithValues(['blur_region'],
+        actionSeparator:
+            paramKeyValueSeparator).joinWithValues(
+        [(_strength != null ? '$_strength' : null)]).joinWithValues([
       (_width != null ? 'w_$_width' : null),
       (_height != null ? 'h_$_height' : null),
       (_x != null ? 'x_$_x' : null),
@@ -1143,7 +1156,6 @@ class BlurRegion extends Effect {
 }
 
 class BlurFaces extends Effect {
-
   dynamic _strength;
 
   BlurFaces({strength: dynamic}) {
@@ -1157,14 +1169,19 @@ class BlurFaces extends Effect {
 
   @override
   String toString() {
-    return super.toString().joinWithValues(['blur_faces'], actionSeparator: paramKeyValueSeparator).joinWithValues([(_strength != null ? '$_strength' : null)]);
+    return super.toString().joinWithValues(['blur_faces'],
+        actionSeparator:
+            paramKeyValueSeparator).joinWithValues(
+        [(_strength != null ? '$_strength' : null)]);
   }
 }
 
 class Upscale extends Effect {
   @override
   String toString() {
-    return super.toString().joinWithValues(['upscale'], actionSeparator: paramKeyValueSeparator);
+    return super
+        .toString()
+        .joinWithValues(['upscale'], actionSeparator: paramKeyValueSeparator);
   }
 }
 
