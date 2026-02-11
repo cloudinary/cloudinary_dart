@@ -1,9 +1,9 @@
-import 'package:cloudinary_url_gen/transformation/color.dart';
-import 'package:cloudinary_url_gen/transformation/layer/position/position.dart';
-import 'package:cloudinary_url_gen/transformation/reshape/reshape.dart';
-import 'package:cloudinary_url_gen/transformation/resize/resize.dart';
-import 'package:cloudinary_url_gen/transformation/source/source.dart';
-import 'package:cloudinary_url_gen/transformation/transformation.dart';
+import 'package:cloudinary_url_gen/src/transformation/color.dart';
+import 'package:cloudinary_url_gen/src/transformation/layer/position/position.dart';
+import 'package:cloudinary_url_gen/src/transformation/reshape/reshape.dart';
+import 'package:cloudinary_url_gen/src/transformation/resize/resize.dart';
+import 'package:cloudinary_url_gen/src/transformation/source/source.dart';
+import 'package:cloudinary_url_gen/src/transformation/transformation.dart';
 import 'package:test/scaffolding.dart';
 
 import '../tests_utils.dart';

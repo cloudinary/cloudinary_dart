@@ -1,6 +1,6 @@
 import 'package:test/scaffolding.dart';
 
-import '../../lib/transformation/extract/extract.dart';
+import 'package:cloudinary_url_gen/src/transformation/extract/extract.dart';
 import '../tests_utils.dart';
 
 void main() {

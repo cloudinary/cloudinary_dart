@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../lib/auth_token.dart';
+import 'package:cloudinary_url_gen/auth_token.dart';
 
 class TestUtils {
   static bool compareAuthToken(AuthToken? first, AuthToken? second) {

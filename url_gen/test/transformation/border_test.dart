@@ -1,9 +1,9 @@
 import 'package:test/scaffolding.dart';
 
-import '../../lib/transformation/border.dart';
-import '../../lib/transformation/color.dart';
-import '../../lib/transformation/round_corners.dart';
-import '../../lib/transformation/transformation.dart';
+import 'package:cloudinary_url_gen/src/transformation/border.dart';
+import 'package:cloudinary_url_gen/src/transformation/color.dart';
+import 'package:cloudinary_url_gen/src/transformation/round_corners.dart';
+import 'package:cloudinary_url_gen/src/transformation/transformation.dart';
 import '../tests_utils.dart';
 
 void main() {

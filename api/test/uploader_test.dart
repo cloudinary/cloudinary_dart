@@ -1,21 +1,20 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:cloudinary_api/src/request/model/params/access_control_rule.dart';
-import 'package:cloudinary_api/src/request/model/params/coordinates.dart';
-import 'package:cloudinary_api/src/request/model/params/eager_transformation.dart';
-import 'package:cloudinary_api/src/request/model/params/resource_type.dart';
-import 'package:cloudinary_api/src/request/model/params/responsive_breakpoint.dart';
-import 'package:cloudinary_api/src/request/model/uploader_params.dart';
-import 'package:cloudinary_api/src/response/upload_result.dart';
-import 'package:cloudinary_api/uploader/cloudinary_uploader.dart';
-import 'package:cloudinary_api/uploader/uploader_response.dart';
-import 'package:cloudinary_api/uploader/utils.dart';
-import 'package:cloudinary_url_gen/cloudinary.dart';
-import 'package:cloudinary_url_gen/transformation/delivery/delivery_actions.dart';
-import 'package:cloudinary_url_gen/transformation/effect/effect.dart';
-import 'package:cloudinary_url_gen/transformation/resize/resize.dart';
-import 'package:cloudinary_url_gen/transformation/transformation.dart';
+import 'package:cloudinary_api/src/models/params/access_control_rule.dart';
+import 'package:cloudinary_api/src/models/params/coordinates.dart';
+import 'package:cloudinary_api/src/models/params/eager_transformation.dart';
+import 'package:cloudinary_api/src/models/params/resource_type.dart';
+import 'package:cloudinary_api/src/models/params/responsive_breakpoint.dart';
+import 'package:cloudinary_api/src/models/uploader_params.dart';
+import 'package:cloudinary_api/src/models/upload_result.dart';
+import 'package:cloudinary_api/src/uploader/cloudinary_uploader.dart';
+import 'package:cloudinary_api/src/uploader/uploader_response.dart';
+import 'package:cloudinary_api/src/uploader/utils.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart'
+    show Cloudinary, Transformation, Resize, Effect;
+import 'package:cloudinary_url_gen/src/transformation/delivery/delivery_actions.dart'
+    show Format;
 import 'package:cloudinary_url_gen/util/environment.dart';
 import 'package:test/test.dart';
 
@@ -26,7 +25,6 @@ const remoteTestImageUrlString = 'http://cloudinary.com/images/old_logo.png';
 String suffix = Environment.getEnvVariable('TRAVIS_JOB_ID') ??
     Random().nextInt(99999).toString();
 
-String _contextTag = "context_tag_$suffix";
 String _sdkTestTag = "cloudinary_dart_test_$suffix";
 String _archiveTag = "${_sdkTestTag}_archive";
 String _uploaderTag = "${_sdkTestTag}_uploader";
@@ -539,13 +537,17 @@ void main() {
   });
 
   test('Test auto chaptering successful', () async {
-    var response = await cloudinary.uploader().upload(srcTestVideo, params: UploadParams(resourceType: ResourceType.video.name, autoChaptering: true));
+    var response = await cloudinary.uploader().upload(srcTestVideo,
+        params: UploadParams(
+            resourceType: ResourceType.video.name, autoChaptering: true));
     var result = resultOrThrow(response?.data);
     assert(result.playbackUrl != null);
   });
 
   test('Test auto transcription successful', () async {
-    var response = await cloudinary.uploader().upload(srcTestVideo, params: UploadParams(resourceType: ResourceType.video.name, autoTranscription: true));
+    var response = await cloudinary.uploader().upload(srcTestVideo,
+        params: UploadParams(
+            resourceType: ResourceType.video.name, autoTranscription: true));
     var result = resultOrThrow(response?.data);
     assert(result.playbackUrl != null);
   });
@@ -560,7 +562,8 @@ void main() {
       'notification_url': 'https://fake.com/callback?a=1&tags=hello,world'
     };
 
-    final signatureWithAmpersand = Utils.apiSignRequest(paramsWithAmpersand, secret);
+    final signatureWithAmpersand =
+        Utils.apiSignRequest(paramsWithAmpersand, secret);
 
     final paramsSmuggled = {
       'cloud_name': cloudName,
@@ -572,15 +575,18 @@ void main() {
     final signatureSmuggled = Utils.apiSignRequest(paramsSmuggled, secret);
 
     expect(signatureWithAmpersand, isNot(equals(signatureSmuggled)),
-        reason: 'Signatures should be different to prevent parameter smuggling');
+        reason:
+            'Signatures should be different to prevent parameter smuggling');
 
     const expectedSignature = '4fdf465dd89451cc1ed8ec5b3e314e8a51695704';
     expect(signatureWithAmpersand, equals(expectedSignature));
 
-    const expectedSmuggledSignature = '7b4e3a539ff1fa6e6700c41b3a2ee77586a025f9';
+    const expectedSmuggledSignature =
+        '7b4e3a539ff1fa6e6700c41b3a2ee77586a025f9';
     expect(signatureSmuggled, equals(expectedSmuggledSignature));
 
-    final versionOneSignature = Utils.apiSignRequest(paramsSmuggled, secret, signatureVersion: 1);
+    final versionOneSignature =
+        Utils.apiSignRequest(paramsSmuggled, secret, signatureVersion: 1);
     expect(versionOneSignature, equals(signatureSmuggled));
   });
 }

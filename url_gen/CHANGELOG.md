@@ -1,4 +1,51 @@
+## 2.0.0
+
+### Breaking Changes
+
+- **Package structure migrated to follow Dart conventions**
+  - All public APIs now exported through main `lib/cloudinary.dart` file
+  - Internal implementation moved to `lib/src/` (private by convention)
+  - Transformation classes moved to `lib/src/transformation/`
+  - Configuration classes moved to `lib/src/config/`
+  - Analytics moved to `lib/src/analytics/`
+  - Asset classes moved to `lib/src/asset/`
+
+### Migration Guide
+
+**Before:**
+
+```dart
+import 'package:cloudinary_url_gen/transformation/transformation.dart';
+import 'package:cloudinary_url_gen/transformation/resize/resize.dart';
+import 'package:cloudinary_url_gen/config/cloudinary_config.dart';
+```
+
+**After:**
+
+```dart
+import 'package:cloudinary_url_gen/cloudinary.dart';
+// All public APIs are now available through the main import
+```
+
+### What Changed
+
+- `lib/transformation/` → moved to `lib/src/transformation/`
+- `lib/config/` → moved to `lib/src/config/`
+- `lib/analytics/` → moved to `lib/src/analytics/`
+- `lib/asset/` → moved to `lib/src/asset/`
+- All transformation, configuration, and asset classes now properly exported through main library file
+- `lib/auth_token.dart` remains as a specialized export (common Dart pattern)
+
+### Benefits
+
+- Cleaner public API surface
+- Better IDE autocomplete and documentation
+- Follows official Dart package conventions
+- Clearer separation between public and internal APIs
+- Single import for most use cases
+
 ## 1.8.0
+
 - Add signature version
 - Fix parsing field "bytes" in UploadResult
 

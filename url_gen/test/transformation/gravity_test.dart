@@ -1,7 +1,8 @@
+import 'package:cloudinary_url_gen/cloudinary.dart' show Gravity;
+import 'package:cloudinary_url_gen/src/transformation/gravity/focus_on.dart'
+    show FocusOn;
 import 'package:test/scaffolding.dart';
 
-import '../../lib/transformation/gravity/focus_on.dart';
-import '../../lib/transformation/gravity/gravity.dart';
 import '../tests_utils.dart';
 
 void main() {

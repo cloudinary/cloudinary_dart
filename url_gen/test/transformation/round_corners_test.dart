@@ -1,7 +1,8 @@
+import 'package:cloudinary_url_gen/cloudinary.dart' show Transformation;
+import 'package:cloudinary_url_gen/src/transformation/round_corners.dart'
+    show RoundCorners;
 import 'package:test/scaffolding.dart';
 
-import '../../lib/transformation/round_corners.dart';
-import '../../lib/transformation/transformation.dart';
 import '../tests_utils.dart';
 
 void main() {

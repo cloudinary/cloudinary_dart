@@ -1,8 +1,8 @@
 import 'package:test/test.dart';
 import 'dart:io';
 
-import '../lib/auth_token.dart';
-import '../lib/cloudinary.dart';
+import 'package:cloudinary_url_gen/auth_token.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
 import 'tests_utils.dart';
 
 void main() {

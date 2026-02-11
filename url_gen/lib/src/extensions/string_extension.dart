@@ -1,4 +1,4 @@
-import '../../transformation/common.dart';
+import '../transformation/common.dart';
 
 extension StringManipulations on String? {
   bool get isNullOrBlank => (this == null) ? true : this!.trim().isEmpty;

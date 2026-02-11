@@ -1,10 +1,10 @@
-import 'package:cloudinary_url_gen/transformation/color.dart';
-import 'package:cloudinary_url_gen/transformation/coordinates/coordinates.dart';
-import 'package:cloudinary_url_gen/transformation/effect/effect.dart';
-import 'package:cloudinary_url_gen/transformation/effect/effect_actions.dart';
-import 'package:cloudinary_url_gen/transformation/effect/objects/foreground_object.dart';
-import 'package:cloudinary_url_gen/transformation/gravity/gravity.dart';
-import 'package:cloudinary_url_gen/transformation/region.dart';
+import 'package:cloudinary_url_gen/src/transformation/color.dart';
+import 'package:cloudinary_url_gen/src/transformation/coordinates/coordinates.dart';
+import 'package:cloudinary_url_gen/src/transformation/effect/effect.dart';
+import 'package:cloudinary_url_gen/src/transformation/effect/effect_actions.dart';
+import 'package:cloudinary_url_gen/src/transformation/effect/objects/foreground_object.dart';
+import 'package:cloudinary_url_gen/src/transformation/gravity/gravity.dart';
+import 'package:cloudinary_url_gen/src/transformation/region.dart';
 import 'package:test/test.dart';
 
 import '../tests_utils.dart';
@@ -328,17 +328,24 @@ void main() {
         'e_gen_remove:prompt_(dog);region_(x_10;y_10;w_10;h_10);(x_20;y_20;w_20;h_20)',
         Effect.generativeRemove('dog',
             region: [Rectangle(10, 10, 10, 10), Rectangle(20, 20, 20, 20)]));
-    cldAssert('e_gen_remove:prompt_(dog);remove-shadow_true', Effect.generativeRemove('dog', removeShadow: true));
+    cldAssert('e_gen_remove:prompt_(dog);remove-shadow_true',
+        Effect.generativeRemove('dog', removeShadow: true));
   });
   test('Test successful generative replace effect', () {
     cldAssert('e_gen_replace:from_baloon;to_airplane',
         Effect.generativeReplace(from: 'baloon', to: 'airplane'));
-    cldAssert('e_gen_replace:from_baloon;to_airplane;preserve-geometry_false',
-        Effect.generativeReplace(from: 'baloon', to: 'airplane', preserveGeometry: false));
-    cldAssert('e_gen_replace:from_baloon;to_airplane;preserve-geometry_true',
-        Effect.generativeReplace(from: 'baloon', to: 'airplane', preserveGeometry: true));
-    cldAssert('e_gen_replace:from_baloon;to_airplane;multiple_true',
-        Effect.generativeReplace(from: 'baloon', to: 'airplane', multiple: true));
+    cldAssert(
+        'e_gen_replace:from_baloon;to_airplane;preserve-geometry_false',
+        Effect.generativeReplace(
+            from: 'baloon', to: 'airplane', preserveGeometry: false));
+    cldAssert(
+        'e_gen_replace:from_baloon;to_airplane;preserve-geometry_true',
+        Effect.generativeReplace(
+            from: 'baloon', to: 'airplane', preserveGeometry: true));
+    cldAssert(
+        'e_gen_replace:from_baloon;to_airplane;multiple_true',
+        Effect.generativeReplace(
+            from: 'baloon', to: 'airplane', multiple: true));
   });
 
   test('Test successful generative restore effect', () {
@@ -347,7 +354,8 @@ void main() {
 
   test('Test successful generative background replace effect', () {
     cldAssert('e_gen_background_replace', Effect.generativeBackgroundReplace());
-    cldAssert('e_gen_background_replace:prompt_dog', Effect.generativeBackgroundReplace(prompt: 'dog'));
+    cldAssert('e_gen_background_replace:prompt_dog',
+        Effect.generativeBackgroundReplace(prompt: 'dog'));
   });
 
   test('Test successful upscale effect', () {
@@ -367,8 +375,17 @@ void main() {
   test('Test successful blur region effect', () {
     cldAssert('e_blur_region', Effect.blurRegion());
     cldAssert('e_blur_region:600', Effect.blurRegion().strength(600));
-    cldAssert('e_blur_region:400,w_300,h_400,x_200,y_50', Effect.blurRegion().strength(400).width(300).height(400).x(200).y(50));
-    cldAssert('e_blur_region,w_0.5,h_0.25,x_0.3,y_0.3', Effect.blurRegion().width(0.5).height(0.25).x(0.3).y(0.3));
-    cldAssert('e_blur_region:\$var1,w_\$var2,h_\$var3,x_\$var4,y_\$var5', Effect.blurRegion().strength("\$var1").width("\$var2").height("\$var3").x("\$var4").y("\$var5"));
+    cldAssert('e_blur_region:400,w_300,h_400,x_200,y_50',
+        Effect.blurRegion().strength(400).width(300).height(400).x(200).y(50));
+    cldAssert('e_blur_region,w_0.5,h_0.25,x_0.3,y_0.3',
+        Effect.blurRegion().width(0.5).height(0.25).x(0.3).y(0.3));
+    cldAssert(
+        'e_blur_region:\$var1,w_\$var2,h_\$var3,x_\$var4,y_\$var5',
+        Effect.blurRegion()
+            .strength("\$var1")
+            .width("\$var2")
+            .height("\$var3")
+            .x("\$var4")
+            .y("\$var5"));
   });
 }
